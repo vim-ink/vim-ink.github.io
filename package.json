@@ -11,7 +11,7 @@
     "url": "git@bitbucket.org:alexanderte/vim-colorscheme-designer.git"
   },
   "author": "Alexander Teinum",
-  "license": "ISC",
+  "license": "Proprietary",
   "devDependencies": {
     "es6ify": "^1.2.0",
     "gulp": "^3.8.5",
