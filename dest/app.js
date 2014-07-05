@@ -3,44 +3,7 @@
 "use strict";
 require('es6ify/node_modules/traceur/bin/traceur-runtime');
 var React = require('react');
-function parse(input) {
-  var htmlA = input.search(/<pre/) + 26;
-  var htmlB = input.search(/<\/pre/);
-  var html = input.substring(htmlA, htmlB).replace(/<a href=".*?">/g, '').replace(/<\/a>/g, '');
-  var lines = html.split('\n');
-  function parseLine(parsedLines, rest) {
-    if (rest[0] === '<') {
-      var groupA = rest.search('"') + 1;
-      var groupB = groupA + rest.substring(groupA).search('"');
-      var group = rest.substring(groupA, groupB);
-      var contentA = groupB + 2;
-      var contentB = contentA + rest.substring(contentA).search('<');
-      var content = rest.substring(contentA, contentB);
-      parsedLines.push({
-        group: group,
-        content: content
-      });
-      var nextA = contentB + 7;
-      if (nextA < rest.length) {
-        return parseLine(parsedLines, rest.substring(nextA));
-      } else {
-        return parsedLines;
-      }
-    } else {
-      var nextA = rest.search('<');
-      if (nextA === -1) {
-        parsedLines.push(rest);
-        return parsedLines;
-      } else {
-        parsedLines.push(rest.substring(0, nextA));
-        return parseLine(parsedLines, rest.substring(nextA));
-      }
-    }
-  }
-  return lines.map(function(line) {
-    return parseLine([], line);
-  });
-}
+var parse = require('./vim-tohtml-parser').parse;
 function parsePastedCode() {
   var parsedLines = parse(document.getElementById('pastedCode').value);
   var output = parsedLines.map(function(line) {
@@ -75,8 +38,8 @@ var Root = React.createClass({render: function() {
 React.renderComponent(Root(), document.body);
 
 
-}).call(this,require("IrXUsu"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/fake_130c874f.js","/")
-},{"IrXUsu":6,"buffer":3,"es6ify/node_modules/traceur/bin/traceur-runtime":2,"react":141}],2:[function(require,module,exports){
+}).call(this,require("IrXUsu"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/fake_3d82e20a.js","/")
+},{"./vim-tohtml-parser":142,"IrXUsu":6,"buffer":3,"es6ify/node_modules/traceur/bin/traceur-runtime":2,"react":141}],2:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 (function(global) {
   'use strict';
@@ -20753,4 +20716,49 @@ module.exports = warning;
 module.exports = require('./lib/React');
 
 }).call(this,require("IrXUsu"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/node_modules/react/react.js","/node_modules/react")
-},{"./lib/React":30,"IrXUsu":6,"buffer":3}]},{},[1])
+},{"./lib/React":30,"IrXUsu":6,"buffer":3}],142:[function(require,module,exports){
+(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
+"use strict";
+function parse(input) {
+  var htmlA = input.search(/<pre/) + 26;
+  var htmlB = input.search(/<\/pre/);
+  var html = input.substring(htmlA, htmlB).replace(/<a href=".*?">/g, '').replace(/<\/a>/g, '');
+  var lines = html.split('\n');
+  function parseLine(parsedLines, rest) {
+    if (rest[0] === '<') {
+      var groupA = rest.search('"') + 1;
+      var groupB = groupA + rest.substring(groupA).search('"');
+      var group = rest.substring(groupA, groupB);
+      var contentA = groupB + 2;
+      var contentB = contentA + rest.substring(contentA).search('<');
+      var content = rest.substring(contentA, contentB);
+      parsedLines.push({
+        group: group,
+        content: content
+      });
+      var nextA = contentB + 7;
+      if (nextA < rest.length) {
+        return parseLine(parsedLines, rest.substring(nextA));
+      } else {
+        return parsedLines;
+      }
+    } else {
+      var nextA = rest.search('<');
+      if (nextA === -1) {
+        parsedLines.push(rest);
+        return parsedLines;
+      } else {
+        parsedLines.push(rest.substring(0, nextA));
+        return parseLine(parsedLines, rest.substring(nextA));
+      }
+    }
+  }
+  return lines.map(function(line) {
+    return parseLine([], line);
+  });
+}
+module.exports = {parse: parse};
+
+
+}).call(this,require("IrXUsu"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/vim-tohtml-parser.js","/")
+},{"IrXUsu":6,"buffer":3}]},{},[1])
