@@ -13,32 +13,41 @@ function parsePastedCode() {
   }).join('');
   document.getElementById('output').innerHTML = output;
 }
+var PastedCode = React.createClass({
+  render: function() {
+    var $__0 = $traceurRuntime.assertObject(React.DOM),
+        div = $__0.div,
+        textarea = $__0.textarea,
+        button = $__0.button;
+    return div(null, textarea({
+      id: 'pastedCode',
+      style: {
+        width: '100%',
+        height: '20em'
+      }
+    }), button({onClick: this.parse}, 'Parse'));
+  },
+  parse: function() {
+    parsePastedCode();
+  }
+});
+var Source = React.createClass({render: function() {
+    var pre = $traceurRuntime.assertObject(React.DOM).pre;
+    return pre({id: 'output'});
+  }});
 var Root = React.createClass({render: function() {
     var $__0 = $traceurRuntime.assertObject(React.DOM),
         div = $__0.div,
         header = $__0.header,
         h1 = $__0.h1,
         textarea = $__0.textarea,
-        button = $__0.button,
-        pre = $__0.pre;
-    return div(null, header(null, h1(null, 'vim-colorscheme-designer')), textarea({
-      id: 'pastedCode',
-      style: {
-        width: '100%',
-        height: '20em'
-      }
-    }), button({onClick: parsePastedCode}, 'Parse'), pre({
-      id: 'output',
-      style: {
-        width: '100%',
-        height: '20em'
-      }
-    }));
+        button = $__0.button;
+    return div(null, header(null, h1(null, 'vim-colorscheme-designer')), PastedCode(), Source());
   }});
 React.renderComponent(Root(), document.body);
 
 
-}).call(this,require("IrXUsu"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/fake_3d82e20a.js","/")
+}).call(this,require("IrXUsu"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/fake_3ac2167.js","/")
 },{"./vim-tohtml-parser":142,"IrXUsu":6,"buffer":3,"es6ify/node_modules/traceur/bin/traceur-runtime":2,"react":141}],2:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 (function(global) {

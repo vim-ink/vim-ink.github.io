@@ -16,17 +16,36 @@ function parsePastedCode() {
     document.getElementById('output').innerHTML = output;
 }
 
-var Root = React.createClass({
+var PastedCode = React.createClass({
     render() {
-        var {div, header, h1, textarea, button, pre} = React.DOM;
-        return div(
-            null,
-            header(null, h1(null, 'vim-colorscheme-designer')),
+        var {div, textarea, button} = React.DOM;
+
+        return div(null,
             textarea({
                 id: 'pastedCode',
                 style: {width: '100%', height: '20em'}}),
-            button({onClick: parsePastedCode}, 'Parse'),
-            pre({id: 'output', style: {width: '100%', height: '20em'}}));
+            button({onClick: this.parse}, 'Parse'));
+    },
+    parse() {
+        parsePastedCode();
+    }
+})
+
+var Source = React.createClass({
+    render() {
+        var {pre} = React.DOM;
+        return pre({id: 'output'});
+    }
+})
+
+var Root = React.createClass({
+    render() {
+        var {div, header, h1, textarea, button} = React.DOM;
+        return div(
+            null,
+            header(null, h1(null, 'vim-colorscheme-designer')),
+            PastedCode(),
+            Source());
     }
 });
 
