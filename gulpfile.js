@@ -20,7 +20,7 @@ gulp.task('styles', function() {
 gulp.task('scripts', function() {
     return gulp.src(paths.scripts)
         .pipe(browserify({transform: es6ify, insertGlobals: true}))
-        .pipe(uglify())
+        // .pipe(uglify())
         .pipe(gulp.dest('dest'));
 });
 
