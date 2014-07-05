@@ -6,14 +6,13 @@ var uglify = require('gulp-uglify');
 var es6ify = require('es6ify');
 
 var paths = {
-    styles: ['app.less'],
+    styles: ['app.css'],
     scripts: ['app.js'],
     scriptsWatch: ['*.js']
 };
 
 gulp.task('styles', function() {
     return gulp.src(paths.styles)
-        .pipe(less())
         .pipe(minifyCss())
         .pipe(gulp.dest('dest'));
 });
