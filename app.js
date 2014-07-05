@@ -23,7 +23,7 @@ function parse(input) {
             var nextA = contentB + 7;
 
             if (nextA < rest.length) {
-                return parseLine(parsed, rest.substring(nextA));
+                return parseLine(parsedLines, rest.substring(nextA));
             }
             else {
                 return parsedLines;
@@ -50,16 +50,13 @@ function parse(input) {
 function parsePastedCode() {
     var parsedLines = parse(document.getElementById('pastedCode').value);
 
-    var output = '';
-    parsedLines.forEach(function(line) {
-        var htmlLine = [];
-        line.forEach(function(bah) {
-            if (typeof(bah) === 'object')
-                htmlLine.push('<span class="' + bah.group + '">' + bah.content + '</span>');
-            else
-                htmlLine.push(bah);
-        });
-        output += htmlLine.join('') + '\n';
-    });
+    var output = parsedLines.map(function(line) {
+        return line.map(function(segment) {
+            return typeof(segment) === 'object' ?
+                '<span class="' + segment.group + '">' + segment.content + '</span>' :
+                segment;
+        }).join('') + '\n';
+    }).join('');
+
     document.getElementById('output').innerHTML = output;
 }
