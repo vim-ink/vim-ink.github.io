@@ -19,3 +19,7 @@ textarea {
 .String {
     color: green;
 }
+
+.LineNr {
+    background-color: #ccc;
+}

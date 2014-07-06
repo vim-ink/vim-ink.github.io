@@ -22,23 +22,54 @@ var Paste = React.createClass({
     }
 });
 
+var Segment = React.createClass({
+    render() {
+        var {span} = React.DOM;
+        var {segment} = this.props;
+        return (typeof(segment) === 'object' ?
+            span({className: segment.group}, segment.content) :
+            span(null, segment));
+    }
+});
+
+var LineNumber = React.createClass({
+    render() {
+        var {span} = React.DOM;
+        var {line, lineCount} = this.props;
+        var spaces = 1 + (lineCount.toString().length - line.toString().length)
+        return span({className: 'LineNr'}, ' '.repeat(spaces) + line + ' ');
+    }
+});
+
+var Line = React.createClass({
+    render() {
+        var {span} = React.DOM;
+        var {line, lineNumber} = this.props;
+        var segments = line.map(segment => Segment({segment}));
+        return span(null,
+            [LineNumber(lineNumber)].concat(
+                segments.concat(
+                    span(null, '\n'))));
+    }
+});
+
 var Source = React.createClass({
     render() {
         var {pre} = React.DOM;
         var {parsedSource} = this.props.model;
-        var output;
+        var className = parsedSource === undefined ? 'hidden' : '';
+        var content;
 
         if (parsedSource !== undefined) {
-            output = parsedSource.map(function(line) {
-                return line.map(function(segment) {
-                    return typeof(segment) === 'object' ?
-                        '<span class="' + segment.group + '">' + segment.content + '</span>' :
-                        segment;
-                }).join('') + '\n';
-            }).join('');
+            content = parsedSource.map(
+                (line, index) => Line({
+                line,
+                lineNumber: {
+                    line: index,
+                    lineCount: parsedSource.length}}))
         }
 
-        return pre({dangerouslySetInnerHTML: {__html: output}});
+        return pre({className}, content);
     }
 });
 

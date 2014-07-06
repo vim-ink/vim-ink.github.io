@@ -27,18 +27,46 @@ var Paste = React.createClass({
     this.props.parse(e.target.value);
   }
 });
+var Segment = React.createClass({render: function() {
+    var span = $traceurRuntime.assertObject(React.DOM).span;
+    var segment = $traceurRuntime.assertObject(this.props).segment;
+    return (typeof(segment) === 'object' ? span({className: segment.group}, segment.content) : span(null, segment));
+  }});
+var LineNumber = React.createClass({render: function() {
+    var span = $traceurRuntime.assertObject(React.DOM).span;
+    var $__0 = $traceurRuntime.assertObject(this.props),
+        line = $__0.line,
+        lineCount = $__0.lineCount;
+    var spaces = 1 + (lineCount.toString().length - line.toString().length);
+    return span({className: 'LineNr'}, ' '.repeat(spaces) + line + ' ');
+  }});
+var Line = React.createClass({render: function() {
+    var span = $traceurRuntime.assertObject(React.DOM).span;
+    var $__0 = $traceurRuntime.assertObject(this.props),
+        line = $__0.line,
+        lineNumber = $__0.lineNumber;
+    var segments = line.map((function(segment) {
+      return Segment({segment: segment});
+    }));
+    return span(null, [LineNumber(lineNumber)].concat(segments.concat(span(null, '\n'))));
+  }});
 var Source = React.createClass({render: function() {
     var pre = $traceurRuntime.assertObject(React.DOM).pre;
     var parsedSource = $traceurRuntime.assertObject(this.props.model).parsedSource;
-    var output;
+    var className = parsedSource === undefined ? 'hidden' : '';
+    var content;
     if (parsedSource !== undefined) {
-      output = parsedSource.map(function(line) {
-        return line.map(function(segment) {
-          return typeof(segment) === 'object' ? '<span class="' + segment.group + '">' + segment.content + '</span>' : segment;
-        }).join('') + '\n';
-      }).join('');
+      content = parsedSource.map((function(line, index) {
+        return Line({
+          line: line,
+          lineNumber: {
+            line: index,
+            lineCount: parsedSource.length
+          }
+        });
+      }));
     }
-    return pre({dangerouslySetInnerHTML: {__html: output}});
+    return pre({className: className}, content);
   }});
 var Root = React.createClass({
   getInitialState: function() {
@@ -60,7 +88,7 @@ var Root = React.createClass({
 React.renderComponent(Root({model: model}), document.body);
 
 
-}).call(this,require("IrXUsu"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/fake_1c0f247.js","/")
+}).call(this,require("IrXUsu"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/fake_698742c1.js","/")
 },{"./model":2,"./vim-tohtml-parser":143,"IrXUsu":7,"buffer":4,"es6ify/node_modules/traceur/bin/traceur-runtime":3,"react":142}],2:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 "use strict";
