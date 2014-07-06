@@ -26,9 +26,11 @@ var Segment = React.createClass({
     render() {
         var {span} = React.DOM;
         var {onClick} = this;
-        var {segment, colors} = this.props;
+        var {segment, colors, backgroundColors} = this.props;
         if (typeof(segment) === 'object') {
-            var style = (segment.group in colors ? {color: colors[segment.group]} : {});
+            var style = (segment.group in colors ? {
+                color: colors[segment.group],
+                backgroundColor: backgroundColors[segment.group]} : {});
             return span({style, onClick}, segment.content);
         } else {
             return span(null, segment);
@@ -52,8 +54,8 @@ var LineNumber = React.createClass({
 var Line = React.createClass({
     render() {
         var {span} = React.DOM;
-        var {colors, line, lineNumber, selectGroup} = this.props;
-        var segments = line.map(segment => Segment({segment, colors, selectGroup}));
+        var {colors, backgroundColors, line, lineNumber, selectGroup} = this.props;
+        var segments = line.map(segment => Segment({segment, colors, backgroundColors, selectGroup}));
         return span(null,
             [LineNumber(lineNumber)].concat(
                 segments.concat(
@@ -74,6 +76,7 @@ var Source = React.createClass({
             content = parsedSource.map(
                 (line, index) => Line({
                     colors,
+                    backgroundColors,
                     line,
                     lineNumber: {
                         line: index,
@@ -101,7 +104,7 @@ var Controls = React.createClass({
             this.props.backgroundColors['Normal'];
 
         return aside(null,
-            'Selected: ' + this.props.selectedGroup,
+            'Color of group ' + this.props.selectedGroup,
             div(null,
                 input({type: 'color', value: color, onChange: onChangeForegroundColor}),
                 ' Foreground'),
@@ -150,13 +153,13 @@ var Root = React.createClass({
         this.setState({selectedGroup});
     },
     setForegroundColor(color) {
-        var colors = this.state.colors;
-        colors[this.state.selectedGroup] = color;
+        var {colors, selectedGroup} = this.state;
+        colors[selectedGroup] = color;
         this.setState({colors});
     },
     setBackgroundColor(color) {
-        var backgroundColors = this.state.backgroundColors;
-        backgroundColors[this.state.selectedGroup] = color;
+        var {backgroundColors, selectedGroup} = this.state;
+        backgroundColors[selectedGroup] = color;
         this.setState({backgroundColors});
     }
 });

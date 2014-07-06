@@ -33,9 +33,13 @@ var Segment = React.createClass({
     var onClick = this.onClick;
     var $__0 = $traceurRuntime.assertObject(this.props),
         segment = $__0.segment,
-        colors = $__0.colors;
+        colors = $__0.colors,
+        backgroundColors = $__0.backgroundColors;
     if (typeof(segment) === 'object') {
-      var style = (segment.group in colors ? {color: colors[segment.group]} : {});
+      var style = (segment.group in colors ? {
+        color: colors[segment.group],
+        backgroundColor: backgroundColors[segment.group]
+      } : {});
       return span({
         style: style,
         onClick: onClick
@@ -61,6 +65,7 @@ var Line = React.createClass({render: function() {
     var span = $traceurRuntime.assertObject(React.DOM).span;
     var $__0 = $traceurRuntime.assertObject(this.props),
         colors = $__0.colors,
+        backgroundColors = $__0.backgroundColors,
         line = $__0.line,
         lineNumber = $__0.lineNumber,
         selectGroup = $__0.selectGroup;
@@ -68,6 +73,7 @@ var Line = React.createClass({render: function() {
       return Segment({
         segment: segment,
         colors: colors,
+        backgroundColors: backgroundColors,
         selectGroup: selectGroup
       });
     }));
@@ -92,6 +98,7 @@ var Source = React.createClass({
       content = parsedSource.map((function(line, index) {
         return Line({
           colors: colors,
+          backgroundColors: backgroundColors,
           line: line,
           lineNumber: {
             line: index,
@@ -122,7 +129,7 @@ var Controls = React.createClass({
         onChangeBackgroundColor = $__0.onChangeBackgroundColor;
     var color = this.props.selectedGroup in this.props.colors ? this.props.colors[this.props.selectedGroup] : this.props.colors['Normal'];
     var backgroundColor = this.props.selectedGroup in this.props.backgroundColors ? this.props.backgroundColors[this.props.selectedGroup] : this.props.backgroundColors['Normal'];
-    return aside(null, 'Selected: ' + this.props.selectedGroup, div(null, input({
+    return aside(null, 'Color of group ' + this.props.selectedGroup, div(null, input({
       type: 'color',
       value: color,
       onChange: onChangeForegroundColor
@@ -178,20 +185,24 @@ var Root = React.createClass({
     this.setState({selectedGroup: selectedGroup});
   },
   setForegroundColor: function(color) {
-    var colors = this.state.colors;
-    colors[this.state.selectedGroup] = color;
+    var $__0 = $traceurRuntime.assertObject(this.state),
+        colors = $__0.colors,
+        selectedGroup = $__0.selectedGroup;
+    colors[selectedGroup] = color;
     this.setState({colors: colors});
   },
   setBackgroundColor: function(color) {
-    var backgroundColors = this.state.backgroundColors;
-    backgroundColors[this.state.selectedGroup] = color;
+    var $__0 = $traceurRuntime.assertObject(this.state),
+        backgroundColors = $__0.backgroundColors,
+        selectedGroup = $__0.selectedGroup;
+    backgroundColors[selectedGroup] = color;
     this.setState({backgroundColors: backgroundColors});
   }
 });
 React.renderComponent(Root(model), document.body);
 
 
-}).call(this,require("IrXUsu"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/fake_ec78f38e.js","/")
+}).call(this,require("IrXUsu"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/fake_897019be.js","/")
 },{"./model":2,"./vim-tohtml-parser":143,"IrXUsu":7,"buffer":4,"es6ify/node_modules/traceur/bin/traceur-runtime":3,"react":142}],2:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 "use strict";
