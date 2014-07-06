@@ -1,5 +1,16 @@
 body {
-    font: 16px/1.5 'Source Sans Pro';
+    font: 14px/1.5 'Avenir Next', 'Source Sans Pro';
+    margin: 0;
+}
+
+h1 {
+    background-color: #f8f8f8;
+    color: #aaa;
+    font-size: 1.5em;
+    padding-left: 0.5em;
+    margin: 0 0 1em 0;
+    padding: 0.5em 1em;
+    font-weight: 300;
 }
 
 main {
@@ -8,7 +19,7 @@ main {
 
 pre {
     width: 800px;
-    font-family: Monaco;
+    font-family: 'Source Code Pro';
     font-size: 0.8em;
     float: left;
 }

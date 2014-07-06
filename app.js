@@ -6,7 +6,7 @@ var model = require('./model');
 var Header = React.createClass({
     render() {
         var {header, h1} = React.DOM;
-        return header(null, h1(null, 'vim-colorscheme-designer'));
+        return header(null, h1(null, 'vim colorscheme designer'));
     }
 });
 
