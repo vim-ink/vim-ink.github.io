@@ -1,4 +1,5 @@
 module.exports = {
     parsedSource: undefined,
-    selectedGroup: undefined
+    selectedGroup: undefined,
+    colors: {}
 };

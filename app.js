@@ -14,7 +14,7 @@ var Paste = React.createClass({
     render() {
         var {textarea} = React.DOM;
         var {onChange, onClick} = this;
-        var className = (this.props.model.parsedSource !== undefined) ? 'hidden' : '';
+        var className = (this.props.parsedSource !== undefined) ? 'hidden' : '';
         return textarea({onChange, className});
     },
     onChange(e) {
@@ -60,8 +60,7 @@ var Line = React.createClass({
 var Source = React.createClass({
     render() {
         var {pre} = React.DOM;
-        var {parsedSource} = this.props.model;
-        var {selectGroup} = this.props;
+        var {parsedSource, selectGroup} = this.props;
         var className = parsedSource === undefined ? 'hidden' : '';
         var content;
 
@@ -79,18 +78,22 @@ var Source = React.createClass({
     }
 });
 
-var Tools = React.createClass({
+var Controls = React.createClass({
     render() {
         var {aside, div, input} = React.DOM;
+        var {onChange} = this;
 
         return aside(null,
-            'Selected: ' + this.props.model.selectedGroup,
+            'Selected: ' + this.props.selectedGroup,
             div(null,
-                input({type: 'color'}),
+                input({type: 'color', onChange}),
                 ' Foreground'),
             div(null,
                 input({type: 'color'}),
                 ' Background'));
+    },
+    onChange(e) {
+        this.props.setForegroundColor(e.target.value);
     }
 });
 
@@ -100,21 +103,26 @@ var Root = React.createClass({
     },
     render() {
         var {main} = React.DOM;
-        var {model} = this.state;
-        var {parse, selectGroup} = this;
+        var {parsedSource, selectedGroup} = this.state;
+        var {parse, selectGroup, setForegroundColor} = this;
         return main(
             null,
             Header(),
-            Paste({model, parse}),
-            Source({model, selectGroup}),
-            Tools({model}));
+            Paste({parsedSource, parse}),
+            Source({parsedSource, selectGroup}),
+            Controls({selectedGroup, setForegroundColor}));
     },
     parse(unparsedSource) {
-        this.setState({model: {parsedSource: parse(unparsedSource)}});
+        this.setState({parsedSource: parse(unparsedSource)});
     },
-    selectGroup(group) {
-        console.log('selectGroup', group);
+    selectGroup(selectedGroup) {
+        this.setState({selectedGroup});
+    },
+    setForegroundColor(color) {
+        var colors = this.state.colors;
+        colors[this.state.selectedGroup] = color;
+        this.setState({colors});
     }
 });
 
-React.renderComponent(Root({model}), document.body);
+React.renderComponent(Root(model), document.body);

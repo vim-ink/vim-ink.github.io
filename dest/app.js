@@ -17,7 +17,7 @@ var Paste = React.createClass({
     var $__0 = this,
         onChange = $__0.onChange,
         onClick = $__0.onClick;
-    var className = (this.props.model.parsedSource !== undefined) ? 'hidden' : '';
+    var className = (this.props.parsedSource !== undefined) ? 'hidden' : '';
     return textarea({
       onChange: onChange,
       className: className
@@ -65,8 +65,9 @@ var Line = React.createClass({render: function() {
   }});
 var Source = React.createClass({render: function() {
     var pre = $traceurRuntime.assertObject(React.DOM).pre;
-    var parsedSource = $traceurRuntime.assertObject(this.props.model).parsedSource;
-    var selectGroup = $traceurRuntime.assertObject(this.props).selectGroup;
+    var $__0 = $traceurRuntime.assertObject(this.props),
+        parsedSource = $__0.parsedSource,
+        selectGroup = $__0.selectGroup;
     var className = parsedSource === undefined ? 'hidden' : '';
     var content;
     if (parsedSource !== undefined) {
@@ -83,48 +84,69 @@ var Source = React.createClass({render: function() {
     }
     return pre({className: className}, content);
   }});
-var Tools = React.createClass({render: function() {
+var Controls = React.createClass({
+  render: function() {
     var $__0 = $traceurRuntime.assertObject(React.DOM),
         aside = $__0.aside,
         div = $__0.div,
         input = $__0.input;
-    return aside(null, 'Selected: ' + this.props.model.selectedGroup, div(null, input({type: 'color'}), ' Foreground'), div(null, input({type: 'color'}), ' Background'));
-  }});
+    var onChange = this.onChange;
+    return aside(null, 'Selected: ' + this.props.selectedGroup, div(null, input({
+      type: 'color',
+      onChange: onChange
+    }), ' Foreground'), div(null, input({type: 'color'}), ' Background'));
+  },
+  onChange: function(e) {
+    this.props.setForegroundColor(e.target.value);
+  }
+});
 var Root = React.createClass({
   getInitialState: function() {
     return this.props;
   },
   render: function() {
     var main = $traceurRuntime.assertObject(React.DOM).main;
-    var model = $traceurRuntime.assertObject(this.state).model;
+    var $__0 = $traceurRuntime.assertObject(this.state),
+        parsedSource = $__0.parsedSource,
+        selectedGroup = $__0.selectedGroup;
     var $__0 = this,
         parse = $__0.parse,
-        selectGroup = $__0.selectGroup;
+        selectGroup = $__0.selectGroup,
+        setForegroundColor = $__0.setForegroundColor;
     return main(null, Header(), Paste({
-      model: model,
+      parsedSource: parsedSource,
       parse: parse
     }), Source({
-      model: model,
+      parsedSource: parsedSource,
       selectGroup: selectGroup
-    }), Tools({model: model}));
+    }), Controls({
+      selectedGroup: selectedGroup,
+      setForegroundColor: setForegroundColor
+    }));
   },
   parse: function(unparsedSource) {
-    this.setState({model: {parsedSource: parse(unparsedSource)}});
+    this.setState({parsedSource: parse(unparsedSource)});
   },
-  selectGroup: function(group) {
-    console.log('selectGroup', group);
+  selectGroup: function(selectedGroup) {
+    this.setState({selectedGroup: selectedGroup});
+  },
+  setForegroundColor: function(color) {
+    var colors = this.state.colors;
+    colors[this.state.selectedGroup] = color;
+    this.setState({colors: colors});
   }
 });
-React.renderComponent(Root({model: model}), document.body);
+React.renderComponent(Root(model), document.body);
 
 
-}).call(this,require("IrXUsu"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/fake_64d95e45.js","/")
+}).call(this,require("IrXUsu"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/fake_e064c8da.js","/")
 },{"./model":2,"./vim-tohtml-parser":143,"IrXUsu":7,"buffer":4,"es6ify/node_modules/traceur/bin/traceur-runtime":3,"react":142}],2:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 "use strict";
 module.exports = {
   parsedSource: undefined,
-  selectedGroup: undefined
+  selectedGroup: undefined,
+  colors: {}
 };
 
 
