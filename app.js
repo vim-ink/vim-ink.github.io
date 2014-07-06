@@ -14,7 +14,7 @@ var Paste = React.createClass({
     render() {
         var {textarea} = React.DOM;
         var {onChange, onClick} = this;
-        var className = (this.props.model.source !== undefined) ? 'hidden' : '';
+        var className = (this.props.model.parsedSource !== undefined) ? 'hidden' : '';
         return textarea({onChange, className});
     },
     onChange(e) {
@@ -25,12 +25,27 @@ var Paste = React.createClass({
 var Source = React.createClass({
     render() {
         var {pre} = React.DOM;
-        var {source} = this.props.model;
-        return pre({dangerouslySetInnerHTML: {__html: this.props.model.source}});
+        var {parsedSource} = this.props.model;
+        var output;
+
+        if (parsedSource !== undefined) {
+            output = parsedSource.map(function(line) {
+                return line.map(function(segment) {
+                    return typeof(segment) === 'object' ?
+                        '<span class="' + segment.group + '">' + segment.content + '</span>' :
+                        segment;
+                }).join('') + '\n';
+            }).join('');
+        }
+
+        return pre({dangerouslySetInnerHTML: {__html: output}});
     }
 });
 
 var Root = React.createClass({
+    getInitialState() {
+        return this.props;
+    },
     render() {
         var {div} = React.DOM;
         var {model} = this.state;
@@ -41,21 +56,8 @@ var Root = React.createClass({
             Paste({model, parse}),
             Source({model}));
     },
-    parse(input) {
-        var parsedLines = parse(input);
-
-        var output = parsedLines.map(function(line) {
-            return line.map(function(segment) {
-                return typeof(segment) === 'object' ?
-                    '<span class="' + segment.group + '">' + segment.content + '</span>' :
-                    segment;
-            }).join('') + '\n';
-        }).join('');
-
-        this.setState({model: {source: output}});
-    },
-    getInitialState() {
-        return this.props;
+    parse(unparsedSource) {
+        this.setState({model: {parsedSource: parse(unparsedSource)}});
     }
 });
 

@@ -1,3 +1,3 @@
 module.exports = {
-    source: undefined
+    parsedSource: undefined
 };

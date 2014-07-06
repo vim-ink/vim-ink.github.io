@@ -17,7 +17,7 @@ var Paste = React.createClass({
     var $__0 = this,
         onChange = $__0.onChange,
         onClick = $__0.onClick;
-    var className = (this.props.model.source !== undefined) ? 'hidden' : '';
+    var className = (this.props.model.parsedSource !== undefined) ? 'hidden' : '';
     return textarea({
       onChange: onChange,
       className: className
@@ -29,10 +29,21 @@ var Paste = React.createClass({
 });
 var Source = React.createClass({render: function() {
     var pre = $traceurRuntime.assertObject(React.DOM).pre;
-    var source = $traceurRuntime.assertObject(this.props.model).source;
-    return pre({dangerouslySetInnerHTML: {__html: this.props.model.source}});
+    var parsedSource = $traceurRuntime.assertObject(this.props.model).parsedSource;
+    var output;
+    if (parsedSource !== undefined) {
+      output = parsedSource.map(function(line) {
+        return line.map(function(segment) {
+          return typeof(segment) === 'object' ? '<span class="' + segment.group + '">' + segment.content + '</span>' : segment;
+        }).join('') + '\n';
+      }).join('');
+    }
+    return pre({dangerouslySetInnerHTML: {__html: output}});
   }});
 var Root = React.createClass({
+  getInitialState: function() {
+    return this.props;
+  },
   render: function() {
     var div = $traceurRuntime.assertObject(React.DOM).div;
     var model = $traceurRuntime.assertObject(this.state).model;
@@ -42,27 +53,18 @@ var Root = React.createClass({
       parse: parse
     }), Source({model: model}));
   },
-  parse: function(input) {
-    var parsedLines = parse(input);
-    var output = parsedLines.map(function(line) {
-      return line.map(function(segment) {
-        return typeof(segment) === 'object' ? '<span class="' + segment.group + '">' + segment.content + '</span>' : segment;
-      }).join('') + '\n';
-    }).join('');
-    this.setState({model: {source: output}});
-  },
-  getInitialState: function() {
-    return this.props;
+  parse: function(unparsedSource) {
+    this.setState({model: {parsedSource: parse(unparsedSource)}});
   }
 });
 React.renderComponent(Root({model: model}), document.body);
 
 
-}).call(this,require("IrXUsu"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/fake_45b0a0e8.js","/")
+}).call(this,require("IrXUsu"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/fake_1c0f247.js","/")
 },{"./model":2,"./vim-tohtml-parser":143,"IrXUsu":7,"buffer":4,"es6ify/node_modules/traceur/bin/traceur-runtime":3,"react":142}],2:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 "use strict";
-module.exports = {source: undefined};
+module.exports = {parsedSource: undefined};
 
 
 }).call(this,require("IrXUsu"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/model.js","/")
