@@ -1,32 +1,17 @@
 require('es6ify/node_modules/traceur/bin/traceur-runtime');
 var React = require('react');
 var parse = require('./vim-tohtml-parser').parse;
+var model = require('./model');
 
-var PastedCode = React.createClass({
-    getInitialState() {
-        return {show: true};
-    },
+var Paste = React.createClass({
     render() {
-        var {div, textarea, button} = React.DOM;
-
-        if (this.state.show === false) {
-            return div(null, '');
-        }
-
-        return div(null,
-            textarea({
-                onChange: this.onChange,
-                id: 'pastedCode',
-                style: {width: '100%', height: '20em'}}),
-            button({ onClick: this.onClick },
-                'Parse'));
+        var {textarea} = React.DOM;
+        var {onChange, onClick} = this;
+        var className = (this.props.model.source !== undefined) ? 'hidden' : '';
+        return textarea({onChange, className});
     },
     onChange(e) {
-        this.setState({pastedSource: e.target.value});
-    },
-    onClick() {
-        this.setState({show: false});
-        this.props.parse(this.state.pastedSource);
+        this.props.parse(e.target.value);
     }
 });
 
@@ -40,11 +25,12 @@ var Source = React.createClass({
 var Root = React.createClass({
     render() {
         var {parse} = this;
+        var model = this.props;
         var {div, header, h1, textarea, button} = React.DOM;
         return div(
             null,
             header(null, h1(null, 'vim-colorscheme-designer')),
-            PastedCode({parse}),
+            Paste({model, parse}),
             Source());
     },
     parse(input) {
@@ -59,7 +45,10 @@ var Root = React.createClass({
         }).join('');
 
         document.getElementById('output').innerHTML = output;
+    },
+    componentDidMount() {
+        console.log(this.props.model);
     }
 });
 
-React.renderComponent(Root(), document.body);
+React.renderComponent(Root({model}), document.body);
