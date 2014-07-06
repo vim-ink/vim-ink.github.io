@@ -5,6 +5,12 @@ require('es6ify/node_modules/traceur/bin/traceur-runtime');
 var React = require('react');
 var parse = require('./vim-tohtml-parser').parse;
 var model = require('./model');
+var Header = React.createClass({render: function() {
+    var $__0 = $traceurRuntime.assertObject(React.DOM),
+        header = $__0.header,
+        h1 = $__0.h1;
+    return header(null, h1(null, 'vim-colorscheme-designer'));
+  }});
 var Paste = React.createClass({
   render: function() {
     var textarea = $traceurRuntime.assertObject(React.DOM).textarea;
@@ -23,22 +29,18 @@ var Paste = React.createClass({
 });
 var Source = React.createClass({render: function() {
     var pre = $traceurRuntime.assertObject(React.DOM).pre;
-    return pre({id: 'output'});
+    var source = $traceurRuntime.assertObject(this.props.model).source;
+    return pre({dangerouslySetInnerHTML: {__html: this.props.model.source}});
   }});
 var Root = React.createClass({
   render: function() {
+    var div = $traceurRuntime.assertObject(React.DOM).div;
+    var model = $traceurRuntime.assertObject(this.state).model;
     var parse = this.parse;
-    var model = this.props;
-    var $__0 = $traceurRuntime.assertObject(React.DOM),
-        div = $__0.div,
-        header = $__0.header,
-        h1 = $__0.h1,
-        textarea = $__0.textarea,
-        button = $__0.button;
-    return div(null, header(null, h1(null, 'vim-colorscheme-designer')), Paste({
+    return div(null, Header(), Paste({
       model: model,
       parse: parse
-    }), Source());
+    }), Source({model: model}));
   },
   parse: function(input) {
     var parsedLines = parse(input);
@@ -47,16 +49,16 @@ var Root = React.createClass({
         return typeof(segment) === 'object' ? '<span class="' + segment.group + '">' + segment.content + '</span>' : segment;
       }).join('') + '\n';
     }).join('');
-    document.getElementById('output').innerHTML = output;
+    this.setState({model: {source: output}});
   },
-  componentDidMount: function() {
-    console.log(this.props.model);
+  getInitialState: function() {
+    return this.props;
   }
 });
 React.renderComponent(Root({model: model}), document.body);
 
 
-}).call(this,require("IrXUsu"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/fake_8a947719.js","/")
+}).call(this,require("IrXUsu"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/fake_45b0a0e8.js","/")
 },{"./model":2,"./vim-tohtml-parser":143,"IrXUsu":7,"buffer":4,"es6ify/node_modules/traceur/bin/traceur-runtime":3,"react":142}],2:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 "use strict";

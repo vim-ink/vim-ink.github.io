@@ -3,6 +3,13 @@ var React = require('react');
 var parse = require('./vim-tohtml-parser').parse;
 var model = require('./model');
 
+var Header = React.createClass({
+    render() {
+        var {header, h1} = React.DOM;
+        return header(null, h1(null, 'vim-colorscheme-designer'));
+    }
+});
+
 var Paste = React.createClass({
     render() {
         var {textarea} = React.DOM;
@@ -18,20 +25,21 @@ var Paste = React.createClass({
 var Source = React.createClass({
     render() {
         var {pre} = React.DOM;
-        return pre({id: 'output'});
+        var {source} = this.props.model;
+        return pre({dangerouslySetInnerHTML: {__html: this.props.model.source}});
     }
 });
 
 var Root = React.createClass({
     render() {
+        var {div} = React.DOM;
+        var {model} = this.state;
         var {parse} = this;
-        var model = this.props;
-        var {div, header, h1, textarea, button} = React.DOM;
         return div(
             null,
-            header(null, h1(null, 'vim-colorscheme-designer')),
+            Header(),
             Paste({model, parse}),
-            Source());
+            Source({model}));
     },
     parse(input) {
         var parsedLines = parse(input);
@@ -44,10 +52,10 @@ var Root = React.createClass({
             }).join('') + '\n';
         }).join('');
 
-        document.getElementById('output').innerHTML = output;
+        this.setState({model: {source: output}});
     },
-    componentDidMount() {
-        console.log(this.props.model);
+    getInitialState() {
+        return this.props;
     }
 });
 

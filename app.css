@@ -8,11 +8,14 @@ textarea {
     height: 20em;
 }
 
-.something {
-    background-color: #aaa;
-    color: #fff;
-}
-
 .hidden {
     display: none;
+}
+
+.Statement {
+    color: blue;
+}
+
+.String {
+    color: green;
 }
