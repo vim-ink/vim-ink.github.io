@@ -102,8 +102,10 @@ var Controls = React.createClass({
         div = $__0.div,
         input = $__0.input;
     var onChange = this.onChange;
+    var color = this.props.selectedGroup in this.props.colors ? this.props.colors[this.props.selectedGroup] : '#000000';
     return aside(null, 'Selected: ' + this.props.selectedGroup, div(null, input({
       type: 'color',
+      value: color,
       onChange: onChange
     }), ' Foreground'), div(null, input({type: 'color'}), ' Background'));
   },
@@ -134,6 +136,7 @@ var Root = React.createClass({
       selectGroup: selectGroup
     }), Controls({
       selectedGroup: selectedGroup,
+      colors: colors,
       setForegroundColor: setForegroundColor
     }));
   },
@@ -152,7 +155,7 @@ var Root = React.createClass({
 React.renderComponent(Root(model), document.body);
 
 
-}).call(this,require("IrXUsu"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/fake_85af525.js","/")
+}).call(this,require("IrXUsu"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/fake_4c1878f2.js","/")
 },{"./model":2,"./vim-tohtml-parser":143,"IrXUsu":7,"buffer":4,"es6ify/node_modules/traceur/bin/traceur-runtime":3,"react":142}],2:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 "use strict";

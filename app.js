@@ -86,11 +86,12 @@ var Controls = React.createClass({
     render() {
         var {aside, div, input} = React.DOM;
         var {onChange} = this;
+        var color = this.props.selectedGroup in this.props.colors ? this.props.colors[this.props.selectedGroup] : '#000000';
 
         return aside(null,
             'Selected: ' + this.props.selectedGroup,
             div(null,
-                input({type: 'color', onChange}),
+                input({type: 'color', value: color, onChange}),
                 ' Foreground'),
             div(null,
                 input({type: 'color'}),
@@ -114,7 +115,7 @@ var Root = React.createClass({
             Header(),
             Paste({parsedSource, parse}),
             Source({parsedSource, colors, selectGroup}),
-            Controls({selectedGroup, setForegroundColor}));
+            Controls({selectedGroup, colors, setForegroundColor}));
     },
     parse(unparsedSource) {
         this.setState({parsedSource: parse(unparsedSource)});
