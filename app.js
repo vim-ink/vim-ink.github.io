@@ -119,13 +119,13 @@ var Controls = React.createClass({
     }
 });
 
-// var Export = React.createClass({
-//     render() {
-//         var {textarea} = React.DOM;
-//
-//         return textarea({value: 'foobar'});
-//     }
-// });
+var Export = React.createClass({
+    render() {
+        var {textarea} = React.DOM;
+
+        return textarea({value: this.props.exportColorscheme()});
+    }
+});
 
 var Root = React.createClass({
     getInitialState() {
@@ -134,7 +134,7 @@ var Root = React.createClass({
     render() {
         var {main} = React.DOM;
         var {parsedSource, selectedGroup} = this.state;
-        var {getColorPair} = this.props;
+        var {getColorPair, exportColorscheme} = this.props;
         var {parse, selectGroup, setColor} = this;
         return main(
             null,
@@ -149,8 +149,8 @@ var Root = React.createClass({
             Controls({
                 selectedGroup,
                 getColorPair,
-                setColor}));
-            // Export());
+                setColor}),
+            Export({exportColorscheme}));
     },
     parse(unparsedSource) {
         this.setState({parsedSource: parse(unparsedSource)});

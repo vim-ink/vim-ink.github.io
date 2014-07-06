@@ -153,6 +153,10 @@ var Controls = React.createClass({
     this.props.setColor('background', e.target.value);
   }
 });
+var Export = React.createClass({render: function() {
+    var textarea = $traceurRuntime.assertObject(React.DOM).textarea;
+    return textarea({value: this.props.exportColorscheme()});
+  }});
 var Root = React.createClass({
   getInitialState: function() {
     return this.props.data;
@@ -162,7 +166,9 @@ var Root = React.createClass({
     var $__0 = $traceurRuntime.assertObject(this.state),
         parsedSource = $__0.parsedSource,
         selectedGroup = $__0.selectedGroup;
-    var getColorPair = $traceurRuntime.assertObject(this.props).getColorPair;
+    var $__0 = $traceurRuntime.assertObject(this.props),
+        getColorPair = $__0.getColorPair,
+        exportColorscheme = $__0.exportColorscheme;
     var $__0 = this,
         parse = $__0.parse,
         selectGroup = $__0.selectGroup,
@@ -178,7 +184,7 @@ var Root = React.createClass({
       selectedGroup: selectedGroup,
       getColorPair: getColorPair,
       setColor: setColor
-    }));
+    }), Export({exportColorscheme: exportColorscheme}));
   },
   parse: function(unparsedSource) {
     this.setState({parsedSource: parse(unparsedSource)});
@@ -205,7 +211,7 @@ var Root = React.createClass({
 React.renderComponent(Root(model), document.body);
 
 
-}).call(this,require("IrXUsu"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/fake_55873dc8.js","/")
+}).call(this,require("IrXUsu"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/fake_bc73d0ca.js","/")
 },{"./model":2,"./vim-tohtml-parser":143,"IrXUsu":7,"buffer":4,"es6ify/node_modules/traceur/bin/traceur-runtime":3,"react":142}],2:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 "use strict";
@@ -221,9 +227,38 @@ function getColorPair(group) {
     backgroundColor: group in data.backgroundColors ? data.backgroundColors[group] : data.backgroundColors['Normal']
   };
 }
+function exportColorscheme() {
+  var reset = ['SpecialKey', 'NonText', 'Directory', 'ErrorMsg', 'IncSearch', 'Search', 'MoreMsg', 'ModeMsg', 'LineNr', 'CursorLineNr', 'Question', 'StatusLine', 'StatusLineNC', 'VertSplit', 'Title', 'Visual', 'VisualNOS', 'WarningMsg', 'WildMenu', 'Folded', 'FoldColumn', 'DiffAdd', 'DiffChange', 'DiffDelete', 'DiffText', 'SignColumn', 'Conceal', 'SpellBad', 'SpellCap', 'SpellRare', 'SpellLocal', 'Pmenu', 'PmenuSel', 'PmenuSbar', 'PmenuThumb', 'TabLine', 'TabLineSel', 'TabLineFill', 'CursorColumn', 'CursorLine', 'ColorColumn', 'Cursor', 'lCursor', 'MatchParen', 'Normal', 'Error', 'Comment', 'Constant', 'Special', 'Identifier', 'Statement', 'PreProc', 'Type', 'Underlined', 'Ignore', 'Todo', 'String', 'Boolean'];
+  var str = ['hi clear', 'syntax reset'];
+  for (var group in data.colors) {
+    str.push('hi ' + group + ' guifg=' + data.colors[group]);
+  }
+  for (var group in data.backgroundColors) {
+    str.push('hi ' + group + ' guibg=' + data.backgroundColors[group]);
+  }
+  reset.forEach((function(group) {
+    str.push('hi ' + group + ' gui=NONE');
+    if (data.colors.hasOwnProperty(group) === false) {
+      if (group !== 'Cursor' && group !== 'Visual') {
+        str.push('hi ' + group + ' guifg=' + data.colors['Normal']);
+      } else {
+        str.push('hi ' + group + ' guifg=' + data.backgroundColors['Normal']);
+      }
+    }
+    if (data.backgroundColors.hasOwnProperty(group) === false) {
+      if (group !== 'Cursor' && group !== 'Visual') {
+        str.push('hi ' + group + ' guibg=' + data.backgroundColors['Normal']);
+      } else {
+        str.push('hi ' + group + ' guifg=' + data.colors['Normal']);
+      }
+    }
+  }));
+  return str.join('\n');
+}
 module.exports = {
   data: data,
-  getColorPair: getColorPair
+  getColorPair: getColorPair,
+  exportColorscheme: exportColorscheme
 };
 
 
