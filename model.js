@@ -1,5 +1,6 @@
 module.exports = {
     parsedSource: undefined,
-    selectedGroup: undefined,
-    colors: {}
+    selectedGroup: 'Normal',
+    colors: {'Normal': '#000000'},
+    backgroundColors: {'Normal': '#ffffff'}
 };

@@ -35,7 +35,6 @@ var Segment = React.createClass({
         }
     },
     onClick(e) {
-        console.log('span click');
         this.props.selectGroup(this.props.segment.group);
         e.stopPropagation();
     }
@@ -66,8 +65,9 @@ var Source = React.createClass({
     render() {
         var {pre} = React.DOM;
         var {onClick} = this;
-        var {parsedSource, colors, selectGroup} = this.props;
+        var {parsedSource, colors, backgroundColors, selectGroup} = this.props;
         var className = parsedSource === undefined ? 'hidden' : '';
+        var style = {color: colors['Normal'], backgroundColor: backgroundColors['Normal']};
         var content;
 
         if (parsedSource !== undefined) {
@@ -81,7 +81,7 @@ var Source = React.createClass({
                     selectGroup}))
         }
 
-        return pre({className, onClick}, content);
+        return pre({className, style, onClick}, content);
     },
     onClick() {
         this.props.selectGroup('Normal');
@@ -91,20 +91,29 @@ var Source = React.createClass({
 var Controls = React.createClass({
     render() {
         var {aside, div, input} = React.DOM;
-        var {onChange} = this;
-        var color = this.props.selectedGroup in this.props.colors ? this.props.colors[this.props.selectedGroup] : '#000000';
+        var {onChangeForegroundColor, onChangeBackgroundColor} = this;
+
+        var color = this.props.selectedGroup in this.props.colors ?
+            this.props.colors[this.props.selectedGroup] :
+            this.props.colors['Normal'];
+        var backgroundColor = this.props.selectedGroup in this.props.backgroundColors ?
+            this.props.backgroundColors[this.props.selectedGroup] :
+            this.props.backgroundColors['Normal'];
 
         return aside(null,
             'Selected: ' + this.props.selectedGroup,
             div(null,
-                input({type: 'color', value: color, onChange}),
+                input({type: 'color', value: color, onChange: onChangeForegroundColor}),
                 ' Foreground'),
             div(null,
-                input({type: 'color'}),
+                input({type: 'color', value: backgroundColor, onChange: onChangeBackgroundColor}),
                 ' Background'));
     },
-    onChange(e) {
+    onChangeForegroundColor(e) {
         this.props.setForegroundColor(e.target.value);
+    },
+    onChangeBackgroundColor(e) {
+        this.props.setBackgroundColor(e.target.value);
     }
 });
 
@@ -114,14 +123,25 @@ var Root = React.createClass({
     },
     render() {
         var {main} = React.DOM;
-        var {parsedSource, colors, selectedGroup} = this.state;
-        var {parse, selectGroup, setForegroundColor} = this;
+        var {parsedSource, colors, backgroundColors, selectedGroup} = this.state;
+        var {parse, selectGroup, setForegroundColor, setBackgroundColor} = this;
         return main(
             null,
             Header(),
-            Paste({parsedSource, parse}),
-            Source({parsedSource, colors, selectGroup}),
-            Controls({selectedGroup, colors, setForegroundColor}));
+            Paste({
+                parsedSource,
+                parse}),
+            Source({
+                parsedSource,
+                colors,
+                backgroundColors,
+                selectGroup}),
+            Controls({
+                selectedGroup,
+                colors,
+                backgroundColors,
+                setForegroundColor,
+                setBackgroundColor}));
     },
     parse(unparsedSource) {
         this.setState({parsedSource: parse(unparsedSource)});
@@ -133,6 +153,11 @@ var Root = React.createClass({
         var colors = this.state.colors;
         colors[this.state.selectedGroup] = color;
         this.setState({colors});
+    },
+    setBackgroundColor(color) {
+        var backgroundColors = this.state.backgroundColors;
+        backgroundColors[this.state.selectedGroup] = color;
+        this.setState({backgroundColors});
     }
 });
 
