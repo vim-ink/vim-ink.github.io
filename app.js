@@ -67,6 +67,54 @@ var Line = React.createClass({
     }
 });
 
+var TabLineFile = React.createClass({
+    render() {
+        var {span} = React.DOM;
+        var {onClick, group} = this;
+        var {getColorPair, fileName, selected} = this.props;
+        var style = getColorPair(group());
+        return span({style, onClick}, ' 2 ' + fileName + ' ');
+    },
+    onClick(e) {
+        var {selectGroup} = this.props;
+        var {group} = this;
+        selectGroup(group());
+        e.stopPropagation();
+    },
+    group() {
+        var {selected} = this.props;
+        return (selected === true ? 'TabLineSel' : 'TabLine');
+    }
+});
+
+var TabLine = React.createClass({
+    render() {
+        var {span} = React.DOM;
+        var {getColorPair, selectGroup} = this.props;
+
+        return span(
+            null,
+            [
+                TabLineFile({
+                    getColorPair,
+                    selectGroup,
+                    fileName: 'one-file.js',
+                    selected: false}),
+                TabLineFile({
+                    getColorPair,
+                    selectGroup,
+                    fileName: 'another-file.js',
+                    selected: false}),
+                TabLineFile({
+                    getColorPair,
+                    selectGroup,
+                    fileName: 'yet-another-file.js',
+                    selected: true}),
+                '\n'
+            ]);
+    }
+});
+
 var Source = React.createClass({
     render() {
         var {pre} = React.DOM;
@@ -74,7 +122,9 @@ var Source = React.createClass({
         var {parsedSource, getColorPair, selectGroup} = this.props;
         var className = parsedSource === undefined ? 'hidden' : '';
         var style = getColorPair('Normal');
+
         var content;
+        var tabLine = TabLine({getColorPair, selectGroup});
 
         if (parsedSource !== undefined) {
             content = parsedSource.map(
@@ -87,7 +137,7 @@ var Source = React.createClass({
                     selectGroup}))
         }
 
-        return pre({className, style, onClick}, content);
+        return pre({className, style, onClick}, [tabLine].concat(content));
     },
     onClick() {
         this.props.selectGroup('Normal');
@@ -109,7 +159,8 @@ var Controls = React.createClass({
                 ' Foreground'),
             div(null,
                 input({type: 'color', value: colorPair.backgroundColor, onChange: onChangeBackgroundColor}),
-                ' Background'));
+                ' Background'),
+            h2(null, 'Show'));
     },
     onChangeColor(e) {
         this.props.setColor('foreground', e.target.value);
@@ -156,6 +207,7 @@ var Root = React.createClass({
         this.setState({parsedSource: parse(unparsedSource)});
     },
     selectGroup(selectedGroup) {
+        console.log(selectedGroup);
         this.setState({selectedGroup});
     },
     setColor(what, color) {

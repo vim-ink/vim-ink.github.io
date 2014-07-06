@@ -90,6 +90,55 @@ var Line = React.createClass({render: function() {
     }));
     return span(null, lineNumber_.concat(segments.concat(span(null, '\n'))));
   }});
+var TabLineFile = React.createClass({
+  render: function() {
+    var span = $traceurRuntime.assertObject(React.DOM).span;
+    var $__0 = this,
+        onClick = $__0.onClick,
+        group = $__0.group;
+    var $__0 = $traceurRuntime.assertObject(this.props),
+        getColorPair = $__0.getColorPair,
+        fileName = $__0.fileName,
+        selected = $__0.selected;
+    var style = getColorPair(group());
+    return span({
+      style: style,
+      onClick: onClick
+    }, ' 2 ' + fileName + ' ');
+  },
+  onClick: function(e) {
+    var selectGroup = $traceurRuntime.assertObject(this.props).selectGroup;
+    var group = this.group;
+    selectGroup(group());
+    e.stopPropagation();
+  },
+  group: function() {
+    var selected = $traceurRuntime.assertObject(this.props).selected;
+    return (selected === true ? 'TabLineSel' : 'TabLine');
+  }
+});
+var TabLine = React.createClass({render: function() {
+    var span = $traceurRuntime.assertObject(React.DOM).span;
+    var $__0 = $traceurRuntime.assertObject(this.props),
+        getColorPair = $__0.getColorPair,
+        selectGroup = $__0.selectGroup;
+    return span(null, [TabLineFile({
+      getColorPair: getColorPair,
+      selectGroup: selectGroup,
+      fileName: 'one-file.js',
+      selected: false
+    }), TabLineFile({
+      getColorPair: getColorPair,
+      selectGroup: selectGroup,
+      fileName: 'another-file.js',
+      selected: false
+    }), TabLineFile({
+      getColorPair: getColorPair,
+      selectGroup: selectGroup,
+      fileName: 'yet-another-file.js',
+      selected: true
+    }), '\n']);
+  }});
 var Source = React.createClass({
   render: function() {
     var pre = $traceurRuntime.assertObject(React.DOM).pre;
@@ -101,6 +150,10 @@ var Source = React.createClass({
     var className = parsedSource === undefined ? 'hidden' : '';
     var style = getColorPair('Normal');
     var content;
+    var tabLine = TabLine({
+      getColorPair: getColorPair,
+      selectGroup: selectGroup
+    });
     if (parsedSource !== undefined) {
       content = parsedSource.map((function(line, index) {
         return Line({
@@ -118,7 +171,7 @@ var Source = React.createClass({
       className: className,
       style: style,
       onClick: onClick
-    }, content);
+    }, [tabLine].concat(content));
   },
   onClick: function() {
     this.props.selectGroup('Normal');
@@ -144,7 +197,7 @@ var Controls = React.createClass({
       type: 'color',
       value: colorPair.backgroundColor,
       onChange: onChangeBackgroundColor
-    }), ' Background'));
+    }), ' Background'), h2(null, 'Show'));
   },
   onChangeColor: function(e) {
     this.props.setColor('foreground', e.target.value);
@@ -190,6 +243,7 @@ var Root = React.createClass({
     this.setState({parsedSource: parse(unparsedSource)});
   },
   selectGroup: function(selectedGroup) {
+    console.log(selectedGroup);
     this.setState({selectedGroup: selectedGroup});
   },
   setColor: function(what, color) {
@@ -211,15 +265,23 @@ var Root = React.createClass({
 React.renderComponent(Root(model), document.body);
 
 
-}).call(this,require("IrXUsu"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/fake_bc73d0ca.js","/")
+}).call(this,require("IrXUsu"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/fake_53827227.js","/")
 },{"./model":2,"./vim-tohtml-parser":143,"IrXUsu":7,"buffer":4,"es6ify/node_modules/traceur/bin/traceur-runtime":3,"react":142}],2:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 "use strict";
 var data = {
   parsedSource: undefined,
   selectedGroup: 'Normal',
-  colors: {'Normal': '#cccccc'},
-  backgroundColors: {'Normal': '#000000'}
+  colors: {
+    'Normal': '#cccccc',
+    'TabLine': '#cccccc',
+    'TabLineSel': '#eeeeee'
+  },
+  backgroundColors: {
+    'Normal': '#000000',
+    'TabLine': '#222222',
+    'TabLineSel': '#444444'
+  }
 };
 function getColorPair(group) {
   return {

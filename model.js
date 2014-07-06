@@ -1,8 +1,16 @@
 var data = {
     parsedSource: undefined,
     selectedGroup: 'Normal',
-    colors: {'Normal': '#cccccc'},
-    backgroundColors: {'Normal': '#000000'}
+    colors: {
+        'Normal': '#cccccc',
+        'TabLine': '#cccccc',
+        'TabLineSel': '#eeeeee'
+    },
+    backgroundColors: {
+        'Normal': '#000000',
+        'TabLine': '#222222',
+        'TabLineSel': '#444444'
+    }
 };
 
 function getColorPair(group) {
