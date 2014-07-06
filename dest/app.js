@@ -33,13 +33,9 @@ var Segment = React.createClass({
     var onClick = this.onClick;
     var $__0 = $traceurRuntime.assertObject(this.props),
         segment = $__0.segment,
-        colors = $__0.colors,
-        backgroundColors = $__0.backgroundColors;
+        getColorPair = $__0.getColorPair;
     if (typeof(segment) === 'object') {
-      var style = {
-        color: (segment.group in colors ? colors[segment.group] : colors['Normal']),
-        backgroundColor: (segment.group in backgroundColors ? backgroundColors[segment.group] : backgroundColors['Normal'])
-      };
+      var style = getColorPair(segment.group);
       return span({
         style: style,
         onClick: onClick
@@ -64,16 +60,14 @@ var LineNumber = React.createClass({render: function() {
 var Line = React.createClass({render: function() {
     var span = $traceurRuntime.assertObject(React.DOM).span;
     var $__0 = $traceurRuntime.assertObject(this.props),
-        colors = $__0.colors,
-        backgroundColors = $__0.backgroundColors,
+        getColorPair = $__0.getColorPair,
         line = $__0.line,
         lineNumber = $__0.lineNumber,
         selectGroup = $__0.selectGroup;
     var segments = line.map((function(segment) {
       return Segment({
         segment: segment,
-        colors: colors,
-        backgroundColors: backgroundColors,
+        getColorPair: getColorPair,
         selectGroup: selectGroup
       });
     }));
@@ -85,20 +79,15 @@ var Source = React.createClass({
     var onClick = this.onClick;
     var $__0 = $traceurRuntime.assertObject(this.props),
         parsedSource = $__0.parsedSource,
-        colors = $__0.colors,
-        backgroundColors = $__0.backgroundColors,
+        getColorPair = $__0.getColorPair,
         selectGroup = $__0.selectGroup;
     var className = parsedSource === undefined ? 'hidden' : '';
-    var style = {
-      color: colors['Normal'],
-      backgroundColor: backgroundColors['Normal']
-    };
+    var style = getColorPair('Normal');
     var content;
     if (parsedSource !== undefined) {
       content = parsedSource.map((function(line, index) {
         return Line({
-          colors: colors,
-          backgroundColors: backgroundColors,
+          getColorPair: getColorPair,
           line: line,
           lineNumber: {
             line: index,
@@ -125,33 +114,37 @@ var Controls = React.createClass({
         div = $__0.div,
         input = $__0.input;
     var $__0 = this,
-        onChangeForegroundColor = $__0.onChangeForegroundColor,
+        onChangeColor = $__0.onChangeColor,
         onChangeBackgroundColor = $__0.onChangeBackgroundColor;
-    var color = this.props.selectedGroup in this.props.colors ? this.props.colors[this.props.selectedGroup] : this.props.colors['Normal'];
-    var backgroundColor = this.props.selectedGroup in this.props.backgroundColors ? this.props.backgroundColors[this.props.selectedGroup] : this.props.backgroundColors['Normal'];
+    var colorPair = this.props.getColorPair(this.props.selectedGroup);
     return aside(null, 'Color of group ' + this.props.selectedGroup, div(null, input({
       type: 'color',
-      value: color,
-      onChange: onChangeForegroundColor
+      value: colorPair.color,
+      onChange: onChangeColor
     }), ' Foreground'), div(null, input({
       type: 'color',
-      value: backgroundColor,
+      value: colorPair.backgroundColor,
       onChange: onChangeBackgroundColor
     }), ' Background'));
   },
-  onChangeForegroundColor: function(e) {
-    this.props.setForegroundColor(e.target.value);
+  onChangeColor: function(e) {
+    this.props.setColor('foreground', e.target.value);
   },
   onChangeBackgroundColor: function(e) {
-    this.props.setBackgroundColor(e.target.value);
+    this.props.setColor('background', e.target.value);
   }
 });
+var Export = React.createClass({render: function() {
+    var textarea = $traceurRuntime.assertObject(React.DOM).textarea;
+    return textarea({value: 'foobar'});
+  }});
 var Root = React.createClass({
   getInitialState: function() {
-    return this.props;
+    return this.props.data;
   },
   render: function() {
     var main = $traceurRuntime.assertObject(React.DOM).main;
+    var getColorPair = $traceurRuntime.assertObject(this.props).getColorPair;
     var $__0 = $traceurRuntime.assertObject(this.state),
         parsedSource = $__0.parsedSource,
         colors = $__0.colors,
@@ -160,23 +153,19 @@ var Root = React.createClass({
     var $__0 = this,
         parse = $__0.parse,
         selectGroup = $__0.selectGroup,
-        setForegroundColor = $__0.setForegroundColor,
-        setBackgroundColor = $__0.setBackgroundColor;
+        setColor = $__0.setColor;
     return main(null, Header(), Paste({
       parsedSource: parsedSource,
       parse: parse
     }), Source({
       parsedSource: parsedSource,
-      colors: colors,
-      backgroundColors: backgroundColors,
+      getColorPair: getColorPair,
       selectGroup: selectGroup
     }), Controls({
       selectedGroup: selectedGroup,
-      colors: colors,
-      backgroundColors: backgroundColors,
-      setForegroundColor: setForegroundColor,
-      setBackgroundColor: setBackgroundColor
-    }));
+      getColorPair: getColorPair,
+      setColor: setColor
+    }), Export());
   },
   parse: function(unparsedSource) {
     this.setState({parsedSource: parse(unparsedSource)});
@@ -184,33 +173,44 @@ var Root = React.createClass({
   selectGroup: function(selectedGroup) {
     this.setState({selectedGroup: selectedGroup});
   },
-  setForegroundColor: function(color) {
-    var $__0 = $traceurRuntime.assertObject(this.state),
-        colors = $__0.colors,
-        selectedGroup = $__0.selectedGroup;
-    colors[selectedGroup] = color;
-    this.setState({colors: colors});
-  },
-  setBackgroundColor: function(color) {
-    var $__0 = $traceurRuntime.assertObject(this.state),
-        backgroundColors = $__0.backgroundColors,
-        selectedGroup = $__0.selectedGroup;
-    backgroundColors[selectedGroup] = color;
-    this.setState({backgroundColors: backgroundColors});
+  setColor: function(what, color) {
+    var selectedGroup = $traceurRuntime.assertObject(this.state).selectedGroup;
+    switch (what) {
+      case 'foreground':
+        var colors = $traceurRuntime.assertObject(this.state).colors;
+        colors[selectedGroup] = color;
+        this.setState({colors: colors});
+        break;
+      case 'background':
+        var backgroundColors = $traceurRuntime.assertObject(this.state).backgroundColors;
+        backgroundColors[selectedGroup] = color;
+        this.setState({backgroundColors: backgroundColors});
+        break;
+    }
   }
 });
 React.renderComponent(Root(model), document.body);
 
 
-}).call(this,require("IrXUsu"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/fake_30eeaac3.js","/")
+}).call(this,require("IrXUsu"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/fake_6b778fde.js","/")
 },{"./model":2,"./vim-tohtml-parser":143,"IrXUsu":7,"buffer":4,"es6ify/node_modules/traceur/bin/traceur-runtime":3,"react":142}],2:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 "use strict";
-module.exports = {
+var data = {
   parsedSource: undefined,
   selectedGroup: 'Normal',
   colors: {'Normal': '#000000'},
   backgroundColors: {'Normal': '#ffffff'}
+};
+function getColorPair(group) {
+  return {
+    color: group in data.colors ? data.colors[group] : data.colors['Normal'],
+    backgroundColor: group in data.backgroundColors ? data.backgroundColors[group] : data.backgroundColors['Normal']
+  };
+}
+module.exports = {
+  data: data,
+  getColorPair: getColorPair
 };
 
 

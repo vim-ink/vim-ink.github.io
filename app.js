@@ -26,11 +26,9 @@ var Segment = React.createClass({
     render() {
         var {span} = React.DOM;
         var {onClick} = this;
-        var {segment, colors, backgroundColors} = this.props;
+        var {segment, getColorPair} = this.props;
         if (typeof(segment) === 'object') {
-            var style = {
-                color: (segment.group in colors ? colors[segment.group] : colors['Normal']),
-                backgroundColor: (segment.group in backgroundColors ? backgroundColors[segment.group] : backgroundColors['Normal'])};
+            var style = getColorPair(segment.group);
             return span({style, onClick}, segment.content);
         } else {
             return span(null, segment);
@@ -54,8 +52,8 @@ var LineNumber = React.createClass({
 var Line = React.createClass({
     render() {
         var {span} = React.DOM;
-        var {colors, backgroundColors, line, lineNumber, selectGroup} = this.props;
-        var segments = line.map(segment => Segment({segment, colors, backgroundColors, selectGroup}));
+        var {getColorPair, line, lineNumber, selectGroup} = this.props;
+        var segments = line.map(segment => Segment({segment, getColorPair, selectGroup}));
         return span(null,
             [LineNumber(lineNumber)].concat(
                 segments.concat(
@@ -67,16 +65,15 @@ var Source = React.createClass({
     render() {
         var {pre} = React.DOM;
         var {onClick} = this;
-        var {parsedSource, colors, backgroundColors, selectGroup} = this.props;
+        var {parsedSource, getColorPair, selectGroup} = this.props;
         var className = parsedSource === undefined ? 'hidden' : '';
-        var style = {color: colors['Normal'], backgroundColor: backgroundColors['Normal']};
+        var style = getColorPair('Normal');
         var content;
 
         if (parsedSource !== undefined) {
             content = parsedSource.map(
                 (line, index) => Line({
-                    colors,
-                    backgroundColors,
+                    getColorPair,
                     line,
                     lineNumber: {
                         line: index,
@@ -94,40 +91,44 @@ var Source = React.createClass({
 var Controls = React.createClass({
     render() {
         var {aside, div, input} = React.DOM;
-        var {onChangeForegroundColor, onChangeBackgroundColor} = this;
+        var {onChangeColor, onChangeBackgroundColor} = this;
 
-        var color = this.props.selectedGroup in this.props.colors ?
-            this.props.colors[this.props.selectedGroup] :
-            this.props.colors['Normal'];
-        var backgroundColor = this.props.selectedGroup in this.props.backgroundColors ?
-            this.props.backgroundColors[this.props.selectedGroup] :
-            this.props.backgroundColors['Normal'];
+        var colorPair = this.props.getColorPair(this.props.selectedGroup);
 
         return aside(null,
             'Color of group ' + this.props.selectedGroup,
             div(null,
-                input({type: 'color', value: color, onChange: onChangeForegroundColor}),
+                input({type: 'color', value: colorPair.color, onChange: onChangeColor}),
                 ' Foreground'),
             div(null,
-                input({type: 'color', value: backgroundColor, onChange: onChangeBackgroundColor}),
+                input({type: 'color', value: colorPair.backgroundColor, onChange: onChangeBackgroundColor}),
                 ' Background'));
     },
-    onChangeForegroundColor(e) {
-        this.props.setForegroundColor(e.target.value);
+    onChangeColor(e) {
+        this.props.setColor('foreground', e.target.value);
     },
     onChangeBackgroundColor(e) {
-        this.props.setBackgroundColor(e.target.value);
+        this.props.setColor('background', e.target.value);
+    }
+});
+
+var Export = React.createClass({
+    render() {
+        var {textarea} = React.DOM;
+
+        return textarea({value: 'foobar'});
     }
 });
 
 var Root = React.createClass({
     getInitialState() {
-        return this.props;
+        return this.props.data;
     },
     render() {
         var {main} = React.DOM;
+        var {getColorPair} = this.props;
         var {parsedSource, colors, backgroundColors, selectedGroup} = this.state;
-        var {parse, selectGroup, setForegroundColor, setBackgroundColor} = this;
+        var {parse, selectGroup, setColor} = this;
         return main(
             null,
             Header(),
@@ -136,15 +137,13 @@ var Root = React.createClass({
                 parse}),
             Source({
                 parsedSource,
-                colors,
-                backgroundColors,
+                getColorPair,
                 selectGroup}),
             Controls({
                 selectedGroup,
-                colors,
-                backgroundColors,
-                setForegroundColor,
-                setBackgroundColor}));
+                getColorPair,
+                setColor}),
+            Export());
     },
     parse(unparsedSource) {
         this.setState({parsedSource: parse(unparsedSource)});
@@ -152,15 +151,21 @@ var Root = React.createClass({
     selectGroup(selectedGroup) {
         this.setState({selectedGroup});
     },
-    setForegroundColor(color) {
-        var {colors, selectedGroup} = this.state;
-        colors[selectedGroup] = color;
-        this.setState({colors});
-    },
-    setBackgroundColor(color) {
-        var {backgroundColors, selectedGroup} = this.state;
-        backgroundColors[selectedGroup] = color;
-        this.setState({backgroundColors});
+    setColor(what, color) {
+        var {selectedGroup} = this.state;
+
+        switch (what) {
+            case 'foreground':
+                var {colors} = this.state;
+                colors[selectedGroup] = color;
+                this.setState({colors});
+                break;
+            case 'background':
+                var {backgroundColors} = this.state;
+                backgroundColors[selectedGroup] = color;
+                this.setState({backgroundColors});
+                break;
+        }
     }
 });
 
