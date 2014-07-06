@@ -10,6 +10,10 @@ textarea {
     color: #aaa;
 }
 
+span.segment:hover {
+    background-color: #aaa;
+}
+
 h1 {
     background-color: #222;
     color: #aaa;

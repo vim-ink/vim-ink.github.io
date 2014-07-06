@@ -105,10 +105,10 @@ var Controls = React.createClass({
             h2(null, 'Color'),
             p(null, 'Selected group: ' + this.props.selectedGroup),
             div(null,
-                input({type: 'color', defaultValue: colorPair.color, onChange: onChangeColor}),
+                input({type: 'color', value: colorPair.color, onChange: onChangeColor}),
                 ' Foreground'),
             div(null,
-                input({type: 'color', defaultValue: colorPair.backgroundColor, onChange: onChangeBackgroundColor}),
+                input({type: 'color', value: colorPair.backgroundColor, onChange: onChangeBackgroundColor}),
                 ' Background'));
     },
     onChangeColor(e) {

@@ -138,11 +138,11 @@ var Controls = React.createClass({
     var colorPair = this.props.getColorPair(this.props.selectedGroup);
     return aside(null, h2(null, 'Color'), p(null, 'Selected group: ' + this.props.selectedGroup), div(null, input({
       type: 'color',
-      defaultValue: colorPair.color,
+      value: colorPair.color,
       onChange: onChangeColor
     }), ' Foreground'), div(null, input({
       type: 'color',
-      defaultValue: colorPair.backgroundColor,
+      value: colorPair.backgroundColor,
       onChange: onChangeBackgroundColor
     }), ' Background'));
   },
@@ -205,7 +205,7 @@ var Root = React.createClass({
 React.renderComponent(Root(model), document.body);
 
 
-}).call(this,require("IrXUsu"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/fake_ce3dad5a.js","/")
+}).call(this,require("IrXUsu"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/fake_55873dc8.js","/")
 },{"./model":2,"./vim-tohtml-parser":143,"IrXUsu":7,"buffer":4,"es6ify/node_modules/traceur/bin/traceur-runtime":3,"react":142}],2:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 "use strict";
