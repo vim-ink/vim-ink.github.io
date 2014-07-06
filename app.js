@@ -34,8 +34,10 @@ var Segment = React.createClass({
             return span(null, segment);
         }
     },
-    onClick() {
+    onClick(e) {
+        console.log('span click');
         this.props.selectGroup(this.props.segment.group);
+        e.stopPropagation();
     }
 });
 
@@ -63,6 +65,7 @@ var Line = React.createClass({
 var Source = React.createClass({
     render() {
         var {pre} = React.DOM;
+        var {onClick} = this;
         var {parsedSource, colors, selectGroup} = this.props;
         var className = parsedSource === undefined ? 'hidden' : '';
         var content;
@@ -78,7 +81,10 @@ var Source = React.createClass({
                     selectGroup}))
         }
 
-        return pre({className}, content);
+        return pre({className, onClick}, content);
+    },
+    onClick() {
+        this.props.selectGroup('Normal');
     }
 });
 
