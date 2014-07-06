@@ -50,7 +50,7 @@ var LineNumber = React.createClass({
         var style = getColorPair('LineNr');
         return span({style, onClick}, ' '.repeat(spaces) + line + ' ');
     },
-    onClick() {
+    onClick(e) {
         this.props.selectGroup('LineNr');
         e.stopPropagation();
     }
@@ -96,18 +96,19 @@ var Source = React.createClass({
 
 var Controls = React.createClass({
     render() {
-        var {aside, div, input} = React.DOM;
+        var {aside, h2, p, div, input} = React.DOM;
         var {onChangeColor, onChangeBackgroundColor} = this;
 
         var colorPair = this.props.getColorPair(this.props.selectedGroup);
 
         return aside(null,
-            'Color of group ' + this.props.selectedGroup,
+            h2(null, 'Color'),
+            p(null, 'Selected group: ' + this.props.selectedGroup),
             div(null,
-                input({type: 'color', value: colorPair.color, onChange: onChangeColor}),
+                input({type: 'color', defaultValue: colorPair.color, onChange: onChangeColor}),
                 ' Foreground'),
             div(null,
-                input({type: 'color', value: colorPair.backgroundColor, onChange: onChangeBackgroundColor}),
+                input({type: 'color', defaultValue: colorPair.backgroundColor, onChange: onChangeBackgroundColor}),
                 ' Background'));
     },
     onChangeColor(e) {
@@ -118,13 +119,13 @@ var Controls = React.createClass({
     }
 });
 
-var Export = React.createClass({
-    render() {
-        var {textarea} = React.DOM;
-
-        return textarea({value: 'foobar'});
-    }
-});
+// var Export = React.createClass({
+//     render() {
+//         var {textarea} = React.DOM;
+//
+//         return textarea({value: 'foobar'});
+//     }
+// });
 
 var Root = React.createClass({
     getInitialState() {
@@ -148,8 +149,8 @@ var Root = React.createClass({
             Controls({
                 selectedGroup,
                 getColorPair,
-                setColor}),
-            Export());
+                setColor}));
+            // Export());
     },
     parse(unparsedSource) {
         this.setState({parsedSource: parse(unparsedSource)});

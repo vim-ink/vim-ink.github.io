@@ -64,7 +64,7 @@ var LineNumber = React.createClass({
       onClick: onClick
     }, ' '.repeat(spaces) + line + ' ');
   },
-  onClick: function() {
+  onClick: function(e) {
     this.props.selectGroup('LineNr');
     e.stopPropagation();
   }
@@ -128,19 +128,21 @@ var Controls = React.createClass({
   render: function() {
     var $__0 = $traceurRuntime.assertObject(React.DOM),
         aside = $__0.aside,
+        h2 = $__0.h2,
+        p = $__0.p,
         div = $__0.div,
         input = $__0.input;
     var $__0 = this,
         onChangeColor = $__0.onChangeColor,
         onChangeBackgroundColor = $__0.onChangeBackgroundColor;
     var colorPair = this.props.getColorPair(this.props.selectedGroup);
-    return aside(null, 'Color of group ' + this.props.selectedGroup, div(null, input({
+    return aside(null, h2(null, 'Color'), p(null, 'Selected group: ' + this.props.selectedGroup), div(null, input({
       type: 'color',
-      value: colorPair.color,
+      defaultValue: colorPair.color,
       onChange: onChangeColor
     }), ' Foreground'), div(null, input({
       type: 'color',
-      value: colorPair.backgroundColor,
+      defaultValue: colorPair.backgroundColor,
       onChange: onChangeBackgroundColor
     }), ' Background'));
   },
@@ -151,10 +153,6 @@ var Controls = React.createClass({
     this.props.setColor('background', e.target.value);
   }
 });
-var Export = React.createClass({render: function() {
-    var textarea = $traceurRuntime.assertObject(React.DOM).textarea;
-    return textarea({value: 'foobar'});
-  }});
 var Root = React.createClass({
   getInitialState: function() {
     return this.props.data;
@@ -180,7 +178,7 @@ var Root = React.createClass({
       selectedGroup: selectedGroup,
       getColorPair: getColorPair,
       setColor: setColor
-    }), Export());
+    }));
   },
   parse: function(unparsedSource) {
     this.setState({parsedSource: parse(unparsedSource)});
@@ -207,7 +205,7 @@ var Root = React.createClass({
 React.renderComponent(Root(model), document.body);
 
 
-}).call(this,require("IrXUsu"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/fake_60f24399.js","/")
+}).call(this,require("IrXUsu"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/fake_ce3dad5a.js","/")
 },{"./model":2,"./vim-tohtml-parser":143,"IrXUsu":7,"buffer":4,"es6ify/node_modules/traceur/bin/traceur-runtime":3,"react":142}],2:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 "use strict";
