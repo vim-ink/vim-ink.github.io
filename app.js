@@ -51,7 +51,6 @@ var LineNumber = React.createClass({
         return span({style, onClick}, ' '.repeat(spaces) + line + ' ');
     },
     onClick() {
-        console.log('Click!');
         this.props.selectGroup('LineNr');
         e.stopPropagation();
     }
