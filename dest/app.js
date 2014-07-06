@@ -31,11 +31,18 @@ var Segment = React.createClass({
   render: function() {
     var span = $traceurRuntime.assertObject(React.DOM).span;
     var onClick = this.onClick;
-    var segment = $traceurRuntime.assertObject(this.props).segment;
-    return (typeof(segment) === 'object' ? span({
-      className: segment.group,
-      onClick: onClick
-    }, segment.content) : span(null, segment));
+    var $__0 = $traceurRuntime.assertObject(this.props),
+        segment = $__0.segment,
+        colors = $__0.colors;
+    if (typeof(segment) === 'object') {
+      var style = (segment.group in colors ? {color: colors[segment.group]} : {});
+      return span({
+        style: style,
+        onClick: onClick
+      }, segment.content);
+    } else {
+      return span(null, segment);
+    }
   },
   onClick: function() {
     this.props.selectGroup(this.props.segment.group);
@@ -52,12 +59,14 @@ var LineNumber = React.createClass({render: function() {
 var Line = React.createClass({render: function() {
     var span = $traceurRuntime.assertObject(React.DOM).span;
     var $__0 = $traceurRuntime.assertObject(this.props),
+        colors = $__0.colors,
         line = $__0.line,
         lineNumber = $__0.lineNumber,
         selectGroup = $__0.selectGroup;
     var segments = line.map((function(segment) {
       return Segment({
         segment: segment,
+        colors: colors,
         selectGroup: selectGroup
       });
     }));
@@ -67,12 +76,14 @@ var Source = React.createClass({render: function() {
     var pre = $traceurRuntime.assertObject(React.DOM).pre;
     var $__0 = $traceurRuntime.assertObject(this.props),
         parsedSource = $__0.parsedSource,
+        colors = $__0.colors,
         selectGroup = $__0.selectGroup;
     var className = parsedSource === undefined ? 'hidden' : '';
     var content;
     if (parsedSource !== undefined) {
       content = parsedSource.map((function(line, index) {
         return Line({
+          colors: colors,
           line: line,
           lineNumber: {
             line: index,
@@ -108,6 +119,7 @@ var Root = React.createClass({
     var main = $traceurRuntime.assertObject(React.DOM).main;
     var $__0 = $traceurRuntime.assertObject(this.state),
         parsedSource = $__0.parsedSource,
+        colors = $__0.colors,
         selectedGroup = $__0.selectedGroup;
     var $__0 = this,
         parse = $__0.parse,
@@ -118,6 +130,7 @@ var Root = React.createClass({
       parse: parse
     }), Source({
       parsedSource: parsedSource,
+      colors: colors,
       selectGroup: selectGroup
     }), Controls({
       selectedGroup: selectedGroup,
@@ -139,7 +152,7 @@ var Root = React.createClass({
 React.renderComponent(Root(model), document.body);
 
 
-}).call(this,require("IrXUsu"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/fake_e064c8da.js","/")
+}).call(this,require("IrXUsu"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/fake_85af525.js","/")
 },{"./model":2,"./vim-tohtml-parser":143,"IrXUsu":7,"buffer":4,"es6ify/node_modules/traceur/bin/traceur-runtime":3,"react":142}],2:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 "use strict";

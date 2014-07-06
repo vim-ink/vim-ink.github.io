@@ -26,10 +26,13 @@ var Segment = React.createClass({
     render() {
         var {span} = React.DOM;
         var {onClick} = this;
-        var {segment} = this.props;
-        return (typeof(segment) === 'object' ?
-            span({className: segment.group, onClick}, segment.content) :
-            span(null, segment));
+        var {segment, colors} = this.props;
+        if (typeof(segment) === 'object') {
+            var style = (segment.group in colors ? {color: colors[segment.group]} : {});
+            return span({style, onClick}, segment.content);
+        } else {
+            return span(null, segment);
+        }
     },
     onClick() {
         this.props.selectGroup(this.props.segment.group);
@@ -48,8 +51,8 @@ var LineNumber = React.createClass({
 var Line = React.createClass({
     render() {
         var {span} = React.DOM;
-        var {line, lineNumber, selectGroup} = this.props;
-        var segments = line.map(segment => Segment({segment, selectGroup}));
+        var {colors, line, lineNumber, selectGroup} = this.props;
+        var segments = line.map(segment => Segment({segment, colors, selectGroup}));
         return span(null,
             [LineNumber(lineNumber)].concat(
                 segments.concat(
@@ -60,13 +63,14 @@ var Line = React.createClass({
 var Source = React.createClass({
     render() {
         var {pre} = React.DOM;
-        var {parsedSource, selectGroup} = this.props;
+        var {parsedSource, colors, selectGroup} = this.props;
         var className = parsedSource === undefined ? 'hidden' : '';
         var content;
 
         if (parsedSource !== undefined) {
             content = parsedSource.map(
                 (line, index) => Line({
+                    colors,
                     line,
                     lineNumber: {
                         line: index,
@@ -103,13 +107,13 @@ var Root = React.createClass({
     },
     render() {
         var {main} = React.DOM;
-        var {parsedSource, selectedGroup} = this.state;
+        var {parsedSource, colors, selectedGroup} = this.state;
         var {parse, selectGroup, setForegroundColor} = this;
         return main(
             null,
             Header(),
             Paste({parsedSource, parse}),
-            Source({parsedSource, selectGroup}),
+            Source({parsedSource, colors, selectGroup}),
             Controls({selectedGroup, setForegroundColor}));
     },
     parse(unparsedSource) {
