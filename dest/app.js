@@ -27,11 +27,20 @@ var Paste = React.createClass({
     this.props.parse(e.target.value);
   }
 });
-var Segment = React.createClass({render: function() {
+var Segment = React.createClass({
+  render: function() {
     var span = $traceurRuntime.assertObject(React.DOM).span;
+    var onClick = this.onClick;
     var segment = $traceurRuntime.assertObject(this.props).segment;
-    return (typeof(segment) === 'object' ? span({className: segment.group}, segment.content) : span(null, segment));
-  }});
+    return (typeof(segment) === 'object' ? span({
+      className: segment.group,
+      onClick: onClick
+    }, segment.content) : span(null, segment));
+  },
+  onClick: function() {
+    this.props.selectGroup(this.props.segment.group);
+  }
+});
 var LineNumber = React.createClass({render: function() {
     var span = $traceurRuntime.assertObject(React.DOM).span;
     var $__0 = $traceurRuntime.assertObject(this.props),
@@ -44,15 +53,20 @@ var Line = React.createClass({render: function() {
     var span = $traceurRuntime.assertObject(React.DOM).span;
     var $__0 = $traceurRuntime.assertObject(this.props),
         line = $__0.line,
-        lineNumber = $__0.lineNumber;
+        lineNumber = $__0.lineNumber,
+        selectGroup = $__0.selectGroup;
     var segments = line.map((function(segment) {
-      return Segment({segment: segment});
+      return Segment({
+        segment: segment,
+        selectGroup: selectGroup
+      });
     }));
     return span(null, [LineNumber(lineNumber)].concat(segments.concat(span(null, '\n'))));
   }});
 var Source = React.createClass({render: function() {
     var pre = $traceurRuntime.assertObject(React.DOM).pre;
     var parsedSource = $traceurRuntime.assertObject(this.props.model).parsedSource;
+    var selectGroup = $traceurRuntime.assertObject(this.props).selectGroup;
     var className = parsedSource === undefined ? 'hidden' : '';
     var content;
     if (parsedSource !== undefined) {
@@ -62,37 +76,56 @@ var Source = React.createClass({render: function() {
           lineNumber: {
             line: index,
             lineCount: parsedSource.length
-          }
+          },
+          selectGroup: selectGroup
         });
       }));
     }
     return pre({className: className}, content);
+  }});
+var Tools = React.createClass({render: function() {
+    var $__0 = $traceurRuntime.assertObject(React.DOM),
+        aside = $__0.aside,
+        div = $__0.div,
+        input = $__0.input;
+    return aside(null, 'Selected: ' + this.props.model.selectedGroup, div(null, input({type: 'color'}), ' Foreground'), div(null, input({type: 'color'}), ' Background'));
   }});
 var Root = React.createClass({
   getInitialState: function() {
     return this.props;
   },
   render: function() {
-    var div = $traceurRuntime.assertObject(React.DOM).div;
+    var main = $traceurRuntime.assertObject(React.DOM).main;
     var model = $traceurRuntime.assertObject(this.state).model;
-    var parse = this.parse;
-    return div(null, Header(), Paste({
+    var $__0 = this,
+        parse = $__0.parse,
+        selectGroup = $__0.selectGroup;
+    return main(null, Header(), Paste({
       model: model,
       parse: parse
-    }), Source({model: model}));
+    }), Source({
+      model: model,
+      selectGroup: selectGroup
+    }), Tools({model: model}));
   },
   parse: function(unparsedSource) {
     this.setState({model: {parsedSource: parse(unparsedSource)}});
+  },
+  selectGroup: function(group) {
+    console.log('selectGroup', group);
   }
 });
 React.renderComponent(Root({model: model}), document.body);
 
 
-}).call(this,require("IrXUsu"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/fake_698742c1.js","/")
+}).call(this,require("IrXUsu"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/fake_64d95e45.js","/")
 },{"./model":2,"./vim-tohtml-parser":143,"IrXUsu":7,"buffer":4,"es6ify/node_modules/traceur/bin/traceur-runtime":3,"react":142}],2:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 "use strict";
-module.exports = {parsedSource: undefined};
+module.exports = {
+  parsedSource: undefined,
+  selectedGroup: undefined
+};
 
 
 }).call(this,require("IrXUsu"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/model.js","/")

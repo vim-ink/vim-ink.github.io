@@ -1,3 +1,4 @@
 module.exports = {
-    parsedSource: undefined
+    parsedSource: undefined,
+    selectedGroup: undefined
 };

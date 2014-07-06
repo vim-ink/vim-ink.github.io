@@ -25,10 +25,14 @@ var Paste = React.createClass({
 var Segment = React.createClass({
     render() {
         var {span} = React.DOM;
+        var {onClick} = this;
         var {segment} = this.props;
         return (typeof(segment) === 'object' ?
-            span({className: segment.group}, segment.content) :
+            span({className: segment.group, onClick}, segment.content) :
             span(null, segment));
+    },
+    onClick() {
+        this.props.selectGroup(this.props.segment.group);
     }
 });
 
@@ -44,8 +48,8 @@ var LineNumber = React.createClass({
 var Line = React.createClass({
     render() {
         var {span} = React.DOM;
-        var {line, lineNumber} = this.props;
-        var segments = line.map(segment => Segment({segment}));
+        var {line, lineNumber, selectGroup} = this.props;
+        var segments = line.map(segment => Segment({segment, selectGroup}));
         return span(null,
             [LineNumber(lineNumber)].concat(
                 segments.concat(
@@ -57,19 +61,36 @@ var Source = React.createClass({
     render() {
         var {pre} = React.DOM;
         var {parsedSource} = this.props.model;
+        var {selectGroup} = this.props;
         var className = parsedSource === undefined ? 'hidden' : '';
         var content;
 
         if (parsedSource !== undefined) {
             content = parsedSource.map(
                 (line, index) => Line({
-                line,
-                lineNumber: {
-                    line: index,
-                    lineCount: parsedSource.length}}))
+                    line,
+                    lineNumber: {
+                        line: index,
+                        lineCount: parsedSource.length},
+                    selectGroup}))
         }
 
         return pre({className}, content);
+    }
+});
+
+var Tools = React.createClass({
+    render() {
+        var {aside, div, input} = React.DOM;
+
+        return aside(null,
+            'Selected: ' + this.props.model.selectedGroup,
+            div(null,
+                input({type: 'color'}),
+                ' Foreground'),
+            div(null,
+                input({type: 'color'}),
+                ' Background'));
     }
 });
 
@@ -78,17 +99,21 @@ var Root = React.createClass({
         return this.props;
     },
     render() {
-        var {div} = React.DOM;
+        var {main} = React.DOM;
         var {model} = this.state;
-        var {parse} = this;
-        return div(
+        var {parse, selectGroup} = this;
+        return main(
             null,
             Header(),
             Paste({model, parse}),
-            Source({model}));
+            Source({model, selectGroup}),
+            Tools({model}));
     },
     parse(unparsedSource) {
         this.setState({model: {parsedSource: parse(unparsedSource)}});
+    },
+    selectGroup(group) {
+        console.log('selectGroup', group);
     }
 });
 
