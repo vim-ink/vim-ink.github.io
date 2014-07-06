@@ -1,10 +1,17 @@
 body {
     font: 14px/1.5 'Avenir Next', 'Source Sans Pro';
     margin: 0;
+    background-color: #333;
+    color: #aaa;
+}
+
+textarea {
+    background-color: #333;
+    color: #aaa;
 }
 
 h1 {
-    background-color: #f8f8f8;
+    background-color: #222;
     color: #aaa;
     font-size: 1.5em;
     padding-left: 0.5em;
@@ -39,14 +46,10 @@ textarea {
     display: none;
 }
 
-.Statement {
-    color: blue;
-}
-
-.String {
-    color: green;
-}
-
-.LineNr {
-    background-color: #ccc;
+input[type="color"] {
+    border: 0;
+    padding: 0;
+    background-color: #333;
+    width: 2.1em;
+    height: 2.4em;
 }

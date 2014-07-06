@@ -49,14 +49,27 @@ var Segment = React.createClass({
     e.stopPropagation();
   }
 });
-var LineNumber = React.createClass({render: function() {
+var LineNumber = React.createClass({
+  render: function() {
     var span = $traceurRuntime.assertObject(React.DOM).span;
-    var $__0 = $traceurRuntime.assertObject(this.props),
+    var onClick = this.onClick;
+    var $__0 = $traceurRuntime.assertObject(this.props.lineNumber),
         line = $__0.line,
         lineCount = $__0.lineCount;
+    var getColorPair = $traceurRuntime.assertObject(this.props).getColorPair;
     var spaces = 1 + (lineCount.toString().length - line.toString().length);
-    return span({className: 'LineNr'}, ' '.repeat(spaces) + line + ' ');
-  }});
+    var style = getColorPair('LineNr');
+    return span({
+      style: style,
+      onClick: onClick
+    }, ' '.repeat(spaces) + line + ' ');
+  },
+  onClick: function() {
+    console.log('Click!');
+    this.props.selectGroup('LineNr');
+    e.stopPropagation();
+  }
+});
 var Line = React.createClass({render: function() {
     var span = $traceurRuntime.assertObject(React.DOM).span;
     var $__0 = $traceurRuntime.assertObject(this.props),
@@ -64,6 +77,11 @@ var Line = React.createClass({render: function() {
         line = $__0.line,
         lineNumber = $__0.lineNumber,
         selectGroup = $__0.selectGroup;
+    var lineNumber_ = [LineNumber({
+      lineNumber: lineNumber,
+      getColorPair: getColorPair,
+      selectGroup: selectGroup
+    })];
     var segments = line.map((function(segment) {
       return Segment({
         segment: segment,
@@ -71,7 +89,7 @@ var Line = React.createClass({render: function() {
         selectGroup: selectGroup
       });
     }));
-    return span(null, [LineNumber(lineNumber)].concat(segments.concat(span(null, '\n'))));
+    return span(null, lineNumber_.concat(segments.concat(span(null, '\n'))));
   }});
 var Source = React.createClass({
   render: function() {
@@ -144,12 +162,10 @@ var Root = React.createClass({
   },
   render: function() {
     var main = $traceurRuntime.assertObject(React.DOM).main;
-    var getColorPair = $traceurRuntime.assertObject(this.props).getColorPair;
     var $__0 = $traceurRuntime.assertObject(this.state),
         parsedSource = $__0.parsedSource,
-        colors = $__0.colors,
-        backgroundColors = $__0.backgroundColors,
         selectedGroup = $__0.selectedGroup;
+    var getColorPair = $traceurRuntime.assertObject(this.props).getColorPair;
     var $__0 = this,
         parse = $__0.parse,
         selectGroup = $__0.selectGroup,
@@ -192,15 +208,15 @@ var Root = React.createClass({
 React.renderComponent(Root(model), document.body);
 
 
-}).call(this,require("IrXUsu"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/fake_6b778fde.js","/")
+}).call(this,require("IrXUsu"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/fake_4da268b.js","/")
 },{"./model":2,"./vim-tohtml-parser":143,"IrXUsu":7,"buffer":4,"es6ify/node_modules/traceur/bin/traceur-runtime":3,"react":142}],2:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 "use strict";
 var data = {
   parsedSource: undefined,
   selectedGroup: 'Normal',
-  colors: {'Normal': '#000000'},
-  backgroundColors: {'Normal': '#ffffff'}
+  colors: {'Normal': '#cccccc'},
+  backgroundColors: {'Normal': '#000000'}
 };
 function getColorPair(group) {
   return {

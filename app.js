@@ -43,9 +43,17 @@ var Segment = React.createClass({
 var LineNumber = React.createClass({
     render() {
         var {span} = React.DOM;
-        var {line, lineCount} = this.props;
+        var {onClick} = this;
+        var {line, lineCount} = this.props.lineNumber;
+        var {getColorPair} = this.props;
         var spaces = 1 + (lineCount.toString().length - line.toString().length)
-        return span({className: 'LineNr'}, ' '.repeat(spaces) + line + ' ');
+        var style = getColorPair('LineNr');
+        return span({style, onClick}, ' '.repeat(spaces) + line + ' ');
+    },
+    onClick() {
+        console.log('Click!');
+        this.props.selectGroup('LineNr');
+        e.stopPropagation();
     }
 });
 
@@ -53,11 +61,10 @@ var Line = React.createClass({
     render() {
         var {span} = React.DOM;
         var {getColorPair, line, lineNumber, selectGroup} = this.props;
+        var lineNumber_ = [LineNumber({lineNumber, getColorPair, selectGroup})]
         var segments = line.map(segment => Segment({segment, getColorPair, selectGroup}));
         return span(null,
-            [LineNumber(lineNumber)].concat(
-                segments.concat(
-                    span(null, '\n'))));
+            lineNumber_.concat(segments.concat(span(null, '\n'))));
     }
 });
 
@@ -126,8 +133,8 @@ var Root = React.createClass({
     },
     render() {
         var {main} = React.DOM;
+        var {parsedSource, selectedGroup} = this.state;
         var {getColorPair} = this.props;
-        var {parsedSource, colors, backgroundColors, selectedGroup} = this.state;
         var {parse, selectGroup, setColor} = this;
         return main(
             null,
