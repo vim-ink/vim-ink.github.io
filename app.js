@@ -28,9 +28,9 @@ var Segment = React.createClass({
         var {onClick} = this;
         var {segment, colors, backgroundColors} = this.props;
         if (typeof(segment) === 'object') {
-            var style = (segment.group in colors ? {
-                color: colors[segment.group],
-                backgroundColor: backgroundColors[segment.group]} : {});
+            var style = {
+                color: (segment.group in colors ? colors[segment.group] : colors['Normal']),
+                backgroundColor: (segment.group in backgroundColors ? backgroundColors[segment.group] : backgroundColors['Normal'])};
             return span({style, onClick}, segment.content);
         } else {
             return span(null, segment);

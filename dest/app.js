@@ -36,10 +36,10 @@ var Segment = React.createClass({
         colors = $__0.colors,
         backgroundColors = $__0.backgroundColors;
     if (typeof(segment) === 'object') {
-      var style = (segment.group in colors ? {
-        color: colors[segment.group],
-        backgroundColor: backgroundColors[segment.group]
-      } : {});
+      var style = {
+        color: (segment.group in colors ? colors[segment.group] : colors['Normal']),
+        backgroundColor: (segment.group in backgroundColors ? backgroundColors[segment.group] : backgroundColors['Normal'])
+      };
       return span({
         style: style,
         onClick: onClick
@@ -202,7 +202,7 @@ var Root = React.createClass({
 React.renderComponent(Root(model), document.body);
 
 
-}).call(this,require("IrXUsu"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/fake_897019be.js","/")
+}).call(this,require("IrXUsu"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/fake_30eeaac3.js","/")
 },{"./model":2,"./vim-tohtml-parser":143,"IrXUsu":7,"buffer":4,"es6ify/node_modules/traceur/bin/traceur-runtime":3,"react":142}],2:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 "use strict";
