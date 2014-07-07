@@ -200,8 +200,8 @@ var Root = React.createClass({
             Controls({
                 selectedGroup,
                 getColorPair,
-                setColor}),
-            Export({exportColorscheme}));
+                setColor}));
+            // Export({exportColorscheme}));
     },
     parse(unparsedSource) {
         this.setState({parsedSource: parse(unparsedSource)});
@@ -212,19 +212,20 @@ var Root = React.createClass({
     },
     setColor(what, color) {
         var {selectedGroup} = this.state;
+        var {dark} = this.state;
+        if (!(selectedGroup in dark))
+            dark[selectedGroup] = {};
 
         switch (what) {
             case 'foreground':
-                var {colors} = this.state;
-                colors[selectedGroup] = color;
-                this.setState({colors});
+                dark[selectedGroup].color = color;
                 break;
             case 'background':
-                var {backgroundColors} = this.state;
-                backgroundColors[selectedGroup] = color;
-                this.setState({backgroundColors});
+                dark[selectedGroup].backgroundColor = color;
                 break;
         }
+
+        this.setState({dark});
     }
 });
 

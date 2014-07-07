@@ -237,7 +237,7 @@ var Root = React.createClass({
       selectedGroup: selectedGroup,
       getColorPair: getColorPair,
       setColor: setColor
-    }), Export({exportColorscheme: exportColorscheme}));
+    }));
   },
   parse: function(unparsedSource) {
     this.setState({parsedSource: parse(unparsedSource)});
@@ -248,45 +248,52 @@ var Root = React.createClass({
   },
   setColor: function(what, color) {
     var selectedGroup = $traceurRuntime.assertObject(this.state).selectedGroup;
+    var dark = $traceurRuntime.assertObject(this.state).dark;
+    if (!(selectedGroup in dark))
+      dark[selectedGroup] = {};
     switch (what) {
       case 'foreground':
-        var colors = $traceurRuntime.assertObject(this.state).colors;
-        colors[selectedGroup] = color;
-        this.setState({colors: colors});
+        dark[selectedGroup].color = color;
         break;
       case 'background':
-        var backgroundColors = $traceurRuntime.assertObject(this.state).backgroundColors;
-        backgroundColors[selectedGroup] = color;
-        this.setState({backgroundColors: backgroundColors});
+        dark[selectedGroup].backgroundColor = color;
         break;
     }
+    this.setState({dark: dark});
   }
 });
 React.renderComponent(Root(model), document.body);
 
 
-}).call(this,require("IrXUsu"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/fake_53827227.js","/")
+}).call(this,require("IrXUsu"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/fake_2367905d.js","/")
 },{"./model":2,"./vim-tohtml-parser":143,"IrXUsu":7,"buffer":4,"es6ify/node_modules/traceur/bin/traceur-runtime":3,"react":142}],2:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 "use strict";
 var data = {
   parsedSource: undefined,
   selectedGroup: 'Normal',
-  colors: {
-    'Normal': '#cccccc',
-    'TabLine': '#cccccc',
-    'TabLineSel': '#eeeeee'
-  },
-  backgroundColors: {
-    'Normal': '#000000',
-    'TabLine': '#222222',
-    'TabLineSel': '#444444'
+  dark: {
+    Normal: {
+      color: '#cccccc',
+      backgroundColor: '#000000',
+      highlight: 'NONE'
+    },
+    TabLine: {
+      color: '#cccccc',
+      backgroundColor: '#222222',
+      highlight: 'NONE'
+    },
+    TabLineSel: {
+      color: '#eeeeee',
+      backgroundColor: '#444444',
+      highlight: 'NONE'
+    }
   }
 };
 function getColorPair(group) {
   return {
-    color: group in data.colors ? data.colors[group] : data.colors['Normal'],
-    backgroundColor: group in data.backgroundColors ? data.backgroundColors[group] : data.backgroundColors['Normal']
+    color: group in data.dark && 'color' in data.dark[group] ? data.dark[group].color : data.dark['Normal'].color,
+    backgroundColor: group in data.dark && 'backgroundColor' in data.dark[group] ? data.dark[group].backgroundColor : data.dark['Normal'].backgroundColor
   };
 }
 function exportColorscheme() {

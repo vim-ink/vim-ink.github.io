@@ -1,26 +1,34 @@
 var data = {
     parsedSource: undefined,
     selectedGroup: 'Normal',
-    colors: {
-        'Normal': '#cccccc',
-        'TabLine': '#cccccc',
-        'TabLineSel': '#eeeeee'
-    },
-    backgroundColors: {
-        'Normal': '#000000',
-        'TabLine': '#222222',
-        'TabLineSel': '#444444'
+    dark: {
+        Normal: {
+            color: '#cccccc',
+            backgroundColor: '#000000',
+            highlight: 'NONE'
+        },
+        TabLine: {
+            color: '#cccccc',
+            backgroundColor: '#222222',
+            highlight: 'NONE'
+        },
+        TabLineSel: {
+            color: '#eeeeee',
+            backgroundColor: '#444444',
+            highlight: 'NONE'
+        }
     }
 };
 
 function getColorPair(group) {
+    // TODO: Just return empty object
     return {
-        color: group in data.colors ?
-            data.colors[group] :
-            data.colors['Normal'],
-        backgroundColor: group in data.backgroundColors ?
-            data.backgroundColors[group] :
-            data.backgroundColors['Normal'],
+        color: group in data.dark && 'color' in data.dark[group] ?
+            data.dark[group].color :
+            data.dark['Normal'].color,
+        backgroundColor: group in data.dark && 'backgroundColor' in data.dark[group] ?
+            data.dark[group].backgroundColor :
+            data.dark['Normal'].backgroundColor
     };
 }
 
