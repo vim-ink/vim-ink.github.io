@@ -130,7 +130,7 @@ body.light .switch-button {
 }
 
 body.dark .switch-button {
-    border: 1px solid #666;
+    border: 1px solid #777;
     color: #aaa;
 }
 
@@ -140,7 +140,7 @@ body.light .switch-button:hover {
 }
 
 body.dark .switch-button:hover {
-    background-color: #666;
+    background-color: #777;
     color: #ccc;
 }
 
@@ -150,8 +150,8 @@ body.light .switch-button:active {
 }
 
 body.dark .switch-button:active {
-    background-color: #777;
-    border-color: #777;
+    background-color: #666;
+    border-color: #666;
 }
 
 .switch-button:focus {
@@ -161,12 +161,20 @@ body.dark .switch-button:active {
 /* .button */
 
 .button {
-    border: 1px solid #ccc;
     border-radius: 3px;
     padding: 1rem 3rem;
     font-size: 1.6rem;
     background-color: transparent;
+}
+
+body.light .button {
+    border: 1px solid #ccc;
     color: #999;
+}
+
+body.dark .button {
+    border: 1px solid #777;
+    color: #aaa;
 }
 
 /* .light-button */
@@ -231,7 +239,7 @@ body.light aside h2 {
 }
 
 body.dark aside h2 {
-    border-bottom: 1px solid #777;
+    border-bottom: 1px solid #666;
 }
 
 /* .hidden */
@@ -239,6 +247,8 @@ body.dark aside h2 {
 .hidden {
     display: none;
 }
+
+/* .active */
 
 .active {
     font-weight: 400;
