@@ -234,6 +234,10 @@ aside h2:after {
     content: ' −';
 }
 
+aside h2.collapsed:after {
+    content: ' +';
+}
+
 body.light aside h2 {
     border-bottom: 1px solid #ddd;
 }

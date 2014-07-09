@@ -164,10 +164,12 @@ var Controls = React.createClass({
             div(null,
                 input({type: 'color', value: colorPair.backgroundColor, onChange: onChangeBackgroundColor}),
                 ' Background'),
-            h2(null, 'Show'),
+            h2({className: 'collapsed'}, 'Show'),
+            h2({className: 'collapsed'}, 'Assigned groups'),
             h2(null, 'Export'),
-            div(null,
-               button({className: 'button'}, 'Export')));
+            button({className: 'button'}, 'Export'),
+            h2({className: 'collapsed'}, 'Danger zone'));
+            // button({className: 'button'}, 'Reset'));
     },
     onChangeColor(e) {
         this.props.setSelectedGroupProps({color: e.target.value});
