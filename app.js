@@ -153,7 +153,7 @@ var Controls = React.createClass({
 
         return aside(null,
             h2(null, 'Variant'),
-            button({onClick: onLightClick, className: 'lightbulb light-button'}, 'Light'),
+            button({onClick: onLightClick, className: 'lightbulb light-button active'}, 'Light'),
             button({onClick: onDarkClick, className: 'lightbulb dark-button'}, 'Dark'),
             h2(null, 'Selected group'),
             p(null, this.props.selectedGroup),

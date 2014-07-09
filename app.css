@@ -8,12 +8,15 @@ body, input, button {
     font-family: 'Source Sans Pro';
 }
 
+body, h1, h2, button {
+    font-weight: 300;
+}
+
 /* body */
 
 body {
     font-size: 1.8rem;
     margin: 0;
-    font-weight: 300;
 }
 
 body.light {
@@ -32,7 +35,6 @@ h1 {
     font-size: 2.8rem;
     margin: 0 0 4rem 0;
     padding: 1.5rem 2rem;
-    font-weight: 300;
 }
 
 body.light h1 {
@@ -94,16 +96,6 @@ body.dark textarea {
     border: 0;
 }
 
-/* input[type="color"] */
-
-body.light input[type="color"] {
-    background-color: #f8f8f8;
-}
-
-body.dark input[type="color"] {
-    background-color: #444;
-}
-
 /* .lightbulb */
 
 .lightbulb {
@@ -160,7 +152,6 @@ body.dark .lightbulb:active {
     border-radius: 3px;
     padding: 1rem 3rem;
     font-size: 1.6rem;
-    font-weight: 300;
     background-color: transparent;
     color: #999;
 }
@@ -178,7 +169,6 @@ body.dark .lightbulb:active {
 .dark-button {
     padding: 0 2rem 0 1.5rem;
     border-radius: 0 2rem 2rem 0;
-    font-weight: 300;
 }
 
 /* input[type="color"] */
@@ -188,6 +178,14 @@ input[type="color"] {
     padding: 0;
     width: 3.0rem;
     height: 3.4rem;
+}
+
+body.light input[type="color"] {
+    background-color: #f8f8f8;
+}
+
+body.dark input[type="color"] {
+    background-color: #444;
 }
 
 /* aside */
@@ -204,7 +202,6 @@ aside h2 {
     margin-top: 2.5rem;
     font-size: 1.6rem;
     text-transform: uppercase;
-    font-weight: 300;
     text-align: right;
 }
 
@@ -228,4 +225,8 @@ body.dark aside h2 {
 
 .hidden {
     display: none;
+}
+
+.active {
+    font-weight: 400;
 }
