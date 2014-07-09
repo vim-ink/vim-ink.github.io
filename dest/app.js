@@ -1,10 +1,45 @@
 (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);throw new Error("Cannot find module '"+o+"'")}var f=n[o]={exports:{}};t[o][0].call(f.exports,function(e){var n=t[o][1][e];return s(n?n:e)},f,f.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 "use strict";
+function exportColorscheme() {
+  var reset = ['SpecialKey', 'NonText', 'Directory', 'ErrorMsg', 'IncSearch', 'Search', 'MoreMsg', 'ModeMsg', 'LineNr', 'CursorLineNr', 'Question', 'StatusLine', 'StatusLineNC', 'VertSplit', 'Title', 'Visual', 'VisualNOS', 'WarningMsg', 'WildMenu', 'Folded', 'FoldColumn', 'DiffAdd', 'DiffChange', 'DiffDelete', 'DiffText', 'SignColumn', 'Conceal', 'SpellBad', 'SpellCap', 'SpellRare', 'SpellLocal', 'Pmenu', 'PmenuSel', 'PmenuSbar', 'PmenuThumb', 'TabLine', 'TabLineSel', 'TabLineFill', 'CursorColumn', 'CursorLine', 'ColorColumn', 'Cursor', 'lCursor', 'MatchParen', 'Normal', 'Error', 'Comment', 'Constant', 'Special', 'Identifier', 'Statement', 'PreProc', 'Type', 'Underlined', 'Ignore', 'Todo', 'String', 'Boolean'];
+  var str = ['hi clear', 'syntax reset'];
+  for (var group in data.colors) {
+    str.push('hi ' + group + ' guifg=' + data.colors[group]);
+  }
+  for (var group in data.backgroundColors) {
+    str.push('hi ' + group + ' guibg=' + data.backgroundColors[group]);
+  }
+  reset.forEach((function(group) {
+    str.push('hi ' + group + ' gui=NONE');
+    if (data.colors.hasOwnProperty(group) === false) {
+      if (group !== 'Cursor' && group !== 'Visual') {
+        str.push('hi ' + group + ' guifg=' + data.colors['Normal']);
+      } else {
+        str.push('hi ' + group + ' guifg=' + data.backgroundColors['Normal']);
+      }
+    }
+    if (data.backgroundColors.hasOwnProperty(group) === false) {
+      if (group !== 'Cursor' && group !== 'Visual') {
+        str.push('hi ' + group + ' guibg=' + data.backgroundColors['Normal']);
+      } else {
+        str.push('hi ' + group + ' guifg=' + data.colors['Normal']);
+      }
+    }
+  }));
+  return str.join('\n');
+}
+module.exports = {exportColorscheme: exportColorscheme};
+
+
+}).call(this,require("IrXUsu"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/exporter.js","/")
+},{"IrXUsu":7,"buffer":4}],2:[function(require,module,exports){
+(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
+"use strict";
 require('es6ify/node_modules/traceur/bin/traceur-runtime');
 var React = require('react');
 var parse = require('./vim-tohtml-parser').parse;
-var model = require('./model');
+var exporter = require('./exporter');
 var Header = React.createClass({render: function() {
     var $__0 = $traceurRuntime.assertObject(React.DOM),
         header = $__0.header,
@@ -207,7 +242,7 @@ var Controls = React.createClass({
       type: 'color',
       value: colorPair.backgroundColor,
       onChange: onChangeBackgroundColor
-    }), ' Background'), h2(null, 'Show'));
+    }), ' Background'), h2(null, 'Show'), h2(null, 'Export'), div(null, button({className: 'button'}, 'Export')));
   },
   onChangeColor: function(e) {
     this.props.setSelectedGroupProps({color: e.target.value});
@@ -220,7 +255,8 @@ var Controls = React.createClass({
   },
   onDarkClick: function(e) {
     this.props.activateVariant('dark');
-  }
+  },
+  onExporterClick: function(e) {}
 });
 var Export = React.createClass({render: function() {
     var textarea = $traceurRuntime.assertObject(React.DOM).textarea;
@@ -322,46 +358,11 @@ var Root = React.createClass({
     this.setState(newState);
   }
 });
-React.renderComponent(Root(model), document.body);
+React.renderComponent(Root(), document.body);
 
 
-}).call(this,require("IrXUsu"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/fake_6b94dc27.js","/")
-},{"./model":2,"./vim-tohtml-parser":143,"IrXUsu":7,"buffer":4,"es6ify/node_modules/traceur/bin/traceur-runtime":3,"react":142}],2:[function(require,module,exports){
-(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
-"use strict";
-function exportColorscheme() {
-  var reset = ['SpecialKey', 'NonText', 'Directory', 'ErrorMsg', 'IncSearch', 'Search', 'MoreMsg', 'ModeMsg', 'LineNr', 'CursorLineNr', 'Question', 'StatusLine', 'StatusLineNC', 'VertSplit', 'Title', 'Visual', 'VisualNOS', 'WarningMsg', 'WildMenu', 'Folded', 'FoldColumn', 'DiffAdd', 'DiffChange', 'DiffDelete', 'DiffText', 'SignColumn', 'Conceal', 'SpellBad', 'SpellCap', 'SpellRare', 'SpellLocal', 'Pmenu', 'PmenuSel', 'PmenuSbar', 'PmenuThumb', 'TabLine', 'TabLineSel', 'TabLineFill', 'CursorColumn', 'CursorLine', 'ColorColumn', 'Cursor', 'lCursor', 'MatchParen', 'Normal', 'Error', 'Comment', 'Constant', 'Special', 'Identifier', 'Statement', 'PreProc', 'Type', 'Underlined', 'Ignore', 'Todo', 'String', 'Boolean'];
-  var str = ['hi clear', 'syntax reset'];
-  for (var group in data.colors) {
-    str.push('hi ' + group + ' guifg=' + data.colors[group]);
-  }
-  for (var group in data.backgroundColors) {
-    str.push('hi ' + group + ' guibg=' + data.backgroundColors[group]);
-  }
-  reset.forEach((function(group) {
-    str.push('hi ' + group + ' gui=NONE');
-    if (data.colors.hasOwnProperty(group) === false) {
-      if (group !== 'Cursor' && group !== 'Visual') {
-        str.push('hi ' + group + ' guifg=' + data.colors['Normal']);
-      } else {
-        str.push('hi ' + group + ' guifg=' + data.backgroundColors['Normal']);
-      }
-    }
-    if (data.backgroundColors.hasOwnProperty(group) === false) {
-      if (group !== 'Cursor' && group !== 'Visual') {
-        str.push('hi ' + group + ' guibg=' + data.backgroundColors['Normal']);
-      } else {
-        str.push('hi ' + group + ' guifg=' + data.colors['Normal']);
-      }
-    }
-  }));
-  return str.join('\n');
-}
-module.exports = {exportColorscheme: exportColorscheme};
-
-
-}).call(this,require("IrXUsu"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/model.js","/")
-},{"IrXUsu":7,"buffer":4}],3:[function(require,module,exports){
+}).call(this,require("IrXUsu"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/fake_b5ba4613.js","/")
+},{"./exporter":1,"./vim-tohtml-parser":143,"IrXUsu":7,"buffer":4,"es6ify/node_modules/traceur/bin/traceur-runtime":3,"react":142}],3:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 (function(global) {
   'use strict';
@@ -21083,4 +21084,4 @@ module.exports = {parse: parse};
 
 
 }).call(this,require("IrXUsu"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/vim-tohtml-parser.js","/")
-},{"IrXUsu":7,"buffer":4}]},{},[1])
+},{"IrXUsu":7,"buffer":4}]},{},[2])

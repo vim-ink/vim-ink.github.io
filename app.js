@@ -1,7 +1,7 @@
 require('es6ify/node_modules/traceur/bin/traceur-runtime');
 var React = require('react');
 var parse = require('./vim-tohtml-parser').parse;
-var model = require('./model');
+var exporter = require('./exporter');
 
 var Header = React.createClass({
     render() {
@@ -164,7 +164,10 @@ var Controls = React.createClass({
             div(null,
                 input({type: 'color', value: colorPair.backgroundColor, onChange: onChangeBackgroundColor}),
                 ' Background'),
-            h2(null, 'Show'));
+            h2(null, 'Show'),
+            h2(null, 'Export'),
+            div(null,
+               button({className: 'button'}, 'Export')));
     },
     onChangeColor(e) {
         this.props.setSelectedGroupProps({color: e.target.value});
@@ -177,6 +180,9 @@ var Controls = React.createClass({
     },
     onDarkClick(e) {
         this.props.activateVariant('dark');
+    },
+    onExporterClick(e) {
+        // this.props.activateVariant('dark');
     }
 });
 
@@ -288,4 +294,4 @@ var Root = React.createClass({
     }
 });
 
-React.renderComponent(Root(model), document.body);
+React.renderComponent(Root(), document.body);

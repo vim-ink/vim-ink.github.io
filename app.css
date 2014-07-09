@@ -1,14 +1,19 @@
+/* Typography */
+
 html {
     font-size: 62.5%;
-}
-body {
-    font-size: 1.8rem;
-    margin: 0;
-    font-weight: 300;
 }
 
 body, input, button {
     font-family: 'Source Sans Pro';
+}
+
+/* body */
+
+body {
+    font-size: 1.8rem;
+    margin: 0;
+    font-weight: 300;
 }
 
 body.light {
@@ -16,28 +21,23 @@ body.light {
     color: #999;
 }
 
-body.light h1 {
-    background-color: #aaa;
-    color: #f8f8f8;
-}
-
-body.light h2 {
-    border-bottom: 1px solid #ddd;
-}
-
-body.light textarea {
-    background-color: #fff;
-    color: #999;
-    border: 0px solid #ddd;
-}
-
-body.light input[type="color"] {
-    background-color: #f8f8f8;
-}
-
 body.dark {
     background-color: #444;
     color: #aaa;
+}
+
+/* h1 */
+
+h1 {
+    font-size: 2.8rem;
+    margin: 0 0 4rem 0;
+    padding: 1.5rem 2rem;
+    font-weight: 300;
+}
+
+body.light h1 {
+    background-color: #aaa;
+    color: #f8f8f8;
 }
 
 body.dark h1 {
@@ -45,19 +45,66 @@ body.dark h1 {
     color: #444;
 }
 
-body.dark h2 {
-    border-bottom: 1px solid #666;
+/* main */
+
+main {
+    overflow: hidden;
+}
+
+/* pre */
+
+pre {
+    width: 100rem;
+    font-family: 'Source Code Pro';
+    font-size: 1.6rem;
+    float: left;
+    font-weight: 400;
+    margin: 0;
+}
+
+body.light pre {
+    box-shadow: 4px 4px 4px #f0f0f0;
+}
+
+body.dark pre {
+    box-shadow: 4px 4px 4px #333;
+}
+
+/* textarea */
+
+textarea {
+    font-size: 1.6rem;
+    font-family: 'Source Code Pro';
+    width: 100rem;
+    height: 40rem;
+    float: left;
+}
+
+body.light textarea {
+    box-shadow: 4px 4px 4px #f0f0f0;
+    background-color: #fff;
+    color: #999;
+    border: 0px solid #ddd;
 }
 
 body.dark textarea {
+    box-shadow: 4px 4px 4px #333;
     background-color: #222;
     color: #aaa;
     border: 0;
 }
 
+/* input[type="color"] */
+
+body.light input[type="color"] {
+    background-color: #f8f8f8;
+}
+
 body.dark input[type="color"] {
     background-color: #444;
 }
+
+/* .lightbulb */
 
 .lightbulb {
     border: 0;
@@ -78,35 +125,47 @@ body.dark .lightbulb {
     color: #aaa;
 }
 
-.lightbulb:focus {
-    outline: 0;
-}
-
 body.light .lightbulb:hover {
     background-color: #ccc;
     color: #444;
-    border-color: #ccc!important;
-    /* transition: all 0.1s ease; */
-}
-
-body.light .lightbulb:active {
-    background-color: #ddd;
-    border-color: #ddd!important;
-    color: #444;
+    border-color: #ccc;
 }
 
 body.dark .lightbulb:hover {
     background-color: #666;
     color: #ccc;
-    border-color: #666!important;
-    /* transition: all 0.1s ease; */
+    border-color: #666;
+}
+
+body.light .lightbulb:active {
+    background-color: #ddd;
+    border-color: #ddd;
+    color: #444;
 }
 
 body.dark .lightbulb:active {
     background-color: #777;
-    border-color: #777!important;
+    border-color: #777;
     color: #fff;
 }
+
+.lightbulb:focus {
+    outline: 0;
+}
+
+/* .button */
+
+.button {
+    border: 1px solid #999;
+    border-radius: 3px;
+    padding: 1rem 3rem;
+    font-size: 1.6rem;
+    font-weight: 300;
+    background-color: transparent;
+    color: #999;
+}
+
+/* .light-button */
 
 .light-button {
     border-radius: 2rem 0 0 2rem;
@@ -114,11 +173,15 @@ body.dark .lightbulb:active {
     padding: 0 1.5rem 0 2rem;
 }
 
+/* .dark-button */
+
 .dark-button {
     padding: 0 2rem 0 1.5rem;
     border-radius: 0 2rem 2rem 0;
     font-weight: 300;
 }
+
+/* input[type="color"] */
 
 input[type="color"] {
     border: 0;
@@ -127,40 +190,7 @@ input[type="color"] {
     height: 3.4rem;
 }
 
-aside h2:first-child {
-    margin-top: 0;
-}
-
-h2 {
-    margin-top: 2.5rem;
-    font-size: 1.6rem;
-    text-transform: uppercase;
-    font-weight: 300;
-    text-align: right;
-}
-h2:after {
-    content: ' −';
-}
-
-h1 {
-    font-size: 2.8rem;
-    margin: 0 0 4rem 0;
-    padding: 1.5rem 2rem;
-    font-weight: 300;
-}
-
-main {
-    overflow: hidden;
-}
-
-pre {
-    width: 100rem;
-    font-family: 'Source Code Pro';
-    font-size: 1.6rem;
-    float: left;
-    font-weight: 400;
-    margin: 0;
-}
+/* aside */
 
 aside {
     width: 20rem;
@@ -168,20 +198,34 @@ aside {
     margin-left: 2rem;
 }
 
-textarea {
+/* aside h2 */
+
+aside h2 {
+    margin-top: 2.5rem;
     font-size: 1.6rem;
-    font-family: 'Source Code Pro';
-    width: 100rem;
-    height: 40rem;
-    float: left;
+    text-transform: uppercase;
+    font-weight: 300;
+    text-align: right;
 }
 
-body.light textarea, body.light pre {
-    box-shadow: 4px 4px 4px #f0f0f0;
+aside h2:first-child {
+    margin-top: 0;
 }
-body.dark textarea, body.dark pre {
-    box-shadow: 4px 4px 4px #333;
+
+aside h2:after {
+    content: ' −';
 }
+
+body.light aside h2 {
+    border-bottom: 1px solid #ddd;
+}
+
+body.dark aside h2 {
+    border-bottom: 1px solid #666;
+}
+
+/* .hidden */
+
 .hidden {
     display: none;
 }
