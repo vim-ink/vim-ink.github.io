@@ -1,3 +1,21 @@
+/*  Color palette
+ *      light
+ *          #ffffff – textarea background
+ *          #f0f0f0 – textarea and pre shadow
+ *          #f8f8f8 – background color
+ *          #999999 – text color
+ *          #cccccc – button border, button hover background color
+ *          #dddddd – h2 border, button active background and border
+ *          #444444 – button hover text color
+ *      dark
+ *          #000000 – textarea background
+ *          #333333 – textarea and pre shadow
+ *          #444444 – background color
+ *          #aaaaaa – text color
+ *          #666666 – button border, button hover background color
+ *          #777777 – h2 border, button active background and border
+ *          #cccccc – button hover text color
+
 /* Typography */
 
 html {
@@ -38,12 +56,12 @@ h1 {
 }
 
 body.light h1 {
-    background-color: #aaa;
+    background-color: #999;
     color: #f8f8f8;
 }
 
 body.dark h1 {
-    background-color: #888;
+    background-color: #aaa;
     color: #444;
 }
 
@@ -91,7 +109,7 @@ body.light textarea {
 
 body.dark textarea {
     box-shadow: 4px 4px 4px #333;
-    background-color: #222;
+    background-color: #000;
     color: #aaa;
     border: 0;
 }
@@ -119,25 +137,21 @@ body.dark .switch-button {
 body.light .switch-button:hover {
     background-color: #ccc;
     color: #444;
-    border-color: #ccc;
 }
 
 body.dark .switch-button:hover {
     background-color: #666;
     color: #ccc;
-    border-color: #666;
 }
 
 body.light .switch-button:active {
     background-color: #ddd;
     border-color: #ddd;
-    color: #444;
 }
 
 body.dark .switch-button:active {
     background-color: #777;
     border-color: #777;
-    color: #fff;
 }
 
 .switch-button:focus {
@@ -147,7 +161,7 @@ body.dark .switch-button:active {
 /* .button */
 
 .button {
-    border: 1px solid #999;
+    border: 1px solid #ccc;
     border-radius: 3px;
     padding: 1rem 3rem;
     font-size: 1.6rem;
@@ -217,7 +231,7 @@ body.light aside h2 {
 }
 
 body.dark aside h2 {
-    border-bottom: 1px solid #666;
+    border-bottom: 1px solid #777;
 }
 
 /* .hidden */
