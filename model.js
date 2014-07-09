@@ -3,25 +3,24 @@ var data = {
     selectedGroup: 'Normal',
     dark: {
         Normal: {
-            color: '#cccccc',
-            backgroundColor: '#000000',
+            color: '#000',
+            backgroundColor: '#fff',
             highlight: 'NONE'
         },
         TabLine: {
-            color: '#cccccc',
-            backgroundColor: '#222222',
+            color: '#000',
+            backgroundColor: '#ccc',
             highlight: 'NONE'
         },
         TabLineSel: {
-            color: '#eeeeee',
-            backgroundColor: '#444444',
+            color: '#000',
+            backgroundColor: '#aaa',
             highlight: 'NONE'
         }
     }
 };
 
 function getColorPair(group) {
-    // TODO: Just return empty object
     return {
         color: group in data.dark && 'color' in data.dark[group] ?
             data.dark[group].color :

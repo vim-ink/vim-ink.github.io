@@ -6,7 +6,7 @@ var model = require('./model');
 var Header = React.createClass({
     render() {
         var {header, h1} = React.DOM;
-        return header(null, h1(null, 'vim colorscheme designer'));
+        return header(null, h1(null, 'vim color scheme designer'));
     }
 });
 
@@ -15,7 +15,7 @@ var Paste = React.createClass({
         var {textarea} = React.DOM;
         var {onChange, onClick} = this;
         var className = (this.props.parsedSource !== undefined) ? 'hidden' : '';
-        return textarea({onChange, className});
+        return textarea({onChange, className, placeholder: 'Paste output of `:TOhtml` here.'});
     },
     onChange(e) {
         this.props.parse(e.target.value);
@@ -146,14 +146,18 @@ var Source = React.createClass({
 
 var Controls = React.createClass({
     render() {
-        var {aside, h2, p, div, input} = React.DOM;
-        var {onChangeColor, onChangeBackgroundColor} = this;
+        var {aside, h2, p, div, input, button} = React.DOM;
+        var {onChangeColor, onChangeBackgroundColor, onClick} = this;
 
         var colorPair = this.props.getColorPair(this.props.selectedGroup);
 
         return aside(null,
+            h2(null, 'Variant'),
+            button({onClick: onClick, className: 'lightbulb light-button'}, 'Light'),
+            button({onClick: onClick, className: 'lightbulb dark-button'}, 'Dark'),
+            h2(null, 'Selected group'),
+            p(null, this.props.selectedGroup),
             h2(null, 'Color'),
-            p(null, 'Selected group: ' + this.props.selectedGroup),
             div(null,
                 input({type: 'color', value: colorPair.color, onChange: onChangeColor}),
                 ' Foreground'),
@@ -163,11 +167,15 @@ var Controls = React.createClass({
             h2(null, 'Show'));
     },
     onChangeColor(e) {
-        this.props.setColor('foreground', e.target.value);
+        this.props.setColor('color', e.target.value);
     },
     onChangeBackgroundColor(e) {
-        this.props.setColor('background', e.target.value);
-    }
+        this.props.setColor('backgroundColor', e.target.value);
+    },
+    onClick(e) {
+        var body = document.getElementsByTagName('body')[0];
+        body.className = body.className === 'light' ? 'dark' : 'light';
+    },
 });
 
 var Export = React.createClass({
@@ -207,24 +215,16 @@ var Root = React.createClass({
         this.setState({parsedSource: parse(unparsedSource)});
     },
     selectGroup(selectedGroup) {
-        console.log(selectedGroup);
         this.setState({selectedGroup});
     },
-    setColor(what, color) {
-        var {selectedGroup} = this.state;
-        var {dark} = this.state;
+    setColor(what, color) { // TODO: How about setSelectedGroup(object)?
+        var {dark, selectedGroup} = this.state;
+
         if (!(selectedGroup in dark))
             dark[selectedGroup] = {};
 
-        switch (what) {
-            case 'foreground':
-                dark[selectedGroup].color = color;
-                break;
-            case 'background':
-                dark[selectedGroup].backgroundColor = color;
-                break;
-        }
-
+        var group = dark[selectedGroup];
+        group[what] = color;
         this.setState({dark});
     }
 });

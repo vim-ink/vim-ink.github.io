@@ -9,7 +9,7 @@ var Header = React.createClass({render: function() {
     var $__0 = $traceurRuntime.assertObject(React.DOM),
         header = $__0.header,
         h1 = $__0.h1;
-    return header(null, h1(null, 'vim colorscheme designer'));
+    return header(null, h1(null, 'vim color scheme designer'));
   }});
 var Paste = React.createClass({
   render: function() {
@@ -20,7 +20,8 @@ var Paste = React.createClass({
     var className = (this.props.parsedSource !== undefined) ? 'hidden' : '';
     return textarea({
       onChange: onChange,
-      className: className
+      className: className,
+      placeholder: 'Paste output of `:TOhtml` here.'
     });
   },
   onChange: function(e) {
@@ -184,12 +185,20 @@ var Controls = React.createClass({
         h2 = $__0.h2,
         p = $__0.p,
         div = $__0.div,
-        input = $__0.input;
+        input = $__0.input,
+        button = $__0.button;
     var $__0 = this,
         onChangeColor = $__0.onChangeColor,
-        onChangeBackgroundColor = $__0.onChangeBackgroundColor;
+        onChangeBackgroundColor = $__0.onChangeBackgroundColor,
+        onClick = $__0.onClick;
     var colorPair = this.props.getColorPair(this.props.selectedGroup);
-    return aside(null, h2(null, 'Color'), p(null, 'Selected group: ' + this.props.selectedGroup), div(null, input({
+    return aside(null, h2(null, 'Variant'), button({
+      onClick: onClick,
+      className: 'lightbulb light-button'
+    }, 'Light'), button({
+      onClick: onClick,
+      className: 'lightbulb dark-button'
+    }, 'Dark'), h2(null, 'Selected group'), p(null, this.props.selectedGroup), h2(null, 'Color'), div(null, input({
       type: 'color',
       value: colorPair.color,
       onChange: onChangeColor
@@ -200,10 +209,14 @@ var Controls = React.createClass({
     }), ' Background'), h2(null, 'Show'));
   },
   onChangeColor: function(e) {
-    this.props.setColor('foreground', e.target.value);
+    this.props.setColor('color', e.target.value);
   },
   onChangeBackgroundColor: function(e) {
-    this.props.setColor('background', e.target.value);
+    this.props.setColor('backgroundColor', e.target.value);
+  },
+  onClick: function(e) {
+    var body = document.getElementsByTagName('body')[0];
+    body.className = body.className === 'light' ? 'dark' : 'light';
   }
 });
 var Export = React.createClass({render: function() {
@@ -243,29 +256,23 @@ var Root = React.createClass({
     this.setState({parsedSource: parse(unparsedSource)});
   },
   selectGroup: function(selectedGroup) {
-    console.log(selectedGroup);
     this.setState({selectedGroup: selectedGroup});
   },
   setColor: function(what, color) {
-    var selectedGroup = $traceurRuntime.assertObject(this.state).selectedGroup;
-    var dark = $traceurRuntime.assertObject(this.state).dark;
+    var $__0 = $traceurRuntime.assertObject(this.state),
+        dark = $__0.dark,
+        selectedGroup = $__0.selectedGroup;
     if (!(selectedGroup in dark))
       dark[selectedGroup] = {};
-    switch (what) {
-      case 'foreground':
-        dark[selectedGroup].color = color;
-        break;
-      case 'background':
-        dark[selectedGroup].backgroundColor = color;
-        break;
-    }
+    var group = dark[selectedGroup];
+    group[what] = color;
     this.setState({dark: dark});
   }
 });
 React.renderComponent(Root(model), document.body);
 
 
-}).call(this,require("IrXUsu"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/fake_2367905d.js","/")
+}).call(this,require("IrXUsu"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/fake_a0a927b2.js","/")
 },{"./model":2,"./vim-tohtml-parser":143,"IrXUsu":7,"buffer":4,"es6ify/node_modules/traceur/bin/traceur-runtime":3,"react":142}],2:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 "use strict";
@@ -274,18 +281,18 @@ var data = {
   selectedGroup: 'Normal',
   dark: {
     Normal: {
-      color: '#cccccc',
-      backgroundColor: '#000000',
+      color: '#000',
+      backgroundColor: '#fff',
       highlight: 'NONE'
     },
     TabLine: {
-      color: '#cccccc',
-      backgroundColor: '#222222',
+      color: '#000',
+      backgroundColor: '#ccc',
       highlight: 'NONE'
     },
     TabLineSel: {
-      color: '#eeeeee',
-      backgroundColor: '#444444',
+      color: '#000',
+      backgroundColor: '#aaa',
       highlight: 'NONE'
     }
   }
