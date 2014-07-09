@@ -141,10 +141,11 @@ h2 {
 h2:after {
     content: ' −';
 }
+
 h1 {
-    font-size: 3.2rem;
+    font-size: 2.8rem;
     margin: 0 0 4rem 0;
-    padding: 2rem 2rem;
+    padding: 1.5rem 2rem;
     font-weight: 300;
 }
 
