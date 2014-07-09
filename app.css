@@ -26,6 +26,10 @@ body, input, button {
     font-family: 'Source Sans Pro';
 }
 
+pre, textarea {
+    font-family: 'Source Code Pro';
+}
+
 body, h1, h2, button {
     font-weight: 300;
 }
@@ -74,9 +78,8 @@ main {
 /* pre */
 
 pre {
-    width: 100rem;
-    font-family: 'Source Code Pro';
     font-size: 1.6rem;
+    width: 100rem;
     float: left;
     font-weight: 400;
     margin: 0;
@@ -91,26 +94,36 @@ body.dark pre {
 }
 
 /* textarea */
+body.light textarea,
+body.dark .dialog textarea {
+    background-color: #fff;
+    color: #444;
+    border: 0;
+}
 
-textarea {
-    font-size: 1.6rem;
-    font-family: 'Source Code Pro';
+body.dark textarea,
+body.light .dialog textarea {
+    background-color: #000;
+    color: #ccc;
+    border: 0;
+}
+
+/* .paste */
+
+.paste {
     width: 100rem;
     height: 40rem;
     float: left;
+    font-size: 1.6rem;
 }
 
-body.light textarea {
+body.light .paste {
     box-shadow: 4px 4px 4px #f0f0f0;
-    background-color: #fff;
-    color: #444;
-    border: 0px solid #ddd;
+    border: 0;
 }
 
-body.dark textarea {
+body.dark .paste {
     box-shadow: 4px 4px 4px #333;
-    background-color: #000;
-    color: #ccc;
     border: 0;
 }
 
@@ -167,22 +180,26 @@ body.dark .switch-button:active {
     background-color: transparent;
 }
 
-body.light .button {
+body.light .button,
+body.dark .dialog .button {
     border: 1px solid #ccc;
     color: #999;
 }
 
-body.dark .button {
+body.dark .button,
+body.light .dialog .button {
     border: 1px solid #777;
     color: #aaa;
 }
 
-body.light .button:hover {
+body.light .button:hover,
+body.dark .dialog .button:hover {
     background-color: #ccc;
     color: #444;
 }
 
-body.dark .button:hover {
+body.dark .button:hover,
+body.light .dialog .button:hover {
     background-color: #777;
     color: #ccc;
 }
@@ -193,12 +210,14 @@ body.dark .button:hover {
     top: 1px;
 }
 
-body.light .button:active {
+body.light .button:active,
+body.dark .dialog .button:active {
     background-color: #ddd;
     border-color: #ddd;
 }
 
-body.dark .button:active {
+body.dark .button:active,
+body.light .dialog .button:active {
     background-color: #666;
     border-color: #666;
 }
@@ -286,4 +305,49 @@ body.dark aside h2 {
 
 .active {
     font-weight: 400;
+}
+
+/* .export */
+
+.export {
+    position: fixed;
+    top: 50%; 
+    left: 50%;
+    width: 80rem;
+    height: 40rem;
+    margin-left: -40rem;
+    margin-top: -20rem;
+    padding: 2rem;
+    box-sizing: border-box;
+    text-align: right;
+    border-radius: 1rem;
+}
+
+.export p {
+    text-align: left;
+}
+
+body.light .export {
+    background-color: #444;
+    color: #aaa;
+}
+
+body.dark .export {
+    background-color: #f8f8f8;
+    color: #999;
+}
+
+.export h2 {
+    text-align: left;
+    font-size: 2.8rem;
+    margin-top: 0rem;
+}
+
+.export textarea {
+    width: 100%;
+    height: 18rem;
+    margin: 0 0 1rem 0;
+    padding: 0;
+    border: 0;
+    font-size: 1.4rem;
 }

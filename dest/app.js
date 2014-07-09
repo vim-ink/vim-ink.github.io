@@ -24,7 +24,7 @@ function exportVariant(variant) {
 }
 function exportColorScheme(state) {
   var str = [].concat(['hi clear', 'syntax reset', 'let g:colors_name = "whatever"', 'if &background == "light"'], exportVariant(state.light), ['elseif &background == "dark"'], exportVariant(state.dark), ['endif']);
-  console.log(str.join('\n'));
+  return str.join('\n');
 }
 module.exports = {exportColorScheme: exportColorScheme};
 
@@ -49,7 +49,7 @@ var Paste = React.createClass({
     var $__0 = this,
         onChange = $__0.onChange,
         onClick = $__0.onClick;
-    var className = (this.props.parsedSource !== undefined) ? 'hidden' : '';
+    var className = (this.props.parsedSource !== undefined) ? 'hidden' : 'paste';
     return textarea({
       onChange: onChange,
       className: className,
@@ -261,10 +261,29 @@ var Controls = React.createClass({
     this.props.exportColorScheme();
   }
 });
-var Export = React.createClass({render: function() {
-    var textarea = $traceurRuntime.assertObject(React.DOM).textarea;
-    return textarea({value: this.props.exportColorscheme()});
-  }});
+var Export = React.createClass({
+  render: function() {
+    var exportedSource = $traceurRuntime.assertObject(this.props).exportedSource;
+    var hiddenConditional = exportedSource === undefined ? 'hidden' : '';
+    var onClick = this.onClick;
+    var $__0 = $traceurRuntime.assertObject(React.DOM),
+        div = $__0.div,
+        button = $__0.button,
+        p = $__0.p,
+        h2 = $__0.h2,
+        textarea = $__0.textarea;
+    return div({className: 'export dialog ' + hiddenConditional}, h2(null, 'Here is your color scheme!'), p(null, 'Copy the code below to clipboard and paste into a new vim buffer. Do `:w ~/.vim/colors/whatever.vim`, `:set background light`, and finally `:colorscheme whatever`.'), textarea({
+      value: exportedSource,
+      readOnly: true
+    }), button({
+      className: 'button',
+      onClick: onClick
+    }, 'Close'));
+  },
+  onClick: function() {
+    this.props.clearExportedSource();
+  }
+});
 var Root = React.createClass({
   getInitialState: function() {
     return {
@@ -316,7 +335,8 @@ var Root = React.createClass({
     var main = $traceurRuntime.assertObject(React.DOM).main;
     var $__0 = $traceurRuntime.assertObject(this.state),
         parsedSource = $__0.parsedSource,
-        selectedGroup = $__0.selectedGroup;
+        selectedGroup = $__0.selectedGroup,
+        exportedSource = $__0.exportedSource;
     var exportColorscheme = $traceurRuntime.assertObject(this.props).exportColorscheme;
     var $__0 = this,
         getGroupProps = $__0.getGroupProps,
@@ -324,7 +344,8 @@ var Root = React.createClass({
         selectGroup = $__0.selectGroup,
         setSelectedGroupProps = $__0.setSelectedGroupProps,
         activateVariant = $__0.activateVariant,
-        exportColorScheme = $__0.exportColorScheme;
+        exportColorScheme = $__0.exportColorScheme,
+        clearExportedSource = $__0.clearExportedSource;
     return main(null, Header(), Paste({
       parsedSource: parsedSource,
       parse: parse
@@ -338,6 +359,9 @@ var Root = React.createClass({
       selectedGroup: selectedGroup,
       getGroupProps: getGroupProps,
       setSelectedGroupProps: setSelectedGroupProps
+    }), Export({
+      exportedSource: exportedSource,
+      clearExportedSource: clearExportedSource
     }));
   },
   parse: function(unparsedSource) {
@@ -368,13 +392,16 @@ var Root = React.createClass({
     this.setState(newState);
   },
   exportColorScheme: function() {
-    exporter.exportColorScheme(this.state);
+    this.setState({exportedSource: exporter.exportColorScheme(this.state)});
+  },
+  clearExportedSource: function() {
+    this.setState({exportedSource: undefined});
   }
 });
 React.renderComponent(Root(), document.body);
 
 
-}).call(this,require("IrXUsu"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/fake_e8dacacb.js","/")
+}).call(this,require("IrXUsu"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/fake_2503a52c.js","/")
 },{"./exporter":1,"./vim-tohtml-parser":143,"IrXUsu":7,"buffer":4,"es6ify/node_modules/traceur/bin/traceur-runtime":3,"react":142}],3:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 (function(global) {

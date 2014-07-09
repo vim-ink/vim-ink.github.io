@@ -43,7 +43,7 @@ function exportColorScheme(state) {
         exportVariant(state.dark),
         ['endif']);
 
-    console.log(str.join('\n'));
+    return str.join('\n');
 }
 
 module.exports = {

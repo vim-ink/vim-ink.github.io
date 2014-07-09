@@ -14,7 +14,7 @@ var Paste = React.createClass({
     render() {
         var {textarea} = React.DOM;
         var {onChange, onClick} = this;
-        var className = (this.props.parsedSource !== undefined) ? 'hidden' : '';
+        var className = (this.props.parsedSource !== undefined) ? 'hidden' : 'paste';
         return textarea({onChange, className, placeholder: 'Paste output of `:TOhtml` here.'});
     },
     onChange(e) {
@@ -190,9 +190,18 @@ var Controls = React.createClass({
 
 var Export = React.createClass({
     render() {
-        var {textarea} = React.DOM;
-
-        return textarea({value: this.props.exportColorscheme()});
+        var {exportedSource} = this.props;
+        var hiddenConditional = exportedSource === undefined ? 'hidden' : '';
+        var {onClick} = this;
+        var {div, button, p, h2, textarea} = React.DOM;
+        return div({className: 'export dialog ' + hiddenConditional},
+            h2(null, 'Here is your color scheme!'),
+            p(null, 'Copy the code below to clipboard and paste into a new vim buffer. Do `:w ~/.vim/colors/whatever.vim`, `:set background light`, and finally `:colorscheme whatever`.'),
+            textarea({value: exportedSource, readOnly: true}),
+            button({className: 'button', onClick}, 'Close'));
+    },
+    onClick() {
+        this.props.clearExportedSource();
     }
 });
 
@@ -253,9 +262,9 @@ var Root = React.createClass({
     },
     render() {
         var {main} = React.DOM;
-        var {parsedSource, selectedGroup} = this.state;
+        var {parsedSource, selectedGroup, exportedSource} = this.state;
         var {exportColorscheme} = this.props;
-        var {getGroupProps, parse, selectGroup, setSelectedGroupProps, activateVariant, exportColorScheme} = this;
+        var {getGroupProps, parse, selectGroup, setSelectedGroupProps, activateVariant, exportColorScheme, clearExportedSource} = this;
         return main(
             null,
             Header(),
@@ -271,8 +280,8 @@ var Root = React.createClass({
                 activateVariant,
                 selectedGroup,
                 getGroupProps,
-                setSelectedGroupProps}));
-            // Export({exportColorscheme}));
+                setSelectedGroupProps}),
+            Export({exportedSource, clearExportedSource}));
     },
     parse(unparsedSource) {
         this.setState({parsedSource: parse(unparsedSource)});
@@ -309,7 +318,10 @@ var Root = React.createClass({
         this.setState(newState);
     },
     exportColorScheme() {
-        exporter.exportColorScheme(this.state);
+        this.setState({exportedSource: exporter.exportColorScheme(this.state)});
+    },
+    clearExportedSource() {
+        this.setState({exportedSource: undefined});
     }
 });
 
