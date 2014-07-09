@@ -34,9 +34,9 @@ var Segment = React.createClass({
     var onClick = this.onClick;
     var $__0 = $traceurRuntime.assertObject(this.props),
         segment = $__0.segment,
-        getColorPair = $__0.getColorPair;
+        getGroupProps = $__0.getGroupProps;
     if (typeof(segment) === 'object') {
-      var style = getColorPair(segment.group);
+      var style = getGroupProps(segment.group);
       return span({
         style: style,
         onClick: onClick
@@ -57,9 +57,9 @@ var LineNumber = React.createClass({
     var $__0 = $traceurRuntime.assertObject(this.props.lineNumber),
         line = $__0.line,
         lineCount = $__0.lineCount;
-    var getColorPair = $traceurRuntime.assertObject(this.props).getColorPair;
+    var getGroupProps = $traceurRuntime.assertObject(this.props).getGroupProps;
     var spaces = 1 + (lineCount.toString().length - line.toString().length);
-    var style = getColorPair('LineNr');
+    var style = getGroupProps('LineNr');
     return span({
       style: style,
       onClick: onClick
@@ -73,19 +73,19 @@ var LineNumber = React.createClass({
 var Line = React.createClass({render: function() {
     var span = $traceurRuntime.assertObject(React.DOM).span;
     var $__0 = $traceurRuntime.assertObject(this.props),
-        getColorPair = $__0.getColorPair,
+        getGroupProps = $__0.getGroupProps,
         line = $__0.line,
         lineNumber = $__0.lineNumber,
         selectGroup = $__0.selectGroup;
     var lineNumber_ = [LineNumber({
       lineNumber: lineNumber,
-      getColorPair: getColorPair,
+      getGroupProps: getGroupProps,
       selectGroup: selectGroup
     })];
     var segments = line.map((function(segment) {
       return Segment({
         segment: segment,
-        getColorPair: getColorPair,
+        getGroupProps: getGroupProps,
         selectGroup: selectGroup
       });
     }));
@@ -98,10 +98,10 @@ var TabLineFile = React.createClass({
         onClick = $__0.onClick,
         group = $__0.group;
     var $__0 = $traceurRuntime.assertObject(this.props),
-        getColorPair = $__0.getColorPair,
+        getGroupProps = $__0.getGroupProps,
         fileName = $__0.fileName,
         selected = $__0.selected;
-    var style = getColorPair(group());
+    var style = getGroupProps(group());
     return span({
       style: style,
       onClick: onClick
@@ -121,20 +121,20 @@ var TabLineFile = React.createClass({
 var TabLine = React.createClass({render: function() {
     var span = $traceurRuntime.assertObject(React.DOM).span;
     var $__0 = $traceurRuntime.assertObject(this.props),
-        getColorPair = $__0.getColorPair,
+        getGroupProps = $__0.getGroupProps,
         selectGroup = $__0.selectGroup;
     return span(null, [TabLineFile({
-      getColorPair: getColorPair,
+      getGroupProps: getGroupProps,
       selectGroup: selectGroup,
       fileName: 'one-file.js',
       selected: false
     }), TabLineFile({
-      getColorPair: getColorPair,
+      getGroupProps: getGroupProps,
       selectGroup: selectGroup,
       fileName: 'another-file.js',
       selected: false
     }), TabLineFile({
-      getColorPair: getColorPair,
+      getGroupProps: getGroupProps,
       selectGroup: selectGroup,
       fileName: 'yet-another-file.js',
       selected: true
@@ -146,19 +146,19 @@ var Source = React.createClass({
     var onClick = this.onClick;
     var $__0 = $traceurRuntime.assertObject(this.props),
         parsedSource = $__0.parsedSource,
-        getColorPair = $__0.getColorPair,
+        getGroupProps = $__0.getGroupProps,
         selectGroup = $__0.selectGroup;
     var className = parsedSource === undefined ? 'hidden' : '';
-    var style = getColorPair('Normal');
+    var style = getGroupProps('Normal');
     var content;
     var tabLine = TabLine({
-      getColorPair: getColorPair,
+      getGroupProps: getGroupProps,
       selectGroup: selectGroup
     });
     if (parsedSource !== undefined) {
       content = parsedSource.map((function(line, index) {
         return Line({
-          getColorPair: getColorPair,
+          getGroupProps: getGroupProps,
           line: line,
           lineNumber: {
             line: index,
@@ -192,7 +192,7 @@ var Controls = React.createClass({
         onChangeBackgroundColor = $__0.onChangeBackgroundColor,
         onLightClick = $__0.onLightClick,
         onDarkClick = $__0.onDarkClick;
-    var colorPair = this.props.getColorPair(this.props.selectedGroup);
+    var colorPair = this.props.getGroupProps(this.props.selectedGroup);
     return aside(null, h2(null, 'Variant'), button({
       onClick: onLightClick,
       className: 'lightbulb light-button'
@@ -210,10 +210,10 @@ var Controls = React.createClass({
     }), ' Background'), h2(null, 'Show'));
   },
   onChangeColor: function(e) {
-    this.props.setColor('color', e.target.value);
+    this.props.setSelectedGroupProps({color: e.target.value});
   },
   onChangeBackgroundColor: function(e) {
-    this.props.setColor('backgroundColor', e.target.value);
+    this.props.setSelectedGroupProps({backgroundColor: e.target.value});
   },
   onLightClick: function(e) {
     this.props.activateVariant('light');
@@ -228,7 +228,45 @@ var Export = React.createClass({render: function() {
   }});
 var Root = React.createClass({
   getInitialState: function() {
-    return this.props.data;
+    return {
+      parsedSource: undefined,
+      selectedGroup: 'Normal',
+      activeVariant: 'light',
+      dark: {
+        Normal: {
+          color: '#cccccc',
+          backgroundColor: '#000000',
+          highlight: 'NONE'
+        },
+        TabLine: {
+          color: '#000000',
+          backgroundColor: '#aaaaaa',
+          highlight: 'NONE'
+        },
+        TabLineSel: {
+          color: '#000000',
+          backgroundColor: '#cccccc',
+          highlight: 'NONE'
+        }
+      },
+      light: {
+        Normal: {
+          color: '#000000',
+          backgroundColor: '#ffffff',
+          highlight: 'NONE'
+        },
+        TabLine: {
+          color: '#000000',
+          backgroundColor: '#cccccc',
+          highlight: 'NONE'
+        },
+        TabLineSel: {
+          color: '#000000',
+          backgroundColor: '#aaaaaa',
+          highlight: 'NONE'
+        }
+      }
+    };
   },
   render: function() {
     var main = $traceurRuntime.assertObject(React.DOM).main;
@@ -237,23 +275,23 @@ var Root = React.createClass({
         selectedGroup = $__0.selectedGroup;
     var exportColorscheme = $traceurRuntime.assertObject(this.props).exportColorscheme;
     var $__0 = this,
-        getColorPair = $__0.getColorPair,
+        getGroupProps = $__0.getGroupProps,
         parse = $__0.parse,
         selectGroup = $__0.selectGroup,
-        setColor = $__0.setColor,
+        setSelectedGroupProps = $__0.setSelectedGroupProps,
         activateVariant = $__0.activateVariant;
     return main(null, Header(), Paste({
       parsedSource: parsedSource,
       parse: parse
     }), Source({
       parsedSource: parsedSource,
-      getColorPair: getColorPair,
+      getGroupProps: getGroupProps,
       selectGroup: selectGroup
     }), Controls({
       activateVariant: activateVariant,
       selectedGroup: selectedGroup,
-      getColorPair: getColorPair,
-      setColor: setColor
+      getGroupProps: getGroupProps,
+      setSelectedGroupProps: setSelectedGroupProps
     }));
   },
   parse: function(unparsedSource) {
@@ -267,75 +305,30 @@ var Root = React.createClass({
   selectGroup: function(selectedGroup) {
     this.setState({selectedGroup: selectedGroup});
   },
-  getColorPair: function(group) {
-    return this.props.getColorPair(this.state.activeVariant, group);
-  },
-  setColor: function(what, color) {
+  getGroupProps: function(group) {
     var groups = this.state[this.state.activeVariant];
-    var selectedGroup = $traceurRuntime.assertObject(this.state).selectedGroup;
-    if (!(selectedGroup in groups))
-      groups[selectedGroup] = {};
-    var group = groups[selectedGroup];
-    group[what] = color;
-    if (this.state.activeVariant === 'light')
-      this.setState({light: groups});
-    else
-      this.setState({dark: groups});
+    return {
+      color: group in groups && 'color' in groups[group] ? groups[group].color : groups['Normal'].color,
+      backgroundColor: group in groups && 'backgroundColor' in groups[group] ? groups[group].backgroundColor : groups['Normal'].backgroundColor
+    };
+  },
+  setSelectedGroupProps: function(props) {
+    var newState = this.state;
+    var group = newState.selectedGroup;
+    var groups = newState[this.state.activeVariant];
+    if (!(group in groups))
+      groups[group] = {};
+    Object.assign(groups[group], props);
+    this.setState(newState);
   }
 });
 React.renderComponent(Root(model), document.body);
 
 
-}).call(this,require("IrXUsu"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/fake_92121673.js","/")
+}).call(this,require("IrXUsu"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/fake_6b94dc27.js","/")
 },{"./model":2,"./vim-tohtml-parser":143,"IrXUsu":7,"buffer":4,"es6ify/node_modules/traceur/bin/traceur-runtime":3,"react":142}],2:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 "use strict";
-var data = {
-  parsedSource: undefined,
-  selectedGroup: 'Normal',
-  activeVariant: 'light',
-  dark: {
-    Normal: {
-      color: '#cccccc',
-      backgroundColor: '#000000',
-      highlight: 'NONE'
-    },
-    TabLine: {
-      color: '#000000',
-      backgroundColor: '#aaaaaa',
-      highlight: 'NONE'
-    },
-    TabLineSel: {
-      color: '#000000',
-      backgroundColor: '#cccccc',
-      highlight: 'NONE'
-    }
-  },
-  light: {
-    Normal: {
-      color: '#000000',
-      backgroundColor: '#ffffff',
-      highlight: 'NONE'
-    },
-    TabLine: {
-      color: '#000000',
-      backgroundColor: '#cccccc',
-      highlight: 'NONE'
-    },
-    TabLineSel: {
-      color: '#000000',
-      backgroundColor: '#aaaaaa',
-      highlight: 'NONE'
-    }
-  }
-};
-function getColorPair(variant, group) {
-  var groups = data[variant];
-  return {
-    color: group in groups && 'color' in groups[group] ? groups[group].color : groups['Normal'].color,
-    backgroundColor: group in groups && 'backgroundColor' in groups[group] ? groups[group].backgroundColor : groups['Normal'].backgroundColor
-  };
-}
 function exportColorscheme() {
   var reset = ['SpecialKey', 'NonText', 'Directory', 'ErrorMsg', 'IncSearch', 'Search', 'MoreMsg', 'ModeMsg', 'LineNr', 'CursorLineNr', 'Question', 'StatusLine', 'StatusLineNC', 'VertSplit', 'Title', 'Visual', 'VisualNOS', 'WarningMsg', 'WildMenu', 'Folded', 'FoldColumn', 'DiffAdd', 'DiffChange', 'DiffDelete', 'DiffText', 'SignColumn', 'Conceal', 'SpellBad', 'SpellCap', 'SpellRare', 'SpellLocal', 'Pmenu', 'PmenuSel', 'PmenuSbar', 'PmenuThumb', 'TabLine', 'TabLineSel', 'TabLineFill', 'CursorColumn', 'CursorLine', 'ColorColumn', 'Cursor', 'lCursor', 'MatchParen', 'Normal', 'Error', 'Comment', 'Constant', 'Special', 'Identifier', 'Statement', 'PreProc', 'Type', 'Underlined', 'Ignore', 'Todo', 'String', 'Boolean'];
   var str = ['hi clear', 'syntax reset'];
@@ -364,11 +357,7 @@ function exportColorscheme() {
   }));
   return str.join('\n');
 }
-module.exports = {
-  data: data,
-  getColorPair: getColorPair,
-  exportColorscheme: exportColorscheme
-};
+module.exports = {exportColorscheme: exportColorscheme};
 
 
 }).call(this,require("IrXUsu"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/model.js","/")

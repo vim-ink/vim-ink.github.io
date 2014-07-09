@@ -1,56 +1,3 @@
-var data = {
-    parsedSource: undefined,
-    selectedGroup: 'Normal',
-    activeVariant: 'light',
-    dark: {
-        Normal: {
-            color: '#cccccc',
-            backgroundColor: '#000000',
-            highlight: 'NONE'
-        },
-        TabLine: {
-            color: '#000000',
-            backgroundColor: '#aaaaaa',
-            highlight: 'NONE'
-        },
-        TabLineSel: {
-            color: '#000000',
-            backgroundColor: '#cccccc',
-            highlight: 'NONE'
-        }
-    },
-    light: {
-        Normal: {
-            color: '#000000',
-            backgroundColor: '#ffffff',
-            highlight: 'NONE'
-        },
-        TabLine: {
-            color: '#000000',
-            backgroundColor: '#cccccc',
-            highlight: 'NONE'
-        },
-        TabLineSel: {
-            color: '#000000',
-            backgroundColor: '#aaaaaa',
-            highlight: 'NONE'
-        }
-    }
-};
-
-function getColorPair(variant, group) {
-    var groups = data[variant];
-
-    return {
-        color: group in groups && 'color' in groups[group] ?
-            groups[group].color :
-            groups['Normal'].color,
-        backgroundColor: group in groups && 'backgroundColor' in groups[group] ?
-            groups[group].backgroundColor :
-            groups['Normal'].backgroundColor
-    };
-}
-
 function exportColorscheme() {
     var reset = ['SpecialKey', 'NonText', 'Directory', 'ErrorMsg', 'IncSearch', 'Search', 'MoreMsg', 'ModeMsg', 'LineNr', 'CursorLineNr', 'Question', 'StatusLine', 'StatusLineNC', 'VertSplit', 'Title', 'Visual', 'VisualNOS', 'WarningMsg', 'WildMenu', 'Folded', 'FoldColumn', 'DiffAdd', 'DiffChange', 'DiffDelete', 'DiffText', 'SignColumn', 'Conceal', 'SpellBad', 'SpellCap', 'SpellRare', 'SpellLocal', 'Pmenu', 'PmenuSel', 'PmenuSbar', 'PmenuThumb', 'TabLine', 'TabLineSel', 'TabLineFill', 'CursorColumn', 'CursorLine', 'ColorColumn', 'Cursor', 'lCursor', 'MatchParen', 'Normal', 'Error', 'Comment', 'Constant', 'Special', 'Identifier', 'Statement', 'PreProc', 'Type', 'Underlined', 'Ignore', 'Todo', 'String', 'Boolean']
 
@@ -88,7 +35,5 @@ function exportColorscheme() {
 }
 
 module.exports = {
-    data,
-    getColorPair,
     exportColorscheme
 }

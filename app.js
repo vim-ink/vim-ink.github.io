@@ -26,9 +26,9 @@ var Segment = React.createClass({
     render() {
         var {span} = React.DOM;
         var {onClick} = this;
-        var {segment, getColorPair} = this.props;
+        var {segment, getGroupProps} = this.props;
         if (typeof(segment) === 'object') {
-            var style = getColorPair(segment.group);
+            var style = getGroupProps(segment.group);
             return span({style, onClick}, segment.content);
         } else {
             return span(null, segment);
@@ -45,9 +45,9 @@ var LineNumber = React.createClass({
         var {span} = React.DOM;
         var {onClick} = this;
         var {line, lineCount} = this.props.lineNumber;
-        var {getColorPair} = this.props;
+        var {getGroupProps} = this.props;
         var spaces = 1 + (lineCount.toString().length - line.toString().length)
-        var style = getColorPair('LineNr');
+        var style = getGroupProps('LineNr');
         return span({style, onClick}, ' '.repeat(spaces) + line + ' ');
     },
     onClick(e) {
@@ -59,9 +59,9 @@ var LineNumber = React.createClass({
 var Line = React.createClass({
     render() {
         var {span} = React.DOM;
-        var {getColorPair, line, lineNumber, selectGroup} = this.props;
-        var lineNumber_ = [LineNumber({lineNumber, getColorPair, selectGroup})]
-        var segments = line.map(segment => Segment({segment, getColorPair, selectGroup}));
+        var {getGroupProps, line, lineNumber, selectGroup} = this.props;
+        var lineNumber_ = [LineNumber({lineNumber, getGroupProps, selectGroup})]
+        var segments = line.map(segment => Segment({segment, getGroupProps, selectGroup}));
         return span(null,
             lineNumber_.concat(segments.concat(span(null, '\n'))));
     }
@@ -71,8 +71,8 @@ var TabLineFile = React.createClass({
     render() {
         var {span} = React.DOM;
         var {onClick, group} = this;
-        var {getColorPair, fileName, selected} = this.props;
-        var style = getColorPair(group());
+        var {getGroupProps, fileName, selected} = this.props;
+        var style = getGroupProps(group());
         return span({style, onClick}, ' 2 ' + fileName + ' ');
     },
     onClick(e) {
@@ -90,23 +90,23 @@ var TabLineFile = React.createClass({
 var TabLine = React.createClass({
     render() {
         var {span} = React.DOM;
-        var {getColorPair, selectGroup} = this.props;
+        var {getGroupProps, selectGroup} = this.props;
 
         return span(
             null,
             [
                 TabLineFile({
-                    getColorPair,
+                    getGroupProps,
                     selectGroup,
                     fileName: 'one-file.js',
                     selected: false}),
                 TabLineFile({
-                    getColorPair,
+                    getGroupProps,
                     selectGroup,
                     fileName: 'another-file.js',
                     selected: false}),
                 TabLineFile({
-                    getColorPair,
+                    getGroupProps,
                     selectGroup,
                     fileName: 'yet-another-file.js',
                     selected: true}),
@@ -119,17 +119,17 @@ var Source = React.createClass({
     render() {
         var {pre} = React.DOM;
         var {onClick} = this;
-        var {parsedSource, getColorPair, selectGroup} = this.props;
+        var {parsedSource, getGroupProps, selectGroup} = this.props;
         var className = parsedSource === undefined ? 'hidden' : '';
-        var style = getColorPair('Normal');
+        var style = getGroupProps('Normal');
 
         var content;
-        var tabLine = TabLine({getColorPair, selectGroup});
+        var tabLine = TabLine({getGroupProps, selectGroup});
 
         if (parsedSource !== undefined) {
             content = parsedSource.map(
                 (line, index) => Line({
-                    getColorPair,
+                    getGroupProps,
                     line,
                     lineNumber: {
                         line: index,
@@ -149,7 +149,7 @@ var Controls = React.createClass({
         var {aside, h2, p, div, input, button} = React.DOM;
         var {onChangeColor, onChangeBackgroundColor, onLightClick, onDarkClick} = this;
 
-        var colorPair = this.props.getColorPair(this.props.selectedGroup);
+        var colorPair = this.props.getGroupProps(this.props.selectedGroup);
 
         return aside(null,
             h2(null, 'Variant'),
@@ -167,10 +167,10 @@ var Controls = React.createClass({
             h2(null, 'Show'));
     },
     onChangeColor(e) {
-        this.props.setColor('color', e.target.value);
+        this.props.setSelectedGroupProps({color: e.target.value});
     },
     onChangeBackgroundColor(e) {
-        this.props.setColor('backgroundColor', e.target.value);
+        this.props.setSelectedGroupProps({backgroundColor: e.target.value});
     },
     onLightClick(e) {
         this.props.activateVariant('light');
@@ -190,13 +190,51 @@ var Export = React.createClass({
 
 var Root = React.createClass({
     getInitialState() {
-        return this.props.data;
+        return {
+            parsedSource: undefined,
+            selectedGroup: 'Normal',
+            activeVariant: 'light',
+            dark: {
+                Normal: {
+                    color: '#cccccc',
+                    backgroundColor: '#000000',
+                    highlight: 'NONE'
+                },
+                TabLine: {
+                    color: '#000000',
+                    backgroundColor: '#aaaaaa',
+                    highlight: 'NONE'
+                },
+                TabLineSel: {
+                    color: '#000000',
+                    backgroundColor: '#cccccc',
+                    highlight: 'NONE'
+                }
+            },
+            light: {
+                Normal: {
+                    color: '#000000',
+                    backgroundColor: '#ffffff',
+                    highlight: 'NONE'
+                },
+                TabLine: {
+                    color: '#000000',
+                    backgroundColor: '#cccccc',
+                    highlight: 'NONE'
+                },
+                TabLineSel: {
+                    color: '#000000',
+                    backgroundColor: '#aaaaaa',
+                    highlight: 'NONE'
+                }
+            }
+        };
     },
     render() {
         var {main} = React.DOM;
         var {parsedSource, selectedGroup} = this.state;
         var {exportColorscheme} = this.props;
-        var {getColorPair, parse, selectGroup, setColor, activateVariant} = this;
+        var {getGroupProps, parse, selectGroup, setSelectedGroupProps, activateVariant} = this;
         return main(
             null,
             Header(),
@@ -205,13 +243,13 @@ var Root = React.createClass({
                 parse}),
             Source({
                 parsedSource,
-                getColorPair,
+                getGroupProps,
                 selectGroup}),
             Controls({
                 activateVariant,
                 selectedGroup,
-                getColorPair,
-                setColor}));
+                getGroupProps,
+                setSelectedGroupProps}));
             // Export({exportColorscheme}));
     },
     parse(unparsedSource) {
@@ -225,23 +263,28 @@ var Root = React.createClass({
     selectGroup(selectedGroup) {
         this.setState({selectedGroup});
     },
-    getColorPair(group) {
-        return this.props.getColorPair(this.state.activeVariant, group);
-    },
-    setColor(what, color) { // TODO: How about setSelectedGroup(object)?
+    getGroupProps(group) {
         var groups = this.state[this.state.activeVariant];
-        var {selectedGroup} = this.state;
 
-        if (!(selectedGroup in groups))
-            groups[selectedGroup] = {};
+        return {
+            color: group in groups && 'color' in groups[group] ?
+                groups[group].color :
+                groups['Normal'].color,
+            backgroundColor: group in groups && 'backgroundColor' in groups[group] ?
+                groups[group].backgroundColor :
+                groups['Normal'].backgroundColor
+        };
+    },
+    setSelectedGroupProps(props) {
+        var newState = this.state;
+        var group = newState.selectedGroup;
+        var groups = newState[this.state.activeVariant];
 
-        var group = groups[selectedGroup];
-        group[what] = color;
+        if (!(group in groups))
+            groups[group] = {};
 
-        if (this.state.activeVariant === 'light')
-            this.setState({light: groups});
-        else
-            this.setState({dark: groups});
+        Object.assign(groups[group], props);
+        this.setState(newState);
     }
 });
 
