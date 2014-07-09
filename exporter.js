@@ -1,39 +1,51 @@
-function exportColorscheme() {
-    var reset = ['SpecialKey', 'NonText', 'Directory', 'ErrorMsg', 'IncSearch', 'Search', 'MoreMsg', 'ModeMsg', 'LineNr', 'CursorLineNr', 'Question', 'StatusLine', 'StatusLineNC', 'VertSplit', 'Title', 'Visual', 'VisualNOS', 'WarningMsg', 'WildMenu', 'Folded', 'FoldColumn', 'DiffAdd', 'DiffChange', 'DiffDelete', 'DiffText', 'SignColumn', 'Conceal', 'SpellBad', 'SpellCap', 'SpellRare', 'SpellLocal', 'Pmenu', 'PmenuSel', 'PmenuSbar', 'PmenuThumb', 'TabLine', 'TabLineSel', 'TabLineFill', 'CursorColumn', 'CursorLine', 'ColorColumn', 'Cursor', 'lCursor', 'MatchParen', 'Normal', 'Error', 'Comment', 'Constant', 'Special', 'Identifier', 'Statement', 'PreProc', 'Type', 'Underlined', 'Ignore', 'Todo', 'String', 'Boolean']
+function exportGroup(name, props, defaultProps) {
+    var str = ['hi', name];
 
-    var str = ['hi clear', 'syntax reset'];
+    str.push('gui=' + ('highlight' in props ?
+        props.highlight :
+        defaultProps.highlight));
+    str.push('guifg=' + ('color' in props ?
+        props.color :
+        defaultProps.color));
+    str.push('guibg=' + ('backgroundColor' in props ?
+        props.backgroundColor :
+        defaultProps.backgroundColor));
 
-    for (var group in data.colors) {
-        str.push('hi ' + group + ' guifg=' + data.colors[group]);
-    }
+    return str.join(' ');
+}
 
-    for (var group in data.backgroundColors) {
-        str.push('hi ' + group + ' guibg=' + data.backgroundColors[group]);
-    }
+function exportVariant(variant) {
+    var reset = ['SpecialKey', 'NonText', 'Directory', 'ErrorMsg', 'IncSearch', 'Search', 'MoreMsg', 'ModeMsg', 'LineNr', 'CursorLineNr', 'Question', 'StatusLine', 'StatusLineNC', 'VertSplit', 'Title', 'Visual', 'VisualNOS', 'WarningMsg', 'WildMenu', 'Folded', 'FoldColumn', 'DiffAdd', 'DiffChange', 'DiffDelete', 'DiffText', 'SignColumn', 'Conceal', 'SpellBad', 'SpellCap', 'SpellRare', 'SpellLocal', 'Pmenu', 'PmenuSel', 'PmenuSbar', 'PmenuThumb', 'TabLine', 'TabLineSel', 'TabLineFill', 'CursorColumn', 'CursorLine', 'ColorColumn', 'Cursor', 'lCursor', 'MatchParen', 'Normal', 'Error', 'Comment', 'Constant', 'Special', 'Identifier', 'Statement', 'PreProc', 'Type', 'Underlined', 'Ignore', 'Todo', 'String', 'Boolean'];
+    var str = [];
+    var groups = variant;
 
-    reset.forEach((group) => {
-        str.push('hi ' + group + ' gui=NONE');
-
-        if (data.colors.hasOwnProperty(group) === false) {
-            if (group !== 'Cursor' && group !== 'Visual') {
-                str.push('hi ' + group + ' guifg=' + data.colors['Normal']);
-            } else {
-                str.push('hi ' + group + ' guifg=' + data.backgroundColors['Normal']);
-            }
-        }
-
-        if (data.backgroundColors.hasOwnProperty(group) === false) {
-            if (group !== 'Cursor' && group !== 'Visual') {
-                str.push('hi ' + group + ' guibg=' + data.backgroundColors['Normal']);
-            } else {
-                str.push('hi ' + group + ' guifg=' + data.colors['Normal']);
-            }
+    reset.forEach(resetGroup => {
+        if (!(resetGroup in groups)) {
+            groups[resetGroup] = {};
         }
     });
 
-    return str.join('\n');
+    for (var group in groups) {
+        str.push('    ' + exportGroup(group, groups[group], groups['Normal']));
+    }
+
+    return str;
+}
+
+function exportColorScheme(state) {
+    var str = [].concat(
+        ['hi clear',
+        'syntax reset',
+        'let g:colors_name = "whatever"',
+        'if &background == "light"'],
+        exportVariant(state.light),
+        ['elseif &background == "dark"'],
+        exportVariant(state.dark),
+        ['endif']);
+
+    console.log(str.join('\n'));
 }
 
 module.exports = {
-    exportColorscheme
+    exportColorScheme
 }

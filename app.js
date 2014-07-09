@@ -147,7 +147,7 @@ var Source = React.createClass({
 var Controls = React.createClass({
     render() {
         var {aside, h2, p, div, input, button} = React.DOM;
-        var {onChangeColor, onChangeBackgroundColor, onLightClick, onDarkClick} = this;
+        var {onChangeColor, onChangeBackgroundColor, onLightClick, onDarkClick, onExportClick} = this;
 
         var colorPair = this.props.getGroupProps(this.props.selectedGroup);
 
@@ -167,7 +167,7 @@ var Controls = React.createClass({
             h2({className: 'collapsed'}, 'Show'),
             h2({className: 'collapsed'}, 'Assigned groups'),
             h2(null, 'Export'),
-            button({className: 'button'}, 'Export'),
+            button({className: 'button', onClick: onExportClick}, 'Export'),
             h2({className: 'collapsed'}, 'Danger zone'));
             // button({className: 'button'}, 'Reset'));
     },
@@ -177,14 +177,14 @@ var Controls = React.createClass({
     onChangeBackgroundColor(e) {
         this.props.setSelectedGroupProps({backgroundColor: e.target.value});
     },
-    onLightClick(e) {
+    onLightClick() {
         this.props.activateVariant('light');
     },
-    onDarkClick(e) {
+    onDarkClick() {
         this.props.activateVariant('dark');
     },
-    onExporterClick(e) {
-        // this.props.activateVariant('dark');
+    onExportClick() {
+        this.props.exportColorScheme();
     }
 });
 
@@ -199,6 +199,7 @@ var Export = React.createClass({
 var Root = React.createClass({
     getInitialState() {
         return {
+            _stateFormatVersion: 0,
             parsedSource: undefined,
             selectedGroup: 'Normal',
             activeVariant: 'light',
@@ -217,6 +218,12 @@ var Root = React.createClass({
                     color: '#000000',
                     backgroundColor: '#cccccc',
                     highlight: 'NONE'
+                },
+                Cursor: {
+                    highlight: 'reverse'
+                },
+                Visual: {
+                    highlight: 'reverse'
                 }
             },
             light: {
@@ -234,6 +241,12 @@ var Root = React.createClass({
                     color: '#000000',
                     backgroundColor: '#aaaaaa',
                     highlight: 'NONE'
+                },
+                Cursor: {
+                    highlight: 'reverse'
+                },
+                Visual: {
+                    highlight: 'reverse'
                 }
             }
         };
@@ -242,7 +255,7 @@ var Root = React.createClass({
         var {main} = React.DOM;
         var {parsedSource, selectedGroup} = this.state;
         var {exportColorscheme} = this.props;
-        var {getGroupProps, parse, selectGroup, setSelectedGroupProps, activateVariant} = this;
+        var {getGroupProps, parse, selectGroup, setSelectedGroupProps, activateVariant, exportColorScheme} = this;
         return main(
             null,
             Header(),
@@ -254,6 +267,7 @@ var Root = React.createClass({
                 getGroupProps,
                 selectGroup}),
             Controls({
+                exportColorScheme,
                 activateVariant,
                 selectedGroup,
                 getGroupProps,
@@ -293,6 +307,9 @@ var Root = React.createClass({
 
         Object.assign(groups[group], props);
         this.setState(newState);
+    },
+    exportColorScheme() {
+        exporter.exportColorScheme(this.state);
     }
 });
 

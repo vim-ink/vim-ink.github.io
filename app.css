@@ -6,7 +6,7 @@
  *          #999999 – text color
  *          #cccccc – button border, button hover background color
  *          #dddddd – h2 border, button active background and border
- *          #444444 – button hover text color
+ *          #444444 – button hover text color, textarea color
  *      dark
  *          #000000 – textarea background
  *          #333333 – textarea and pre shadow
@@ -14,7 +14,7 @@
  *          #aaaaaa – text color
  *          #666666 – button border, button hover background color
  *          #777777 – h2 border, button active background and border
- *          #cccccc – button hover text color
+ *          #cccccc – button hover text color, textarea color
 
 /* Typography */
 
@@ -103,14 +103,14 @@ textarea {
 body.light textarea {
     box-shadow: 4px 4px 4px #f0f0f0;
     background-color: #fff;
-    color: #999;
+    color: #444;
     border: 0px solid #ddd;
 }
 
 body.dark textarea {
     box-shadow: 4px 4px 4px #333;
     background-color: #000;
-    color: #aaa;
+    color: #ccc;
     border: 0;
 }
 
@@ -175,6 +175,36 @@ body.light .button {
 body.dark .button {
     border: 1px solid #777;
     color: #aaa;
+}
+
+body.light .button:hover {
+    background-color: #ccc;
+    color: #444;
+}
+
+body.dark .button:hover {
+    background-color: #777;
+    color: #ccc;
+}
+
+.button:active {
+    position: relative;
+    left: 1px;
+    top: 1px;
+}
+
+body.light .button:active {
+    background-color: #ddd;
+    border-color: #ddd;
+}
+
+body.dark .button:active {
+    background-color: #666;
+    border-color: #666;
+}
+
+.button:focus {
+    outline: 0;
 }
 
 /* .light-button */

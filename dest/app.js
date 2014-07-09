@@ -1,35 +1,32 @@
 (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);throw new Error("Cannot find module '"+o+"'")}var f=n[o]={exports:{}};t[o][0].call(f.exports,function(e){var n=t[o][1][e];return s(n?n:e)},f,f.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 "use strict";
-function exportColorscheme() {
+function exportGroup(name, props, defaultProps) {
+  var str = ['hi', name];
+  str.push('gui=' + ('highlight' in props ? props.highlight : defaultProps.highlight));
+  str.push('guifg=' + ('color' in props ? props.color : defaultProps.color));
+  str.push('guibg=' + ('backgroundColor' in props ? props.backgroundColor : defaultProps.backgroundColor));
+  return str.join(' ');
+}
+function exportVariant(variant) {
   var reset = ['SpecialKey', 'NonText', 'Directory', 'ErrorMsg', 'IncSearch', 'Search', 'MoreMsg', 'ModeMsg', 'LineNr', 'CursorLineNr', 'Question', 'StatusLine', 'StatusLineNC', 'VertSplit', 'Title', 'Visual', 'VisualNOS', 'WarningMsg', 'WildMenu', 'Folded', 'FoldColumn', 'DiffAdd', 'DiffChange', 'DiffDelete', 'DiffText', 'SignColumn', 'Conceal', 'SpellBad', 'SpellCap', 'SpellRare', 'SpellLocal', 'Pmenu', 'PmenuSel', 'PmenuSbar', 'PmenuThumb', 'TabLine', 'TabLineSel', 'TabLineFill', 'CursorColumn', 'CursorLine', 'ColorColumn', 'Cursor', 'lCursor', 'MatchParen', 'Normal', 'Error', 'Comment', 'Constant', 'Special', 'Identifier', 'Statement', 'PreProc', 'Type', 'Underlined', 'Ignore', 'Todo', 'String', 'Boolean'];
-  var str = ['hi clear', 'syntax reset'];
-  for (var group in data.colors) {
-    str.push('hi ' + group + ' guifg=' + data.colors[group]);
-  }
-  for (var group in data.backgroundColors) {
-    str.push('hi ' + group + ' guibg=' + data.backgroundColors[group]);
-  }
-  reset.forEach((function(group) {
-    str.push('hi ' + group + ' gui=NONE');
-    if (data.colors.hasOwnProperty(group) === false) {
-      if (group !== 'Cursor' && group !== 'Visual') {
-        str.push('hi ' + group + ' guifg=' + data.colors['Normal']);
-      } else {
-        str.push('hi ' + group + ' guifg=' + data.backgroundColors['Normal']);
-      }
-    }
-    if (data.backgroundColors.hasOwnProperty(group) === false) {
-      if (group !== 'Cursor' && group !== 'Visual') {
-        str.push('hi ' + group + ' guibg=' + data.backgroundColors['Normal']);
-      } else {
-        str.push('hi ' + group + ' guifg=' + data.colors['Normal']);
-      }
+  var str = [];
+  var groups = variant;
+  reset.forEach((function(resetGroup) {
+    if (!(resetGroup in groups)) {
+      groups[resetGroup] = {};
     }
   }));
-  return str.join('\n');
+  for (var group in groups) {
+    str.push('    ' + exportGroup(group, groups[group], groups['Normal']));
+  }
+  return str;
 }
-module.exports = {exportColorscheme: exportColorscheme};
+function exportColorScheme(state) {
+  var str = [].concat(['hi clear', 'syntax reset', 'let g:colors_name = "whatever"', 'if &background == "light"'], exportVariant(state.light), ['elseif &background == "dark"'], exportVariant(state.dark), ['endif']);
+  console.log(str.join('\n'));
+}
+module.exports = {exportColorScheme: exportColorScheme};
 
 
 }).call(this,require("IrXUsu"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/exporter.js","/")
@@ -226,7 +223,8 @@ var Controls = React.createClass({
         onChangeColor = $__0.onChangeColor,
         onChangeBackgroundColor = $__0.onChangeBackgroundColor,
         onLightClick = $__0.onLightClick,
-        onDarkClick = $__0.onDarkClick;
+        onDarkClick = $__0.onDarkClick,
+        onExportClick = $__0.onExportClick;
     var colorPair = this.props.getGroupProps(this.props.selectedGroup);
     return aside(null, h2(null, 'Variant'), button({
       onClick: onLightClick,
@@ -242,7 +240,10 @@ var Controls = React.createClass({
       type: 'color',
       value: colorPair.backgroundColor,
       onChange: onChangeBackgroundColor
-    }), ' Background'), h2({className: 'collapsed'}, 'Show'), h2({className: 'collapsed'}, 'Assigned groups'), h2(null, 'Export'), button({className: 'button'}, 'Export'), h2({className: 'collapsed'}, 'Danger zone'));
+    }), ' Background'), h2({className: 'collapsed'}, 'Show'), h2({className: 'collapsed'}, 'Assigned groups'), h2(null, 'Export'), button({
+      className: 'button',
+      onClick: onExportClick
+    }, 'Export'), h2({className: 'collapsed'}, 'Danger zone'));
   },
   onChangeColor: function(e) {
     this.props.setSelectedGroupProps({color: e.target.value});
@@ -250,13 +251,15 @@ var Controls = React.createClass({
   onChangeBackgroundColor: function(e) {
     this.props.setSelectedGroupProps({backgroundColor: e.target.value});
   },
-  onLightClick: function(e) {
+  onLightClick: function() {
     this.props.activateVariant('light');
   },
-  onDarkClick: function(e) {
+  onDarkClick: function() {
     this.props.activateVariant('dark');
   },
-  onExporterClick: function(e) {}
+  onExportClick: function() {
+    this.props.exportColorScheme();
+  }
 });
 var Export = React.createClass({render: function() {
     var textarea = $traceurRuntime.assertObject(React.DOM).textarea;
@@ -265,6 +268,7 @@ var Export = React.createClass({render: function() {
 var Root = React.createClass({
   getInitialState: function() {
     return {
+      _stateFormatVersion: 0,
       parsedSource: undefined,
       selectedGroup: 'Normal',
       activeVariant: 'light',
@@ -283,7 +287,9 @@ var Root = React.createClass({
           color: '#000000',
           backgroundColor: '#cccccc',
           highlight: 'NONE'
-        }
+        },
+        Cursor: {highlight: 'reverse'},
+        Visual: {highlight: 'reverse'}
       },
       light: {
         Normal: {
@@ -300,7 +306,9 @@ var Root = React.createClass({
           color: '#000000',
           backgroundColor: '#aaaaaa',
           highlight: 'NONE'
-        }
+        },
+        Cursor: {highlight: 'reverse'},
+        Visual: {highlight: 'reverse'}
       }
     };
   },
@@ -315,7 +323,8 @@ var Root = React.createClass({
         parse = $__0.parse,
         selectGroup = $__0.selectGroup,
         setSelectedGroupProps = $__0.setSelectedGroupProps,
-        activateVariant = $__0.activateVariant;
+        activateVariant = $__0.activateVariant,
+        exportColorScheme = $__0.exportColorScheme;
     return main(null, Header(), Paste({
       parsedSource: parsedSource,
       parse: parse
@@ -324,6 +333,7 @@ var Root = React.createClass({
       getGroupProps: getGroupProps,
       selectGroup: selectGroup
     }), Controls({
+      exportColorScheme: exportColorScheme,
       activateVariant: activateVariant,
       selectedGroup: selectedGroup,
       getGroupProps: getGroupProps,
@@ -356,12 +366,15 @@ var Root = React.createClass({
       groups[group] = {};
     Object.assign(groups[group], props);
     this.setState(newState);
+  },
+  exportColorScheme: function() {
+    exporter.exportColorScheme(this.state);
   }
 });
 React.renderComponent(Root(), document.body);
 
 
-}).call(this,require("IrXUsu"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/fake_5de8ab82.js","/")
+}).call(this,require("IrXUsu"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/fake_e8dacacb.js","/")
 },{"./exporter":1,"./vim-tohtml-parser":143,"IrXUsu":7,"buffer":4,"es6ify/node_modules/traceur/bin/traceur-runtime":3,"react":142}],3:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 (function(global) {
