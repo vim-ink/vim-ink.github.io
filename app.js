@@ -147,14 +147,14 @@ var Source = React.createClass({
 var Controls = React.createClass({
     render() {
         var {aside, h2, p, div, input, button} = React.DOM;
-        var {onChangeColor, onChangeBackgroundColor, onClick} = this;
+        var {onChangeColor, onChangeBackgroundColor, onLightClick, onDarkClick} = this;
 
         var colorPair = this.props.getColorPair(this.props.selectedGroup);
 
         return aside(null,
             h2(null, 'Variant'),
-            button({onClick: onClick, className: 'lightbulb light-button'}, 'Light'),
-            button({onClick: onClick, className: 'lightbulb dark-button'}, 'Dark'),
+            button({onClick: onLightClick, className: 'lightbulb light-button'}, 'Light'),
+            button({onClick: onDarkClick, className: 'lightbulb dark-button'}, 'Dark'),
             h2(null, 'Selected group'),
             p(null, this.props.selectedGroup),
             h2(null, 'Color'),
@@ -172,10 +172,12 @@ var Controls = React.createClass({
     onChangeBackgroundColor(e) {
         this.props.setColor('backgroundColor', e.target.value);
     },
-    onClick(e) {
-        var body = document.getElementsByTagName('body')[0];
-        body.className = body.className === 'light' ? 'dark' : 'light';
+    onLightClick(e) {
+        this.props.activateVariant('light');
     },
+    onDarkClick(e) {
+        this.props.activateVariant('dark');
+    }
 });
 
 var Export = React.createClass({
@@ -193,8 +195,8 @@ var Root = React.createClass({
     render() {
         var {main} = React.DOM;
         var {parsedSource, selectedGroup} = this.state;
-        var {getColorPair, exportColorscheme} = this.props;
-        var {parse, selectGroup, setColor} = this;
+        var {exportColorscheme} = this.props;
+        var {getColorPair, parse, selectGroup, setColor, activateVariant} = this;
         return main(
             null,
             Header(),
@@ -206,6 +208,7 @@ var Root = React.createClass({
                 getColorPair,
                 selectGroup}),
             Controls({
+                activateVariant,
                 selectedGroup,
                 getColorPair,
                 setColor}));
@@ -214,18 +217,31 @@ var Root = React.createClass({
     parse(unparsedSource) {
         this.setState({parsedSource: parse(unparsedSource)});
     },
+    activateVariant(activeVariant) {
+        var body = document.getElementsByTagName('body')[0];
+        body.className = activeVariant;
+        this.setState({activeVariant});
+    },
     selectGroup(selectedGroup) {
         this.setState({selectedGroup});
     },
+    getColorPair(group) {
+        return this.props.getColorPair(this.state.activeVariant, group);
+    },
     setColor(what, color) { // TODO: How about setSelectedGroup(object)?
-        var {dark, selectedGroup} = this.state;
+        var groups = this.state[this.state.activeVariant];
+        var {selectedGroup} = this.state;
 
-        if (!(selectedGroup in dark))
-            dark[selectedGroup] = {};
+        if (!(selectedGroup in groups))
+            groups[selectedGroup] = {};
 
-        var group = dark[selectedGroup];
+        var group = groups[selectedGroup];
         group[what] = color;
-        this.setState({dark});
+
+        if (this.state.activeVariant === 'light')
+            this.setState({light: groups});
+        else
+            this.setState({dark: groups});
     }
 });
 

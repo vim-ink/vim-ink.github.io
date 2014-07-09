@@ -190,13 +190,14 @@ var Controls = React.createClass({
     var $__0 = this,
         onChangeColor = $__0.onChangeColor,
         onChangeBackgroundColor = $__0.onChangeBackgroundColor,
-        onClick = $__0.onClick;
+        onLightClick = $__0.onLightClick,
+        onDarkClick = $__0.onDarkClick;
     var colorPair = this.props.getColorPair(this.props.selectedGroup);
     return aside(null, h2(null, 'Variant'), button({
-      onClick: onClick,
+      onClick: onLightClick,
       className: 'lightbulb light-button'
     }, 'Light'), button({
-      onClick: onClick,
+      onClick: onDarkClick,
       className: 'lightbulb dark-button'
     }, 'Dark'), h2(null, 'Selected group'), p(null, this.props.selectedGroup), h2(null, 'Color'), div(null, input({
       type: 'color',
@@ -214,9 +215,11 @@ var Controls = React.createClass({
   onChangeBackgroundColor: function(e) {
     this.props.setColor('backgroundColor', e.target.value);
   },
-  onClick: function(e) {
-    var body = document.getElementsByTagName('body')[0];
-    body.className = body.className === 'light' ? 'dark' : 'light';
+  onLightClick: function(e) {
+    this.props.activateVariant('light');
+  },
+  onDarkClick: function(e) {
+    this.props.activateVariant('dark');
   }
 });
 var Export = React.createClass({render: function() {
@@ -232,13 +235,13 @@ var Root = React.createClass({
     var $__0 = $traceurRuntime.assertObject(this.state),
         parsedSource = $__0.parsedSource,
         selectedGroup = $__0.selectedGroup;
-    var $__0 = $traceurRuntime.assertObject(this.props),
-        getColorPair = $__0.getColorPair,
-        exportColorscheme = $__0.exportColorscheme;
+    var exportColorscheme = $traceurRuntime.assertObject(this.props).exportColorscheme;
     var $__0 = this,
+        getColorPair = $__0.getColorPair,
         parse = $__0.parse,
         selectGroup = $__0.selectGroup,
-        setColor = $__0.setColor;
+        setColor = $__0.setColor,
+        activateVariant = $__0.activateVariant;
     return main(null, Header(), Paste({
       parsedSource: parsedSource,
       parse: parse
@@ -247,6 +250,7 @@ var Root = React.createClass({
       getColorPair: getColorPair,
       selectGroup: selectGroup
     }), Controls({
+      activateVariant: activateVariant,
       selectedGroup: selectedGroup,
       getColorPair: getColorPair,
       setColor: setColor
@@ -255,31 +259,59 @@ var Root = React.createClass({
   parse: function(unparsedSource) {
     this.setState({parsedSource: parse(unparsedSource)});
   },
+  activateVariant: function(activeVariant) {
+    var body = document.getElementsByTagName('body')[0];
+    body.className = activeVariant;
+    this.setState({activeVariant: activeVariant});
+  },
   selectGroup: function(selectedGroup) {
     this.setState({selectedGroup: selectedGroup});
   },
+  getColorPair: function(group) {
+    return this.props.getColorPair(this.state.activeVariant, group);
+  },
   setColor: function(what, color) {
-    var $__0 = $traceurRuntime.assertObject(this.state),
-        dark = $__0.dark,
-        selectedGroup = $__0.selectedGroup;
-    if (!(selectedGroup in dark))
-      dark[selectedGroup] = {};
-    var group = dark[selectedGroup];
+    var groups = this.state[this.state.activeVariant];
+    var selectedGroup = $traceurRuntime.assertObject(this.state).selectedGroup;
+    if (!(selectedGroup in groups))
+      groups[selectedGroup] = {};
+    var group = groups[selectedGroup];
     group[what] = color;
-    this.setState({dark: dark});
+    if (this.state.activeVariant === 'light')
+      this.setState({light: groups});
+    else
+      this.setState({dark: groups});
   }
 });
 React.renderComponent(Root(model), document.body);
 
 
-}).call(this,require("IrXUsu"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/fake_451dcd14.js","/")
+}).call(this,require("IrXUsu"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/fake_92121673.js","/")
 },{"./model":2,"./vim-tohtml-parser":143,"IrXUsu":7,"buffer":4,"es6ify/node_modules/traceur/bin/traceur-runtime":3,"react":142}],2:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 "use strict";
 var data = {
   parsedSource: undefined,
   selectedGroup: 'Normal',
+  activeVariant: 'light',
   dark: {
+    Normal: {
+      color: '#cccccc',
+      backgroundColor: '#000000',
+      highlight: 'NONE'
+    },
+    TabLine: {
+      color: '#000000',
+      backgroundColor: '#aaaaaa',
+      highlight: 'NONE'
+    },
+    TabLineSel: {
+      color: '#000000',
+      backgroundColor: '#cccccc',
+      highlight: 'NONE'
+    }
+  },
+  light: {
     Normal: {
       color: '#000000',
       backgroundColor: '#ffffff',
@@ -297,10 +329,11 @@ var data = {
     }
   }
 };
-function getColorPair(group) {
+function getColorPair(variant, group) {
+  var groups = data[variant];
   return {
-    color: group in data.dark && 'color' in data.dark[group] ? data.dark[group].color : data.dark['Normal'].color,
-    backgroundColor: group in data.dark && 'backgroundColor' in data.dark[group] ? data.dark[group].backgroundColor : data.dark['Normal'].backgroundColor
+    color: group in groups && 'color' in groups[group] ? groups[group].color : groups['Normal'].color,
+    backgroundColor: group in groups && 'backgroundColor' in groups[group] ? groups[group].backgroundColor : groups['Normal'].backgroundColor
   };
 }
 function exportColorscheme() {
