@@ -230,10 +230,10 @@ var Controls = React.createClass({
     var colorPair = this.props.getGroupProps(this.props.selectedGroup);
     return aside(null, h2(null, 'Variant'), button({
       onClick: onLightClick,
-      className: 'lightbulb light-button active'
+      className: 'switch-button light-button active'
     }, 'Light'), button({
       onClick: onDarkClick,
-      className: 'lightbulb dark-button'
+      className: 'switch-button dark-button'
     }, 'Dark'), h2(null, 'Selected group'), p(null, this.props.selectedGroup), h2(null, 'Color'), div(null, input({
       type: 'color',
       value: colorPair.color,
@@ -361,7 +361,7 @@ var Root = React.createClass({
 React.renderComponent(Root(), document.body);
 
 
-}).call(this,require("IrXUsu"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/fake_ffd37248.js","/")
+}).call(this,require("IrXUsu"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/fake_59f52ac9.js","/")
 },{"./exporter":1,"./vim-tohtml-parser":143,"IrXUsu":7,"buffer":4,"es6ify/node_modules/traceur/bin/traceur-runtime":3,"react":142}],3:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 (function(global) {

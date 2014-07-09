@@ -96,10 +96,9 @@ body.dark textarea {
     border: 0;
 }
 
-/* .lightbulb */
+/* .switch-button */
 
-.lightbulb {
-    border: 0;
+.switch-button {
     font-size: 1.6rem;
     background-color: transparent;
     box-sizing: border-box;
@@ -107,41 +106,41 @@ body.dark textarea {
     margin: 0;
 }
 
-body.light .lightbulb {
+body.light .switch-button {
     border: 1px solid #ccc;
     color: #999;
 }
 
-body.dark .lightbulb {
+body.dark .switch-button {
     border: 1px solid #666;
     color: #aaa;
 }
 
-body.light .lightbulb:hover {
+body.light .switch-button:hover {
     background-color: #ccc;
     color: #444;
     border-color: #ccc;
 }
 
-body.dark .lightbulb:hover {
+body.dark .switch-button:hover {
     background-color: #666;
     color: #ccc;
     border-color: #666;
 }
 
-body.light .lightbulb:active {
+body.light .switch-button:active {
     background-color: #ddd;
     border-color: #ddd;
     color: #444;
 }
 
-body.dark .lightbulb:active {
+body.dark .switch-button:active {
     background-color: #777;
     border-color: #777;
     color: #fff;
 }
 
-.lightbulb:focus {
+.switch-button:focus {
     outline: 0;
 }
 
