@@ -272,7 +272,7 @@ var Root = React.createClass({
 React.renderComponent(Root(model), document.body);
 
 
-}).call(this,require("IrXUsu"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/fake_a0a927b2.js","/")
+}).call(this,require("IrXUsu"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/fake_451dcd14.js","/")
 },{"./model":2,"./vim-tohtml-parser":143,"IrXUsu":7,"buffer":4,"es6ify/node_modules/traceur/bin/traceur-runtime":3,"react":142}],2:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 "use strict";
@@ -281,18 +281,18 @@ var data = {
   selectedGroup: 'Normal',
   dark: {
     Normal: {
-      color: '#000',
-      backgroundColor: '#fff',
+      color: '#000000',
+      backgroundColor: '#ffffff',
       highlight: 'NONE'
     },
     TabLine: {
-      color: '#000',
-      backgroundColor: '#ccc',
+      color: '#000000',
+      backgroundColor: '#cccccc',
       highlight: 'NONE'
     },
     TabLineSel: {
-      color: '#000',
-      backgroundColor: '#aaa',
+      color: '#000000',
+      backgroundColor: '#aaaaaa',
       highlight: 'NONE'
     }
   }

@@ -3,18 +3,18 @@ var data = {
     selectedGroup: 'Normal',
     dark: {
         Normal: {
-            color: '#000',
-            backgroundColor: '#fff',
+            color: '#000000',
+            backgroundColor: '#ffffff',
             highlight: 'NONE'
         },
         TabLine: {
-            color: '#000',
-            backgroundColor: '#ccc',
+            color: '#000000',
+            backgroundColor: '#cccccc',
             highlight: 'NONE'
         },
         TabLineSel: {
-            color: '#000',
-            backgroundColor: '#aaa',
+            color: '#000000',
+            backgroundColor: '#aaaaaa',
             highlight: 'NONE'
         }
     }
