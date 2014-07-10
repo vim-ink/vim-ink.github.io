@@ -1,3 +1,5 @@
+var _ = require('lodash');
+
 function parse(input) {
     var htmlA = input.search(/<pre/) + 26;
     var htmlB = input.search(/<\/pre/);
@@ -18,7 +20,7 @@ function parse(input) {
             var contentB = contentA + rest.substring(contentA).search('<');
             var content = rest.substring(contentA, contentB);
 
-            parsedLines.push({group: group, content: content});
+            parsedLines.push({group: group, content: _.unescape(content)});
 
             var nextA = contentB + 7;
 
