@@ -211,58 +211,62 @@ var Export = React.createClass({
 
 var Root = React.createClass({
     getInitialState() {
-        return {
-            _stateFormatVersion: 0,
-            parsedSource: undefined,
-            selectedGroup: 'Normal',
-            activeVariant: 'light',
-            dark: {
-                Normal: {
-                    color: '#cccccc',
-                    backgroundColor: '#000000',
-                    highlight: 'NONE'
+        if (localStorage.getItem('state') !== null) {
+            return JSON.parse(localStorage.getItem('state'));
+        } else {
+            return {
+                _stateFormatVersion: 0,
+                parsedSource: undefined,
+                selectedGroup: 'Normal',
+                activeVariant: 'light',
+                dark: {
+                    Normal: {
+                        color: '#cccccc',
+                        backgroundColor: '#000000',
+                        highlight: 'NONE'
+                    },
+                    TabLine: {
+                        color: '#000000',
+                        backgroundColor: '#aaaaaa',
+                        highlight: 'NONE'
+                    },
+                    TabLineSel: {
+                        color: '#000000',
+                        backgroundColor: '#cccccc',
+                        highlight: 'NONE'
+                    },
+                    Cursor: {
+                        highlight: 'reverse'
+                    },
+                    Visual: {
+                        highlight: 'reverse'
+                    }
                 },
-                TabLine: {
-                    color: '#000000',
-                    backgroundColor: '#aaaaaa',
-                    highlight: 'NONE'
-                },
-                TabLineSel: {
-                    color: '#000000',
-                    backgroundColor: '#cccccc',
-                    highlight: 'NONE'
-                },
-                Cursor: {
-                    highlight: 'reverse'
-                },
-                Visual: {
-                    highlight: 'reverse'
+                light: {
+                    Normal: {
+                        color: '#000000',
+                        backgroundColor: '#ffffff',
+                        highlight: 'NONE'
+                    },
+                    TabLine: {
+                        color: '#000000',
+                        backgroundColor: '#cccccc',
+                        highlight: 'NONE'
+                    },
+                    TabLineSel: {
+                        color: '#000000',
+                        backgroundColor: '#aaaaaa',
+                        highlight: 'NONE'
+                    },
+                    Cursor: {
+                        highlight: 'reverse'
+                    },
+                    Visual: {
+                        highlight: 'reverse'
+                    }
                 }
-            },
-            light: {
-                Normal: {
-                    color: '#000000',
-                    backgroundColor: '#ffffff',
-                    highlight: 'NONE'
-                },
-                TabLine: {
-                    color: '#000000',
-                    backgroundColor: '#cccccc',
-                    highlight: 'NONE'
-                },
-                TabLineSel: {
-                    color: '#000000',
-                    backgroundColor: '#aaaaaa',
-                    highlight: 'NONE'
-                },
-                Cursor: {
-                    highlight: 'reverse'
-                },
-                Visual: {
-                    highlight: 'reverse'
-                }
-            }
-        };
+            };
+        }
     },
     render() {
         var {main} = React.DOM;
@@ -327,6 +331,9 @@ var Root = React.createClass({
     },
     clearExportedSource() {
         this.setState({exportedSource: undefined});
+    },
+    componentDidUpdate() {
+        localStorage.setItem('state', JSON.stringify(this.state));
     }
 });
 

@@ -289,50 +289,54 @@ var Export = React.createClass({
 });
 var Root = React.createClass({
   getInitialState: function() {
-    return {
-      _stateFormatVersion: 0,
-      parsedSource: undefined,
-      selectedGroup: 'Normal',
-      activeVariant: 'light',
-      dark: {
-        Normal: {
-          color: '#cccccc',
-          backgroundColor: '#000000',
-          highlight: 'NONE'
+    if (localStorage.getItem('state') !== null) {
+      return JSON.parse(localStorage.getItem('state'));
+    } else {
+      return {
+        _stateFormatVersion: 0,
+        parsedSource: undefined,
+        selectedGroup: 'Normal',
+        activeVariant: 'light',
+        dark: {
+          Normal: {
+            color: '#cccccc',
+            backgroundColor: '#000000',
+            highlight: 'NONE'
+          },
+          TabLine: {
+            color: '#000000',
+            backgroundColor: '#aaaaaa',
+            highlight: 'NONE'
+          },
+          TabLineSel: {
+            color: '#000000',
+            backgroundColor: '#cccccc',
+            highlight: 'NONE'
+          },
+          Cursor: {highlight: 'reverse'},
+          Visual: {highlight: 'reverse'}
         },
-        TabLine: {
-          color: '#000000',
-          backgroundColor: '#aaaaaa',
-          highlight: 'NONE'
-        },
-        TabLineSel: {
-          color: '#000000',
-          backgroundColor: '#cccccc',
-          highlight: 'NONE'
-        },
-        Cursor: {highlight: 'reverse'},
-        Visual: {highlight: 'reverse'}
-      },
-      light: {
-        Normal: {
-          color: '#000000',
-          backgroundColor: '#ffffff',
-          highlight: 'NONE'
-        },
-        TabLine: {
-          color: '#000000',
-          backgroundColor: '#cccccc',
-          highlight: 'NONE'
-        },
-        TabLineSel: {
-          color: '#000000',
-          backgroundColor: '#aaaaaa',
-          highlight: 'NONE'
-        },
-        Cursor: {highlight: 'reverse'},
-        Visual: {highlight: 'reverse'}
-      }
-    };
+        light: {
+          Normal: {
+            color: '#000000',
+            backgroundColor: '#ffffff',
+            highlight: 'NONE'
+          },
+          TabLine: {
+            color: '#000000',
+            backgroundColor: '#cccccc',
+            highlight: 'NONE'
+          },
+          TabLineSel: {
+            color: '#000000',
+            backgroundColor: '#aaaaaa',
+            highlight: 'NONE'
+          },
+          Cursor: {highlight: 'reverse'},
+          Visual: {highlight: 'reverse'}
+        }
+      };
+    }
   },
   render: function() {
     var main = $traceurRuntime.assertObject(React.DOM).main;
@@ -401,12 +405,15 @@ var Root = React.createClass({
   },
   clearExportedSource: function() {
     this.setState({exportedSource: undefined});
+  },
+  componentDidUpdate: function() {
+    localStorage.setItem('state', JSON.stringify(this.state));
   }
 });
 React.renderComponent(Root(), document.body);
 
 
-}).call(this,require("IrXUsu"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/fake_859e18b0.js","/")
+}).call(this,require("IrXUsu"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/fake_2efeeeb8.js","/")
 },{"./exporter":1,"./vim-tohtml-parser":144,"IrXUsu":7,"buffer":4,"es6ify/node_modules/traceur/bin/traceur-runtime":3,"react":143}],3:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 (function(global) {
