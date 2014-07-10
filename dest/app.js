@@ -218,7 +218,8 @@ var Controls = React.createClass({
         p = $__0.p,
         div = $__0.div,
         input = $__0.input,
-        button = $__0.button;
+        button = $__0.button,
+        span = $__0.span;
     var $__0 = this,
         onChangeColor = $__0.onChangeColor,
         onChangeBackgroundColor = $__0.onChangeBackgroundColor,
@@ -226,13 +227,13 @@ var Controls = React.createClass({
         onDarkClick = $__0.onDarkClick,
         onExportClick = $__0.onExportClick;
     var colorPair = this.props.getGroupProps(this.props.selectedGroup);
-    return aside(null, h2(null, 'Variant'), button({
+    return aside(null, h2(null, 'Variant', span({className: 'ion-ios7-minus-empty'}, '')), button({
       onClick: onLightClick,
       className: 'switch-button light-button active'
     }, 'Light'), button({
       onClick: onDarkClick,
       className: 'switch-button dark-button'
-    }, 'Dark'), h2(null, 'Selected group'), p(null, this.props.selectedGroup), h2(null, 'Color'), div(null, input({
+    }, 'Dark'), h2(null, 'Selected group', span({className: 'ion-ios7-minus-empty'}, '')), p(null, this.props.selectedGroup), h2(null, 'Color', span({className: 'ion-ios7-minus-empty'}, '')), div(null, input({
       type: 'color',
       value: colorPair.color,
       onChange: onChangeColor
@@ -240,10 +241,10 @@ var Controls = React.createClass({
       type: 'color',
       value: colorPair.backgroundColor,
       onChange: onChangeBackgroundColor
-    }), ' Background'), h2({className: 'collapsed'}, 'Show'), h2({className: 'collapsed'}, 'Assigned groups'), h2(null, 'Export'), button({
+    }), ' Background'), h2({className: 'collapsed'}, 'Show', span({className: 'ion-ios7-plus-empty'}, '')), h2({className: 'collapsed'}, 'Assigned groups', span({className: 'ion-ios7-plus-empty'}, '')), h2(null, 'Export', span({className: 'ion-ios7-minus-empty'}, '')), button({
       className: 'button',
       onClick: onExportClick
-    }, 'Export'), h2({className: 'collapsed'}, 'Danger zone'));
+    }, 'Export'), h2({className: 'collapsed'}, 'Danger zone', span({className: 'ion-ios7-plus-empty'}, '')));
   },
   onChangeColor: function(e) {
     this.props.setSelectedGroupProps({color: e.target.value});
@@ -290,7 +291,7 @@ var Root = React.createClass({
       _stateFormatVersion: 0,
       parsedSource: undefined,
       selectedGroup: 'Normal',
-      activeVariant: 'light',
+      activeVariant: 'dark',
       dark: {
         Normal: {
           color: '#cccccc',
@@ -401,7 +402,7 @@ var Root = React.createClass({
 React.renderComponent(Root(), document.body);
 
 
-}).call(this,require("IrXUsu"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/fake_2503a52c.js","/")
+}).call(this,require("IrXUsu"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/fake_305393bb.js","/")
 },{"./exporter":1,"./vim-tohtml-parser":143,"IrXUsu":7,"buffer":4,"es6ify/node_modules/traceur/bin/traceur-runtime":3,"react":142}],3:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 (function(global) {

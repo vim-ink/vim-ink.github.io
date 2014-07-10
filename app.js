@@ -146,29 +146,29 @@ var Source = React.createClass({
 
 var Controls = React.createClass({
     render() {
-        var {aside, h2, p, div, input, button} = React.DOM;
+        var {aside, h2, p, div, input, button, span} = React.DOM;
         var {onChangeColor, onChangeBackgroundColor, onLightClick, onDarkClick, onExportClick} = this;
 
         var colorPair = this.props.getGroupProps(this.props.selectedGroup);
 
         return aside(null,
-            h2(null, 'Variant'),
+            h2(null, 'Variant', span({className: 'ion-ios7-minus-empty'}, '')),
             button({onClick: onLightClick, className: 'switch-button light-button active'}, 'Light'),
             button({onClick: onDarkClick, className: 'switch-button dark-button'}, 'Dark'),
-            h2(null, 'Selected group'),
+            h2(null, 'Selected group', span({className: 'ion-ios7-minus-empty'}, '')),
             p(null, this.props.selectedGroup),
-            h2(null, 'Color'),
+            h2(null, 'Color', span({className: 'ion-ios7-minus-empty'}, '')),
             div(null,
                 input({type: 'color', value: colorPair.color, onChange: onChangeColor}),
                 ' Foreground'),
             div(null,
                 input({type: 'color', value: colorPair.backgroundColor, onChange: onChangeBackgroundColor}),
                 ' Background'),
-            h2({className: 'collapsed'}, 'Show'),
-            h2({className: 'collapsed'}, 'Assigned groups'),
-            h2(null, 'Export'),
+            h2({className: 'collapsed'}, 'Show', span({className: 'ion-ios7-plus-empty'}, '')),
+            h2({className: 'collapsed'}, 'Assigned groups', span({className: 'ion-ios7-plus-empty'}, '')),
+            h2(null, 'Export', span({className: 'ion-ios7-minus-empty'}, '')),
             button({className: 'button', onClick: onExportClick}, 'Export'),
-            h2({className: 'collapsed'}, 'Danger zone'));
+            h2({className: 'collapsed'}, 'Danger zone', span({className: 'ion-ios7-plus-empty'}, '')));
             // button({className: 'button'}, 'Reset'));
     },
     onChangeColor(e) {
@@ -211,7 +211,7 @@ var Root = React.createClass({
             _stateFormatVersion: 0,
             parsedSource: undefined,
             selectedGroup: 'Normal',
-            activeVariant: 'light',
+            activeVariant: 'dark',
             dark: {
                 Normal: {
                     color: '#cccccc',
