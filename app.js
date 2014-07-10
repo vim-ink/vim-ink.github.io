@@ -165,7 +165,8 @@ var Controls = React.createClass({
                 input({type: 'color', value: colorPair.backgroundColor, onChange: onChangeBackgroundColor}),
                 ' Background'),
             h2({className: 'collapsed'}, 'Show', span({className: 'ion-ios7-plus-empty'}, '')),
-            h2({className: 'collapsed'}, 'Assigned groups', span({className: 'ion-ios7-plus-empty'}, '')),
+            h2({className: 'collapsed'}, 'Unassign groups', span({className: 'ion-ios7-plus-empty'}, '')),
+            h2({className: 'collapsed'}, 'Post process', span({className: 'ion-ios7-plus-empty'}, '')),
             h2(null, 'Export', span({className: 'ion-ios7-minus-empty'}, '')),
             button({className: 'button', onClick: onExportClick}, 'Export'),
             h2({className: 'collapsed'}, 'Danger zone', span({className: 'ion-ios7-plus-empty'}, '')));

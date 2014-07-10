@@ -241,7 +241,7 @@ var Controls = React.createClass({
       type: 'color',
       value: colorPair.backgroundColor,
       onChange: onChangeBackgroundColor
-    }), ' Background'), h2({className: 'collapsed'}, 'Show', span({className: 'ion-ios7-plus-empty'}, '')), h2({className: 'collapsed'}, 'Assigned groups', span({className: 'ion-ios7-plus-empty'}, '')), h2(null, 'Export', span({className: 'ion-ios7-minus-empty'}, '')), button({
+    }), ' Background'), h2({className: 'collapsed'}, 'Show', span({className: 'ion-ios7-plus-empty'}, '')), h2({className: 'collapsed'}, 'Unassign groups', span({className: 'ion-ios7-plus-empty'}, '')), h2({className: 'collapsed'}, 'Post process', span({className: 'ion-ios7-plus-empty'}, '')), h2(null, 'Export', span({className: 'ion-ios7-minus-empty'}, '')), button({
       className: 'button',
       onClick: onExportClick
     }, 'Export'), h2({className: 'collapsed'}, 'Danger zone', span({className: 'ion-ios7-plus-empty'}, '')));
@@ -402,7 +402,7 @@ var Root = React.createClass({
 React.renderComponent(Root(), document.body);
 
 
-}).call(this,require("IrXUsu"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/fake_305393bb.js","/")
+}).call(this,require("IrXUsu"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/fake_234c8ae5.js","/")
 },{"./exporter":1,"./vim-tohtml-parser":143,"IrXUsu":7,"buffer":4,"es6ify/node_modules/traceur/bin/traceur-runtime":3,"react":142}],3:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 (function(global) {
