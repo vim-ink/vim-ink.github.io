@@ -226,13 +226,15 @@ var Controls = React.createClass({
         onLightClick = $__0.onLightClick,
         onDarkClick = $__0.onDarkClick,
         onExportClick = $__0.onExportClick;
+    var lightActive = this.props.activeVariant === 'light' ? ' active' : '';
+    var darkActive = this.props.activeVariant === 'dark' ? ' active' : '';
     var colorPair = this.props.getGroupProps(this.props.selectedGroup);
     return aside(null, h2(null, 'Variant', span({className: 'ion-ios7-minus-empty'}, '')), button({
       onClick: onLightClick,
-      className: 'switch-button light-button active'
+      className: 'switch-button light-button' + lightActive
     }, 'Light'), button({
       onClick: onDarkClick,
-      className: 'switch-button dark-button'
+      className: 'switch-button dark-button' + darkActive
     }, 'Dark'), h2(null, 'Selected group', span({className: 'ion-ios7-minus-empty'}, '')), p(null, this.props.selectedGroup), h2(null, 'Color', span({className: 'ion-ios7-minus-empty'}, '')), div(null, input({
       type: 'color',
       value: colorPair.color,
@@ -335,6 +337,7 @@ var Root = React.createClass({
   render: function() {
     var main = $traceurRuntime.assertObject(React.DOM).main;
     var $__0 = $traceurRuntime.assertObject(this.state),
+        activeVariant = $__0.activeVariant,
         parsedSource = $__0.parsedSource,
         selectedGroup = $__0.selectedGroup,
         exportedSource = $__0.exportedSource;
@@ -356,6 +359,7 @@ var Root = React.createClass({
       selectGroup: selectGroup
     }), Controls({
       exportColorScheme: exportColorScheme,
+      activeVariant: activeVariant,
       activateVariant: activateVariant,
       selectedGroup: selectedGroup,
       getGroupProps: getGroupProps,
@@ -402,7 +406,7 @@ var Root = React.createClass({
 React.renderComponent(Root(), document.body);
 
 
-}).call(this,require("IrXUsu"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/fake_234c8ae5.js","/")
+}).call(this,require("IrXUsu"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/fake_ba0e8ef.js","/")
 },{"./exporter":1,"./vim-tohtml-parser":143,"IrXUsu":7,"buffer":4,"es6ify/node_modules/traceur/bin/traceur-runtime":3,"react":142}],3:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 (function(global) {

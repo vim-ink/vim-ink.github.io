@@ -149,12 +149,15 @@ var Controls = React.createClass({
         var {aside, h2, p, div, input, button, span} = React.DOM;
         var {onChangeColor, onChangeBackgroundColor, onLightClick, onDarkClick, onExportClick} = this;
 
+        var lightActive = this.props.activeVariant === 'light' ? ' active' : '';
+        var darkActive = this.props.activeVariant === 'dark' ? ' active' : '';
+
         var colorPair = this.props.getGroupProps(this.props.selectedGroup);
 
         return aside(null,
             h2(null, 'Variant', span({className: 'ion-ios7-minus-empty'}, '')),
-            button({onClick: onLightClick, className: 'switch-button light-button active'}, 'Light'),
-            button({onClick: onDarkClick, className: 'switch-button dark-button'}, 'Dark'),
+            button({onClick: onLightClick, className: 'switch-button light-button' + lightActive}, 'Light'),
+            button({onClick: onDarkClick, className: 'switch-button dark-button' + darkActive}, 'Dark'),
             h2(null, 'Selected group', span({className: 'ion-ios7-minus-empty'}, '')),
             p(null, this.props.selectedGroup),
             h2(null, 'Color', span({className: 'ion-ios7-minus-empty'}, '')),
@@ -263,7 +266,7 @@ var Root = React.createClass({
     },
     render() {
         var {main} = React.DOM;
-        var {parsedSource, selectedGroup, exportedSource} = this.state;
+        var {activeVariant, parsedSource, selectedGroup, exportedSource} = this.state;
         var {exportColorscheme} = this.props;
         var {getGroupProps, parse, selectGroup, setSelectedGroupProps, activateVariant, exportColorScheme, clearExportedSource} = this;
         return main(
@@ -278,6 +281,7 @@ var Root = React.createClass({
                 selectGroup}),
             Controls({
                 exportColorScheme,
+                activeVariant,
                 activateVariant,
                 selectedGroup,
                 getGroupProps,
