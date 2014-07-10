@@ -19,7 +19,7 @@ body, h1, h2, button {
 /* body */
 
 body {
-    font-size: 1.7rem;
+    font-size: 1.8rem;
     margin: 0;
 }
 
@@ -116,9 +116,7 @@ body.dark .paste {
     box-sizing: border-box;
     height: 4rem;
     margin: 0;
-    text-transform: uppercase;
-    letter-spacing: 0.05rem;
-    font-size: 1.4rem;
+    font-size: 1.6rem;
 }
 
 body.light .switch-button {
@@ -150,11 +148,11 @@ body.dark .switch-button:hover {
 }
 
 body.light .switch-button:active {
-    color: #333;
+    color: #222;
 }
 
 body.dark .switch-button:active {
-    color: #bbb;
+    color: #ccc;
 }
 
 .switch-button:focus {
@@ -169,7 +167,7 @@ body.dark .switch-button:active {
     background-color: transparent;
     text-transform: uppercase;
     letter-spacing: 0.05rem;
-    font-size: 1.4rem;
+    font-size: 1.6rem;
 }
 
 body.light .button,
@@ -250,7 +248,7 @@ aside {
 
 aside h2 {
     margin-top: 2.5rem;
-    font-size: 1.4rem;
+    font-size: 1.6rem;
     text-transform: uppercase;
     text-align: right;
 }
