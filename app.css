@@ -19,7 +19,7 @@ body, h1, h2, button {
 /* body */
 
 body {
-    font-size: 1.8rem;
+    font-size: 1.8em; /* Use em instead of rem because of Chrome bug */
     margin: 0;
 }
 

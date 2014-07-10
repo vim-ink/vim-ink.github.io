@@ -215,7 +215,7 @@ var Root = React.createClass({
             _stateFormatVersion: 0,
             parsedSource: undefined,
             selectedGroup: 'Normal',
-            activeVariant: 'dark',
+            activeVariant: 'light',
             dark: {
                 Normal: {
                     color: '#cccccc',
