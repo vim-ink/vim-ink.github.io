@@ -225,7 +225,8 @@ var Controls = React.createClass({
         onChangeBackgroundColor = $__0.onChangeBackgroundColor,
         onLightClick = $__0.onLightClick,
         onDarkClick = $__0.onDarkClick,
-        onExportClick = $__0.onExportClick;
+        onExportClick = $__0.onExportClick,
+        onResetClick = $__0.onResetClick;
     var lightActive = this.props.activeVariant === 'light' ? ' active' : '';
     var darkActive = this.props.activeVariant === 'dark' ? ' active' : '';
     var colorPair = this.props.getGroupProps(this.props.selectedGroup);
@@ -246,7 +247,10 @@ var Controls = React.createClass({
     }), ' Background'), h2({className: 'collapsed'}, 'Show', span({className: 'ion-ios7-plus-empty'}, '')), h2({className: 'collapsed'}, 'Unassign groups', span({className: 'ion-ios7-plus-empty'}, '')), h2({className: 'collapsed'}, 'Post process', span({className: 'ion-ios7-plus-empty'}, '')), h2(null, 'Export', span({className: 'ion-ios7-minus-empty'}, '')), button({
       className: 'button',
       onClick: onExportClick
-    }, 'Export'), h2({className: 'collapsed'}, 'Danger zone', span({className: 'ion-ios7-plus-empty'}, '')));
+    }, 'Export'), h2({className: 'collapsed'}, 'Danger zone', span({className: 'ion-ios7-plus-empty'}, '')), button({
+      className: 'button',
+      onClick: onResetClick
+    }, 'Reset'));
   },
   onChangeColor: function(e) {
     this.props.setSelectedGroupProps({color: e.target.value});
@@ -262,6 +266,9 @@ var Controls = React.createClass({
   },
   onExportClick: function() {
     this.props.exportColorScheme();
+  },
+  onResetClick: function() {
+    this.props.resetState();
   }
 });
 var Export = React.createClass({
@@ -352,6 +359,7 @@ var Root = React.createClass({
         selectGroup = $__0.selectGroup,
         setSelectedGroupProps = $__0.setSelectedGroupProps,
         activateVariant = $__0.activateVariant,
+        resetState = $__0.resetState,
         exportColorScheme = $__0.exportColorScheme,
         clearExportedSource = $__0.clearExportedSource;
     return main(null, Header(), Paste({
@@ -362,6 +370,7 @@ var Root = React.createClass({
       getGroupProps: getGroupProps,
       selectGroup: selectGroup
     }), Controls({
+      resetState: resetState,
       exportColorScheme: exportColorScheme,
       activeVariant: activeVariant,
       activateVariant: activateVariant,
@@ -375,6 +384,10 @@ var Root = React.createClass({
   },
   parse: function(unparsedSource) {
     this.setState({parsedSource: parse(unparsedSource)});
+  },
+  componentDidMount: function() {
+    var body = document.getElementsByTagName('body')[0];
+    body.className = this.state.activeVariant;
   },
   activateVariant: function(activeVariant) {
     var body = document.getElementsByTagName('body')[0];
@@ -406,6 +419,12 @@ var Root = React.createClass({
   clearExportedSource: function() {
     this.setState({exportedSource: undefined});
   },
+  resetState: function() {
+    this.setState({
+      parsedSource: undefined,
+      exportedSource: undefined
+    });
+  },
   componentDidUpdate: function() {
     localStorage.setItem('state', JSON.stringify(this.state));
   }
@@ -413,7 +432,7 @@ var Root = React.createClass({
 React.renderComponent(Root(), document.body);
 
 
-}).call(this,require("IrXUsu"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/fake_2efeeeb8.js","/")
+}).call(this,require("IrXUsu"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/fake_1994f288.js","/")
 },{"./exporter":1,"./vim-tohtml-parser":144,"IrXUsu":7,"buffer":4,"es6ify/node_modules/traceur/bin/traceur-runtime":3,"react":143}],3:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 (function(global) {

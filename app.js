@@ -147,7 +147,7 @@ var Source = React.createClass({
 var Controls = React.createClass({
     render() {
         var {aside, h2, p, div, input, button, span} = React.DOM;
-        var {onChangeColor, onChangeBackgroundColor, onLightClick, onDarkClick, onExportClick} = this;
+        var {onChangeColor, onChangeBackgroundColor, onLightClick, onDarkClick, onExportClick, onResetClick} = this;
 
         var lightActive = this.props.activeVariant === 'light' ? ' active' : '';
         var darkActive = this.props.activeVariant === 'dark' ? ' active' : '';
@@ -172,7 +172,8 @@ var Controls = React.createClass({
             h2({className: 'collapsed'}, 'Post process', span({className: 'ion-ios7-plus-empty'}, '')),
             h2(null, 'Export', span({className: 'ion-ios7-minus-empty'}, '')),
             button({className: 'button', onClick: onExportClick}, 'Export'),
-            h2({className: 'collapsed'}, 'Danger zone', span({className: 'ion-ios7-plus-empty'}, '')));
+            h2({className: 'collapsed'}, 'Danger zone', span({className: 'ion-ios7-plus-empty'}, '')),
+            button({className: 'button', onClick: onResetClick}, 'Reset'));
             // button({className: 'button'}, 'Reset'));
     },
     onChangeColor(e) {
@@ -189,6 +190,9 @@ var Controls = React.createClass({
     },
     onExportClick() {
         this.props.exportColorScheme();
+    },
+    onResetClick() {
+        this.props.resetState();
     }
 });
 
@@ -272,7 +276,7 @@ var Root = React.createClass({
         var {main} = React.DOM;
         var {activeVariant, parsedSource, selectedGroup, exportedSource} = this.state;
         var {exportColorscheme} = this.props;
-        var {getGroupProps, parse, selectGroup, setSelectedGroupProps, activateVariant, exportColorScheme, clearExportedSource} = this;
+        var {getGroupProps, parse, selectGroup, setSelectedGroupProps, activateVariant, resetState, exportColorScheme, clearExportedSource} = this;
         return main(
             null,
             Header(),
@@ -284,6 +288,7 @@ var Root = React.createClass({
                 getGroupProps,
                 selectGroup}),
             Controls({
+                resetState,
                 exportColorScheme,
                 activeVariant,
                 activateVariant,
@@ -294,6 +299,10 @@ var Root = React.createClass({
     },
     parse(unparsedSource) {
         this.setState({parsedSource: parse(unparsedSource)});
+    },
+    componentDidMount() {
+        var body = document.getElementsByTagName('body')[0];
+        body.className = this.state.activeVariant;
     },
     activateVariant(activeVariant) {
         var body = document.getElementsByTagName('body')[0];
@@ -331,6 +340,9 @@ var Root = React.createClass({
     },
     clearExportedSource() {
         this.setState({exportedSource: undefined});
+    },
+    resetState() {
+        this.setState({parsedSource: undefined, exportedSource: undefined});
     },
     componentDidUpdate() {
         localStorage.setItem('state', JSON.stringify(this.state));
