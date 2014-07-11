@@ -25,12 +25,12 @@ body {
 
 body.light {
     background-color: #f4f4f4;
-    color: #666;
+    color: #888;
 }
 
 body.dark {
     background-color: #222;
-    color: #999;
+    color: #888;
 }
 
 /* h1 */
@@ -125,7 +125,7 @@ body.light .switch-button {
 }
 
 body.dark .switch-button {
-    border: 1px solid #666;
+    border: 1px solid #555;
     color: #888;
 }
 
@@ -134,7 +134,7 @@ body.light .switch-button.active {
 }
 
 body.dark .switch-button.active {
-    color: #999;
+    color: #888;
 }
 
 body.light .switch-button:hover {
@@ -143,7 +143,7 @@ body.light .switch-button:hover {
 }
 
 body.dark .switch-button:hover {
-    background-color: #666;
+    background-color: #555;
     color: #aaa;
 }
 
@@ -157,6 +157,110 @@ body.dark .switch-button:active {
 
 .switch-button:focus {
     outline: 0;
+}
+
+
+.light-button {
+    border-radius: 2rem 0 0 2rem;
+    border-right: 0 !important;
+    padding: 0 1.5rem 0 2rem;
+}
+
+.dark-button {
+    padding: 0 2rem 0 1.5rem;
+    border-radius: 0 2rem 2rem 0;
+}
+
+/* .highlight-button */
+
+.highlight-button {
+    border-radius: 1.6rem;
+    background-color: transparent;
+    font-size: 1.6rem;
+    width: 3.2rem;
+    height: 3.2rem;
+    margin-right: 1rem;
+    margin-bottom: 1rem; /* TODO: Remove for last line */
+    /* font-family: 'Source Code Pro'; */
+    box-sizing: border-box;
+    opacity: 0.5;
+    border: 0;
+}
+
+.highlight-button span {
+    position: relative;
+    top: 0.1rem;
+}
+
+body.light .highlight-button {
+    color: #888;
+}
+
+body.dark .highlight-button {
+    color: #888;
+}
+
+body.dark .highlight-button.active {
+    /* border-bottom: 1px solid #555; */
+    opacity: 1;
+}
+
+body.light .highlight-button:hover {
+    background-color: #bbb;
+    color: #444;
+}
+
+body.dark .highlight-button:hover {
+    background-color: #777;
+    color: #ccc;
+}
+
+.highlight-button:active {
+    position: relative;
+    left: 1px;
+    top: 1px;
+}
+
+.highlight-button:focus {
+    outline: 0;
+}
+
+.highlight-button.none span {
+    visibility: hidden;
+}
+.highlight-button.bold span {
+    font-weight: 400;
+}
+.highlight-button.italic span {
+    font-style: italic;
+}
+.highlight-button.underline span {
+    border-bottom: 1px solid #888;
+}
+.highlight-button.undercurl span {
+    border-bottom: 1px dotted #888;
+}
+.highlight-button.reverse {
+}
+body.dark .highlight-button.reverse {
+    background-color: #888;
+    border: 0;
+}
+
+.highlight-button.reverse span {
+    color: #222;
+}
+
+body.dark .highlight-button.standout {
+    background-color: #888;
+    border: 0;
+}
+
+.highlight-button.standout span {
+    color: #222;
+    font-weight: 400;
+    font-style: italic;
+    border-bottom: 1px solid #222;
 }
 
 /* .button */
@@ -173,13 +277,13 @@ body.dark .switch-button:active {
 body.light .button,
 body.dark .dialog .button {
     border: 1px solid #bbb;
-    color: #666;
+    color: #888;
 }
 
 body.dark .button,
 body.light .dialog .button {
-    border: 1px solid #666;
-    color: #999;
+    border: 1px solid #555;
+    color: #888;
 }
 
 body.light .button:hover,
@@ -202,21 +306,6 @@ body.light .dialog .button:hover {
 
 .button:focus {
     outline: 0;
-}
-
-/* .light-button */
-
-.light-button {
-    border-radius: 2rem 0 0 2rem;
-    border-right: 0 !important;
-    padding: 0 1.5rem 0 2rem;
-}
-
-/* .dark-button */
-
-.dark-button {
-    padding: 0 2rem 0 1.5rem;
-    border-radius: 0 2rem 2rem 0;
 }
 
 /* input[type="color"] */
@@ -247,10 +336,12 @@ aside {
 /* aside h2 */
 
 aside h2 {
-    margin-top: 2.5rem;
+    margin-top: 2rem;
     font-size: 1.6rem;
     text-transform: uppercase;
     text-align: right;
+    padding-top: 0.75rem;
+    margin-bottom: 1rem;
 }
 
 aside h2:first-child {
@@ -264,13 +355,13 @@ aside h2 span + span {
 }
 
 body.light aside h2 {
-    border-bottom: 1px solid #ddd;
-    color: #888;
+    border-top: 1px solid #ddd;
+    color: #aaa;
 }
 
 body.dark aside h2 {
-    border-bottom: 1px solid #444;
-    color: #888;
+    border-top: 1px solid #333;
+    color: #777;
 }
 
 /* .hidden */
@@ -306,7 +397,7 @@ body.light .export {
 
 body.dark .export {
     background-color: #eee;
-    color: #999;
+    color: #888;
 }
 
 .export h2 {

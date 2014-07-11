@@ -40,16 +40,16 @@ var exporter = require('./exporter');
 var Header = React.createClass({render: function() {
     var $__0 = $traceurRuntime.assertObject(React.DOM),
         header = $__0.header,
-        h1 = $__0.h1;
+        h1 = $__0.h1,
+        span = $__0.span;
     return header(null, h1(null, 'vim color scheme designer'));
   }});
 var Paste = React.createClass({
   render: function() {
     var textarea = $traceurRuntime.assertObject(React.DOM).textarea;
-    var $__0 = this,
-        onChange = $__0.onChange,
-        onClick = $__0.onClick;
-    var className = (this.props.parsedSource !== undefined) ? 'hidden' : 'paste';
+    var onChange = this.onChange;
+    var parsedSource = $traceurRuntime.assertObject(this.props).parsedSource;
+    var className = (parsedSource !== undefined) ? 'hidden' : 'paste';
     return textarea({
       onChange: onChange,
       className: className,
@@ -57,7 +57,8 @@ var Paste = React.createClass({
     });
   },
   onChange: function(e) {
-    this.props.parse(e.target.value);
+    var parse = $traceurRuntime.assertObject(this.props).parse;
+    parse(e.target.value);
   }
 });
 var Segment = React.createClass({
@@ -78,7 +79,10 @@ var Segment = React.createClass({
     }
   },
   onClick: function(e) {
-    this.props.selectGroup(this.props.segment.group);
+    var $__0 = $traceurRuntime.assertObject(this.props),
+        selectGroup = $__0.selectGroup,
+        segment = $__0.segment;
+    selectGroup(segment.group);
     e.stopPropagation();
   }
 });
@@ -86,19 +90,22 @@ var LineNumber = React.createClass({
   render: function() {
     var span = $traceurRuntime.assertObject(React.DOM).span;
     var onClick = this.onClick;
-    var $__0 = $traceurRuntime.assertObject(this.props.lineNumber),
+    var $__0 = $traceurRuntime.assertObject(this.props),
+        getGroupProps = $__0.getGroupProps,
+        lineNumber = $__0.lineNumber;
+    var $__0 = $traceurRuntime.assertObject(lineNumber),
         line = $__0.line,
         lineCount = $__0.lineCount;
-    var getGroupProps = $traceurRuntime.assertObject(this.props).getGroupProps;
-    var spaces = 1 + (lineCount.toString().length - line.toString().length);
     var style = getGroupProps('LineNr');
+    var spaces = 1 + (lineCount.toString().length - line.toString().length);
     return span({
       style: style,
       onClick: onClick
     }, ' '.repeat(spaces) + line + ' ');
   },
   onClick: function(e) {
-    this.props.selectGroup('LineNr');
+    var selectGroup = $traceurRuntime.assertObject(this.props).selectGroup;
+    selectGroup('LineNr');
     e.stopPropagation();
   }
 });
@@ -140,8 +147,8 @@ var TabLineFile = React.createClass({
     }, ' 2 ' + fileName + ' ');
   },
   onClick: function(e) {
-    var selectGroup = $traceurRuntime.assertObject(this.props).selectGroup;
     var group = this.group;
+    var selectGroup = $traceurRuntime.assertObject(this.props).selectGroup;
     selectGroup(group());
     e.stopPropagation();
   },
@@ -182,11 +189,11 @@ var Source = React.createClass({
         selectGroup = $__0.selectGroup;
     var className = parsedSource === undefined ? 'hidden' : '';
     var style = getGroupProps('Normal');
-    var content;
     var tabLine = TabLine({
       getGroupProps: getGroupProps,
       selectGroup: selectGroup
     });
+    var content;
     if (parsedSource !== undefined) {
       content = parsedSource.map((function(line, index) {
         return Line({
@@ -207,7 +214,8 @@ var Source = React.createClass({
     }, [tabLine].concat(content));
   },
   onClick: function() {
-    this.props.selectGroup('Normal');
+    var selectGroup = $traceurRuntime.assertObject(this.props).selectGroup;
+    selectGroup('Normal');
   }
 });
 var Controls = React.createClass({
@@ -227,16 +235,19 @@ var Controls = React.createClass({
         onDarkClick = $__0.onDarkClick,
         onExportClick = $__0.onExportClick,
         onResetClick = $__0.onResetClick;
+    var $__0 = $traceurRuntime.assertObject(this.props),
+        getGroupProps = $__0.getGroupProps,
+        selectedGroup = $__0.selectedGroup;
     var lightActive = this.props.activeVariant === 'light' ? ' active' : '';
     var darkActive = this.props.activeVariant === 'dark' ? ' active' : '';
-    var colorPair = this.props.getGroupProps(this.props.selectedGroup);
-    return aside(null, h2(null, 'Variant', span({className: 'ion-ios7-minus-empty'}, '')), button({
+    var colorPair = getGroupProps(selectedGroup);
+    return aside(null, h2(null, 'Variant'), button({
       onClick: onLightClick,
       className: 'switch-button light-button' + lightActive
     }, 'Light'), button({
       onClick: onDarkClick,
       className: 'switch-button dark-button' + darkActive
-    }, 'Dark'), h2(null, 'Selected group', span({className: 'ion-ios7-minus-empty'}, '')), p(null, this.props.selectedGroup), h2(null, 'Color', span({className: 'ion-ios7-minus-empty'}, '')), div(null, input({
+    }, 'Dark'), h2(null, 'Selected group'), p(null, this.props.selectedGroup), h2(null, 'Color'), div(null, input({
       type: 'color',
       value: colorPair.color,
       onChange: onChangeColor
@@ -244,10 +255,10 @@ var Controls = React.createClass({
       type: 'color',
       value: colorPair.backgroundColor,
       onChange: onChangeBackgroundColor
-    }), ' Background'), h2({className: 'collapsed'}, 'Show', span({className: 'ion-ios7-plus-empty'}, '')), h2({className: 'collapsed'}, 'Unassign groups', span({className: 'ion-ios7-plus-empty'}, '')), h2({className: 'collapsed'}, 'Post process', span({className: 'ion-ios7-plus-empty'}, '')), h2(null, 'Export', span({className: 'ion-ios7-minus-empty'}, '')), button({
+    }), ' Background'), h2({className: 'collapsed'}, 'Highlight'), button({className: 'highlight-button none'}, span(null, 'n')), button({className: 'highlight-button bold active'}, span(null, 'b')), button({className: 'highlight-button italic'}, span(null, 'i')), button({className: 'highlight-button underline'}, span(null, 'u')), button({className: 'highlight-button undercurl'}, span(null, 'u')), button({className: 'highlight-button reverse'}, span(null, 'r')), button({className: 'highlight-button standout'}, span(null, 's')), h2({className: 'collapsed'}, 'Show'), h2({className: 'collapsed'}, 'Unassign groups'), h2({className: 'collapsed'}, 'Post process'), h2(null, 'Export'), button({
       className: 'button',
       onClick: onExportClick
-    }, 'Export'), h2({className: 'collapsed'}, 'Danger zone', span({className: 'ion-ios7-plus-empty'}, '')), button({
+    }, 'Export'), h2({className: 'collapsed'}, 'Danger zone'), button({
       className: 'button',
       onClick: onResetClick
     }, 'Reset'));
@@ -273,15 +284,15 @@ var Controls = React.createClass({
 });
 var Export = React.createClass({
   render: function() {
-    var exportedSource = $traceurRuntime.assertObject(this.props).exportedSource;
-    var hiddenConditional = exportedSource === undefined ? 'hidden' : '';
-    var onClick = this.onClick;
     var $__0 = $traceurRuntime.assertObject(React.DOM),
         div = $__0.div,
         button = $__0.button,
         p = $__0.p,
         h2 = $__0.h2,
         textarea = $__0.textarea;
+    var onClick = this.onClick;
+    var exportedSource = $traceurRuntime.assertObject(this.props).exportedSource;
+    var hiddenConditional = exportedSource === undefined ? 'hidden' : '';
     return div({className: 'export dialog ' + hiddenConditional}, h2(null, 'Here is your color scheme!'), p(null, 'Copy the code below to clipboard and paste into a new vim buffer. Do `:w ~/.vim/colors/whatever.vim`, `:set background light`, and finally `:colorscheme whatever`.'), textarea({
       value: exportedSource,
       readOnly: true
@@ -301,9 +312,10 @@ var Root = React.createClass({
     } else {
       return {
         _stateFormatVersion: 0,
+        unparsedSource: undefined,
         parsedSource: undefined,
-        selectedGroup: 'Normal',
         activeVariant: 'light',
+        selectedGroup: 'Normal',
         dark: {
           Normal: {
             color: '#cccccc',
@@ -347,12 +359,6 @@ var Root = React.createClass({
   },
   render: function() {
     var main = $traceurRuntime.assertObject(React.DOM).main;
-    var $__0 = $traceurRuntime.assertObject(this.state),
-        activeVariant = $__0.activeVariant,
-        parsedSource = $__0.parsedSource,
-        selectedGroup = $__0.selectedGroup,
-        exportedSource = $__0.exportedSource;
-    var exportColorscheme = $traceurRuntime.assertObject(this.props).exportColorscheme;
     var $__0 = this,
         getGroupProps = $__0.getGroupProps,
         parse = $__0.parse,
@@ -362,6 +368,12 @@ var Root = React.createClass({
         resetState = $__0.resetState,
         exportColorScheme = $__0.exportColorScheme,
         clearExportedSource = $__0.clearExportedSource;
+    var $__0 = $traceurRuntime.assertObject(this.state),
+        activeVariant = $__0.activeVariant,
+        parsedSource = $__0.parsedSource,
+        selectedGroup = $__0.selectedGroup,
+        exportedSource = $__0.exportedSource;
+    var exportColorscheme = $traceurRuntime.assertObject(this.props).exportColorscheme;
     return main(null, Header(), Paste({
       parsedSource: parsedSource,
       parse: parse
@@ -432,7 +444,7 @@ var Root = React.createClass({
 React.renderComponent(Root(), document.body);
 
 
-}).call(this,require("IrXUsu"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/fake_1994f288.js","/")
+}).call(this,require("IrXUsu"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/fake_39ce9e99.js","/")
 },{"./exporter":1,"./vim-tohtml-parser":144,"IrXUsu":7,"buffer":4,"es6ify/node_modules/traceur/bin/traceur-runtime":3,"react":143}],3:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 (function(global) {

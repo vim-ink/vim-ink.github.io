@@ -5,7 +5,8 @@ var exporter = require('./exporter');
 
 var Header = React.createClass({
     render() {
-        var {header, h1} = React.DOM;
+        var {header, h1, span} = React.DOM;
+
         return header(null, h1(null, 'vim color scheme designer'));
     }
 });
@@ -13,12 +14,17 @@ var Header = React.createClass({
 var Paste = React.createClass({
     render() {
         var {textarea} = React.DOM;
-        var {onChange, onClick} = this;
-        var className = (this.props.parsedSource !== undefined) ? 'hidden' : 'paste';
+        var {onChange} = this;
+        var {parsedSource} = this.props;
+
+        var className = (parsedSource !== undefined) ? 'hidden' : 'paste';
+
         return textarea({onChange, className, placeholder: 'Paste output of `:TOhtml` here.'});
     },
     onChange(e) {
-        this.props.parse(e.target.value);
+        var {parse} = this.props;
+
+        parse(e.target.value);
     }
 });
 
@@ -27,15 +33,19 @@ var Segment = React.createClass({
         var {span} = React.DOM;
         var {onClick} = this;
         var {segment, getGroupProps} = this.props;
+
         if (typeof(segment) === 'object') {
             var style = getGroupProps(segment.group);
+
             return span({style, onClick}, segment.content);
         } else {
             return span(null, segment);
         }
     },
     onClick(e) {
-        this.props.selectGroup(this.props.segment.group);
+        var {selectGroup, segment} = this.props;
+
+        selectGroup(segment.group);
         e.stopPropagation();
     }
 });
@@ -44,14 +54,18 @@ var LineNumber = React.createClass({
     render() {
         var {span} = React.DOM;
         var {onClick} = this;
-        var {line, lineCount} = this.props.lineNumber;
-        var {getGroupProps} = this.props;
-        var spaces = 1 + (lineCount.toString().length - line.toString().length)
+        var {getGroupProps, lineNumber} = this.props;
+        var {line, lineCount} = lineNumber;
+
         var style = getGroupProps('LineNr');
+        var spaces = 1 + (lineCount.toString().length - line.toString().length)
+
         return span({style, onClick}, ' '.repeat(spaces) + line + ' ');
     },
     onClick(e) {
-        this.props.selectGroup('LineNr');
+        var {selectGroup} = this.props;
+
+        selectGroup('LineNr');
         e.stopPropagation();
     }
 });
@@ -60,10 +74,11 @@ var Line = React.createClass({
     render() {
         var {span} = React.DOM;
         var {getGroupProps, line, lineNumber, selectGroup} = this.props;
+
         var lineNumber_ = [LineNumber({lineNumber, getGroupProps, selectGroup})]
         var segments = line.map(segment => Segment({segment, getGroupProps, selectGroup}));
-        return span(null,
-            lineNumber_.concat(segments.concat(span(null, '\n'))));
+
+        return span(null, lineNumber_.concat(segments.concat(span(null, '\n'))));
     }
 });
 
@@ -72,17 +87,21 @@ var TabLineFile = React.createClass({
         var {span} = React.DOM;
         var {onClick, group} = this;
         var {getGroupProps, fileName, selected} = this.props;
+
         var style = getGroupProps(group());
+
         return span({style, onClick}, ' 2 ' + fileName + ' ');
     },
     onClick(e) {
-        var {selectGroup} = this.props;
         var {group} = this;
+        var {selectGroup} = this.props;
+
         selectGroup(group());
         e.stopPropagation();
     },
     group() {
         var {selected} = this.props;
+
         return (selected === true ? 'TabLineSel' : 'TabLine');
     }
 });
@@ -120,11 +139,11 @@ var Source = React.createClass({
         var {pre} = React.DOM;
         var {onClick} = this;
         var {parsedSource, getGroupProps, selectGroup} = this.props;
+
         var className = parsedSource === undefined ? 'hidden' : '';
         var style = getGroupProps('Normal');
-
-        var content;
         var tabLine = TabLine({getGroupProps, selectGroup});
+        var content;
 
         if (parsedSource !== undefined) {
             content = parsedSource.map(
@@ -140,41 +159,55 @@ var Source = React.createClass({
         return pre({className, style, onClick}, [tabLine].concat(content));
     },
     onClick() {
-        this.props.selectGroup('Normal');
+        var {selectGroup} = this.props;
+
+        selectGroup('Normal');
     }
 });
 
 var Controls = React.createClass({
     render() {
         var {aside, h2, p, div, input, button, span} = React.DOM;
-        var {onChangeColor, onChangeBackgroundColor, onLightClick, onDarkClick, onExportClick, onResetClick} = this;
+        var {onChangeColor,
+            onChangeBackgroundColor,
+            onLightClick,
+            onDarkClick,
+            onExportClick,
+            onResetClick} = this;
+        var {getGroupProps, selectedGroup} = this.props;
 
         var lightActive = this.props.activeVariant === 'light' ? ' active' : '';
         var darkActive = this.props.activeVariant === 'dark' ? ' active' : '';
-
-        var colorPair = this.props.getGroupProps(this.props.selectedGroup);
+        var colorPair = getGroupProps(selectedGroup);
 
         return aside(null,
-            h2(null, 'Variant', span({className: 'ion-ios7-minus-empty'}, '')),
+            h2(null, 'Variant'),
             button({onClick: onLightClick, className: 'switch-button light-button' + lightActive}, 'Light'),
             button({onClick: onDarkClick, className: 'switch-button dark-button' + darkActive}, 'Dark'),
-            h2(null, 'Selected group', span({className: 'ion-ios7-minus-empty'}, '')),
+            h2(null, 'Selected group'),
             p(null, this.props.selectedGroup),
-            h2(null, 'Color', span({className: 'ion-ios7-minus-empty'}, '')),
+            h2(null, 'Color'),
             div(null,
                 input({type: 'color', value: colorPair.color, onChange: onChangeColor}),
                 ' Foreground'),
             div(null,
                 input({type: 'color', value: colorPair.backgroundColor, onChange: onChangeBackgroundColor}),
                 ' Background'),
-            h2({className: 'collapsed'}, 'Show', span({className: 'ion-ios7-plus-empty'}, '')),
-            h2({className: 'collapsed'}, 'Unassign groups', span({className: 'ion-ios7-plus-empty'}, '')),
-            h2({className: 'collapsed'}, 'Post process', span({className: 'ion-ios7-plus-empty'}, '')),
-            h2(null, 'Export', span({className: 'ion-ios7-minus-empty'}, '')),
+            h2({className: 'collapsed'}, 'Highlight'),
+            button({className: 'highlight-button none'}, span(null, 'n')),
+            button({className: 'highlight-button bold active'}, span(null, 'b')),
+            button({className: 'highlight-button italic'}, span(null, 'i')),
+            button({className: 'highlight-button underline'}, span(null, 'u')),
+            button({className: 'highlight-button undercurl'}, span(null, 'u')),
+            button({className: 'highlight-button reverse'}, span(null, 'r')),
+            button({className: 'highlight-button standout'}, span(null, 's')),
+            h2({className: 'collapsed'}, 'Show'),
+            h2({className: 'collapsed'}, 'Unassign groups'),
+            h2({className: 'collapsed'}, 'Post process'),
+            h2(null, 'Export'),
             button({className: 'button', onClick: onExportClick}, 'Export'),
-            h2({className: 'collapsed'}, 'Danger zone', span({className: 'ion-ios7-plus-empty'}, '')),
+            h2({className: 'collapsed'}, 'Danger zone'),
             button({className: 'button', onClick: onResetClick}, 'Reset'));
-            // button({className: 'button'}, 'Reset'));
     },
     onChangeColor(e) {
         this.props.setSelectedGroupProps({color: e.target.value});
@@ -198,10 +231,12 @@ var Controls = React.createClass({
 
 var Export = React.createClass({
     render() {
-        var {exportedSource} = this.props;
-        var hiddenConditional = exportedSource === undefined ? 'hidden' : '';
-        var {onClick} = this;
         var {div, button, p, h2, textarea} = React.DOM;
+        var {onClick} = this;
+        var {exportedSource} = this.props;
+
+        var hiddenConditional = exportedSource === undefined ? 'hidden' : '';
+
         return div({className: 'export dialog ' + hiddenConditional},
             h2(null, 'Here is your color scheme!'),
             p(null, 'Copy the code below to clipboard and paste into a new vim buffer. Do `:w ~/.vim/colors/whatever.vim`, `:set background light`, and finally `:colorscheme whatever`.'),
@@ -220,9 +255,10 @@ var Root = React.createClass({
         } else {
             return {
                 _stateFormatVersion: 0,
+                unparsedSource: undefined,
                 parsedSource: undefined,
-                selectedGroup: 'Normal',
                 activeVariant: 'light',
+                selectedGroup: 'Normal',
                 dark: {
                     Normal: {
                         color: '#cccccc',
@@ -274,9 +310,19 @@ var Root = React.createClass({
     },
     render() {
         var {main} = React.DOM;
-        var {activeVariant, parsedSource, selectedGroup, exportedSource} = this.state;
+        var {getGroupProps,
+            parse,
+            selectGroup,
+            setSelectedGroupProps,
+            activateVariant,
+            resetState,
+            exportColorScheme,
+            clearExportedSource} = this;
+        var {activeVariant,
+            parsedSource,
+            selectedGroup,
+            exportedSource} = this.state;
         var {exportColorscheme} = this.props;
-        var {getGroupProps, parse, selectGroup, setSelectedGroupProps, activateVariant, resetState, exportColorScheme, clearExportedSource} = this;
         return main(
             null,
             Header(),
