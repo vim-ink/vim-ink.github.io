@@ -352,6 +352,36 @@ body.dark input[type="color"] {
     background-color: #222;
 }
 
+/* input[type="range"] */
+
+input[type="range"] {
+    -webkit-appearance: none;
+    outline: 0;
+    width: 100%;
+    margin-bottom: 1.5rem; /* TODO: Except last one */
+    height: 0.1rem;
+}
+
+body.light input[type="range"] {
+    background-color: rgba(187, 187, 187, 0.5);/*#bbb;*/
+}
+
+input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 1.25rem;
+    height: 1.25rem;
+    border-radius: 0.625rem;
+}
+
+body.light input[type="range"]::-webkit-slider-thumb {
+    background-color: #eee;
+    border: 1px solid #bbb;
+}
+
+body.light input[type="range"]::-webkit-slider-thumb:hover {
+    background-color: #bbb;
+}
+
 /* aside */
 
 aside {

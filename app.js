@@ -204,6 +204,8 @@ var Controls = React.createClass({
             h2({className: 'collapsed'}, 'Show'),
             h2({className: 'collapsed'}, 'Unassign groups'),
             h2({className: 'collapsed'}, 'Post process'),
+            input({type: 'range'}),
+            input({type: 'range'}),
             h2(null, 'Export'),
             button({className: 'button', onClick: onExportClick}, 'Export'),
             h2({className: 'collapsed'}, 'Danger zone'),
@@ -247,6 +249,12 @@ var Export = React.createClass({
         this.props.clearExportedSource();
     }
 });
+
+// var Files = React.createClass({
+//     render() {
+//         var {} = 
+//     }
+// });
 
 var Root = React.createClass({
     getInitialState() {
@@ -329,6 +337,7 @@ var Root = React.createClass({
             Paste({
                 parsedSource,
                 parse}),
+            // Files(),
             Source({
                 parsedSource,
                 getGroupProps,

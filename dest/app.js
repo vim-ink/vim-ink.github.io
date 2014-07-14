@@ -255,7 +255,7 @@ var Controls = React.createClass({
       type: 'color',
       value: colorPair.backgroundColor,
       onChange: onChangeBackgroundColor
-    }), ' Background'), h2({className: 'collapsed'}, 'Highlight'), button({className: 'highlight-button none'}, span(null, 'n')), button({className: 'highlight-button bold active'}, span(null, 'b')), button({className: 'highlight-button italic'}, span(null, 'i')), button({className: 'highlight-button underline'}, span(null, 'u')), button({className: 'highlight-button undercurl'}, span(null, 'u')), button({className: 'highlight-button reverse'}, span(null, 'r')), button({className: 'highlight-button standout'}, span(null, 's')), h2({className: 'collapsed'}, 'Show'), h2({className: 'collapsed'}, 'Unassign groups'), h2({className: 'collapsed'}, 'Post process'), h2(null, 'Export'), button({
+    }), ' Background'), h2({className: 'collapsed'}, 'Highlight'), button({className: 'highlight-button none'}, span(null, 'n')), button({className: 'highlight-button bold active'}, span(null, 'b')), button({className: 'highlight-button italic'}, span(null, 'i')), button({className: 'highlight-button underline'}, span(null, 'u')), button({className: 'highlight-button undercurl'}, span(null, 'u')), button({className: 'highlight-button reverse'}, span(null, 'r')), button({className: 'highlight-button standout'}, span(null, 's')), h2({className: 'collapsed'}, 'Show'), h2({className: 'collapsed'}, 'Unassign groups'), h2({className: 'collapsed'}, 'Post process'), input({type: 'range'}), input({type: 'range'}), h2(null, 'Export'), button({
       className: 'button',
       onClick: onExportClick
     }, 'Export'), h2({className: 'collapsed'}, 'Danger zone'), button({
@@ -444,7 +444,7 @@ var Root = React.createClass({
 React.renderComponent(Root(), document.body);
 
 
-}).call(this,require("IrXUsu"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/fake_2c6b2ca2.js","/")
+}).call(this,require("IrXUsu"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/fake_5fada933.js","/")
 },{"./exporter":1,"./vim-tohtml-parser":144,"IrXUsu":7,"buffer":4,"es6ify/node_modules/traceur/bin/traceur-runtime":3,"react":143}],3:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 (function(global) {
