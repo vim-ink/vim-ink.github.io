@@ -117,6 +117,7 @@ body.dark .paste {
     height: 4rem;
     margin: 0;
     font-size: 1.6rem;
+    opacity: 1;
 }
 
 body.light .switch-button {
@@ -129,12 +130,16 @@ body.dark .switch-button {
     color: #888;
 }
 
+.switch-button.active {
+    opacity: 0.75;
+}
+
 body.light .switch-button.active {
-    color: #444;
+    border-right: 0 !important;
 }
 
 body.dark .switch-button.active {
-    color: #888;
+    border-left: 0 !important;
 }
 
 body.light .switch-button:hover {
@@ -159,10 +164,8 @@ body.dark .switch-button:active {
     outline: 0;
 }
 
-
 .light-button {
     border-radius: 2rem 0 0 2rem;
-    border-right: 0 !important;
     padding: 0 1.5rem 0 2rem;
 }
 
@@ -181,15 +184,9 @@ body.dark .switch-button:active {
     height: 3.2rem;
     margin-right: 1rem;
     margin-bottom: 1rem; /* TODO: Remove for last line */
-    /* font-family: 'Source Code Pro'; */
     box-sizing: border-box;
-    opacity: 0.5;
+    opacity: 0.75;
     border: 0;
-}
-
-.highlight-button span {
-    position: relative;
-    top: 0.1rem;
 }
 
 body.light .highlight-button {
@@ -200,9 +197,76 @@ body.dark .highlight-button {
     color: #888;
 }
 
-body.dark .highlight-button.active {
-    /* border-bottom: 1px solid #555; */
+.highlight-button.active {
     opacity: 1;
+}
+
+body.light .highlight-button.none {
+    border: 1px solid #bbb;
+}
+
+body.dark .highlight-button.none {
+    border: 1px solid #555;
+}
+
+.highlight-button.none span {
+    visibility: hidden;
+}
+
+.highlight-button.bold span {
+    font-weight: 400;
+}
+
+.highlight-button.italic span {
+    font-style: italic;
+}
+
+body.light .highlight-button.underline span {
+    border-bottom: 1px solid #888;
+}
+
+body.dark .highlight-button.underline span {
+    border-bottom: 1px solid #888;
+}
+
+body.light .highlight-button.undercurl span {
+    border-bottom: 1px dotted #888;
+}
+
+body.dark .highlight-button.undercurl span {
+    border-bottom: 1px dotted #888;
+}
+
+body.light .highlight-button.reverse {
+    background-color: #bbb;
+    color: #eee;
+}
+
+body.dark .highlight-button.reverse {
+    background-color: #555;
+    color: #222;
+}
+
+body.light .highlight-button.standout {
+    background-color: #bbb;
+    color: #eee;
+    font-weight: 400;
+    font-style: italic;
+}
+
+body.dark .highlight-button.standout {
+    background-color: #555;
+    color: #222;
+    font-weight: 400;
+    font-style: italic;
+}
+
+body.light .highlight-button.standout span {
+    border-bottom: 1px solid #eee;
+}
+
+body.dark .highlight-button.standout span {
+    border-bottom: 1px solid #222;
 }
 
 body.light .highlight-button:hover {
@@ -211,56 +275,20 @@ body.light .highlight-button:hover {
 }
 
 body.dark .highlight-button:hover {
-    background-color: #777;
-    color: #ccc;
+    background-color: #555;
+    color: #aaa;
 }
 
-.highlight-button:active {
-    position: relative;
-    left: 1px;
-    top: 1px;
+body.light .highlight-button:active {
+    color: #222;
+}
+
+body.dark .highlight-button:active {
+    color: #ccc;
 }
 
 .highlight-button:focus {
     outline: 0;
-}
-
-.highlight-button.none span {
-    visibility: hidden;
-}
-.highlight-button.bold span {
-    font-weight: 400;
-}
-.highlight-button.italic span {
-    font-style: italic;
-}
-.highlight-button.underline span {
-    border-bottom: 1px solid #888;
-}
-.highlight-button.undercurl span {
-    border-bottom: 1px dotted #888;
-}
-.highlight-button.reverse {
-}
-body.dark .highlight-button.reverse {
-    background-color: #888;
-    border: 0;
-}
-
-.highlight-button.reverse span {
-    color: #222;
-}
-
-body.dark .highlight-button.standout {
-    background-color: #888;
-    border: 0;
-}
-
-.highlight-button.standout span {
-    color: #222;
-    font-weight: 400;
-    font-style: italic;
-    border-bottom: 1px solid #222;
 }
 
 /* .button */
@@ -293,8 +321,8 @@ body.dark .dialog .button:hover {
 
 body.dark .button:hover,
 body.light .dialog .button:hover {
-    background-color: #777;
-    color: #ccc;
+    background-color: #555;
+    color: #aaa;
 }
 
 .button:active {
