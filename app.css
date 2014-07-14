@@ -363,7 +363,11 @@ input[type="range"] {
 }
 
 body.light input[type="range"] {
-    background-color: rgba(187, 187, 187, 0.5);/*#bbb;*/
+    background-color: rgba(187, 187, 187, 0.5); /* #bbb */
+}
+
+body.dark input[type="range"] {
+    background-color: rgba(85, 85, 85, 0.5); /* #555 */
 }
 
 input[type="range"]::-webkit-slider-thumb {
@@ -378,8 +382,17 @@ body.light input[type="range"]::-webkit-slider-thumb {
     border: 1px solid #bbb;
 }
 
+body.dark input[type="range"]::-webkit-slider-thumb {
+    background-color: #222;
+    border: 1px solid #555;
+}
+
 body.light input[type="range"]::-webkit-slider-thumb:hover {
     background-color: #bbb;
+}
+
+body.dark input[type="range"]::-webkit-slider-thumb:hover {
+    background-color: #555;
 }
 
 /* aside */
