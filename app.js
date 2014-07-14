@@ -7,7 +7,7 @@ var Header = React.createClass({
     render() {
         var {header, h1, span} = React.DOM;
 
-        return header(null, h1(null, 'vim color scheme designer'));
+        return header(null, h1(null, 'vim.ink'));
     }
 });
 

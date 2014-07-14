@@ -24,7 +24,7 @@ body {
 }
 
 body.light {
-    background-color: #f4f4f4;
+    background-color: #eee;
     color: #888;
 }
 
@@ -269,7 +269,6 @@ body.dark .highlight-button.standout {
     border-radius: 3px;
     padding: 1rem 3rem;
     background-color: transparent;
-    text-transform: uppercase;
     letter-spacing: 0.05rem;
     font-size: 1.6rem;
 }
@@ -318,7 +317,7 @@ input[type="color"] {
 }
 
 body.light input[type="color"] {
-    background-color: #f4f4f4;
+    background-color: #eee;
 }
 
 body.dark input[type="color"] {
