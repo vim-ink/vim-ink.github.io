@@ -19,7 +19,7 @@ pre, textarea {
     font-family: 'Source Code Pro';
 }
 
-body, h1, h2, button {
+body, h1, h2, button, input {
     font-weight: 300;
 }
 
@@ -574,15 +574,13 @@ aside h2 span + span {
 }
 
 body.light aside h2 {
-    opacity: 0.625;
     border-top: 1px solid #ddd;
-    color: #888;
+    color: #bbb;
 }
 
 body.dark aside h2 {
-    opacity: 0.625;
     border-top: 1px solid #333;
-    color: #888;
+    color: #555;
 }
 
 /* .hidden */
@@ -646,6 +644,7 @@ body.dark .export {
 .button-line .left {
     width: 64%;
     float: left;
+    line-height: 3rem;
 }
 
 .button-line .right {
@@ -678,6 +677,52 @@ body.dark .export {
 .post-process-line .right {
     width: 60%;
     float: left;
+}
+
+/* .export-line-input */
+
+.export-line-input .left {
+    width: 24%;
+    float: left;
+    line-height: 3rem;
+}
+
+.export-line-input .right {
+    width: 76%;
+    float: left;
+}
+
+.export-line-input .right input {
+    width: 100%;
+}
+
+/* .text */
+
+.text {
+    line-height: 2rem;
+    border-radius: 0px;
+    margin: 0;
+    padding: 0;
+    font-size: 1.6rem;
+    padding: 0.5rem 0.75rem;
+    border: 0;
+    outline: 0;
+}
+
+body.light .text {
+    color: #888;
+    background-color: rgba(0, 0, 0, 0.05);
+}
+
+body.dark .text {
+    background-color: rgba(255, 255, 255, 0.05);
+    color: #888;
+}
+
+/* .export-line-button */
+
+.export-line-button {
+    text-align: right;
 }
 
 /* .color */

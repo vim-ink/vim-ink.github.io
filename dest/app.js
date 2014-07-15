@@ -228,6 +228,7 @@ var Controls = React.createClass({
         p = $__0.p,
         div = $__0.div,
         input = $__0.input,
+        label = $__0.label,
         button = $__0.button,
         span = $__0.span,
         ul = $__0.ul,
@@ -267,10 +268,13 @@ var Controls = React.createClass({
       type: 'range',
       min: 1,
       max: 9
-    }))), h2({className: 'collapsed'}, 'Parts'), div({className: 'line  button-line'}, div({className: 'left'}, 'Tab line'), div({className: 'right'}, button({className: 'small-button'}, 'Show'))), div({className: 'line button-line'}, div({className: 'left'}, 'Status line'), div({className: 'right'}, button({className: 'small-button'}, 'Show'))), h2({className: 'collapsed'}, 'Assigned groups'), div({className: 'line button-line'}, div({className: 'left'}, 'Something'), div({className: 'right'}, button({className: 'small-button'}, 'Remove'))), h2(null, 'Export'), button({
+    }))), h2({className: 'collapsed'}, 'Parts'), div({className: 'line  button-line'}, div({className: 'left'}, 'Tab line'), div({className: 'right'}, button({className: 'small-button'}, 'Show'))), div({className: 'line button-line'}, div({className: 'left'}, 'Status line'), div({className: 'right'}, button({className: 'small-button'}, 'Show'))), h2({className: 'collapsed'}, 'Assigned groups'), div({className: 'line button-line'}, div({className: 'left'}, 'Something'), div({className: 'right'}, button({className: 'small-button'}, 'Remove'))), h2(null, 'Export'), div({className: 'line export-line-input'}, div({className: 'left'}, label(null, 'Name')), div({className: 'right'}, input({
+      className: 'text',
+      value: 'whatever'
+    }))), div({className: 'line export-line-button'}, button({
       className: 'button',
       onClick: onExportClick
-    }, 'Export'), h2({className: 'collapsed'}, 'Danger zone'), button({
+    }, 'Export')), h2({className: 'collapsed'}, 'Danger zone'), button({
       className: 'button',
       onClick: onResetClick
     }, 'Reset'));
@@ -470,7 +474,7 @@ var Root = React.createClass({
 React.renderComponent(Root(), document.body);
 
 
-}).call(this,require("IrXUsu"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/fake_c27c70dc.js","/")
+}).call(this,require("IrXUsu"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/fake_751b8ac9.js","/")
 },{"./exporter":1,"./vim-tohtml-parser":144,"IrXUsu":7,"buffer":4,"es6ify/node_modules/traceur/bin/traceur-runtime":3,"react":143}],3:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 (function(global) {

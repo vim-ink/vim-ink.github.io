@@ -172,7 +172,7 @@ var Source = React.createClass({
 
 var Controls = React.createClass({
     render() {
-        var {aside, h2, p, div, input, button, span, ul, li} = React.DOM;
+        var {aside, h2, p, div, input, label, button, span, ul, li} = React.DOM;
         var {onChangeColor,
             onChangeBackgroundColor,
             onLightClick,
@@ -237,7 +237,11 @@ var Controls = React.createClass({
                 div({className: 'right'}, button({className: 'small-button'}, 'Remove'))
             ),
             h2(null, 'Export'),
-            button({className: 'button', onClick: onExportClick}, 'Export'),
+            div({className: 'line export-line-input'},
+                div({className: 'left'}, label(null, 'Name')),
+                div({className: 'right'}, input({className: 'text', value: 'whatever'}))),
+            div({className: 'line export-line-button'},
+                button({className: 'button', onClick: onExportClick}, 'Export')),
             h2({className: 'collapsed'}, 'Danger zone'),
             button({className: 'button', onClick: onResetClick}, 'Reset'));
     },
