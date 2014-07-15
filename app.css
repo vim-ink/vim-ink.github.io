@@ -39,12 +39,12 @@ button {
 }
 
 body.light {
-    background-color: #eee;
+    background-color: #FFECDB;
     color: #888;
 }
 
 body.dark {
-    background-color: #222;
+    background-color: #022;
     color: #888;
 }
 
@@ -58,10 +58,12 @@ header {
 body.light header {
     background-color: #ddd;
     color: #888;
+    opacity: 0.625;
 }
 
 body.dark header {
     background-color: #333;
+    opacity: 0.625;
     color: #888;
 }
 
@@ -80,7 +82,14 @@ body.dark header {
     width: 6.66rem;
     text-align: center;
     font-size: 1.4rem;
-    color: #bbb;
+}
+
+body.light .nav li {
+    color: #444;
+}
+
+body.dark .nav li {
+    color: #777;
 }
 
 .nav li:first-child {
@@ -251,7 +260,7 @@ body.dark .switch-button:active {
 
 .light-button {
     padding: 0 1.5rem 0 2rem;
-    border-right: 0 !important;
+    /* border-right: 0 !important; */
     border-radius: 2rem 0 0 2rem;
 }
 
@@ -565,13 +574,15 @@ aside h2 span + span {
 }
 
 body.light aside h2 {
+    opacity: 0.625;
     border-top: 1px solid #ddd;
-    color: #aaa;
+    color: #888;
 }
 
 body.dark aside h2 {
+    opacity: 0.625;
     border-top: 1px solid #333;
-    color: #777;
+    color: #888;
 }
 
 /* .hidden */
