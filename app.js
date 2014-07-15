@@ -167,7 +167,7 @@ var Source = React.createClass({
 
 var Controls = React.createClass({
     render() {
-        var {aside, h2, p, div, input, button, span} = React.DOM;
+        var {aside, h2, p, div, input, button, span, ul, li} = React.DOM;
         var {onChangeColor,
             onChangeBackgroundColor,
             onLightClick,
@@ -187,12 +187,18 @@ var Controls = React.createClass({
             h2(null, 'Selected group'),
             p(null, this.props.selectedGroup),
             h2(null, 'Color'),
-            div(null,
-                input({type: 'color', value: colorPair.color, onChange: onChangeColor}),
-                ' Foreground'),
-            div(null,
-                input({type: 'color', value: colorPair.backgroundColor, onChange: onChangeBackgroundColor}),
-                ' Background'),
+            div({className: 'line color-line'},
+                div({className: 'left'},
+                    input({type: 'color', value: colorPair.color, onChange: onChangeColor}),
+                    div({className: 'color'})),
+                div({className: 'right'},
+                    'Foreground')),
+            div({className: 'line color-line'},
+                div({className: 'left'},
+                    input({type: 'color', value: colorPair.backgroundColor, onChange: onChangeBackgroundColor}),
+                    div({className: 'color'})),
+                div({className: 'right'},
+                    'Background')),
             h2({className: 'collapsed'}, 'Highlight'),
             button({className: 'highlight-button none'}, span(null, 'n')),
             button({className: 'highlight-button bold active'}, span(null, 'b')),
@@ -201,11 +207,27 @@ var Controls = React.createClass({
             button({className: 'highlight-button undercurl'}, span(null, 'u')),
             button({className: 'highlight-button reverse'}, span(null, 'r')),
             button({className: 'highlight-button standout'}, span(null, 's')),
-            h2({className: 'collapsed'}, 'Show'),
-            h2({className: 'collapsed'}, 'Unassign groups'),
             h2({className: 'collapsed'}, 'Post process'),
-            input({type: 'range'}),
-            input({type: 'range'}),
+            div({className: 'line post-process-line'},
+                div({className: 'left'}, 'Brightness'),
+                div({className: 'right'}, input({type: 'range', min: 1, max: 9}))),
+            div({className: 'line post-process-line'},
+                div({className: 'left'}, 'Contrast'),
+                div({className: 'right'}, input({type: 'range', min: 1, max: 9}))),
+            h2({className: 'collapsed'}, 'Parts'),
+            div({className: 'line  button-line'},
+                div({className: 'left'}, 'Tab line'),
+                div({className: 'right'}, button({className: 'small-button'}, 'Show'))
+            ),
+            div({className: 'line button-line'},
+                div({className: 'left'}, 'Status line'),
+                div({className: 'right'}, button({className: 'small-button'}, 'Show'))
+            ),
+            h2({className: 'collapsed'}, 'Assigned groups'),
+            div({className: 'line button-line'},
+                div({className: 'left'}, 'Something'),
+                div({className: 'right'}, button({className: 'small-button'}, 'Remove'))
+            ),
             h2(null, 'Export'),
             button({className: 'button', onClick: onExportClick}, 'Export'),
             h2({className: 'collapsed'}, 'Danger zone'),
@@ -250,11 +272,30 @@ var Export = React.createClass({
     }
 });
 
-// var Files = React.createClass({
-//     render() {
-//         var {} = 
-//     }
-// });
+var Files = React.createClass({
+    render() {
+        var {ul, li} = React.DOM;
+        return ul({className: 'files'},
+            li(null, 'HTML'),
+            li({className: 'active'}, 'CSS'),
+            li(null, 'JavaScript'),
+            li(null, 'Python'),
+            li(null, 'Ruby'),
+            li(null, 'Go'),
+            li(null, 'Rust'),
+            li({className: 'paste-link'}, 'Paste'));
+    }
+});
+
+var Left = React.createClass({
+    render() {
+        var {article} = React.DOM;
+        return article(null,
+            this.props.paste,
+            this.props.files,
+            this.props.source);
+    }
+});
 
 var Root = React.createClass({
     getInitialState() {
@@ -334,14 +375,16 @@ var Root = React.createClass({
         return main(
             null,
             Header(),
-            Paste({
-                parsedSource,
-                parse}),
-            // Files(),
-            Source({
-                parsedSource,
-                getGroupProps,
-                selectGroup}),
+            Left({
+                    paste: Paste({
+                        parsedSource,
+                        parse}),
+                    files: Files(),
+                    source: Source({
+                        parsedSource,
+                        getGroupProps,
+                        selectGroup})
+                }),
             Controls({
                 resetState,
                 exportColorScheme,

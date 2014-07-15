@@ -227,7 +227,9 @@ var Controls = React.createClass({
         div = $__0.div,
         input = $__0.input,
         button = $__0.button,
-        span = $__0.span;
+        span = $__0.span,
+        ul = $__0.ul,
+        li = $__0.li;
     var $__0 = this,
         onChangeColor = $__0.onChangeColor,
         onChangeBackgroundColor = $__0.onChangeBackgroundColor,
@@ -247,15 +249,23 @@ var Controls = React.createClass({
     }, 'Light'), button({
       onClick: onDarkClick,
       className: 'switch-button dark-button' + darkActive
-    }, 'Dark'), h2(null, 'Selected group'), p(null, this.props.selectedGroup), h2(null, 'Color'), div(null, input({
+    }, 'Dark'), h2(null, 'Selected group'), p(null, this.props.selectedGroup), h2(null, 'Color'), div({className: 'line color-line'}, div({className: 'left'}, input({
       type: 'color',
       value: colorPair.color,
       onChange: onChangeColor
-    }), ' Foreground'), div(null, input({
+    }), div({className: 'color'})), div({className: 'right'}, 'Foreground')), div({className: 'line color-line'}, div({className: 'left'}, input({
       type: 'color',
       value: colorPair.backgroundColor,
       onChange: onChangeBackgroundColor
-    }), ' Background'), h2({className: 'collapsed'}, 'Highlight'), button({className: 'highlight-button none'}, span(null, 'n')), button({className: 'highlight-button bold active'}, span(null, 'b')), button({className: 'highlight-button italic'}, span(null, 'i')), button({className: 'highlight-button underline'}, span(null, 'u')), button({className: 'highlight-button undercurl'}, span(null, 'u')), button({className: 'highlight-button reverse'}, span(null, 'r')), button({className: 'highlight-button standout'}, span(null, 's')), h2({className: 'collapsed'}, 'Show'), h2({className: 'collapsed'}, 'Unassign groups'), h2({className: 'collapsed'}, 'Post process'), input({type: 'range'}), input({type: 'range'}), h2(null, 'Export'), button({
+    }), div({className: 'color'})), div({className: 'right'}, 'Background')), h2({className: 'collapsed'}, 'Highlight'), button({className: 'highlight-button none'}, span(null, 'n')), button({className: 'highlight-button bold active'}, span(null, 'b')), button({className: 'highlight-button italic'}, span(null, 'i')), button({className: 'highlight-button underline'}, span(null, 'u')), button({className: 'highlight-button undercurl'}, span(null, 'u')), button({className: 'highlight-button reverse'}, span(null, 'r')), button({className: 'highlight-button standout'}, span(null, 's')), h2({className: 'collapsed'}, 'Post process'), div({className: 'line post-process-line'}, div({className: 'left'}, 'Brightness'), div({className: 'right'}, input({
+      type: 'range',
+      min: 1,
+      max: 9
+    }))), div({className: 'line post-process-line'}, div({className: 'left'}, 'Contrast'), div({className: 'right'}, input({
+      type: 'range',
+      min: 1,
+      max: 9
+    }))), h2({className: 'collapsed'}, 'Parts'), div({className: 'line  button-line'}, div({className: 'left'}, 'Tab line'), div({className: 'right'}, button({className: 'small-button'}, 'Show'))), div({className: 'line button-line'}, div({className: 'left'}, 'Status line'), div({className: 'right'}, button({className: 'small-button'}, 'Show'))), h2({className: 'collapsed'}, 'Assigned groups'), div({className: 'line button-line'}, div({className: 'left'}, 'Something'), div({className: 'right'}, button({className: 'small-button'}, 'Remove'))), h2(null, 'Export'), button({
       className: 'button',
       onClick: onExportClick
     }, 'Export'), h2({className: 'collapsed'}, 'Danger zone'), button({
@@ -305,6 +315,16 @@ var Export = React.createClass({
     this.props.clearExportedSource();
   }
 });
+var Files = React.createClass({render: function() {
+    var $__0 = $traceurRuntime.assertObject(React.DOM),
+        ul = $__0.ul,
+        li = $__0.li;
+    return ul({className: 'files'}, li(null, 'HTML'), li({className: 'active'}, 'CSS'), li(null, 'JavaScript'), li(null, 'Python'), li(null, 'Ruby'), li(null, 'Go'), li(null, 'Rust'), li({className: 'paste-link'}, 'Paste'));
+  }});
+var Left = React.createClass({render: function() {
+    var article = $traceurRuntime.assertObject(React.DOM).article;
+    return article(null, this.props.paste, this.props.files, this.props.source);
+  }});
 var Root = React.createClass({
   getInitialState: function() {
     if (localStorage.getItem('state') !== null) {
@@ -374,13 +394,17 @@ var Root = React.createClass({
         selectedGroup = $__0.selectedGroup,
         exportedSource = $__0.exportedSource;
     var exportColorscheme = $traceurRuntime.assertObject(this.props).exportColorscheme;
-    return main(null, Header(), Paste({
-      parsedSource: parsedSource,
-      parse: parse
-    }), Source({
-      parsedSource: parsedSource,
-      getGroupProps: getGroupProps,
-      selectGroup: selectGroup
+    return main(null, Header(), Left({
+      paste: Paste({
+        parsedSource: parsedSource,
+        parse: parse
+      }),
+      files: Files(),
+      source: Source({
+        parsedSource: parsedSource,
+        getGroupProps: getGroupProps,
+        selectGroup: selectGroup
+      })
     }), Controls({
       resetState: resetState,
       exportColorScheme: exportColorScheme,
@@ -444,7 +468,7 @@ var Root = React.createClass({
 React.renderComponent(Root(), document.body);
 
 
-}).call(this,require("IrXUsu"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/fake_c2077b8c.js","/")
+}).call(this,require("IrXUsu"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/fake_f75a9673.js","/")
 },{"./exporter":1,"./vim-tohtml-parser":144,"IrXUsu":7,"buffer":4,"es6ify/node_modules/traceur/bin/traceur-runtime":3,"react":143}],3:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 (function(global) {
