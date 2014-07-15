@@ -41,8 +41,10 @@ var Header = React.createClass({render: function() {
     var $__0 = $traceurRuntime.assertObject(React.DOM),
         header = $__0.header,
         h1 = $__0.h1,
-        span = $__0.span;
-    return header(null, h1(null, 'vim.ink'));
+        span = $__0.span,
+        ul = $__0.ul,
+        li = $__0.li;
+    return header(null, h1(null, 'vim.ink'), ul({className: 'nav'}, li(null, 'About'), li(null, 'GitHub'), li(null, 'Gittip')));
   }});
 var Paste = React.createClass({
   render: function() {
@@ -468,7 +470,7 @@ var Root = React.createClass({
 React.renderComponent(Root(), document.body);
 
 
-}).call(this,require("IrXUsu"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/fake_efdef6ec.js","/")
+}).call(this,require("IrXUsu"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/fake_8b55362e.js","/")
 },{"./exporter":1,"./vim-tohtml-parser":144,"IrXUsu":7,"buffer":4,"es6ify/node_modules/traceur/bin/traceur-runtime":3,"react":143}],3:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 (function(global) {

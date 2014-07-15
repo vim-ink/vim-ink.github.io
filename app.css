@@ -1,3 +1,10 @@
+/* Reset */
+
+* {
+    box-sizing: border-box;
+    text-transform: lowercase;
+}
+
 /* Typography */
 
 html {
@@ -23,7 +30,7 @@ body {
     margin: 0;
 }
 
-body, ul, h1, h2, article, input {
+body, ul, header, h2, article, input {
     transition: all 0.5s ease;
 }
 
@@ -32,7 +39,7 @@ button {
 }
 
 body.light {
-    background-color: #f0f0f0;
+    background-color: #eee;
     color: #888;
 }
 
@@ -41,22 +48,58 @@ body.dark {
     color: #888;
 }
 
-/* h1 */
+/* header */
 
-h1 {
-    font-size: 2.8rem;
+header {
     margin: 0 0 4rem 0;
-    padding: 1.5rem 2rem;
+    overflow: hidden;
 }
 
-body.light h1 {
+body.light header {
     background-color: #ddd;
     color: #888;
 }
 
-body.dark h1 {
+body.dark header {
     background-color: #333;
     color: #888;
+}
+
+/* .nav */
+
+.nav {
+    margin: 0;
+    padding: 0;
+    float: left;
+    margin-left: 2rem;
+}
+
+.nav li {
+    display: inline-block;
+    line-height: 6rem;
+    width: 6.66rem;
+    text-align: center;
+    font-size: 1.4rem;
+    color: #bbb;
+}
+
+.nav li:first-child {
+    text-align: left;
+}
+
+.nav li:last-child {
+    text-align: right;
+}
+
+/* h1 */
+
+h1 {
+    margin: 0;
+    font-size: 2.0rem;
+    line-height: 6rem;
+    float: left;
+    width: 100rem;
+    padding-left: 2rem;
 }
 
 /* main */
@@ -68,6 +111,7 @@ main {
 /* article */
 article {
     float: left;
+    width: 100rem;
 }
 
 body.light article {
@@ -84,7 +128,7 @@ ul.files {
     margin: 0;
     padding: 0;
     overflow: hidden;
-    font-size: 1.6rem;
+    font-size: 1.4rem;
 }
 
 body.light ul.files {
@@ -97,7 +141,6 @@ body.dark ul.files {
 
 .paste-link {
     float: right;
-    border-radius: 3px;
 }
 
 ul.files li {
@@ -118,7 +161,6 @@ body.dark ul.files li.active {
 
 pre {
     font-size: 1.6rem;
-    width: 100rem;
     font-weight: 400;
     margin: 0;
 }
@@ -161,10 +203,9 @@ body.dark .paste {
 
 .switch-button {
     background-color: transparent;
-    box-sizing: border-box;
     height: 4rem;
     margin: 0;
-    font-size: 1.6rem;
+    font-size: 1.4rem;
     opacity: 1;
 }
 
@@ -182,16 +223,8 @@ body.light .switch-button.active {
     color: #888;
 }
 
-body.light .switch-button.active {
-    border-right: 0 !important;
-}
-
 body.dark .switch-button.active {
     color: #888;
-}
-
-body.dark .switch-button.active {
-    border-left: 0 !important;
 }
 
 body.light .switch-button:hover {
@@ -217,27 +250,28 @@ body.dark .switch-button:active {
 }
 
 .light-button {
-    border-radius: 2rem 0 0 2rem;
     padding: 0 1.5rem 0 2rem;
+    border-right: 0 !important;
+    border-radius: 2rem 0 0 2rem;
 }
 
 .dark-button {
     padding: 0 2rem 0 1.5rem;
+    border-left: 0 !important;
     border-radius: 0 2rem 2rem 0;
 }
 
 /* .highlight-button */
 
 .highlight-button {
-    border-radius: 1.6rem;
     background-color: transparent;
-    font-size: 1.6rem;
+    font-size: 1.4rem;
     width: 3.0rem;
     height: 3.0rem;
     margin-right: 1rem;
-    box-sizing: border-box;
     opacity: 0.75;
     border: 0;
+    border-radius: 1.5rem;
 }
 
 body.light .highlight-button {
@@ -345,13 +379,12 @@ body.dark .highlight-button:active {
 /* .small-button */
 
 .small-button {
-    border-radius: 3px;
     padding-left: 0.75rem;
     padding-right: 0.75rem;
     background-color: transparent;
-    letter-spacing: 0.05rem;
     font-size: 1.4rem;
     height: 3rem;
+    border-radius: 0.3rem;
 }
 
 body.light .small-button {
@@ -387,13 +420,12 @@ body.dark .small-button:hover {
 /* .button */
 
 .button {
-    border-radius: 3px;
     padding-left: 3rem;
     padding-right: 3rem;
     height: 4rem;
     background-color: transparent;
-    letter-spacing: 0.05rem;
-    font-size: 1.6rem;
+    font-size: 1.4rem;
+    border-radius: 0.3rem;
 }
 
 body.light .button,
@@ -461,10 +493,10 @@ body.dark input[type="range"]::-webkit-slider-runnable-track {
 
 input[type="range"]::-webkit-slider-thumb {
     -webkit-appearance: none;
-    width: 1.5rem;
-    height: 1.5rem;
-    border-radius: 0.75rem;
-    margin-top: -0.7rem;
+    width: 1.25rem;
+    height: 1.25rem;
+    margin-top: -0.5rem;
+    border-radius: 0.625rem;
 }
 
 body.light input[type="range"]::-webkit-slider-thumb {
@@ -492,8 +524,8 @@ input[type="range"]::-moz-range-thumb {
     border: 0;
     width: 1.25rem;
     height: 1.25rem;
-    border-radius: 0.625rem;
     margin-top: -0.5rem;
+    border-radius: 0.625rem;
 }
 
 body.light input[type="range"]::-moz-range-thumb {
@@ -516,7 +548,6 @@ aside {
 
 aside h2 {
     font-size: 1.4rem;
-    text-transform: uppercase;
     text-align: right;
     padding-top: 0.75rem;
     margin-top: 2rem;
@@ -560,9 +591,7 @@ body.dark aside h2 {
     margin-left: -40rem;
     margin-top: -20rem;
     padding: 2rem;
-    box-sizing: border-box;
     text-align: right;
-    border-radius: 1rem;
 }
 
 .export p {
@@ -594,10 +623,6 @@ body.dark .export {
     font-size: 1.4rem;
 }
 
-* {
-    box-sizing: border-box;
-}
-
 /* .line */
 
 .line {
@@ -610,7 +635,6 @@ body.dark .export {
 .button-line .left {
     width: 64%;
     float: left;
-    font-size: 1.6rem;
 }
 
 .button-line .right {
@@ -634,13 +658,9 @@ body.dark .export {
 
 /* .post-process-line */
 
-.post-process-line {
-}
-
 .post-process-line .left {
     width: 40%;
     float: left;
-    font-size: 1.6rem;
     line-height: 3rem;
 }
 
@@ -650,12 +670,13 @@ body.dark .export {
 }
 
 /* .color */
+
 .color {
     width: 3rem;
     height: 3rem;
     background-color: #fff;
     opacity: 1;
-    border-radius: 1.6rem;
     pointer-events: none;
     margin-top: -3rem;
+    border-radius: 1.5rem;
 }

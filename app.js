@@ -5,9 +5,14 @@ var exporter = require('./exporter');
 
 var Header = React.createClass({
     render() {
-        var {header, h1, span} = React.DOM;
+        var {header, h1, span, ul, li} = React.DOM;
 
-        return header(null, h1(null, 'vim.ink'));
+        return header(null,
+            h1(null, 'vim.ink'),
+            ul({className: 'nav'},
+              li(null, 'About'),
+              li(null, 'GitHub'),
+              li(null, 'Gittip')));
     }
 });
 
