@@ -34,7 +34,7 @@ body, ul, header, footer, h2, article, input {
 }
 
 button {
-    transition: all 0.125s ease;
+    transition: all 0.2s ease;
 }
 
 body.light {
