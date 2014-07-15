@@ -2,7 +2,6 @@
 
 * {
     box-sizing: border-box;
-    text-transform: lowercase;
 }
 
 /* Typography */
@@ -563,6 +562,7 @@ aside h2 {
     padding-top: 0.75rem;
     margin-top: 2rem;
     margin-bottom: 1.5rem;
+    text-transform: uppercase;
 }
 
 aside h2:first-child {
