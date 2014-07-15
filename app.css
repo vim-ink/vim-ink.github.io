@@ -30,7 +30,7 @@ body {
     margin: 0;
 }
 
-body, ul, header, h2, article, input {
+body, ul, header, footer, h2, article, input {
     transition: all 0.5s ease;
 }
 
@@ -44,7 +44,7 @@ body.light {
 }
 
 body.dark {
-    background-color: #022;
+    background-color: #222;
     color: #888;
 }
 
@@ -56,13 +56,20 @@ header {
 }
 
 body.light header {
-    background-color: rgba(0, 0, 0, 0.05);
+    background-color: #ddd;
     color: #888;
 }
 
 body.dark header {
-    background-color: rgba(255, 255, 255, 0.05);
+    background-color: #333;
     color: #888;
+}
+
+/* footer */
+footer {
+    margin: 2rem 0 2rem 0;
+    overflow: hidden;
+    text-align: center;
 }
 
 /* .nav */
@@ -70,7 +77,6 @@ body.dark header {
 .nav {
     margin: 0;
     padding: 0;
-    float: left;
     margin-left: 2rem;
 }
 
@@ -213,7 +219,6 @@ body.dark .paste {
     height: 4rem;
     margin: 0;
     font-size: 1.5rem;
-    opacity: 1;
 }
 
 body.light .switch-button {
@@ -258,7 +263,6 @@ body.dark .switch-button:active {
 
 .light-button {
     padding: 0 1.5rem 0 2rem;
-    /* border-right: 0 !important; */
     border-radius: 2rem 0 0 2rem;
 }
 
@@ -710,11 +714,11 @@ body.dark .export {
 
 body.light .text {
     color: #888;
-    background-color: rgba(0, 0, 0, 0.05);
+    background-color: #ddd;
 }
 
 body.dark .text {
-    background-color: rgba(255, 255, 255, 0.05);
+    background-color: #333;
     color: #888;
 }
 

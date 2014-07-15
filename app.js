@@ -5,14 +5,9 @@ var exporter = require('./exporter');
 
 var Header = React.createClass({
     render() {
-        var {header, h1, span, ul, li} = React.DOM;
+        var {header, h1} = React.DOM;
 
-        return header(null,
-            h1(null, 'vim.ink'),
-            ul({className: 'nav'},
-              li(null, 'About'),
-              li(null, 'GitHub'),
-              li(null, 'Gittip')));
+        return header(null, h1(null, 'vim.ink'));
     }
 });
 
@@ -309,6 +304,17 @@ var Left = React.createClass({
     }
 });
 
+var Footer = React.createClass({
+    render() {
+        var {footer, ul, li} = React.DOM;
+        return footer(null,
+            ul({className: 'nav'},
+              li(null, 'About'),
+              li(null, 'GitHub'),
+              li(null, 'Gittip')));
+    }
+});
+
 var Root = React.createClass({
     getInitialState() {
         if (localStorage.getItem('state') !== null) {
@@ -370,7 +376,7 @@ var Root = React.createClass({
         }
     },
     render() {
-        var {main} = React.DOM;
+        var {span, main} = React.DOM;
         var {getGroupProps,
             parse,
             selectGroup,
@@ -384,27 +390,29 @@ var Root = React.createClass({
             selectedGroup,
             exportedSource} = this.state;
         var {exportColorscheme} = this.props;
-        return main(
+        return span(
             null,
             Header(),
-            Left({
-                    paste: Paste({
-                        parsedSource,
-                        parse}),
-                    files: Files(),
-                    source: Source({
-                        parsedSource,
-                        getGroupProps,
-                        selectGroup})
-                }),
-            Controls({
-                resetState,
-                exportColorScheme,
-                activeVariant,
-                activateVariant,
-                selectedGroup,
-                getGroupProps,
-                setSelectedGroupProps}),
+            main(null,
+                Left({
+                        paste: Paste({
+                            parsedSource,
+                            parse}),
+                        files: Files(),
+                        source: Source({
+                            parsedSource,
+                            getGroupProps,
+                            selectGroup})
+                    }),
+                Controls({
+                    resetState,
+                    exportColorScheme,
+                    activeVariant,
+                    activateVariant,
+                    selectedGroup,
+                    getGroupProps,
+                    setSelectedGroupProps})),
+            Footer(),
             Export({exportedSource, clearExportedSource}));
     },
     parse(unparsedSource) {

@@ -40,11 +40,8 @@ var exporter = require('./exporter');
 var Header = React.createClass({render: function() {
     var $__0 = $traceurRuntime.assertObject(React.DOM),
         header = $__0.header,
-        h1 = $__0.h1,
-        span = $__0.span,
-        ul = $__0.ul,
-        li = $__0.li;
-    return header(null, h1(null, 'vim.ink'), ul({className: 'nav'}, li(null, 'About'), li(null, 'GitHub'), li(null, 'Gittip')));
+        h1 = $__0.h1;
+    return header(null, h1(null, 'vim.ink'));
   }});
 var Paste = React.createClass({
   render: function() {
@@ -331,6 +328,13 @@ var Left = React.createClass({render: function() {
     var article = $traceurRuntime.assertObject(React.DOM).article;
     return article(null, this.props.paste, this.props.files, this.props.source);
   }});
+var Footer = React.createClass({render: function() {
+    var $__0 = $traceurRuntime.assertObject(React.DOM),
+        footer = $__0.footer,
+        ul = $__0.ul,
+        li = $__0.li;
+    return footer(null, ul({className: 'nav'}, li(null, 'About'), li(null, 'GitHub'), li(null, 'Gittip')));
+  }});
 var Root = React.createClass({
   getInitialState: function() {
     if (localStorage.getItem('state') !== null) {
@@ -384,7 +388,9 @@ var Root = React.createClass({
     }
   },
   render: function() {
-    var main = $traceurRuntime.assertObject(React.DOM).main;
+    var $__0 = $traceurRuntime.assertObject(React.DOM),
+        span = $__0.span,
+        main = $__0.main;
     var $__0 = this,
         getGroupProps = $__0.getGroupProps,
         parse = $__0.parse,
@@ -400,7 +406,7 @@ var Root = React.createClass({
         selectedGroup = $__0.selectedGroup,
         exportedSource = $__0.exportedSource;
     var exportColorscheme = $traceurRuntime.assertObject(this.props).exportColorscheme;
-    return main(null, Header(), Left({
+    return span(null, Header(), main(null, Left({
       paste: Paste({
         parsedSource: parsedSource,
         parse: parse
@@ -419,7 +425,7 @@ var Root = React.createClass({
       selectedGroup: selectedGroup,
       getGroupProps: getGroupProps,
       setSelectedGroupProps: setSelectedGroupProps
-    }), Export({
+    })), Footer(), Export({
       exportedSource: exportedSource,
       clearExportedSource: clearExportedSource
     }));
@@ -474,7 +480,7 @@ var Root = React.createClass({
 React.renderComponent(Root(), document.body);
 
 
-}).call(this,require("IrXUsu"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/fake_751b8ac9.js","/")
+}).call(this,require("IrXUsu"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/fake_730b4d8f.js","/")
 },{"./exporter":1,"./vim-tohtml-parser":144,"IrXUsu":7,"buffer":4,"es6ify/node_modules/traceur/bin/traceur-runtime":3,"react":143}],3:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 (function(global) {
