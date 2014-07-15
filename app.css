@@ -39,7 +39,7 @@ button {
 }
 
 body.light {
-    background-color: #FFECDB;
+    background-color: #eee;
     color: #888;
 }
 
@@ -56,14 +56,12 @@ header {
 }
 
 body.light header {
-    background-color: #ddd;
+    background-color: rgba(0, 0, 0, 0.05);
     color: #888;
-    opacity: 0.625;
 }
 
 body.dark header {
-    background-color: #333;
-    opacity: 0.625;
+    background-color: rgba(255, 255, 255, 0.05);
     color: #888;
 }
 
@@ -85,11 +83,11 @@ body.dark header {
 }
 
 body.light .nav li {
-    color: #444;
+    color: #aaa;
 }
 
 body.dark .nav li {
-    color: #777;
+    color: #666;
 }
 
 .nav li:first-child {
@@ -141,11 +139,13 @@ ul.files {
 }
 
 body.light ul.files {
-    color: #bbb;
+    color: #aaa;
+    background-color: rgba(0, 0, 0, 0.05);
 }
 
 body.dark ul.files {
-    color: #555;
+    color: #666;
+    background-color: rgba(255, 255, 255, 0.05);
 }
 
 .paste-link {
@@ -159,11 +159,11 @@ ul.files li {
 }
 
 body.light ul.files li.active {
-    color: #888;
+    color: #777;
 }
 
 body.dark ul.files li.active {
-    color: #888;
+    color: #999;
 }
 
 /* pre */
