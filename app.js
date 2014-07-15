@@ -238,7 +238,8 @@ var Controls = React.createClass({
             div({className: 'line export-line-button'},
                 button({className: 'button', onClick: onExportClick}, 'Export')),
             h2({className: 'collapsed'}, 'Danger zone'),
-            button({className: 'button', onClick: onResetClick}, 'Reset'));
+            div({className: 'line danger-zone-line'},
+                button({className: 'button', onClick: onResetClick}, 'Reset')));
     },
     onChangeColor(e) {
         this.props.setSelectedGroupProps({color: e.target.value});

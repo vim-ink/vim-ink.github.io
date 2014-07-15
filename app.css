@@ -728,6 +728,12 @@ body.dark .text {
     text-align: right;
 }
 
+/* .export-line-button */
+
+.danger-zone-line {
+    text-align: right;
+}
+
 /* .color */
 
 .color {

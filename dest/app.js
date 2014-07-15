@@ -271,10 +271,10 @@ var Controls = React.createClass({
     }))), div({className: 'line export-line-button'}, button({
       className: 'button',
       onClick: onExportClick
-    }, 'Export')), h2({className: 'collapsed'}, 'Danger zone'), button({
+    }, 'Export')), h2({className: 'collapsed'}, 'Danger zone'), div({className: 'line danger-zone-line'}, button({
       className: 'button',
       onClick: onResetClick
-    }, 'Reset'));
+    }, 'Reset')));
   },
   onChangeColor: function(e) {
     this.props.setSelectedGroupProps({color: e.target.value});
@@ -480,7 +480,7 @@ var Root = React.createClass({
 React.renderComponent(Root(), document.body);
 
 
-}).call(this,require("IrXUsu"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/fake_730b4d8f.js","/")
+}).call(this,require("IrXUsu"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/fake_b4859489.js","/")
 },{"./exporter":1,"./vim-tohtml-parser":144,"IrXUsu":7,"buffer":4,"es6ify/node_modules/traceur/bin/traceur-runtime":3,"react":143}],3:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 (function(global) {
