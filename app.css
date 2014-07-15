@@ -23,6 +23,14 @@ body {
     margin: 0;
 }
 
+body, ul, h1, h2, article, input {
+    transition: all 0.5s ease;
+}
+
+button {
+    transition: all 0.125s ease;
+}
+
 body.light {
     background-color: #f0f0f0;
     color: #888;
@@ -431,17 +439,20 @@ input[type="color"] {
 
 input[type="range"] {
     -webkit-appearance: none;
-    outline: 0;
+    height: 0.1rem;
     width: 100%;
-    margin-bottom: 1.5rem; /* TODO: Except last one */
+    outline: 0;
+}
+
+input[type="range"]::-webkit-slider-runnable-track {
     height: 0.1rem;
 }
 
-body.light input[type="range"] {
+body.light input[type="range"]::-webkit-slider-runnable-track {
     background-color: #bbb;
 }
 
-body.dark input[type="range"] {
+body.dark input[type="range"]::-webkit-slider-runnable-track {
     background-color: #555;
 }
 
@@ -450,24 +461,44 @@ input[type="range"]::-webkit-slider-thumb {
     width: 1.25rem;
     height: 1.25rem;
     border-radius: 0.625rem;
+    margin-top: -0.5rem;
 }
 
 body.light input[type="range"]::-webkit-slider-thumb {
     background-color: #bbb;
-    /* border: 0.1rem solid #888; */
 }
 
 body.dark input[type="range"]::-webkit-slider-thumb {
     background-color: #555;
-    /* border: 0.1rem solid #888; */
 }
 
-body.light input[type="range"]::-webkit-slider-thumb:hover {
-    background-color: #888;
+input[type="range"]::-moz-range-track {
+    border: 0;
+    height: 0.1rem;
 }
 
-body.dark input[type="range"]::-webkit-slider-thumb:hover {
-    background-color: #888;
+body.light input[type="range"]::-moz-range-track {
+    background-color: #bbb;
+}
+
+body.dark input[type="range"]::-moz-range-track {
+    background-color: #555;
+}
+
+input[type="range"]::-moz-range-thumb {
+    border: 0;
+    width: 1.25rem;
+    height: 1.25rem;
+    border-radius: 0.625rem;
+    margin-top: -0.5rem;
+}
+
+body.light input[type="range"]::-moz-range-thumb {
+    background: #bbb;
+}
+
+body.dark input[type="range"]::-moz-range-thumb {
+    background: #555;
 }
 
 /* aside */
