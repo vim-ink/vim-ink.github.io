@@ -71,11 +71,11 @@ article {
 }
 
 body.light article {
-    box-shadow: 0px 0px 8px #ddd;
+    box-shadow: 0px 0px 3px #ddd;
 }
 
 body.dark article {
-    box-shadow: 0px 0px 8px #111;
+    box-shadow: 0px 0px 3px #111;
 }
 
 /* ul.files */
@@ -232,10 +232,9 @@ body.dark .switch-button:active {
     border-radius: 1.6rem;
     background-color: transparent;
     font-size: 1.6rem;
-    width: 3.2rem;
-    height: 3.2rem;
+    width: 3.0rem;
+    height: 3.0rem;
     margin-right: 1rem;
-    margin-bottom: 1rem; /* TODO: Remove for last line */
     box-sizing: border-box;
     opacity: 0.75;
     border: 0;
@@ -347,10 +346,12 @@ body.dark .highlight-button:active {
 
 .small-button {
     border-radius: 3px;
-    padding: 0.25rem 0.75rem;
+    padding-left: 0.75rem;
+    padding-right: 0.75rem;
     background-color: transparent;
     letter-spacing: 0.05rem;
     font-size: 1.4rem;
+    height: 3rem;
 }
 
 body.light .small-button {
@@ -387,7 +388,9 @@ body.dark .small-button:hover {
 
 .button {
     border-radius: 3px;
-    padding: 1rem 3rem;
+    padding-left: 3rem;
+    padding-right: 3rem;
+    height: 4rem;
     background-color: transparent;
     letter-spacing: 0.05rem;
     font-size: 1.6rem;
@@ -430,8 +433,8 @@ body.light .dialog .button:hover {
 /* input[type="color"] */
 
 input[type="color"] {
-    width: 3.2rem;
-    height: 3.2rem;
+    width: 3rem;
+    height: 3rem;
     opacity: 0;
 }
 
@@ -458,10 +461,10 @@ body.dark input[type="range"]::-webkit-slider-runnable-track {
 
 input[type="range"]::-webkit-slider-thumb {
     -webkit-appearance: none;
-    width: 1.25rem;
-    height: 1.25rem;
-    border-radius: 0.625rem;
-    margin-top: -0.5rem;
+    width: 1.5rem;
+    height: 1.5rem;
+    border-radius: 0.75rem;
+    margin-top: -0.7rem;
 }
 
 body.light input[type="range"]::-webkit-slider-thumb {
@@ -512,12 +515,12 @@ aside {
 /* aside h2 */
 
 aside h2 {
-    margin-top: 2rem;
     font-size: 1.4rem;
     text-transform: uppercase;
     text-align: right;
     padding-top: 0.75rem;
-    margin-bottom: 1rem;
+    margin-top: 2rem;
+    margin-bottom: 1.5rem;
 }
 
 aside h2:first-child {
@@ -599,6 +602,7 @@ body.dark .export {
 
 .line {
     overflow: hidden;
+    margin-bottom: 1rem;
 }
 
 /* .button-line */
@@ -606,9 +610,7 @@ body.dark .export {
 .button-line .left {
     width: 64%;
     float: left;
-    line-height: 2.6rem;
     font-size: 1.6rem;
-    margin-bottom: 0.5rem;
 }
 
 .button-line .right {
@@ -627,13 +629,12 @@ body.dark .export {
 .color-line .right {
     width: 80%;
     float: left;
-    line-height: 4rem;
+    line-height: 3rem;
 }
 
 /* .post-process-line */
 
 .post-process-line {
-    margin-bottom: 0.5rem;
 }
 
 .post-process-line .left {
@@ -650,8 +651,8 @@ body.dark .export {
 
 /* .color */
 .color {
-    width: 3.2rem;
-    height: 3.2rem;
+    width: 3rem;
+    height: 3rem;
     background-color: #fff;
     opacity: 1;
     border-radius: 1.6rem;
