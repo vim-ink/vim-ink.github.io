@@ -106,7 +106,7 @@ var TabLine = React.createClass({
     }
 });
 
-var Source = React.createClass({
+var Vim = React.createClass({
     render() {
         var {pre} = React.DOM;
         var {onClick} = this;
@@ -137,4 +137,4 @@ var Source = React.createClass({
     }
 });
 
-module.exports = Source;
+module.exports = Vim;

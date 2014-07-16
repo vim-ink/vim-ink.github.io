@@ -1,6 +1,6 @@
 var React = require('react');
 
-var Source = require('./source');
+var Vim = require('./vim');
 
 var Paste = React.createClass({
     render() {
@@ -45,7 +45,7 @@ var Left = React.createClass({
                 parsedSource,
                 parse}),
             Files(),
-            Source({
+            Vim({
                 parsedSource,
                 getGroupProps,
                 selectGroup}));
