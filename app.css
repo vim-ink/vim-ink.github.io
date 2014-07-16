@@ -256,12 +256,12 @@ body.dark .paste {
 }
 
 body.light .switch-button {
-    border: 1px solid #aaa;
+    border: 1px solid #bbb;
     color: #aaa;
 }
 
 body.dark .switch-button {
-    border: 1px solid #666;
+    border: 1px solid #555;
     color: #666;
 }
 
@@ -274,12 +274,12 @@ body.dark .switch-button.active {
 }
 
 body.light .switch-button:hover {
-    background-color: #aaa;
+    background-color: #bbb;
     color: #444;
 }
 
 body.dark .switch-button:hover {
-    background-color: #666;
+    background-color: #555;
     color: #aaa;
 }
 
@@ -433,22 +433,22 @@ body.dark .highlight-button:active {
 }
 
 body.light .small-button {
-    border: 1px solid #aaa;
+    border: 1px solid #bbb;
     color: #888;
 }
 
 body.dark .small-button {
-    border: 1px solid #666;
+    border: 1px solid #555;
     color: #888;
 }
 
 body.light .small-button:hover {
-    background-color: #aaa;
+    background-color: #bbb;
     color: #444;
 }
 
 body.dark .small-button:hover {
-    background-color: #666;
+    background-color: #555;
     color: #aaa;
 }
 
@@ -475,25 +475,25 @@ body.dark .small-button:hover {
 
 body.light .button,
 body.dark .dialog .button {
-    border: 1px solid #aaa;
+    border: 1px solid #bbb;
     color: #888;
 }
 
 body.dark .button,
 body.light .dialog .button {
-    border: 1px solid #666;
+    border: 1px solid #555;
     color: #888;
 }
 
 body.light .button:hover,
 body.dark .dialog .button:hover {
-    background-color: #aaa;
+    background-color: #bbb;
     color: #444;
 }
 
 body.dark .button:hover,
 body.light .dialog .button:hover {
-    background-color: #666;
+    background-color: #555;
     color: #aaa;
 }
 
@@ -558,11 +558,11 @@ input[type="range"]::-moz-range-track {
 }
 
 body.light input[type="range"]::-moz-range-track {
-    background-color: #aaa;
+    background-color: #ccc;
 }
 
 body.dark input[type="range"]::-moz-range-track {
-    background-color: #666;
+    background-color: #444;
 }
 
 input[type="range"]::-moz-range-thumb {
