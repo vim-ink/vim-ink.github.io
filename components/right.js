@@ -1,24 +1,39 @@
 var React = require('react');
 
+var Variant = React.createClass({
+    render() {
+        var {section, h2, button} = React.DOM;
+        var {onLightClick, onDarkClick} = this;
+
+        var lightActive = this.props.activeVariant === 'light' ? ' active' : '';
+        var darkActive = this.props.activeVariant === 'dark' ? ' active' : '';
+
+        return section({},
+            h2(null, 'Variant'),
+            button({onClick: onLightClick, className: 'switch-button light-button' + lightActive}, 'Light'),
+            button({onClick: onDarkClick, className: 'switch-button dark-button' + darkActive}, 'Dark'));
+    },
+    onLightClick() {
+        this.props.activateVariant('light');
+    },
+    onDarkClick() {
+        this.props.activateVariant('dark');
+    }
+});
+
 var Right = React.createClass({
     render() {
         var {aside, h2, p, div, input, label, button, span, ul, li} = React.DOM;
         var {onChangeColor,
             onChangeBackgroundColor,
-            onLightClick,
-            onDarkClick,
             onExportClick,
             onResetClick} = this;
         var {getGroupProps, selectedGroup} = this.props;
 
-        var lightActive = this.props.activeVariant === 'light' ? ' active' : '';
-        var darkActive = this.props.activeVariant === 'dark' ? ' active' : '';
         var colorPair = getGroupProps(selectedGroup);
 
         return aside(null,
-            h2(null, 'Variant'),
-            button({onClick: onLightClick, className: 'switch-button light-button' + lightActive}, 'Light'),
-            button({onClick: onDarkClick, className: 'switch-button dark-button' + darkActive}, 'Dark'),
+            Variant(this.props),
             h2(null, 'Selected group'),
             div({className: 'line'},
                 this.props.selectedGroup),
@@ -81,12 +96,6 @@ var Right = React.createClass({
     },
     onChangeBackgroundColor(e) {
         this.props.setSelectedGroupProps({backgroundColor: e.target.value});
-    },
-    onLightClick() {
-        this.props.activateVariant('light');
-    },
-    onDarkClick() {
-        this.props.activateVariant('dark');
     },
     onExportClick() {
         this.props.exportColorScheme();

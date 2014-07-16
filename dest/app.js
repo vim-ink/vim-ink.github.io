@@ -41,11 +41,11 @@ var App = React.createClass({
       getGroupProps: getGroupProps,
       selectGroup: selectGroup
     }), Right({
+      activeVariant: activeVariant,
+      selectedGroup: selectedGroup,
       resetState: resetState,
       exportColorScheme: exportColorScheme,
-      activeVariant: activeVariant,
       activateVariant: activateVariant,
-      selectedGroup: selectedGroup,
       getGroupProps: getGroupProps,
       setSelectedGroupProps: setSelectedGroupProps
     })), Footer(), Export({
@@ -59,18 +59,6 @@ var App = React.createClass({
   },
   componentDidUpdate: function() {
     localStorage.setItem('state', JSON.stringify(this.state));
-  },
-  parse: function(unparsedSource) {
-    var parse = $traceurRuntime.assertObject(this.props).parse;
-    this.setState({parsedSource: parse(unparsedSource)});
-  },
-  activateVariant: function(activeVariant) {
-    var body = document.getElementsByTagName('body')[0];
-    body.className = activeVariant;
-    this.setState({activeVariant: activeVariant});
-  },
-  selectGroup: function(selectedGroup) {
-    this.setState({selectedGroup: selectedGroup});
   },
   getGroupProps: function(group) {
     var activeVariant = $traceurRuntime.assertObject(this.state).activeVariant;
@@ -89,6 +77,18 @@ var App = React.createClass({
     Object.assign(groups[group], props);
     this.setState(newState);
   },
+  activateVariant: function(activeVariant) {
+    var body = document.getElementsByTagName('body')[0];
+    body.className = activeVariant;
+    this.setState({activeVariant: activeVariant});
+  },
+  selectGroup: function(selectedGroup) {
+    this.setState({selectedGroup: selectedGroup});
+  },
+  parse: function(unparsedSource) {
+    var parse = $traceurRuntime.assertObject(this.props).parse;
+    this.setState({parsedSource: parse(unparsedSource)});
+  },
   exportColorScheme: function() {
     var exporter = $traceurRuntime.assertObject(this.props).exporter;
     this.setState({exportedSource: exporter.exportColorScheme(this.state)});
@@ -98,7 +98,6 @@ var App = React.createClass({
   },
   resetState: function() {
     var initialState = $traceurRuntime.assertObject(this.props).initialState;
-    console.log(initialState);
     this.replaceState(initialState);
   }
 });
@@ -218,6 +217,32 @@ module.exports = Left;
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 "use strict";
 var React = require('react');
+var Variant = React.createClass({
+  render: function() {
+    var $__0 = $traceurRuntime.assertObject(React.DOM),
+        section = $__0.section,
+        h2 = $__0.h2,
+        button = $__0.button;
+    var $__0 = this,
+        onLightClick = $__0.onLightClick,
+        onDarkClick = $__0.onDarkClick;
+    var lightActive = this.props.activeVariant === 'light' ? ' active' : '';
+    var darkActive = this.props.activeVariant === 'dark' ? ' active' : '';
+    return section({}, h2(null, 'Variant'), button({
+      onClick: onLightClick,
+      className: 'switch-button light-button' + lightActive
+    }, 'Light'), button({
+      onClick: onDarkClick,
+      className: 'switch-button dark-button' + darkActive
+    }, 'Dark'));
+  },
+  onLightClick: function() {
+    this.props.activateVariant('light');
+  },
+  onDarkClick: function() {
+    this.props.activateVariant('dark');
+  }
+});
 var Right = React.createClass({
   render: function() {
     var $__0 = $traceurRuntime.assertObject(React.DOM),
@@ -234,23 +259,13 @@ var Right = React.createClass({
     var $__0 = this,
         onChangeColor = $__0.onChangeColor,
         onChangeBackgroundColor = $__0.onChangeBackgroundColor,
-        onLightClick = $__0.onLightClick,
-        onDarkClick = $__0.onDarkClick,
         onExportClick = $__0.onExportClick,
         onResetClick = $__0.onResetClick;
     var $__0 = $traceurRuntime.assertObject(this.props),
         getGroupProps = $__0.getGroupProps,
         selectedGroup = $__0.selectedGroup;
-    var lightActive = this.props.activeVariant === 'light' ? ' active' : '';
-    var darkActive = this.props.activeVariant === 'dark' ? ' active' : '';
     var colorPair = getGroupProps(selectedGroup);
-    return aside(null, h2(null, 'Variant'), button({
-      onClick: onLightClick,
-      className: 'switch-button light-button' + lightActive
-    }, 'Light'), button({
-      onClick: onDarkClick,
-      className: 'switch-button dark-button' + darkActive
-    }, 'Dark'), h2(null, 'Selected group'), div({className: 'line'}, this.props.selectedGroup), h2(null, 'Color'), div({className: 'line color-line'}, div({className: 'left'}, input({
+    return aside(null, Variant(this.props), h2(null, 'Selected group'), div({className: 'line'}, this.props.selectedGroup), h2(null, 'Color'), div({className: 'line color-line'}, div({className: 'left'}, input({
       type: 'color',
       value: colorPair.color,
       onChange: onChangeColor
@@ -282,12 +297,6 @@ var Right = React.createClass({
   },
   onChangeBackgroundColor: function(e) {
     this.props.setSelectedGroupProps({backgroundColor: e.target.value});
-  },
-  onLightClick: function() {
-    this.props.activateVariant('light');
-  },
-  onDarkClick: function() {
-    this.props.activateVariant('dark');
   },
   onExportClick: function() {
     this.props.exportColorScheme();
@@ -513,7 +522,7 @@ React.renderComponent(App({
 }), document.body);
 
 
-}).call(this,require("IrXUsu"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/fake_31107085.js","/")
+}).call(this,require("IrXUsu"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/fake_b88cb39e.js","/")
 },{"./components/app":1,"./exporter":8,"./initial-state":10,"./vim-tohtml-parser":152,"IrXUsu":15,"buffer":12,"es6ify/node_modules/traceur/bin/traceur-runtime":11,"react":151}],10:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 "use strict";
