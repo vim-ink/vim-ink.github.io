@@ -5,8 +5,8 @@ var React = require('react');
 var Header = require('./header');
 var Left = require('./left');
 var Right = require('./right');
-var Export = require('./export');
 var Footer = require('./footer');
+var Export = require('./export');
 var App = React.createClass({
   getInitialState: function() {
     var initialState = $traceurRuntime.assertObject(this.props).initialState;
@@ -53,13 +53,16 @@ var App = React.createClass({
       clearExportedSource: clearExportedSource
     }));
   },
-  parse: function(unparsedSource) {
-    var parse = $traceurRuntime.assertObject(this.props).parse;
-    this.setState({parsedSource: parse(unparsedSource)});
-  },
   componentDidMount: function() {
     var body = document.getElementsByTagName('body')[0];
     body.className = this.state.activeVariant;
+  },
+  componentDidUpdate: function() {
+    localStorage.setItem('state', JSON.stringify(this.state));
+  },
+  parse: function(unparsedSource) {
+    var parse = $traceurRuntime.assertObject(this.props).parse;
+    this.setState({parsedSource: parse(unparsedSource)});
   },
   activateVariant: function(activeVariant) {
     var body = document.getElementsByTagName('body')[0];
@@ -70,7 +73,8 @@ var App = React.createClass({
     this.setState({selectedGroup: selectedGroup});
   },
   getGroupProps: function(group) {
-    var groups = this.state[this.state.activeVariant];
+    var activeVariant = $traceurRuntime.assertObject(this.state).activeVariant;
+    var groups = this.state[activeVariant];
     return {
       color: group in groups && 'color' in groups[group] ? groups[group].color : groups['Normal'].color,
       backgroundColor: group in groups && 'backgroundColor' in groups[group] ? groups[group].backgroundColor : groups['Normal'].backgroundColor
@@ -93,13 +97,9 @@ var App = React.createClass({
     this.setState({exportedSource: undefined});
   },
   resetState: function() {
-    this.setState({
-      parsedSource: undefined,
-      exportedSource: undefined
-    });
-  },
-  componentDidUpdate: function() {
-    localStorage.setItem('state', JSON.stringify(this.state));
+    var initialState = $traceurRuntime.assertObject(this.props).initialState;
+    console.log(initialState);
+    this.replaceState(initialState);
   }
 });
 module.exports = App;
@@ -513,7 +513,7 @@ React.renderComponent(App({
 }), document.body);
 
 
-}).call(this,require("IrXUsu"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/fake_f496ee01.js","/")
+}).call(this,require("IrXUsu"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/fake_31107085.js","/")
 },{"./components/app":1,"./exporter":8,"./initial-state":10,"./vim-tohtml-parser":152,"IrXUsu":15,"buffer":12,"es6ify/node_modules/traceur/bin/traceur-runtime":11,"react":151}],10:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 "use strict";

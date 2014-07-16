@@ -51,7 +51,11 @@ var App = React.createClass({
     },
     componentDidMount() {
         var body = document.getElementsByTagName('body')[0];
+
         body.className = this.state.activeVariant;
+    },
+    componentDidUpdate() {
+        localStorage.setItem('state', JSON.stringify(this.state));
     },
     parse(unparsedSource) {
         var {parse} = this.props;
@@ -60,6 +64,7 @@ var App = React.createClass({
     },
     activateVariant(activeVariant) {
         var body = document.getElementsByTagName('body')[0];
+
         body.className = activeVariant;
         this.setState({activeVariant});
     },
@@ -67,7 +72,8 @@ var App = React.createClass({
         this.setState({selectedGroup});
     },
     getGroupProps(group) {
-        var groups = this.state[this.state.activeVariant];
+        var {activeVariant} = this.state;
+        var groups = this.state[activeVariant];
 
         return {
             color: group in groups && 'color' in groups[group] ?
@@ -98,10 +104,9 @@ var App = React.createClass({
         this.setState({exportedSource: undefined});
     },
     resetState() {
-        this.setState({parsedSource: undefined, exportedSource: undefined});
-    },
-    componentDidUpdate() {
-        localStorage.setItem('state', JSON.stringify(this.state));
+        var {initialState} = this.props;
+
+        this.replaceState(initialState);
     }
 });
 
