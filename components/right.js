@@ -1,6 +1,6 @@
 var React = require('react');
 
-var Controls = React.createClass({
+var Right = React.createClass({
     render() {
         var {aside, h2, p, div, input, label, button, span, ul, li} = React.DOM;
         var {onChangeColor,
@@ -96,4 +96,4 @@ var Controls = React.createClass({
     }
 });
 
-module.exports = Controls;
+module.exports = Right;

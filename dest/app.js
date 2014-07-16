@@ -7,7 +7,7 @@ var exporter = require('../exporter');
 var initialState = require('../initial-state');
 var Header = require('./header');
 var Left = require('./left');
-var Controls = require('./controls');
+var Right = require('./right');
 var Export = require('./export');
 var Footer = require('./footer');
 var App = React.createClass({
@@ -42,7 +42,7 @@ var App = React.createClass({
       parse: parse,
       getGroupProps: getGroupProps,
       selectGroup: selectGroup
-    }), Controls({
+    }), Right({
       resetState: resetState,
       exportColorScheme: exportColorScheme,
       activeVariant: activeVariant,
@@ -106,7 +106,115 @@ module.exports = App;
 
 
 }).call(this,require("IrXUsu"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/components/app.js","/components")
-},{"../exporter":8,"../initial-state":10,"../vim-tohtml-parser":152,"./controls":2,"./export":3,"./footer":4,"./header":5,"./left":6,"IrXUsu":15,"buffer":12,"react":151}],2:[function(require,module,exports){
+},{"../exporter":8,"../initial-state":10,"../vim-tohtml-parser":152,"./export":2,"./footer":3,"./header":4,"./left":5,"./right":6,"IrXUsu":15,"buffer":12,"react":151}],2:[function(require,module,exports){
+(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
+"use strict";
+var React = require('react');
+var Export = React.createClass({
+  render: function() {
+    var $__0 = $traceurRuntime.assertObject(React.DOM),
+        div = $__0.div,
+        button = $__0.button,
+        p = $__0.p,
+        h2 = $__0.h2,
+        textarea = $__0.textarea;
+    var onClick = this.onClick;
+    var exportedSource = $traceurRuntime.assertObject(this.props).exportedSource;
+    var hiddenConditional = exportedSource === undefined ? 'hidden' : '';
+    return div({className: 'export dialog ' + hiddenConditional}, h2(null, 'Here is your color scheme!'), p(null, 'Copy the code below to clipboard and paste into a new vim buffer. Do `:w ~/.vim/colors/whatever.vim`, `:set background light`, and finally `:colorscheme whatever`.'), textarea({
+      value: exportedSource,
+      readOnly: true
+    }), button({
+      className: 'button',
+      onClick: onClick
+    }, 'Close'));
+  },
+  onClick: function() {
+    this.props.clearExportedSource();
+  }
+});
+module.exports = Export;
+
+
+}).call(this,require("IrXUsu"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/components/export.js","/components")
+},{"IrXUsu":15,"buffer":12,"react":151}],3:[function(require,module,exports){
+(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
+"use strict";
+var React = require('react');
+var Footer = React.createClass({render: function() {
+    var $__0 = $traceurRuntime.assertObject(React.DOM),
+        footer = $__0.footer,
+        ul = $__0.ul,
+        li = $__0.li;
+    return footer(null, ul({className: 'nav'}, li(null, 'About'), li(null, 'GitHub'), li(null, 'Gittip')));
+  }});
+module.exports = Footer;
+
+
+}).call(this,require("IrXUsu"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/components/footer.js","/components")
+},{"IrXUsu":15,"buffer":12,"react":151}],4:[function(require,module,exports){
+(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
+"use strict";
+var React = require('react');
+var Header = React.createClass({render: function() {
+    var $__0 = $traceurRuntime.assertObject(React.DOM),
+        header = $__0.header,
+        h1 = $__0.h1;
+    return header(null, h1(null, 'vim.ink'));
+  }});
+module.exports = Header;
+
+
+}).call(this,require("IrXUsu"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/components/header.js","/components")
+},{"IrXUsu":15,"buffer":12,"react":151}],5:[function(require,module,exports){
+(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
+"use strict";
+var React = require('react');
+var Source = require('./source');
+var Paste = React.createClass({
+  render: function() {
+    var textarea = $traceurRuntime.assertObject(React.DOM).textarea;
+    var onChange = this.onChange;
+    var parsedSource = $traceurRuntime.assertObject(this.props).parsedSource;
+    var className = (parsedSource !== undefined) ? 'hidden' : 'paste';
+    return textarea({
+      onChange: onChange,
+      className: className,
+      placeholder: 'Paste output of `:TOhtml` here.'
+    });
+  },
+  onChange: function(e) {
+    var parse = $traceurRuntime.assertObject(this.props).parse;
+    parse(e.target.value);
+  }
+});
+var Files = React.createClass({render: function() {
+    var $__0 = $traceurRuntime.assertObject(React.DOM),
+        ul = $__0.ul,
+        li = $__0.li;
+    return ul({className: 'files'}, li(null, 'HTML'), li({className: 'active'}, 'CSS'), li(null, 'JavaScript'), li(null, 'Python'), li(null, 'Ruby'), li(null, 'Go'), li(null, 'Rust'), li({className: 'paste-link'}, 'Paste'));
+  }});
+var Left = React.createClass({render: function() {
+    var article = $traceurRuntime.assertObject(React.DOM).article;
+    var $__0 = $traceurRuntime.assertObject(this.props),
+        parsedSource = $__0.parsedSource,
+        parse = $__0.parse,
+        getGroupProps = $__0.getGroupProps,
+        selectGroup = $__0.selectGroup;
+    return article(null, Paste({
+      parsedSource: parsedSource,
+      parse: parse
+    }), Files(), Source({
+      parsedSource: parsedSource,
+      getGroupProps: getGroupProps,
+      selectGroup: selectGroup
+    }));
+  }});
+module.exports = Left;
+
+
+}).call(this,require("IrXUsu"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/components/left.js","/components")
+},{"./source":7,"IrXUsu":15,"buffer":12,"react":151}],6:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 "use strict";
 var React = require('react');
@@ -191,114 +299,8 @@ var Controls = React.createClass({
 module.exports = Controls;
 
 
-}).call(this,require("IrXUsu"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/components/controls.js","/components")
-},{"IrXUsu":15,"buffer":12,"react":151}],3:[function(require,module,exports){
-(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
-"use strict";
-var React = require('react');
-var Export = React.createClass({
-  render: function() {
-    var $__0 = $traceurRuntime.assertObject(React.DOM),
-        div = $__0.div,
-        button = $__0.button,
-        p = $__0.p,
-        h2 = $__0.h2,
-        textarea = $__0.textarea;
-    var onClick = this.onClick;
-    var exportedSource = $traceurRuntime.assertObject(this.props).exportedSource;
-    var hiddenConditional = exportedSource === undefined ? 'hidden' : '';
-    return div({className: 'export dialog ' + hiddenConditional}, h2(null, 'Here is your color scheme!'), p(null, 'Copy the code below to clipboard and paste into a new vim buffer. Do `:w ~/.vim/colors/whatever.vim`, `:set background light`, and finally `:colorscheme whatever`.'), textarea({
-      value: exportedSource,
-      readOnly: true
-    }), button({
-      className: 'button',
-      onClick: onClick
-    }, 'Close'));
-  },
-  onClick: function() {
-    this.props.clearExportedSource();
-  }
-});
-module.exports = Export;
-
-
-}).call(this,require("IrXUsu"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/components/export.js","/components")
-},{"IrXUsu":15,"buffer":12,"react":151}],4:[function(require,module,exports){
-(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
-"use strict";
-var Footer = React.createClass({render: function() {
-    var $__0 = $traceurRuntime.assertObject(React.DOM),
-        footer = $__0.footer,
-        ul = $__0.ul,
-        li = $__0.li;
-    return footer(null, ul({className: 'nav'}, li(null, 'About'), li(null, 'GitHub'), li(null, 'Gittip')));
-  }});
-
-
-}).call(this,require("IrXUsu"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/components/footer.js","/components")
-},{"IrXUsu":15,"buffer":12}],5:[function(require,module,exports){
-(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
-"use strict";
-var React = require('react');
-var Header = React.createClass({render: function() {
-    var $__0 = $traceurRuntime.assertObject(React.DOM),
-        header = $__0.header,
-        h1 = $__0.h1;
-    return header(null, h1(null, 'vim.ink'));
-  }});
-module.exports = Header;
-
-
-}).call(this,require("IrXUsu"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/components/header.js","/components")
-},{"IrXUsu":15,"buffer":12,"react":151}],6:[function(require,module,exports){
-(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
-"use strict";
-var React = require('react');
-var Source = require('./source');
-var Paste = React.createClass({
-  render: function() {
-    var textarea = $traceurRuntime.assertObject(React.DOM).textarea;
-    var onChange = this.onChange;
-    var parsedSource = $traceurRuntime.assertObject(this.props).parsedSource;
-    var className = (parsedSource !== undefined) ? 'hidden' : 'paste';
-    return textarea({
-      onChange: onChange,
-      className: className,
-      placeholder: 'Paste output of `:TOhtml` here.'
-    });
-  },
-  onChange: function(e) {
-    var parse = $traceurRuntime.assertObject(this.props).parse;
-    parse(e.target.value);
-  }
-});
-var Files = React.createClass({render: function() {
-    var $__0 = $traceurRuntime.assertObject(React.DOM),
-        ul = $__0.ul,
-        li = $__0.li;
-    return ul({className: 'files'}, li(null, 'HTML'), li({className: 'active'}, 'CSS'), li(null, 'JavaScript'), li(null, 'Python'), li(null, 'Ruby'), li(null, 'Go'), li(null, 'Rust'), li({className: 'paste-link'}, 'Paste'));
-  }});
-var Left = React.createClass({render: function() {
-    var article = $traceurRuntime.assertObject(React.DOM).article;
-    var $__0 = $traceurRuntime.assertObject(this.props),
-        parsedSource = $__0.parsedSource,
-        parse = $__0.parse,
-        getGroupProps = $__0.getGroupProps,
-        selectGroup = $__0.selectGroup;
-    return article(null, Paste({
-      parsedSource: parsedSource,
-      parse: parse
-    }), Files(), Source({
-      parsedSource: parsedSource,
-      getGroupProps: getGroupProps,
-      selectGroup: selectGroup
-    }));
-  }});
-module.exports = Left;
-
-
-}).call(this,require("IrXUsu"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/components/left.js","/components")
-},{"./source":7,"IrXUsu":15,"buffer":12,"react":151}],7:[function(require,module,exports){
+}).call(this,require("IrXUsu"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/components/right.js","/components")
+},{"IrXUsu":15,"buffer":12,"react":151}],7:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 "use strict";
 var React = require('react');
@@ -504,7 +506,7 @@ var App = require('./components/app');
 React.renderComponent(App(), document.body);
 
 
-}).call(this,require("IrXUsu"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/fake_1b19a82f.js","/")
+}).call(this,require("IrXUsu"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/fake_7030ca42.js","/")
 },{"./components/app":1,"IrXUsu":15,"buffer":12,"es6ify/node_modules/traceur/bin/traceur-runtime":11,"react":151}],10:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 "use strict";

@@ -6,7 +6,7 @@ var initialState = require('../initial-state');
 
 var Header = require('./header');
 var Left = require('./left');
-var Controls = require('./controls');
+var Right = require('./right');
 var Export = require('./export');
 var Footer = require('./footer');
 
@@ -40,7 +40,7 @@ var App = React.createClass({
                     parse,
                     getGroupProps,
                     selectGroup}),
-                Controls({
+                Right({
                     resetState,
                     exportColorScheme,
                     activeVariant,

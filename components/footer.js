@@ -1,3 +1,5 @@
+var React = require('react');
+
 var Footer = React.createClass({
     render() {
         var {footer, ul, li} = React.DOM;
@@ -9,3 +11,5 @@ var Footer = React.createClass({
               li(null, 'Gittip')));
     }
 });
+
+module.exports = Footer;
