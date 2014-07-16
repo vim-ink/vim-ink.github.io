@@ -3,6 +3,7 @@ var React = require('react');
 var parse = require('./vim-tohtml-parser').parse;
 var exporter = require('./exporter');
 
+var initialState = require('./initial-state');
 var Source = require('./source');
 var Controls = require('./controls');
 
@@ -94,59 +95,7 @@ var Root = React.createClass({
         if (localStorage.getItem('state') !== null) {
             return JSON.parse(localStorage.getItem('state'));
         } else {
-            return {
-                _stateFormatVersion: 0,
-                unparsedSource: undefined,
-                parsedSource: undefined,
-                activeVariant: 'light',
-                selectedGroup: 'Normal',
-                dark: {
-                    Normal: {
-                        color: '#cccccc',
-                        backgroundColor: '#000000',
-                        highlight: 'NONE'
-                    },
-                    TabLine: {
-                        color: '#000000',
-                        backgroundColor: '#aaaaaa',
-                        highlight: 'NONE'
-                    },
-                    TabLineSel: {
-                        color: '#000000',
-                        backgroundColor: '#cccccc',
-                        highlight: 'NONE'
-                    },
-                    Cursor: {
-                        highlight: 'reverse'
-                    },
-                    Visual: {
-                        highlight: 'reverse'
-                    }
-                },
-                light: {
-                    Normal: {
-                        color: '#000000',
-                        backgroundColor: '#ffffff',
-                        highlight: 'NONE'
-                    },
-                    TabLine: {
-                        color: '#000000',
-                        backgroundColor: '#cccccc',
-                        highlight: 'NONE'
-                    },
-                    TabLineSel: {
-                        color: '#000000',
-                        backgroundColor: '#aaaaaa',
-                        highlight: 'NONE'
-                    },
-                    Cursor: {
-                        highlight: 'reverse'
-                    },
-                    Visual: {
-                        highlight: 'reverse'
-                    }
-                }
-            };
+            return initialState;
         }
     },
     render() {
@@ -159,11 +108,9 @@ var Root = React.createClass({
             resetState,
             exportColorScheme,
             clearExportedSource} = this;
-        var {activeVariant,
-            parsedSource,
-            selectedGroup,
-            exportedSource} = this.state;
+        var {activeVariant, parsedSource, selectedGroup, exportedSource} = this.state;
         var {exportColorscheme} = this.props;
+
         return span(
             null,
             Header(),
