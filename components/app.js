@@ -70,7 +70,10 @@ var App = React.createClass({
                 groups['Normal'].color,
             backgroundColor: group in groups && 'backgroundColor' in groups[group] ?
                 groups[group].backgroundColor :
-                groups['Normal'].backgroundColor
+                groups['Normal'].backgroundColor,
+            highlight: group in groups && 'highlight' in groups[group] ?
+                groups[group].highlight :
+                groups['Normal'].highlight
         };
     },
     setSelectedGroupProps(props) {

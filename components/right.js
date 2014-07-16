@@ -103,25 +103,52 @@ var Color = React.createClass({
 
 var Highlight = React.createClass({
     render() {
-        var {section, h2, div, button, span} = React.DOM;
+        var {section, h2, div} = React.DOM;
+        var {button} = this;
 
         return section({},
             h2({className: 'collapsed'}, 'Highlight'),
             div({className: 'line'},
-                button({className: 'highlight-button none'}, span(null, 'n')),
-                button({className: 'highlight-button bold active'}, span(null, 'b')),
-                button({className: 'highlight-button italic'}, span(null, 'i')),
-                button({className: 'highlight-button underline'}, span(null, 'u')),
-                button({className: 'highlight-button undercurl'}, span(null, 'u'))),
+                HighlightButton(Object.assign({}, this.props, {type: 'NONE', content: 'n'})),
+                HighlightButton(Object.assign({}, this.props, {type: 'bold', content: 'b'})),
+                HighlightButton(Object.assign({}, this.props, {type: 'italic', content: 'i'})),
+                HighlightButton(Object.assign({}, this.props, {type: 'underline', content: 'u'})),
+                HighlightButton(Object.assign({}, this.props, {type: 'undercurl', content: 'u'}))),
             div({className: 'line'},
-                button({className: 'highlight-button reverse'}, span(null, 'r')),
-                button({className: 'highlight-button standout'}, span(null, 's'))));
+                HighlightButton(Object.assign({}, this.props, {type: 'reverse', content: 'r'})),
+                HighlightButton(Object.assign({}, this.props, {type: 'standout', content: 's'}))));
+    }
+});
+
+var HighlightButton = React.createClass({
+    render() {
+        var {button, span} = React.DOM;
+        var {onClick} = this;
+        var {type, content} = this.props;
+        var className = this.className(type);
+
+        return button({className, onClick}, span(null, content));
+    },
+    className(type) {
+        var {getGroupProps, selectedGroup} = this.props;
+        var {selectedType} = this.props;
+
+        var selectedType = getGroupProps(selectedGroup).highlight;
+
+        return 'highlight-button ' + type.toLowerCase() +
+            (type === selectedType ? ' active' : '');
+    },
+    onClick(e) {
+        var {setSelectedGroupProps, type} = this.props;
+
+        setSelectedGroupProps({highlight: type})
     }
 });
 
 var PostProcess = React.createClass({
     render() {
         var {section, h2, div, input} = React.DOM;
+
         return section({},
             h2({className: 'collapsed'}, 'Post process'),
             div({className: 'line post-process-line'},

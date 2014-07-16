@@ -69,7 +69,8 @@ var App = React.createClass({
     var groups = this.state[activeVariant];
     return {
       color: group in groups && 'color' in groups[group] ? groups[group].color : groups['Normal'].color,
-      backgroundColor: group in groups && 'backgroundColor' in groups[group] ? groups[group].backgroundColor : groups['Normal'].backgroundColor
+      backgroundColor: group in groups && 'backgroundColor' in groups[group] ? groups[group].backgroundColor : groups['Normal'].backgroundColor,
+      highlight: group in groups && 'highlight' in groups[group] ? groups[group].highlight : groups['Normal'].highlight
     };
   },
   setSelectedGroupProps: function(props) {
@@ -321,11 +322,61 @@ var Highlight = React.createClass({render: function() {
     var $__0 = $traceurRuntime.assertObject(React.DOM),
         section = $__0.section,
         h2 = $__0.h2,
-        div = $__0.div,
+        div = $__0.div;
+    var button = this.button;
+    return section({}, h2({className: 'collapsed'}, 'Highlight'), div({className: 'line'}, HighlightButton(Object.assign({}, this.props, {
+      type: 'NONE',
+      content: 'n'
+    })), HighlightButton(Object.assign({}, this.props, {
+      type: 'bold',
+      content: 'b'
+    })), HighlightButton(Object.assign({}, this.props, {
+      type: 'italic',
+      content: 'i'
+    })), HighlightButton(Object.assign({}, this.props, {
+      type: 'underline',
+      content: 'u'
+    })), HighlightButton(Object.assign({}, this.props, {
+      type: 'undercurl',
+      content: 'u'
+    }))), div({className: 'line'}, HighlightButton(Object.assign({}, this.props, {
+      type: 'reverse',
+      content: 'r'
+    })), HighlightButton(Object.assign({}, this.props, {
+      type: 'standout',
+      content: 's'
+    }))));
+  }});
+var HighlightButton = React.createClass({
+  render: function() {
+    var $__0 = $traceurRuntime.assertObject(React.DOM),
         button = $__0.button,
         span = $__0.span;
-    return section({}, h2({className: 'collapsed'}, 'Highlight'), div({className: 'line'}, button({className: 'highlight-button none'}, span(null, 'n')), button({className: 'highlight-button bold active'}, span(null, 'b')), button({className: 'highlight-button italic'}, span(null, 'i')), button({className: 'highlight-button underline'}, span(null, 'u')), button({className: 'highlight-button undercurl'}, span(null, 'u'))), div({className: 'line'}, button({className: 'highlight-button reverse'}, span(null, 'r')), button({className: 'highlight-button standout'}, span(null, 's'))));
-  }});
+    var onClick = this.onClick;
+    var $__0 = $traceurRuntime.assertObject(this.props),
+        type = $__0.type,
+        content = $__0.content;
+    var className = this.className(type);
+    return button({
+      className: className,
+      onClick: onClick
+    }, span(null, content));
+  },
+  className: function(type) {
+    var $__0 = $traceurRuntime.assertObject(this.props),
+        getGroupProps = $__0.getGroupProps,
+        selectedGroup = $__0.selectedGroup;
+    var selectedType = $traceurRuntime.assertObject(this.props).selectedType;
+    var selectedType = getGroupProps(selectedGroup).highlight;
+    return 'highlight-button ' + type.toLowerCase() + (type === selectedType ? ' active' : '');
+  },
+  onClick: function(e) {
+    var $__0 = $traceurRuntime.assertObject(this.props),
+        setSelectedGroupProps = $__0.setSelectedGroupProps,
+        type = $__0.type;
+    setSelectedGroupProps({highlight: type});
+  }
+});
 var PostProcess = React.createClass({render: function() {
     var $__0 = $traceurRuntime.assertObject(React.DOM),
         section = $__0.section,
@@ -614,7 +665,7 @@ React.renderComponent(App({
 }), document.body);
 
 
-}).call(this,require("IrXUsu"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/fake_e60ce923.js","/")
+}).call(this,require("IrXUsu"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/fake_d426d492.js","/")
 },{"./components/app":1,"./exporter":8,"./initial-state":10,"./vim-tohtml-parser":152,"IrXUsu":15,"buffer":12,"es6ify/node_modules/traceur/bin/traceur-runtime":11,"react":151}],10:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 "use strict";

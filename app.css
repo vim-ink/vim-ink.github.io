@@ -285,7 +285,7 @@ body.dark .switch-button:active {
     width: 3.0rem;
     height: 3.0rem;
     margin-right: 1rem;
-    opacity: 0.75;
+    opacity: 0.5;
     border: 0;
     border-radius: 1.5rem;
 }
