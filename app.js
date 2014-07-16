@@ -4,9 +4,9 @@ var parse = require('./vim-tohtml-parser').parse;
 var exporter = require('./exporter');
 
 var initialState = require('./initial-state');
-var Left = require('./left');
-var Controls = require('./controls');
-var Export = require('./export');
+var Left = require('./components/left');
+var Controls = require('./components/controls');
+var Export = require('./components/export');
 
 var Header = React.createClass({
     render() {
