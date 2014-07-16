@@ -4,6 +4,7 @@ var initialState = {
     parsedSource: undefined,
     activeVariant: 'light',
     selectedGroup: 'Normal',
+    activeColor: 'foreground',
     dark: {
         Normal: {
             color: '#cccccc',

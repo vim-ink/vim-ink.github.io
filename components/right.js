@@ -52,8 +52,11 @@ var SelectedGroup = React.createClass({
 var Color = React.createClass({
     render() {
         var {section, h2, div, input} = React.DOM;
-        var {getGroupProps, selectedGroup} = this.props;
-        var {onChangeColor, onChangeBackgroundColor} = this;
+        var {getGroupProps, selectedGroup, activeColor} = this.props;
+        var {onChangeColor, onChangeBackgroundColor, onBackgroundClick, onForegroundClick} = this;
+
+        var foregroundActive = activeColor === 'foreground' ? ' active' : '';
+        var backgroundActive = activeColor === 'background' ? ' active' : '';
 
         var colorPair = getGroupProps(selectedGroup);
 
@@ -61,22 +64,26 @@ var Color = React.createClass({
             h2(null, 'Color'),
             div({className: 'line color-line'},
                 div({className: 'left'},
-                    input({type: 'color', value: colorPair.color, onChange: onChangeColor}),
-                    div({className: 'color'})),
-                div({className: 'right'},
-                    'Foreground')),
+                    input({type: 'color', value: colorPair.color, onClick: onForegroundClick, onChange: onChangeColor}),
+                    div({className: 'color', style: {backgroundColor: colorPair.color}})),
+                div({className: 'right' + foregroundActive}, 'Foreground')),
             div({className: 'line color-line'},
                 div({className: 'left'},
-                    input({type: 'color', value: colorPair.backgroundColor, onChange: onChangeBackgroundColor}),
-                    div({className: 'color'})),
-                div({className: 'right'},
-                    'Background')));
+                    input({type: 'color', value: colorPair.backgroundColor, onClick: onBackgroundClick, onChange: onChangeBackgroundColor}),
+                    div({className: 'color', style: {backgroundColor: colorPair.backgroundColor}})),
+                div({className: 'right' + backgroundActive}, 'Background')));
     },
     onChangeColor(e) {
         this.props.setSelectedGroupProps({color: e.target.value});
     },
     onChangeBackgroundColor(e) {
         this.props.setSelectedGroupProps({backgroundColor: e.target.value});
+    },
+    onForegroundClick(e) {
+        this.props.setActiveColor('foreground');
+    },
+    onBackgroundClick(e) {
+        this.props.setActiveColor('background');
     }
 });
 

@@ -26,6 +26,7 @@ var App = React.createClass({
         selectGroup = $__0.selectGroup,
         setSelectedGroupProps = $__0.setSelectedGroupProps,
         activateVariant = $__0.activateVariant,
+        setActiveColor = $__0.setActiveColor,
         resetState = $__0.resetState,
         exportColorScheme = $__0.exportColorScheme,
         clearExportedSource = $__0.clearExportedSource;
@@ -33,7 +34,8 @@ var App = React.createClass({
         activeVariant = $__0.activeVariant,
         parsedSource = $__0.parsedSource,
         selectedGroup = $__0.selectedGroup,
-        exportedSource = $__0.exportedSource;
+        exportedSource = $__0.exportedSource,
+        activeColor = $__0.activeColor;
     var exportColorscheme = $traceurRuntime.assertObject(this.props).exportColorscheme;
     return span(null, Header(), main(null, Left({
       parsedSource: parsedSource,
@@ -46,6 +48,8 @@ var App = React.createClass({
       resetState: resetState,
       exportColorScheme: exportColorScheme,
       activateVariant: activateVariant,
+      activeColor: activeColor,
+      setActiveColor: setActiveColor,
       getGroupProps: getGroupProps,
       setSelectedGroupProps: setSelectedGroupProps
     })), Footer(), Export({
@@ -84,6 +88,9 @@ var App = React.createClass({
   },
   selectGroup: function(selectedGroup) {
     this.setState({selectedGroup: selectedGroup});
+  },
+  setActiveColor: function(activeColor) {
+    this.setState({activeColor: activeColor});
   },
   parse: function(unparsedSource) {
     var parse = $traceurRuntime.assertObject(this.props).parse;
@@ -181,10 +188,10 @@ var Left = React.createClass({render: function() {
       parsedSource: parsedSource,
       getGroupProps: getGroupProps,
       selectGroup: selectGroup
-    }, Paste({
+    }), Paste({
       parsedSource: parsedSource,
       parse: parse
-    })));
+    }));
   }});
 var Files = React.createClass({render: function() {
     var $__0 = $traceurRuntime.assertObject(React.DOM),
@@ -264,26 +271,45 @@ var Color = React.createClass({
         input = $__0.input;
     var $__0 = $traceurRuntime.assertObject(this.props),
         getGroupProps = $__0.getGroupProps,
-        selectedGroup = $__0.selectedGroup;
+        selectedGroup = $__0.selectedGroup,
+        activeColor = $__0.activeColor;
     var $__0 = this,
         onChangeColor = $__0.onChangeColor,
-        onChangeBackgroundColor = $__0.onChangeBackgroundColor;
+        onChangeBackgroundColor = $__0.onChangeBackgroundColor,
+        onBackgroundClick = $__0.onBackgroundClick,
+        onForegroundClick = $__0.onForegroundClick;
+    var foregroundActive = activeColor === 'foreground' ? ' active' : '';
+    var backgroundActive = activeColor === 'background' ? ' active' : '';
     var colorPair = getGroupProps(selectedGroup);
     return section({}, h2(null, 'Color'), div({className: 'line color-line'}, div({className: 'left'}, input({
       type: 'color',
       value: colorPair.color,
+      onClick: onForegroundClick,
       onChange: onChangeColor
-    }), div({className: 'color'})), div({className: 'right'}, 'Foreground')), div({className: 'line color-line'}, div({className: 'left'}, input({
+    }), div({
+      className: 'color',
+      style: {backgroundColor: colorPair.color}
+    })), div({className: 'right' + foregroundActive}, 'Foreground')), div({className: 'line color-line'}, div({className: 'left'}, input({
       type: 'color',
       value: colorPair.backgroundColor,
+      onClick: onBackgroundClick,
       onChange: onChangeBackgroundColor
-    }), div({className: 'color'})), div({className: 'right'}, 'Background')));
+    }), div({
+      className: 'color',
+      style: {backgroundColor: colorPair.backgroundColor}
+    })), div({className: 'right' + backgroundActive}, 'Background')));
   },
   onChangeColor: function(e) {
     this.props.setSelectedGroupProps({color: e.target.value});
   },
   onChangeBackgroundColor: function(e) {
     this.props.setSelectedGroupProps({backgroundColor: e.target.value});
+  },
+  onForegroundClick: function(e) {
+    this.props.setActiveColor('foreground');
+  },
+  onBackgroundClick: function(e) {
+    this.props.setActiveColor('background');
   }
 });
 var Highlight = React.createClass({render: function() {
@@ -583,7 +609,7 @@ React.renderComponent(App({
 }), document.body);
 
 
-}).call(this,require("IrXUsu"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/fake_2704454c.js","/")
+}).call(this,require("IrXUsu"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/fake_3411bca9.js","/")
 },{"./components/app":1,"./exporter":8,"./initial-state":10,"./vim-tohtml-parser":152,"IrXUsu":15,"buffer":12,"es6ify/node_modules/traceur/bin/traceur-runtime":11,"react":151}],10:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 "use strict";
@@ -593,6 +619,7 @@ var initialState = {
   parsedSource: undefined,
   activeVariant: 'light',
   selectedGroup: 'Normal',
+  activeColor: 'foreground',
   dark: {
     Normal: {
       color: '#cccccc',

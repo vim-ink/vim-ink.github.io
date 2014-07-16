@@ -9,8 +9,8 @@ var Left = React.createClass({
 
         return article(null,
             Files(),
-            Vim({parsedSource, getGroupProps, selectGroup},
-            Paste({parsedSource, parse})));
+            Vim({parsedSource, getGroupProps, selectGroup}),
+            Paste({parsedSource, parse}));
     }
 });
 

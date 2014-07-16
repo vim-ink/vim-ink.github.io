@@ -23,10 +23,11 @@ var App = React.createClass({
             selectGroup,
             setSelectedGroupProps,
             activateVariant,
+            setActiveColor,
             resetState,
             exportColorScheme,
             clearExportedSource} = this;
-        var {activeVariant, parsedSource, selectedGroup, exportedSource} = this.state;
+        var {activeVariant, parsedSource, selectedGroup, exportedSource, activeColor} = this.state;
         var {exportColorscheme} = this.props;
 
         return span(
@@ -44,6 +45,8 @@ var App = React.createClass({
                     resetState,
                     exportColorScheme,
                     activateVariant,
+                    activeColor,
+                    setActiveColor,
                     getGroupProps,
                     setSelectedGroupProps})),
             Footer(),
@@ -89,6 +92,9 @@ var App = React.createClass({
     },
     selectGroup(selectedGroup) {
         this.setState({selectedGroup});
+    },
+    setActiveColor(activeColor) {
+        this.setState({activeColor});
     },
     parse(unparsedSource) {
         var {parse} = this.props;

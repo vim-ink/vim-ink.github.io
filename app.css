@@ -668,6 +668,22 @@ body.dark .export {
     line-height: 3rem;
 }
 
+body.light .color-line .right {
+    color: #bbb;
+}
+
+body.light .color-line .right.active {
+    color: #888;
+}
+
+body.dark .color-line .right {
+    color: #555;
+}
+
+body.dark .color-line .right.active {
+    color: #aaa;
+}
+
 /* .post-process-line */
 
 .post-process-line .left {
