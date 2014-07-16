@@ -261,12 +261,12 @@ body.dark .switch-button:active {
 }
 
 .light-button {
-    padding: 0 1.5rem 0 1.75rem;
+    padding: 0 1.5rem 0 2rem;
     border-radius: 2rem 0 0 2rem;
 }
 
 .dark-button {
-    padding: 0 1.75rem 0 1.5rem;
+    padding: 0 2rem 0 1.5rem;
     border-left: 0 !important;
     border-radius: 0 2rem 2rem 0;
 }
@@ -278,7 +278,7 @@ body.dark .switch-button:active {
     font-size: 1.5rem;
     width: 3.0rem;
     height: 3.0rem;
-    margin-right: 0.75rem;
+    margin-right: 1rem;
     opacity: 0.75;
     border: 0;
     border-radius: 1.5rem;
@@ -638,7 +638,7 @@ body.dark .export {
 
 .line {
     overflow: hidden;
-    margin-bottom: 0.75rem;
+    margin-bottom: 1rem;
 }
 
 /* .button-line */
