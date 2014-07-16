@@ -1,17 +1,15 @@
 var React = require('react');
 
-var parse = require('../vim-tohtml-parser').parse;
-var exporter = require('../exporter');
-var initialState = require('../initial-state');
-
 var Header = require('./header');
 var Left = require('./left');
 var Right = require('./right');
-var Export = require('./export');
 var Footer = require('./footer');
+var Export = require('./export');
 
 var App = React.createClass({
     getInitialState() {
+        var {initialState} = this.props;
+
         if (localStorage.getItem('state') !== null) {
             return JSON.parse(localStorage.getItem('state'));
         } else {
@@ -51,12 +49,14 @@ var App = React.createClass({
             Footer(),
             Export({exportedSource, clearExportedSource}));
     },
-    parse(unparsedSource) {
-        this.setState({parsedSource: parse(unparsedSource)});
-    },
     componentDidMount() {
         var body = document.getElementsByTagName('body')[0];
         body.className = this.state.activeVariant;
+    },
+    parse(unparsedSource) {
+        var {parse} = this.props;
+
+        this.setState({parsedSource: parse(unparsedSource)});
     },
     activateVariant(activeVariant) {
         var body = document.getElementsByTagName('body')[0];
@@ -90,6 +90,8 @@ var App = React.createClass({
         this.setState(newState);
     },
     exportColorScheme() {
+        var {exporter} = this.props;
+
         this.setState({exportedSource: exporter.exportColorScheme(this.state)});
     },
     clearExportedSource() {

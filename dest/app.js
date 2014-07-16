@@ -2,9 +2,6 @@
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 "use strict";
 var React = require('react');
-var parse = require('../vim-tohtml-parser').parse;
-var exporter = require('../exporter');
-var initialState = require('../initial-state');
 var Header = require('./header');
 var Left = require('./left');
 var Right = require('./right');
@@ -12,6 +9,7 @@ var Export = require('./export');
 var Footer = require('./footer');
 var App = React.createClass({
   getInitialState: function() {
+    var initialState = $traceurRuntime.assertObject(this.props).initialState;
     if (localStorage.getItem('state') !== null) {
       return JSON.parse(localStorage.getItem('state'));
     } else {
@@ -56,6 +54,7 @@ var App = React.createClass({
     }));
   },
   parse: function(unparsedSource) {
+    var parse = $traceurRuntime.assertObject(this.props).parse;
     this.setState({parsedSource: parse(unparsedSource)});
   },
   componentDidMount: function() {
@@ -87,6 +86,7 @@ var App = React.createClass({
     this.setState(newState);
   },
   exportColorScheme: function() {
+    var exporter = $traceurRuntime.assertObject(this.props).exporter;
     this.setState({exportedSource: exporter.exportColorScheme(this.state)});
   },
   clearExportedSource: function() {
@@ -106,7 +106,7 @@ module.exports = App;
 
 
 }).call(this,require("IrXUsu"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/components/app.js","/components")
-},{"../exporter":8,"../initial-state":10,"../vim-tohtml-parser":152,"./export":2,"./footer":3,"./header":4,"./left":5,"./right":6,"IrXUsu":15,"buffer":12,"react":151}],2:[function(require,module,exports){
+},{"./export":2,"./footer":3,"./header":4,"./left":5,"./right":6,"IrXUsu":15,"buffer":12,"react":151}],2:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 "use strict";
 var React = require('react');
@@ -170,7 +170,7 @@ module.exports = Header;
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 "use strict";
 var React = require('react');
-var Source = require('./source');
+var Vim = require('./vim');
 var Paste = React.createClass({
   render: function() {
     var textarea = $traceurRuntime.assertObject(React.DOM).textarea;
@@ -204,7 +204,7 @@ var Left = React.createClass({render: function() {
     return article(null, Paste({
       parsedSource: parsedSource,
       parse: parse
-    }), Files(), Source({
+    }), Files(), Vim({
       parsedSource: parsedSource,
       getGroupProps: getGroupProps,
       selectGroup: selectGroup
@@ -214,11 +214,11 @@ module.exports = Left;
 
 
 }).call(this,require("IrXUsu"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/components/left.js","/components")
-},{"./source":7,"IrXUsu":15,"buffer":12,"react":151}],6:[function(require,module,exports){
+},{"./vim":7,"IrXUsu":15,"buffer":12,"react":151}],6:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 "use strict";
 var React = require('react');
-var Controls = React.createClass({
+var Right = React.createClass({
   render: function() {
     var $__0 = $traceurRuntime.assertObject(React.DOM),
         aside = $__0.aside,
@@ -296,7 +296,7 @@ var Controls = React.createClass({
     this.props.resetState();
   }
 });
-module.exports = Controls;
+module.exports = Right;
 
 
 }).call(this,require("IrXUsu"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/components/right.js","/components")
@@ -422,7 +422,7 @@ var TabLine = React.createClass({render: function() {
       selected: true
     }), '\n']);
   }});
-var Source = React.createClass({
+var Vim = React.createClass({
   render: function() {
     var pre = $traceurRuntime.assertObject(React.DOM).pre;
     var onClick = this.onClick;
@@ -461,10 +461,10 @@ var Source = React.createClass({
     selectGroup('Normal');
   }
 });
-module.exports = Source;
+module.exports = Vim;
 
 
-}).call(this,require("IrXUsu"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/components/source.js","/components")
+}).call(this,require("IrXUsu"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/components/vim.js","/components")
 },{"IrXUsu":15,"buffer":12,"react":151}],8:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 "use strict";
@@ -502,12 +502,19 @@ module.exports = {exportColorScheme: exportColorScheme};
 "use strict";
 require('es6ify/node_modules/traceur/bin/traceur-runtime');
 var React = require('react');
+var parse = require('./vim-tohtml-parser').parse;
+var exporter = require('./exporter');
+var initialState = require('./initial-state');
 var App = require('./components/app');
-React.renderComponent(App(), document.body);
+React.renderComponent(App({
+  parse: parse,
+  exporter: exporter,
+  initialState: initialState
+}), document.body);
 
 
-}).call(this,require("IrXUsu"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/fake_7030ca42.js","/")
-},{"./components/app":1,"IrXUsu":15,"buffer":12,"es6ify/node_modules/traceur/bin/traceur-runtime":11,"react":151}],10:[function(require,module,exports){
+}).call(this,require("IrXUsu"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/fake_f496ee01.js","/")
+},{"./components/app":1,"./exporter":8,"./initial-state":10,"./vim-tohtml-parser":152,"IrXUsu":15,"buffer":12,"es6ify/node_modules/traceur/bin/traceur-runtime":11,"react":151}],10:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 "use strict";
 var initialState = {
