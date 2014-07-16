@@ -118,15 +118,23 @@ var LineNumber = React.createClass({
 var Segment = React.createClass({
     render() {
         var {span} = React.DOM;
-        var {onClick} = this;
+        var {onClick, style} = this;
         var {segment, getGroupProps} = this.props;
 
         if (typeof(segment) === 'object') {
-            var style = getGroupProps(segment.group);
+            var props = getGroupProps(segment.group);
+            var {color, backgroundColor, highlight} = props;
 
-            return span({style, onClick}, segment.content);
+            return span({
+                style: {color, backgroundColor},
+                className: highlight.toLowerCase(),
+                onClick},
+                segment.content);
         } else {
-            return span(null, segment);
+            var props = getGroupProps('Normal');
+            var {highlight} = props;
+
+            return span({className: highlight.toLowerCase()}, segment);
         }
     },
     onClick(e) {

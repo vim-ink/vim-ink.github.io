@@ -183,6 +183,35 @@ pre {
     margin: 0;
 }
 
+pre span.bold {
+    font-weight: 600;
+}
+
+pre span.italic {
+    font-style: italic;
+}
+
+pre span.underline {
+    border-bottom: 1px solid #888;
+}
+
+pre span.undercurl {
+    border-bottom: 1px dotted #888;
+}
+
+pre span.reverse {
+    filter: invert(100%);
+    -webkit-filter: invert(100%);
+}
+
+pre span.standout {
+    font-weight: 600;
+    font-style: italic;
+    border-bottom: 1px solid #888;
+    filter: invert(100%);
+    -webkit-filter: invert(100%);
+}
+
 /* textarea */
 body.light textarea,
 body.dark .dialog textarea {
@@ -303,11 +332,11 @@ body.dark .highlight-button {
 }
 
 body.light .highlight-button.none {
-    border: 1px solid #bbb;
+    border: 1px solid #aaa;
 }
 
 body.dark .highlight-button.none {
-    border: 1px solid #555;
+    border: 1px solid #666;
 }
 
 .highlight-button.none span {
@@ -500,11 +529,11 @@ input[type="range"]::-webkit-slider-runnable-track {
 }
 
 body.light input[type="range"]::-webkit-slider-runnable-track {
-    background-color: #bbb;
+    background-color: #ccc;
 }
 
 body.dark input[type="range"]::-webkit-slider-runnable-track {
-    background-color: #555;
+    background-color: #444;
 }
 
 input[type="range"]::-webkit-slider-thumb {
@@ -516,11 +545,11 @@ input[type="range"]::-webkit-slider-thumb {
 }
 
 body.light input[type="range"]::-webkit-slider-thumb {
-    background-color: #bbb;
+    background-color: #aaa;
 }
 
 body.dark input[type="range"]::-webkit-slider-thumb {
-    background-color: #555;
+    background-color: #666;
 }
 
 input[type="range"]::-moz-range-track {
@@ -683,11 +712,11 @@ body.light .color-line .right.active {
 }
 
 body.dark .color-line .right {
-    color: #555;
+    color: #888;
 }
 
-body.dark .color-line .right.active {
-    color: #aaa;
+body.light .color-line .right.active {
+    color: #888;
 }
 
 /* .post-process-line */

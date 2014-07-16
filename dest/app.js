@@ -591,18 +591,30 @@ var LineNumber = React.createClass({
 var Segment = React.createClass({
   render: function() {
     var span = $traceurRuntime.assertObject(React.DOM).span;
-    var onClick = this.onClick;
+    var $__0 = this,
+        onClick = $__0.onClick,
+        style = $__0.style;
     var $__0 = $traceurRuntime.assertObject(this.props),
         segment = $__0.segment,
         getGroupProps = $__0.getGroupProps;
     if (typeof(segment) === 'object') {
-      var style = getGroupProps(segment.group);
+      var props = getGroupProps(segment.group);
+      var $__0 = $traceurRuntime.assertObject(props),
+          color = $__0.color,
+          backgroundColor = $__0.backgroundColor,
+          highlight = $__0.highlight;
       return span({
-        style: style,
+        style: {
+          color: color,
+          backgroundColor: backgroundColor
+        },
+        className: highlight.toLowerCase(),
         onClick: onClick
       }, segment.content);
     } else {
-      return span(null, segment);
+      var props = getGroupProps('Normal');
+      var highlight = $traceurRuntime.assertObject(props).highlight;
+      return span({className: highlight.toLowerCase()}, segment);
     }
   },
   onClick: function(e) {
@@ -665,7 +677,7 @@ React.renderComponent(App({
 }), document.body);
 
 
-}).call(this,require("IrXUsu"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/fake_d426d492.js","/")
+}).call(this,require("IrXUsu"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/fake_b72477e2.js","/")
 },{"./components/app":1,"./exporter":8,"./initial-state":10,"./vim-tohtml-parser":152,"IrXUsu":15,"buffer":12,"es6ify/node_modules/traceur/bin/traceur-runtime":11,"react":151}],10:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 "use strict";
