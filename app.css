@@ -565,7 +565,7 @@ aside h2 {
     text-transform: uppercase;
 }
 
-aside h2:first-child {
+aside section:first-child h2 {
     margin-top: 0;
 }
 

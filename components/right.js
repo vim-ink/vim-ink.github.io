@@ -1,5 +1,22 @@
 var React = require('react');
 
+var Right = React.createClass({
+    render() {
+        var {aside} = React.DOM;
+
+        return aside(null,
+            Variant(this.props),
+            SelectedGroup(this.props),
+            Color(this.props),
+            Highlight(this.props),
+            PostProcess(this.props),
+            Parts(this.props),
+            AssignedGroups(this.props),
+            Export(this.props),
+            DangerZone(this.props));
+    }
+});
+
 var Variant = React.createClass({
     render() {
         var {section, h2, button} = React.DOM;
@@ -21,22 +38,26 @@ var Variant = React.createClass({
     }
 });
 
-var Right = React.createClass({
+var SelectedGroup = React.createClass({
     render() {
-        var {aside, h2, p, div, input, label, button, span, ul, li} = React.DOM;
-        var {onChangeColor,
-            onChangeBackgroundColor,
-            onExportClick,
-            onResetClick} = this;
+        var {section, h2, div} = React.DOM;
+        var {selectedGroup} = this.props;
+
+        return section({},
+            h2(null, 'Selected group'),
+            div({className: 'line'}, selectedGroup))
+    }
+});
+
+var Color = React.createClass({
+    render() {
+        var {section, h2, div, input} = React.DOM;
         var {getGroupProps, selectedGroup} = this.props;
+        var {onChangeColor, onChangeBackgroundColor} = this;
 
         var colorPair = getGroupProps(selectedGroup);
 
-        return aside(null,
-            Variant(this.props),
-            h2(null, 'Selected group'),
-            div({className: 'line'},
-                this.props.selectedGroup),
+        return section({},
             h2(null, 'Color'),
             div({className: 'line color-line'},
                 div({className: 'left'},
@@ -49,7 +70,21 @@ var Right = React.createClass({
                     input({type: 'color', value: colorPair.backgroundColor, onChange: onChangeBackgroundColor}),
                     div({className: 'color'})),
                 div({className: 'right'},
-                    'Background')),
+                    'Background')));
+    },
+    onChangeColor(e) {
+        this.props.setSelectedGroupProps({color: e.target.value});
+    },
+    onChangeBackgroundColor(e) {
+        this.props.setSelectedGroupProps({backgroundColor: e.target.value});
+    }
+});
+
+var Highlight = React.createClass({
+    render() {
+        var {section, h2, div, button, span} = React.DOM;
+
+        return section({},
             h2({className: 'collapsed'}, 'Highlight'),
             div({className: 'line'},
                 button({className: 'highlight-button none'}, span(null, 'n')),
@@ -59,14 +94,29 @@ var Right = React.createClass({
                 button({className: 'highlight-button undercurl'}, span(null, 'u'))),
             div({className: 'line'},
                 button({className: 'highlight-button reverse'}, span(null, 'r')),
-                button({className: 'highlight-button standout'}, span(null, 's'))),
+                button({className: 'highlight-button standout'}, span(null, 's'))));
+    }
+});
+
+var PostProcess = React.createClass({
+    render() {
+        var {section, h2, div, input} = React.DOM;
+        return section({},
             h2({className: 'collapsed'}, 'Post process'),
             div({className: 'line post-process-line'},
                 div({className: 'left'}, 'Brightness'),
                 div({className: 'right'}, input({type: 'range', min: 1, max: 9}))),
             div({className: 'line post-process-line'},
                 div({className: 'left'}, 'Contrast'),
-                div({className: 'right'}, input({type: 'range', min: 1, max: 9}))),
+                div({className: 'right'}, input({type: 'range', min: 1, max: 9}))));
+    }
+});
+
+var Parts = React.createClass({
+    render() {
+        var {section, h2, div, button} = React.DOM;
+
+        return section({},
             h2({className: 'collapsed'}, 'Parts'),
             div({className: 'line  button-line'},
                 div({className: 'left'}, 'Tab line'),
@@ -74,31 +124,49 @@ var Right = React.createClass({
             ),
             div({className: 'line button-line'},
                 div({className: 'left'}, 'Status line'),
-                div({className: 'right'}, button({className: 'small-button'}, 'Show'))
-            ),
+                div({className: 'right'}, button({className: 'small-button'}, 'Show'))));
+    }
+});
+
+var AssignedGroups = React.createClass({
+    render() {
+        var {section, h2, div, button} = React.DOM;
+
+        return section({},
             h2({className: 'collapsed'}, 'Assigned groups'),
             div({className: 'line button-line'},
                 div({className: 'left'}, 'Something'),
-                div({className: 'right'}, button({className: 'small-button'}, 'Remove'))
-            ),
+                div({className: 'right'}, button({className: 'small-button'}, 'Remove'))));
+    }
+});
+
+var Export = React.createClass({
+    render() {
+        var {section, h2, div, label, input, button} = React.DOM;
+        var {onExportClick} = this;
+        
+        return section({},
             h2(null, 'Export'),
             div({className: 'line export-line-input'},
                 div({className: 'left'}, label(null, 'Name')),
                 div({className: 'right'}, input({className: 'text', value: 'whatever'}))),
             div({className: 'line export-line-button'},
-                button({className: 'button', onClick: onExportClick}, 'Export')),
-            h2({className: 'collapsed'}, 'Danger zone'),
-            div({className: 'line danger-zone-line'},
-                button({className: 'button', onClick: onResetClick}, 'Reset')));
-    },
-    onChangeColor(e) {
-        this.props.setSelectedGroupProps({color: e.target.value});
-    },
-    onChangeBackgroundColor(e) {
-        this.props.setSelectedGroupProps({backgroundColor: e.target.value});
+                button({className: 'button', onClick: onExportClick}, 'Export')));
     },
     onExportClick() {
         this.props.exportColorScheme();
+    }
+});
+
+var DangerZone = React.createClass({
+    render() {
+        var {section, h2, div, button} = React.DOM;
+        var {onResetClick} = this;
+
+        return section({},
+            h2({className: 'collapsed'}, 'Danger zone'),
+            div({className: 'line danger-zone-line'},
+                button({className: 'button', onClick: onResetClick}, 'Reset')));
     },
     onResetClick() {
         this.props.resetState();

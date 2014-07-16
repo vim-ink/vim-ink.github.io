@@ -217,6 +217,10 @@ module.exports = Left;
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 "use strict";
 var React = require('react');
+var Right = React.createClass({render: function() {
+    var aside = $traceurRuntime.assertObject(React.DOM).aside;
+    return aside(null, Variant(this.props), SelectedGroup(this.props), Color(this.props), Highlight(this.props), PostProcess(this.props), Parts(this.props), AssignedGroups(this.props), Export(this.props), DangerZone(this.props));
+  }});
 var Variant = React.createClass({
   render: function() {
     var $__0 = $traceurRuntime.assertObject(React.DOM),
@@ -243,29 +247,29 @@ var Variant = React.createClass({
     this.props.activateVariant('dark');
   }
 });
-var Right = React.createClass({
+var SelectedGroup = React.createClass({render: function() {
+    var $__0 = $traceurRuntime.assertObject(React.DOM),
+        section = $__0.section,
+        h2 = $__0.h2,
+        div = $__0.div;
+    var selectedGroup = $traceurRuntime.assertObject(this.props).selectedGroup;
+    return section({}, h2(null, 'Selected group'), div({className: 'line'}, selectedGroup));
+  }});
+var Color = React.createClass({
   render: function() {
     var $__0 = $traceurRuntime.assertObject(React.DOM),
-        aside = $__0.aside,
+        section = $__0.section,
         h2 = $__0.h2,
-        p = $__0.p,
         div = $__0.div,
-        input = $__0.input,
-        label = $__0.label,
-        button = $__0.button,
-        span = $__0.span,
-        ul = $__0.ul,
-        li = $__0.li;
-    var $__0 = this,
-        onChangeColor = $__0.onChangeColor,
-        onChangeBackgroundColor = $__0.onChangeBackgroundColor,
-        onExportClick = $__0.onExportClick,
-        onResetClick = $__0.onResetClick;
+        input = $__0.input;
     var $__0 = $traceurRuntime.assertObject(this.props),
         getGroupProps = $__0.getGroupProps,
         selectedGroup = $__0.selectedGroup;
+    var $__0 = this,
+        onChangeColor = $__0.onChangeColor,
+        onChangeBackgroundColor = $__0.onChangeBackgroundColor;
     var colorPair = getGroupProps(selectedGroup);
-    return aside(null, Variant(this.props), h2(null, 'Selected group'), div({className: 'line'}, this.props.selectedGroup), h2(null, 'Color'), div({className: 'line color-line'}, div({className: 'left'}, input({
+    return section({}, h2(null, 'Color'), div({className: 'line color-line'}, div({className: 'left'}, input({
       type: 'color',
       value: colorPair.color,
       onChange: onChangeColor
@@ -273,7 +277,31 @@ var Right = React.createClass({
       type: 'color',
       value: colorPair.backgroundColor,
       onChange: onChangeBackgroundColor
-    }), div({className: 'color'})), div({className: 'right'}, 'Background')), h2({className: 'collapsed'}, 'Highlight'), div({className: 'line'}, button({className: 'highlight-button none'}, span(null, 'n')), button({className: 'highlight-button bold active'}, span(null, 'b')), button({className: 'highlight-button italic'}, span(null, 'i')), button({className: 'highlight-button underline'}, span(null, 'u')), button({className: 'highlight-button undercurl'}, span(null, 'u'))), div({className: 'line'}, button({className: 'highlight-button reverse'}, span(null, 'r')), button({className: 'highlight-button standout'}, span(null, 's'))), h2({className: 'collapsed'}, 'Post process'), div({className: 'line post-process-line'}, div({className: 'left'}, 'Brightness'), div({className: 'right'}, input({
+    }), div({className: 'color'})), div({className: 'right'}, 'Background')));
+  },
+  onChangeColor: function(e) {
+    this.props.setSelectedGroupProps({color: e.target.value});
+  },
+  onChangeBackgroundColor: function(e) {
+    this.props.setSelectedGroupProps({backgroundColor: e.target.value});
+  }
+});
+var Highlight = React.createClass({render: function() {
+    var $__0 = $traceurRuntime.assertObject(React.DOM),
+        section = $__0.section,
+        h2 = $__0.h2,
+        div = $__0.div,
+        button = $__0.button,
+        span = $__0.span;
+    return section({}, h2({className: 'collapsed'}, 'Highlight'), div({className: 'line'}, button({className: 'highlight-button none'}, span(null, 'n')), button({className: 'highlight-button bold active'}, span(null, 'b')), button({className: 'highlight-button italic'}, span(null, 'i')), button({className: 'highlight-button underline'}, span(null, 'u')), button({className: 'highlight-button undercurl'}, span(null, 'u'))), div({className: 'line'}, button({className: 'highlight-button reverse'}, span(null, 'r')), button({className: 'highlight-button standout'}, span(null, 's'))));
+  }});
+var PostProcess = React.createClass({render: function() {
+    var $__0 = $traceurRuntime.assertObject(React.DOM),
+        section = $__0.section,
+        h2 = $__0.h2,
+        div = $__0.div,
+        input = $__0.input;
+    return section({}, h2({className: 'collapsed'}, 'Post process'), div({className: 'line post-process-line'}, div({className: 'left'}, 'Brightness'), div({className: 'right'}, input({
       type: 'range',
       min: 1,
       max: 9
@@ -281,25 +309,58 @@ var Right = React.createClass({
       type: 'range',
       min: 1,
       max: 9
-    }))), h2({className: 'collapsed'}, 'Parts'), div({className: 'line  button-line'}, div({className: 'left'}, 'Tab line'), div({className: 'right'}, button({className: 'small-button'}, 'Show'))), div({className: 'line button-line'}, div({className: 'left'}, 'Status line'), div({className: 'right'}, button({className: 'small-button'}, 'Show'))), h2({className: 'collapsed'}, 'Assigned groups'), div({className: 'line button-line'}, div({className: 'left'}, 'Something'), div({className: 'right'}, button({className: 'small-button'}, 'Remove'))), h2(null, 'Export'), div({className: 'line export-line-input'}, div({className: 'left'}, label(null, 'Name')), div({className: 'right'}, input({
+    }))));
+  }});
+var Parts = React.createClass({render: function() {
+    var $__0 = $traceurRuntime.assertObject(React.DOM),
+        section = $__0.section,
+        h2 = $__0.h2,
+        div = $__0.div,
+        button = $__0.button;
+    return section({}, h2({className: 'collapsed'}, 'Parts'), div({className: 'line  button-line'}, div({className: 'left'}, 'Tab line'), div({className: 'right'}, button({className: 'small-button'}, 'Show'))), div({className: 'line button-line'}, div({className: 'left'}, 'Status line'), div({className: 'right'}, button({className: 'small-button'}, 'Show'))));
+  }});
+var AssignedGroups = React.createClass({render: function() {
+    var $__0 = $traceurRuntime.assertObject(React.DOM),
+        section = $__0.section,
+        h2 = $__0.h2,
+        div = $__0.div,
+        button = $__0.button;
+    return section({}, h2({className: 'collapsed'}, 'Assigned groups'), div({className: 'line button-line'}, div({className: 'left'}, 'Something'), div({className: 'right'}, button({className: 'small-button'}, 'Remove'))));
+  }});
+var Export = React.createClass({
+  render: function() {
+    var $__0 = $traceurRuntime.assertObject(React.DOM),
+        section = $__0.section,
+        h2 = $__0.h2,
+        div = $__0.div,
+        label = $__0.label,
+        input = $__0.input,
+        button = $__0.button;
+    var onExportClick = this.onExportClick;
+    return section({}, h2(null, 'Export'), div({className: 'line export-line-input'}, div({className: 'left'}, label(null, 'Name')), div({className: 'right'}, input({
       className: 'text',
       value: 'whatever'
     }))), div({className: 'line export-line-button'}, button({
       className: 'button',
       onClick: onExportClick
-    }, 'Export')), h2({className: 'collapsed'}, 'Danger zone'), div({className: 'line danger-zone-line'}, button({
-      className: 'button',
-      onClick: onResetClick
-    }, 'Reset')));
-  },
-  onChangeColor: function(e) {
-    this.props.setSelectedGroupProps({color: e.target.value});
-  },
-  onChangeBackgroundColor: function(e) {
-    this.props.setSelectedGroupProps({backgroundColor: e.target.value});
+    }, 'Export')));
   },
   onExportClick: function() {
     this.props.exportColorScheme();
+  }
+});
+var DangerZone = React.createClass({
+  render: function() {
+    var $__0 = $traceurRuntime.assertObject(React.DOM),
+        section = $__0.section,
+        h2 = $__0.h2,
+        div = $__0.div,
+        button = $__0.button;
+    var onResetClick = this.onResetClick;
+    return section({}, h2({className: 'collapsed'}, 'Danger zone'), div({className: 'line danger-zone-line'}, button({
+      className: 'button',
+      onClick: onResetClick
+    }, 'Reset')));
   },
   onResetClick: function() {
     this.props.resetState();
@@ -522,7 +583,7 @@ React.renderComponent(App({
 }), document.body);
 
 
-}).call(this,require("IrXUsu"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/fake_b88cb39e.js","/")
+}).call(this,require("IrXUsu"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/fake_6ad3101e.js","/")
 },{"./components/app":1,"./exporter":8,"./initial-state":10,"./vim-tohtml-parser":152,"IrXUsu":15,"buffer":12,"es6ify/node_modules/traceur/bin/traceur-runtime":11,"react":151}],10:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 "use strict";
