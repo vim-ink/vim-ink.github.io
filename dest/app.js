@@ -268,7 +268,8 @@ var Color = React.createClass({
         section = $__0.section,
         h2 = $__0.h2,
         div = $__0.div,
-        input = $__0.input;
+        input = $__0.input,
+        label = $__0.label;
     var $__0 = $traceurRuntime.assertObject(this.props),
         getGroupProps = $__0.getGroupProps,
         selectedGroup = $__0.selectedGroup,
@@ -283,21 +284,23 @@ var Color = React.createClass({
     var colorPair = getGroupProps(selectedGroup);
     return section({}, h2(null, 'Color'), div({className: 'line color-line'}, div({className: 'left'}, input({
       type: 'color',
+      id: 'foregroundColor',
       value: colorPair.color,
       onClick: onForegroundClick,
       onChange: onChangeColor
     }), div({
       className: 'color',
       style: {backgroundColor: colorPair.color}
-    })), div({className: 'right' + foregroundActive}, 'Foreground')), div({className: 'line color-line'}, div({className: 'left'}, input({
+    })), div({className: 'right' + foregroundActive}, label({htmlFor: 'foregroundColor'}, 'Foreground'))), div({className: 'line color-line'}, div({className: 'left'}, input({
       type: 'color',
+      id: 'backgroundColor',
       value: colorPair.backgroundColor,
       onClick: onBackgroundClick,
       onChange: onChangeBackgroundColor
     }), div({
       className: 'color',
       style: {backgroundColor: colorPair.backgroundColor}
-    })), div({className: 'right' + backgroundActive}, 'Background')));
+    })), div({className: 'right' + backgroundActive}, label({htmlFor: 'backgroundColor'}, 'Background'))));
   },
   onChangeColor: function(e) {
     this.props.setSelectedGroupProps({color: e.target.value});
@@ -609,7 +612,7 @@ React.renderComponent(App({
 }), document.body);
 
 
-}).call(this,require("IrXUsu"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/fake_3411bca9.js","/")
+}).call(this,require("IrXUsu"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/fake_7be54fbc.js","/")
 },{"./components/app":1,"./exporter":8,"./initial-state":10,"./vim-tohtml-parser":152,"IrXUsu":15,"buffer":12,"es6ify/node_modules/traceur/bin/traceur-runtime":11,"react":151}],10:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 "use strict";
