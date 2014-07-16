@@ -67,21 +67,25 @@ var Color = React.createClass({
                     input({
                         type: 'color',
                         id: 'foregroundColor',
+                        accessKey: 'f',
                         value: colorPair.color,
                         onClick: onForegroundClick,
                         onChange: onChangeColor}),
                     div({className: 'color', style: {backgroundColor: colorPair.color}})),
-                div({className: 'right' + foregroundActive}, label({htmlFor: 'foregroundColor'}, 'Foreground'))),
+                div({className: 'right' + foregroundActive},
+                    label({htmlFor: 'foregroundColor'}, 'Foreground'))),
             div({className: 'line color-line'},
                 div({className: 'left'},
                     input({
                         type: 'color',
                         id: 'backgroundColor',
+                        accessKey: 'b',
                         value: colorPair.backgroundColor,
                         onClick: onBackgroundClick,
                         onChange: onChangeBackgroundColor}),
                     div({className: 'color', style: {backgroundColor: colorPair.backgroundColor}})),
-                div({className: 'right' + backgroundActive}, label({htmlFor: 'backgroundColor'}, 'Background'))));
+                div({className: 'right' + backgroundActive},
+                    label({htmlFor: 'backgroundColor'}, 'Background'))));
     },
     onChangeColor(e) {
         this.props.setSelectedGroupProps({color: e.target.value});
