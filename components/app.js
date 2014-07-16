@@ -39,11 +39,11 @@ var App = React.createClass({
                     getGroupProps,
                     selectGroup}),
                 Right({
+                    activeVariant,
+                    selectedGroup,
                     resetState,
                     exportColorScheme,
-                    activeVariant,
                     activateVariant,
-                    selectedGroup,
                     getGroupProps,
                     setSelectedGroupProps})),
             Footer(),
@@ -56,20 +56,6 @@ var App = React.createClass({
     },
     componentDidUpdate() {
         localStorage.setItem('state', JSON.stringify(this.state));
-    },
-    parse(unparsedSource) {
-        var {parse} = this.props;
-
-        this.setState({parsedSource: parse(unparsedSource)});
-    },
-    activateVariant(activeVariant) {
-        var body = document.getElementsByTagName('body')[0];
-
-        body.className = activeVariant;
-        this.setState({activeVariant});
-    },
-    selectGroup(selectedGroup) {
-        this.setState({selectedGroup});
     },
     getGroupProps(group) {
         var {activeVariant} = this.state;
@@ -94,6 +80,20 @@ var App = React.createClass({
 
         Object.assign(groups[group], props);
         this.setState(newState);
+    },
+    activateVariant(activeVariant) {
+        var body = document.getElementsByTagName('body')[0];
+
+        body.className = activeVariant;
+        this.setState({activeVariant});
+    },
+    selectGroup(selectedGroup) {
+        this.setState({selectedGroup});
+    },
+    parse(unparsedSource) {
+        var {parse} = this.props;
+
+        this.setState({parsedSource: parse(unparsedSource)});
     },
     exportColorScheme() {
         var {exporter} = this.props;
