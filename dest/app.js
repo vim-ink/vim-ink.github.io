@@ -170,6 +170,28 @@ module.exports = Header;
 "use strict";
 var React = require('react');
 var Vim = require('./vim');
+var Left = React.createClass({render: function() {
+    var article = $traceurRuntime.assertObject(React.DOM).article;
+    var $__0 = $traceurRuntime.assertObject(this.props),
+        parsedSource = $__0.parsedSource,
+        parse = $__0.parse,
+        getGroupProps = $__0.getGroupProps,
+        selectGroup = $__0.selectGroup;
+    return article(null, Files(), Vim({
+      parsedSource: parsedSource,
+      getGroupProps: getGroupProps,
+      selectGroup: selectGroup
+    }, Paste({
+      parsedSource: parsedSource,
+      parse: parse
+    })));
+  }});
+var Files = React.createClass({render: function() {
+    var $__0 = $traceurRuntime.assertObject(React.DOM),
+        ul = $__0.ul,
+        li = $__0.li;
+    return ul({className: 'files'}, li(null, 'HTML'), li({className: 'active'}, 'CSS'), li(null, 'JavaScript'), li(null, 'Python'), li(null, 'Ruby'), li(null, 'Go'), li(null, 'Rust'), li({className: 'paste-link'}, 'Paste'));
+  }});
 var Paste = React.createClass({
   render: function() {
     var textarea = $traceurRuntime.assertObject(React.DOM).textarea;
@@ -187,28 +209,6 @@ var Paste = React.createClass({
     parse(e.target.value);
   }
 });
-var Files = React.createClass({render: function() {
-    var $__0 = $traceurRuntime.assertObject(React.DOM),
-        ul = $__0.ul,
-        li = $__0.li;
-    return ul({className: 'files'}, li(null, 'HTML'), li({className: 'active'}, 'CSS'), li(null, 'JavaScript'), li(null, 'Python'), li(null, 'Ruby'), li(null, 'Go'), li(null, 'Rust'), li({className: 'paste-link'}, 'Paste'));
-  }});
-var Left = React.createClass({render: function() {
-    var article = $traceurRuntime.assertObject(React.DOM).article;
-    var $__0 = $traceurRuntime.assertObject(this.props),
-        parsedSource = $__0.parsedSource,
-        parse = $__0.parse,
-        getGroupProps = $__0.getGroupProps,
-        selectGroup = $__0.selectGroup;
-    return article(null, Paste({
-      parsedSource: parsedSource,
-      parse: parse
-    }), Files(), Vim({
-      parsedSource: parsedSource,
-      getGroupProps: getGroupProps,
-      selectGroup: selectGroup
-    }));
-  }});
 module.exports = Left;
 
 
@@ -583,7 +583,7 @@ React.renderComponent(App({
 }), document.body);
 
 
-}).call(this,require("IrXUsu"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/fake_6ad3101e.js","/")
+}).call(this,require("IrXUsu"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/fake_90207aa2.js","/")
 },{"./components/app":1,"./exporter":8,"./initial-state":10,"./vim-tohtml-parser":152,"IrXUsu":15,"buffer":12,"es6ify/node_modules/traceur/bin/traceur-runtime":11,"react":151}],10:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 "use strict";

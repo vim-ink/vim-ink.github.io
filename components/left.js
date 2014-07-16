@@ -2,20 +2,15 @@ var React = require('react');
 
 var Vim = require('./vim');
 
-var Paste = React.createClass({
+var Left = React.createClass({
     render() {
-        var {textarea} = React.DOM;
-        var {onChange} = this;
-        var {parsedSource} = this.props;
+        var {article} = React.DOM;
+        var {parsedSource, parse, getGroupProps, selectGroup} = this.props;
 
-        var className = (parsedSource !== undefined) ? 'hidden' : 'paste';
-
-        return textarea({onChange, className, placeholder: 'Paste output of `:TOhtml` here.'});
-    },
-    onChange(e) {
-        var {parse} = this.props;
-
-        parse(e.target.value);
+        return article(null,
+            Files(),
+            Vim({parsedSource, getGroupProps, selectGroup},
+            Paste({parsedSource, parse})));
     }
 });
 
@@ -35,20 +30,20 @@ var Files = React.createClass({
     }
 });
 
-var Left = React.createClass({
+var Paste = React.createClass({
     render() {
-        var {article} = React.DOM;
-        var {parsedSource, parse, getGroupProps, selectGroup} = this.props;
+        var {textarea} = React.DOM;
+        var {onChange} = this;
+        var {parsedSource} = this.props;
 
-        return article(null,
-            Paste({
-                parsedSource,
-                parse}),
-            Files(),
-            Vim({
-                parsedSource,
-                getGroupProps,
-                selectGroup}));
+        var className = (parsedSource !== undefined) ? 'hidden' : 'paste';
+
+        return textarea({onChange, className, placeholder: 'Paste output of `:TOhtml` here.'});
+    },
+    onChange(e) {
+        var {parse} = this.props;
+
+        parse(e.target.value);
     }
 });
 
