@@ -374,124 +374,6 @@ module.exports = Right;
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 "use strict";
 var React = require('react');
-var Segment = React.createClass({
-  render: function() {
-    var span = $traceurRuntime.assertObject(React.DOM).span;
-    var onClick = this.onClick;
-    var $__0 = $traceurRuntime.assertObject(this.props),
-        segment = $__0.segment,
-        getGroupProps = $__0.getGroupProps;
-    if (typeof(segment) === 'object') {
-      var style = getGroupProps(segment.group);
-      return span({
-        style: style,
-        onClick: onClick
-      }, segment.content);
-    } else {
-      return span(null, segment);
-    }
-  },
-  onClick: function(e) {
-    var $__0 = $traceurRuntime.assertObject(this.props),
-        selectGroup = $__0.selectGroup,
-        segment = $__0.segment;
-    selectGroup(segment.group);
-    e.stopPropagation();
-  }
-});
-var LineNumber = React.createClass({
-  render: function() {
-    var span = $traceurRuntime.assertObject(React.DOM).span;
-    var onClick = this.onClick;
-    var $__0 = $traceurRuntime.assertObject(this.props),
-        getGroupProps = $__0.getGroupProps,
-        lineNumber = $__0.lineNumber;
-    var $__0 = $traceurRuntime.assertObject(lineNumber),
-        line = $__0.line,
-        lineCount = $__0.lineCount;
-    var style = getGroupProps('LineNr');
-    var spaces = 1 + (lineCount.toString().length - line.toString().length);
-    return span({
-      style: style,
-      onClick: onClick
-    }, ' '.repeat(spaces) + line + ' ');
-  },
-  onClick: function(e) {
-    var selectGroup = $traceurRuntime.assertObject(this.props).selectGroup;
-    selectGroup('LineNr');
-    e.stopPropagation();
-  }
-});
-var Line = React.createClass({render: function() {
-    var span = $traceurRuntime.assertObject(React.DOM).span;
-    var $__0 = $traceurRuntime.assertObject(this.props),
-        getGroupProps = $__0.getGroupProps,
-        line = $__0.line,
-        lineNumber = $__0.lineNumber,
-        selectGroup = $__0.selectGroup;
-    var lineNumber_ = [LineNumber({
-      lineNumber: lineNumber,
-      getGroupProps: getGroupProps,
-      selectGroup: selectGroup
-    })];
-    var segments = line.map((function(segment) {
-      return Segment({
-        segment: segment,
-        getGroupProps: getGroupProps,
-        selectGroup: selectGroup
-      });
-    }));
-    return span(null, lineNumber_.concat(segments.concat(span(null, '\n'))));
-  }});
-var TabLineFile = React.createClass({
-  render: function() {
-    var span = $traceurRuntime.assertObject(React.DOM).span;
-    var $__0 = this,
-        onClick = $__0.onClick,
-        group = $__0.group;
-    var $__0 = $traceurRuntime.assertObject(this.props),
-        getGroupProps = $__0.getGroupProps,
-        fileName = $__0.fileName,
-        selected = $__0.selected;
-    var style = getGroupProps(group());
-    return span({
-      style: style,
-      onClick: onClick
-    }, ' 2 ' + fileName + ' ');
-  },
-  onClick: function(e) {
-    var group = this.group;
-    var selectGroup = $traceurRuntime.assertObject(this.props).selectGroup;
-    selectGroup(group());
-    e.stopPropagation();
-  },
-  group: function() {
-    var selected = $traceurRuntime.assertObject(this.props).selected;
-    return (selected === true ? 'TabLineSel' : 'TabLine');
-  }
-});
-var TabLine = React.createClass({render: function() {
-    var span = $traceurRuntime.assertObject(React.DOM).span;
-    var $__0 = $traceurRuntime.assertObject(this.props),
-        getGroupProps = $__0.getGroupProps,
-        selectGroup = $__0.selectGroup;
-    return span(null, [TabLineFile({
-      getGroupProps: getGroupProps,
-      selectGroup: selectGroup,
-      fileName: 'one-file.js',
-      selected: false
-    }), TabLineFile({
-      getGroupProps: getGroupProps,
-      selectGroup: selectGroup,
-      fileName: 'another-file.js',
-      selected: false
-    }), TabLineFile({
-      getGroupProps: getGroupProps,
-      selectGroup: selectGroup,
-      fileName: 'yet-another-file.js',
-      selected: true
-    }), '\n']);
-  }});
 var Vim = React.createClass({
   render: function() {
     var pre = $traceurRuntime.assertObject(React.DOM).pre;
@@ -529,6 +411,124 @@ var Vim = React.createClass({
   onClick: function() {
     var selectGroup = $traceurRuntime.assertObject(this.props).selectGroup;
     selectGroup('Normal');
+  }
+});
+var TabLine = React.createClass({render: function() {
+    var span = $traceurRuntime.assertObject(React.DOM).span;
+    var $__0 = $traceurRuntime.assertObject(this.props),
+        getGroupProps = $__0.getGroupProps,
+        selectGroup = $__0.selectGroup;
+    return span(null, [TabLineFile({
+      getGroupProps: getGroupProps,
+      selectGroup: selectGroup,
+      fileName: 'one-file.js',
+      selected: false
+    }), TabLineFile({
+      getGroupProps: getGroupProps,
+      selectGroup: selectGroup,
+      fileName: 'another-file.js',
+      selected: false
+    }), TabLineFile({
+      getGroupProps: getGroupProps,
+      selectGroup: selectGroup,
+      fileName: 'yet-another-file.js',
+      selected: true
+    }), '\n']);
+  }});
+var TabLineFile = React.createClass({
+  render: function() {
+    var span = $traceurRuntime.assertObject(React.DOM).span;
+    var $__0 = this,
+        onClick = $__0.onClick,
+        group = $__0.group;
+    var $__0 = $traceurRuntime.assertObject(this.props),
+        getGroupProps = $__0.getGroupProps,
+        fileName = $__0.fileName,
+        selected = $__0.selected;
+    var style = getGroupProps(group());
+    return span({
+      style: style,
+      onClick: onClick
+    }, ' 2 ' + fileName + ' ');
+  },
+  onClick: function(e) {
+    var group = this.group;
+    var selectGroup = $traceurRuntime.assertObject(this.props).selectGroup;
+    selectGroup(group());
+    e.stopPropagation();
+  },
+  group: function() {
+    var selected = $traceurRuntime.assertObject(this.props).selected;
+    return (selected === true ? 'TabLineSel' : 'TabLine');
+  }
+});
+var Line = React.createClass({render: function() {
+    var span = $traceurRuntime.assertObject(React.DOM).span;
+    var $__0 = $traceurRuntime.assertObject(this.props),
+        getGroupProps = $__0.getGroupProps,
+        line = $__0.line,
+        lineNumber = $__0.lineNumber,
+        selectGroup = $__0.selectGroup;
+    var lineNumber_ = [LineNumber({
+      lineNumber: lineNumber,
+      getGroupProps: getGroupProps,
+      selectGroup: selectGroup
+    })];
+    var segments = line.map((function(segment) {
+      return Segment({
+        segment: segment,
+        getGroupProps: getGroupProps,
+        selectGroup: selectGroup
+      });
+    }));
+    return span(null, lineNumber_.concat(segments.concat(span(null, '\n'))));
+  }});
+var LineNumber = React.createClass({
+  render: function() {
+    var span = $traceurRuntime.assertObject(React.DOM).span;
+    var onClick = this.onClick;
+    var $__0 = $traceurRuntime.assertObject(this.props),
+        getGroupProps = $__0.getGroupProps,
+        lineNumber = $__0.lineNumber;
+    var $__0 = $traceurRuntime.assertObject(lineNumber),
+        line = $__0.line,
+        lineCount = $__0.lineCount;
+    var style = getGroupProps('LineNr');
+    var spaces = 1 + (lineCount.toString().length - line.toString().length);
+    return span({
+      style: style,
+      onClick: onClick
+    }, ' '.repeat(spaces) + line + ' ');
+  },
+  onClick: function(e) {
+    var selectGroup = $traceurRuntime.assertObject(this.props).selectGroup;
+    selectGroup('LineNr');
+    e.stopPropagation();
+  }
+});
+var Segment = React.createClass({
+  render: function() {
+    var span = $traceurRuntime.assertObject(React.DOM).span;
+    var onClick = this.onClick;
+    var $__0 = $traceurRuntime.assertObject(this.props),
+        segment = $__0.segment,
+        getGroupProps = $__0.getGroupProps;
+    if (typeof(segment) === 'object') {
+      var style = getGroupProps(segment.group);
+      return span({
+        style: style,
+        onClick: onClick
+      }, segment.content);
+    } else {
+      return span(null, segment);
+    }
+  },
+  onClick: function(e) {
+    var $__0 = $traceurRuntime.assertObject(this.props),
+        selectGroup = $__0.selectGroup,
+        segment = $__0.segment;
+    selectGroup(segment.group);
+    e.stopPropagation();
   }
 });
 module.exports = Vim;
@@ -583,7 +583,7 @@ React.renderComponent(App({
 }), document.body);
 
 
-}).call(this,require("IrXUsu"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/fake_90207aa2.js","/")
+}).call(this,require("IrXUsu"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/fake_2704454c.js","/")
 },{"./components/app":1,"./exporter":8,"./initial-state":10,"./vim-tohtml-parser":152,"IrXUsu":15,"buffer":12,"es6ify/node_modules/traceur/bin/traceur-runtime":11,"react":151}],10:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 "use strict";
