@@ -153,7 +153,7 @@ var App = React.createClass({
     exportColorScheme() {
         var {exporter} = this.props;
 
-        this.setState({exportedSource: exporter.exportColorScheme(this.state)});
+        this.setState({exportedSource: exporter.exportColorScheme(_.cloneDeep(this.state))});
     },
     clearExportedSource() {
         this.setState({exportedSource: undefined});

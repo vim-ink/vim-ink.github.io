@@ -144,7 +144,7 @@ var App = React.createClass({
   },
   exportColorScheme: function() {
     var exporter = $traceurRuntime.assertObject(this.props).exporter;
-    this.setState({exportedSource: exporter.exportColorScheme(this.state)});
+    this.setState({exportedSource: exporter.exportColorScheme(_.cloneDeep(this.state))});
   },
   clearExportedSource: function() {
     this.setState({exportedSource: undefined});
@@ -856,7 +856,7 @@ React.renderComponent(App({
 }), document.body);
 
 
-}).call(this,require("IrXUsu"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/fake_34c9171a.js","/")
+}).call(this,require("IrXUsu"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/fake_b632630.js","/")
 },{"./components/app":1,"./exporter":8,"./initial-state":10,"./vim-tohtml-parser":156,"IrXUsu":19,"buffer":16,"es6ify/node_modules/traceur/bin/traceur-runtime":15,"react":155}],10:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 "use strict";
