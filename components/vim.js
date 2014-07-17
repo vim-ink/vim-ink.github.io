@@ -1,33 +1,23 @@
 var React = require('react');
 var Color = require('color');
 
-function styleFromProps(props) {
-    return {
-        color: Color(props.color).lighten(0.1).hexString(),
-        backgroundColor: Color(props.backgroundColor).lighten(0.1).hexString()
-    };
-}
-
-function classNameFromProps(props) {
-    return props.highlight === 'NONE' ? '' : props.highlight;
-}
-
 var Vim = React.createClass({
     render() {
         var {pre} = React.DOM;
-        var {onClick} = this;
+        var {onClick, attrs} = this;
         var {parsedSource, getGroupProps, selectGroup} = this.props;
 
         var className = parsedSource === undefined ? 'hidden' : '';
         var props = getGroupProps('Normal');
-        var style = styleFromProps(props);
+        var {style} = attrs(props);
 
-        var tabLine = TabLine({getGroupProps, selectGroup});
+        var tabLine = TabLine({attrs, getGroupProps, selectGroup});
         var content;
 
         if (parsedSource !== undefined) {
             content = parsedSource.map(
                 (line, index) => Line({
+                    attrs,
                     getGroupProps,
                     line,
                     lineNumber: {
@@ -42,28 +32,49 @@ var Vim = React.createClass({
         var {selectGroup} = this.props;
 
         selectGroup('Normal');
+    },
+    attrs(props) {
+        var {postProcess} = this.props;
+        var {brightness, saturation} = postProcess;
+
+        return {
+            style: {
+                color: Color(props.color)
+                    .lighten(brightness)
+                    .saturate(saturation)
+                    .hexString(),
+                backgroundColor: Color(props.backgroundColor)
+                    .lighten(brightness)
+                    .saturate(saturation)
+                    .hexString()
+            },
+            className: props.highlight === 'NONE' ? '' : props.highlight
+        };
     }
 });
 
 var TabLine = React.createClass({
     render() {
         var {span} = React.DOM;
-        var {getGroupProps, selectGroup} = this.props;
+        var {getGroupProps, selectGroup, attrs} = this.props;
 
         return span(
             null,
             [
                 TabLineFile({
+                    attrs,
                     getGroupProps,
                     selectGroup,
                     fileName: 'one-file.js',
                     selected: false}),
                 TabLineFile({
+                    attrs,
                     getGroupProps,
                     selectGroup,
                     fileName: 'another-file.js',
                     selected: false}),
                 TabLineFile({
+                    attrs,
                     getGroupProps,
                     selectGroup,
                     fileName: 'yet-another-file.js',
@@ -77,10 +88,10 @@ var TabLineFile = React.createClass({
     render() {
         var {span} = React.DOM;
         var {onClick, group} = this;
-        var {getGroupProps, fileName, selected} = this.props;
+        var {getGroupProps, fileName, selected, attrs} = this.props;
+
         var props = getGroupProps(group());
-        var style = styleFromProps(props);
-        var className = classNameFromProps(props);
+        var {style, className} = attrs(props);
 
         return span({style, className, onClick}, ' 2 ' + fileName + ' ');
     },
@@ -101,10 +112,10 @@ var TabLineFile = React.createClass({
 var Line = React.createClass({
     render() {
         var {span} = React.DOM;
-        var {getGroupProps, line, lineNumber, selectGroup} = this.props;
+        var {attrs, getGroupProps, line, lineNumber, selectGroup} = this.props;
 
-        var lineNumber_ = [LineNumber({lineNumber, getGroupProps, selectGroup})]
-        var segments = line.map(segment => Segment({segment, getGroupProps, selectGroup}));
+        var lineNumber_ = [LineNumber({attrs, lineNumber, getGroupProps, selectGroup})]
+        var segments = line.map(segment => Segment({attrs, segment, getGroupProps, selectGroup}));
 
         return span(null, lineNumber_.concat(segments.concat(span(null, '\n'))));
     }
@@ -114,12 +125,11 @@ var LineNumber = React.createClass({
     render() {
         var {span} = React.DOM;
         var {onClick} = this;
-        var {getGroupProps, lineNumber} = this.props;
+        var {attrs, getGroupProps, lineNumber} = this.props;
         var {line, lineCount} = lineNumber;
 
         var props = getGroupProps('LineNr');
-        var style = styleFromProps(props);
-        var className = classNameFromProps(props);
+        var {style, className} = attrs(props);
         var spaces = 1 + (lineCount.toString().length - line.toString().length)
 
         return span({style, className, onClick}, ' '.repeat(spaces) + line + ' ');
@@ -136,12 +146,11 @@ var Segment = React.createClass({
     render() {
         var {span} = React.DOM;
         var {onClick, style} = this;
-        var {segment, getGroupProps} = this.props;
+        var {segment, getGroupProps, attrs} = this.props;
 
         if (typeof(segment) === 'object') {
             var props = getGroupProps(segment.group);
-            var style = styleFromProps(props);
-            var className = classNameFromProps(props);
+            var {style, className} = attrs(props);
 
             return span({
                 style,
@@ -150,7 +159,7 @@ var Segment = React.createClass({
                 segment.content);
         } else {
             var props = getGroupProps('Normal');
-            var className = classNameFromProps(props);
+            var {className} = attrs(props)
 
             return span({className}, segment);
         }

@@ -148,15 +148,25 @@ var HighlightButton = React.createClass({
 var PostProcess = React.createClass({
     render() {
         var {section, h2, div, input} = React.DOM;
+        var {postProcess} = this.props;
+        var {onChangeBrightness, onChangeSaturation} = this;
+
+        var {brightness, saturation} = postProcess;
 
         return section({},
             h2({className: 'collapsed'}, 'Post process'),
             div({className: 'line post-process-line'},
                 div({className: 'left'}, 'Brightness'),
-                div({className: 'right'}, input({type: 'range', min: 1, max: 9}))),
+                div({className: 'right'}, input({onChange: onChangeBrightness, type: 'range', min: -0.5, max: 0.5, step: 0.05, value: brightness}))),
             div({className: 'line post-process-line'},
-                div({className: 'left'}, 'Contrast'),
-                div({className: 'right'}, input({type: 'range', min: 1, max: 9}))));
+                div({className: 'left'}, 'Saturation'),
+                div({className: 'right'}, input({onChange: onChangeSaturation, type: 'range', min: -1.0, max: 1.0, step: 0.1, value: saturation}))));
+    },
+    onChangeBrightness(e) {
+        this.props.setPostProcessProps({brightness: e.target.value});
+    },
+    onChangeSaturation(e) {
+        this.props.setPostProcessProps({saturation: e.target.value});
     }
 });
 

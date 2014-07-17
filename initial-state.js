@@ -5,6 +5,10 @@ var initialState = {
     activeVariant: 'light',
     selectedGroup: 'Normal',
     activeColor: 'foreground',
+    postProcess: {
+        brightness: 0,
+        saturation: 0
+    },
     dark: {
         Normal: {
             color: '#cccccc',

@@ -5,11 +5,11 @@ var Vim = require('./vim');
 var Left = React.createClass({
     render() {
         var {article} = React.DOM;
-        var {parsedSource, parse, getGroupProps, selectGroup} = this.props;
+        var {parsedSource, parse, getGroupProps, selectGroup, postProcess} = this.props;
 
         return article(null,
             Files(),
-            Vim({parsedSource, getGroupProps, selectGroup}),
+            Vim({parsedSource, getGroupProps, selectGroup, postProcess}),
             Paste({parsedSource, parse}));
     }
 });

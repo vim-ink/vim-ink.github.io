@@ -22,6 +22,7 @@ var App = React.createClass({
         main = $__0.main;
     var $__0 = this,
         getGroupProps = $__0.getGroupProps,
+        setPostProcessProps = $__0.setPostProcessProps,
         parse = $__0.parse,
         selectGroup = $__0.selectGroup,
         setSelectedGroupProps = $__0.setSelectedGroupProps,
@@ -35,14 +36,18 @@ var App = React.createClass({
         parsedSource = $__0.parsedSource,
         selectedGroup = $__0.selectedGroup,
         exportedSource = $__0.exportedSource,
-        activeColor = $__0.activeColor;
+        activeColor = $__0.activeColor,
+        postProcess = $__0.postProcess;
     var exportColorscheme = $traceurRuntime.assertObject(this.props).exportColorscheme;
     return span(null, Header(), main(null, Left({
+      postProcess: postProcess,
       parsedSource: parsedSource,
       parse: parse,
       getGroupProps: getGroupProps,
       selectGroup: selectGroup
     }), Right({
+      postProcess: postProcess,
+      setPostProcessProps: setPostProcessProps,
       activeVariant: activeVariant,
       selectedGroup: selectedGroup,
       resetState: resetState,
@@ -80,6 +85,11 @@ var App = React.createClass({
     if (!(group in groups))
       groups[group] = {};
     Object.assign(groups[group], props);
+    this.setState(newState);
+  },
+  setPostProcessProps: function(props) {
+    var newState = this.state;
+    Object.assign(newState.postProcess, props);
     this.setState(newState);
   },
   activateVariant: function(activeVariant) {
@@ -184,11 +194,13 @@ var Left = React.createClass({render: function() {
         parsedSource = $__0.parsedSource,
         parse = $__0.parse,
         getGroupProps = $__0.getGroupProps,
-        selectGroup = $__0.selectGroup;
+        selectGroup = $__0.selectGroup,
+        postProcess = $__0.postProcess;
     return article(null, Files(), Vim({
       parsedSource: parsedSource,
       getGroupProps: getGroupProps,
-      selectGroup: selectGroup
+      selectGroup: selectGroup,
+      postProcess: postProcess
     }), Paste({
       parsedSource: parsedSource,
       parse: parse
@@ -377,22 +389,43 @@ var HighlightButton = React.createClass({
     setSelectedGroupProps({highlight: type});
   }
 });
-var PostProcess = React.createClass({render: function() {
+var PostProcess = React.createClass({
+  render: function() {
     var $__0 = $traceurRuntime.assertObject(React.DOM),
         section = $__0.section,
         h2 = $__0.h2,
         div = $__0.div,
         input = $__0.input;
+    var postProcess = $traceurRuntime.assertObject(this.props).postProcess;
+    var $__0 = this,
+        onChangeBrightness = $__0.onChangeBrightness,
+        onChangeSaturation = $__0.onChangeSaturation;
+    var $__0 = $traceurRuntime.assertObject(postProcess),
+        brightness = $__0.brightness,
+        saturation = $__0.saturation;
     return section({}, h2({className: 'collapsed'}, 'Post process'), div({className: 'line post-process-line'}, div({className: 'left'}, 'Brightness'), div({className: 'right'}, input({
+      onChange: onChangeBrightness,
       type: 'range',
-      min: 1,
-      max: 9
-    }))), div({className: 'line post-process-line'}, div({className: 'left'}, 'Contrast'), div({className: 'right'}, input({
+      min: -0.5,
+      max: 0.5,
+      step: 0.05,
+      value: brightness
+    }))), div({className: 'line post-process-line'}, div({className: 'left'}, 'Saturation'), div({className: 'right'}, input({
+      onChange: onChangeSaturation,
       type: 'range',
-      min: 1,
-      max: 9
+      min: -1.0,
+      max: 1.0,
+      step: 0.1,
+      value: saturation
     }))));
-  }});
+  },
+  onChangeBrightness: function(e) {
+    this.props.setPostProcessProps({brightness: e.target.value});
+  },
+  onChangeSaturation: function(e) {
+    this.props.setPostProcessProps({saturation: e.target.value});
+  }
+});
 var Parts = React.createClass({render: function() {
     var $__0 = $traceurRuntime.assertObject(React.DOM),
         section = $__0.section,
@@ -457,27 +490,21 @@ module.exports = Right;
 "use strict";
 var React = require('react');
 var Color = require('color');
-function styleFromProps(props) {
-  return {
-    color: Color(props.color).lighten(0.1).hexString(),
-    backgroundColor: Color(props.backgroundColor).lighten(0.1).hexString()
-  };
-}
-function classNameFromProps(props) {
-  return props.highlight === 'NONE' ? '' : props.highlight;
-}
 var Vim = React.createClass({
   render: function() {
     var pre = $traceurRuntime.assertObject(React.DOM).pre;
-    var onClick = this.onClick;
+    var $__0 = this,
+        onClick = $__0.onClick,
+        attrs = $__0.attrs;
     var $__0 = $traceurRuntime.assertObject(this.props),
         parsedSource = $__0.parsedSource,
         getGroupProps = $__0.getGroupProps,
         selectGroup = $__0.selectGroup;
     var className = parsedSource === undefined ? 'hidden' : '';
     var props = getGroupProps('Normal');
-    var style = styleFromProps(props);
+    var style = $traceurRuntime.assertObject(attrs(props)).style;
     var tabLine = TabLine({
+      attrs: attrs,
       getGroupProps: getGroupProps,
       selectGroup: selectGroup
     });
@@ -485,6 +512,7 @@ var Vim = React.createClass({
     if (parsedSource !== undefined) {
       content = parsedSource.map((function(line, index) {
         return Line({
+          attrs: attrs,
           getGroupProps: getGroupProps,
           line: line,
           lineNumber: {
@@ -504,24 +532,41 @@ var Vim = React.createClass({
   onClick: function() {
     var selectGroup = $traceurRuntime.assertObject(this.props).selectGroup;
     selectGroup('Normal');
+  },
+  attrs: function(props) {
+    var postProcess = $traceurRuntime.assertObject(this.props).postProcess;
+    var $__0 = $traceurRuntime.assertObject(postProcess),
+        brightness = $__0.brightness,
+        saturation = $__0.saturation;
+    return {
+      style: {
+        color: Color(props.color).lighten(brightness).saturate(saturation).hexString(),
+        backgroundColor: Color(props.backgroundColor).lighten(brightness).saturate(saturation).hexString()
+      },
+      className: props.highlight === 'NONE' ? '' : props.highlight
+    };
   }
 });
 var TabLine = React.createClass({render: function() {
     var span = $traceurRuntime.assertObject(React.DOM).span;
     var $__0 = $traceurRuntime.assertObject(this.props),
         getGroupProps = $__0.getGroupProps,
-        selectGroup = $__0.selectGroup;
+        selectGroup = $__0.selectGroup,
+        attrs = $__0.attrs;
     return span(null, [TabLineFile({
+      attrs: attrs,
       getGroupProps: getGroupProps,
       selectGroup: selectGroup,
       fileName: 'one-file.js',
       selected: false
     }), TabLineFile({
+      attrs: attrs,
       getGroupProps: getGroupProps,
       selectGroup: selectGroup,
       fileName: 'another-file.js',
       selected: false
     }), TabLineFile({
+      attrs: attrs,
       getGroupProps: getGroupProps,
       selectGroup: selectGroup,
       fileName: 'yet-another-file.js',
@@ -537,10 +582,12 @@ var TabLineFile = React.createClass({
     var $__0 = $traceurRuntime.assertObject(this.props),
         getGroupProps = $__0.getGroupProps,
         fileName = $__0.fileName,
-        selected = $__0.selected;
+        selected = $__0.selected,
+        attrs = $__0.attrs;
     var props = getGroupProps(group());
-    var style = styleFromProps(props);
-    var className = classNameFromProps(props);
+    var $__0 = $traceurRuntime.assertObject(attrs(props)),
+        style = $__0.style,
+        className = $__0.className;
     return span({
       style: style,
       className: className,
@@ -561,17 +608,20 @@ var TabLineFile = React.createClass({
 var Line = React.createClass({render: function() {
     var span = $traceurRuntime.assertObject(React.DOM).span;
     var $__0 = $traceurRuntime.assertObject(this.props),
+        attrs = $__0.attrs,
         getGroupProps = $__0.getGroupProps,
         line = $__0.line,
         lineNumber = $__0.lineNumber,
         selectGroup = $__0.selectGroup;
     var lineNumber_ = [LineNumber({
+      attrs: attrs,
       lineNumber: lineNumber,
       getGroupProps: getGroupProps,
       selectGroup: selectGroup
     })];
     var segments = line.map((function(segment) {
       return Segment({
+        attrs: attrs,
         segment: segment,
         getGroupProps: getGroupProps,
         selectGroup: selectGroup
@@ -584,14 +634,16 @@ var LineNumber = React.createClass({
     var span = $traceurRuntime.assertObject(React.DOM).span;
     var onClick = this.onClick;
     var $__0 = $traceurRuntime.assertObject(this.props),
+        attrs = $__0.attrs,
         getGroupProps = $__0.getGroupProps,
         lineNumber = $__0.lineNumber;
     var $__0 = $traceurRuntime.assertObject(lineNumber),
         line = $__0.line,
         lineCount = $__0.lineCount;
     var props = getGroupProps('LineNr');
-    var style = styleFromProps(props);
-    var className = classNameFromProps(props);
+    var $__0 = $traceurRuntime.assertObject(attrs(props)),
+        style = $__0.style,
+        className = $__0.className;
     var spaces = 1 + (lineCount.toString().length - line.toString().length);
     return span({
       style: style,
@@ -613,11 +665,13 @@ var Segment = React.createClass({
         style = $__0.style;
     var $__0 = $traceurRuntime.assertObject(this.props),
         segment = $__0.segment,
-        getGroupProps = $__0.getGroupProps;
+        getGroupProps = $__0.getGroupProps,
+        attrs = $__0.attrs;
     if (typeof(segment) === 'object') {
       var props = getGroupProps(segment.group);
-      var style = styleFromProps(props);
-      var className = classNameFromProps(props);
+      var $__0 = $traceurRuntime.assertObject(attrs(props)),
+          style = $__0.style,
+          className = $__0.className;
       return span({
         style: style,
         className: className,
@@ -625,7 +679,7 @@ var Segment = React.createClass({
       }, segment.content);
     } else {
       var props = getGroupProps('Normal');
-      var className = classNameFromProps(props);
+      var className = $traceurRuntime.assertObject(attrs(props)).className;
       return span({className: className}, segment);
     }
   },
@@ -689,7 +743,7 @@ React.renderComponent(App({
 }), document.body);
 
 
-}).call(this,require("IrXUsu"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/fake_f3d0e1d0.js","/")
+}).call(this,require("IrXUsu"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/fake_bab2f51a.js","/")
 },{"./components/app":1,"./exporter":8,"./initial-state":10,"./vim-tohtml-parser":156,"IrXUsu":19,"buffer":16,"es6ify/node_modules/traceur/bin/traceur-runtime":15,"react":155}],10:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 "use strict";
@@ -700,6 +754,10 @@ var initialState = {
   activeVariant: 'light',
   selectedGroup: 'Normal',
   activeColor: 'foreground',
+  postProcess: {
+    brightness: 0,
+    saturation: 0
+  },
   dark: {
     Normal: {
       color: '#cccccc',

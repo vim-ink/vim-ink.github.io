@@ -19,6 +19,7 @@ var App = React.createClass({
     render() {
         var {span, main} = React.DOM;
         var {getGroupProps,
+            setPostProcessProps,
             parse,
             selectGroup,
             setSelectedGroupProps,
@@ -27,7 +28,7 @@ var App = React.createClass({
             resetState,
             exportColorScheme,
             clearExportedSource} = this;
-        var {activeVariant, parsedSource, selectedGroup, exportedSource, activeColor} = this.state;
+        var {activeVariant, parsedSource, selectedGroup, exportedSource, activeColor, postProcess} = this.state;
         var {exportColorscheme} = this.props;
 
         return span(
@@ -35,11 +36,14 @@ var App = React.createClass({
             Header(),
             main(null,
                 Left({
+                    postProcess,
                     parsedSource,
                     parse,
                     getGroupProps,
                     selectGroup}),
                 Right({
+                    postProcess,
+                    setPostProcessProps,
                     activeVariant,
                     selectedGroup,
                     resetState,
@@ -85,6 +89,11 @@ var App = React.createClass({
             groups[group] = {};
 
         Object.assign(groups[group], props);
+        this.setState(newState);
+    },
+    setPostProcessProps(props) {
+        var newState = this.state;
+        Object.assign(newState.postProcess, props);
         this.setState(newState);
     },
     activateVariant(activeVariant) {
