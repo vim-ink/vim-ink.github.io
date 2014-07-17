@@ -239,7 +239,7 @@ module.exports = Left;
 var React = require('react');
 var Right = React.createClass({render: function() {
     var aside = $traceurRuntime.assertObject(React.DOM).aside;
-    return aside(null, Variant(this.props), SelectedGroup(this.props), Color(this.props), Highlight(this.props), PostProcess(this.props), Parts(this.props), AssignedGroups(this.props), Export(this.props), DangerZone(this.props));
+    return aside(null, Variant(this.props), SelectedGroup(this.props), Color(this.props), Highlight(this.props), PostProcess(this.props), Components(this.props), AssignedGroups(this.props), Export(this.props), DangerZone(this.props));
   }});
 var Variant = React.createClass({
   render: function() {
@@ -406,9 +406,9 @@ var PostProcess = React.createClass({
     return section({}, h2({className: 'collapsed'}, 'Post process'), div({className: 'line post-process-line'}, div({className: 'left'}, 'Brightness'), div({className: 'right'}, input({
       onChange: onChangeBrightness,
       type: 'range',
-      min: -0.5,
-      max: 0.5,
-      step: 0.05,
+      min: -0.25,
+      max: 0.25,
+      step: 0.025,
       value: brightness
     }))), div({className: 'line post-process-line'}, div({className: 'left'}, 'Saturation'), div({className: 'right'}, input({
       onChange: onChangeSaturation,
@@ -426,13 +426,13 @@ var PostProcess = React.createClass({
     this.props.setPostProcessProps({saturation: e.target.value});
   }
 });
-var Parts = React.createClass({render: function() {
+var Components = React.createClass({render: function() {
     var $__0 = $traceurRuntime.assertObject(React.DOM),
         section = $__0.section,
         h2 = $__0.h2,
         div = $__0.div,
         button = $__0.button;
-    return section({}, h2({className: 'collapsed'}, 'Parts'), div({className: 'line  button-line'}, div({className: 'left'}, 'Tab line'), div({className: 'right'}, button({className: 'small-button'}, 'Show'))), div({className: 'line button-line'}, div({className: 'left'}, 'Status line'), div({className: 'right'}, button({className: 'small-button'}, 'Show'))));
+    return section({}, h2({className: 'collapsed'}, 'Components'), div({className: 'line  button-line'}, div({className: 'left'}, 'Tab line'), div({className: 'right'}, button({className: 'small-button'}, 'Hide'))), div({className: 'line  button-line'}, div({className: 'left'}, 'Line numbers'), div({className: 'right'}, button({className: 'small-button'}, 'Hide'))), div({className: 'line button-line'}, div({className: 'left'}, 'Status line'), div({className: 'right'}, button({className: 'small-button'}, 'Show'))));
   }});
 var AssignedGroups = React.createClass({render: function() {
     var $__0 = $traceurRuntime.assertObject(React.DOM),
@@ -743,7 +743,7 @@ React.renderComponent(App({
 }), document.body);
 
 
-}).call(this,require("IrXUsu"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/fake_bab2f51a.js","/")
+}).call(this,require("IrXUsu"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/fake_e8001a6a.js","/")
 },{"./components/app":1,"./exporter":8,"./initial-state":10,"./vim-tohtml-parser":156,"IrXUsu":19,"buffer":16,"es6ify/node_modules/traceur/bin/traceur-runtime":15,"react":155}],10:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 "use strict";

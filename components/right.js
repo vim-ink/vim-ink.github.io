@@ -10,7 +10,7 @@ var Right = React.createClass({
             Color(this.props),
             Highlight(this.props),
             PostProcess(this.props),
-            Parts(this.props),
+            Components(this.props),
             AssignedGroups(this.props),
             Export(this.props),
             DangerZone(this.props));
@@ -157,7 +157,7 @@ var PostProcess = React.createClass({
             h2({className: 'collapsed'}, 'Post process'),
             div({className: 'line post-process-line'},
                 div({className: 'left'}, 'Brightness'),
-                div({className: 'right'}, input({onChange: onChangeBrightness, type: 'range', min: -0.5, max: 0.5, step: 0.05, value: brightness}))),
+                div({className: 'right'}, input({onChange: onChangeBrightness, type: 'range', min: -0.25, max: 0.25, step: 0.025, value: brightness}))),
             div({className: 'line post-process-line'},
                 div({className: 'left'}, 'Saturation'),
                 div({className: 'right'}, input({onChange: onChangeSaturation, type: 'range', min: -1.0, max: 1.0, step: 0.1, value: saturation}))));
@@ -170,15 +170,19 @@ var PostProcess = React.createClass({
     }
 });
 
-var Parts = React.createClass({
+var Components = React.createClass({
     render() {
         var {section, h2, div, button} = React.DOM;
 
         return section({},
-            h2({className: 'collapsed'}, 'Parts'),
+            h2({className: 'collapsed'}, 'Components'),
             div({className: 'line  button-line'},
                 div({className: 'left'}, 'Tab line'),
-                div({className: 'right'}, button({className: 'small-button'}, 'Show'))
+                div({className: 'right'}, button({className: 'small-button'}, 'Hide'))
+            ),
+            div({className: 'line  button-line'},
+                div({className: 'left'}, 'Line numbers'),
+                div({className: 'right'}, button({className: 'small-button'}, 'Hide'))
             ),
             div({className: 'line button-line'},
                 div({className: 'left'}, 'Status line'),
