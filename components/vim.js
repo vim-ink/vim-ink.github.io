@@ -1,4 +1,16 @@
 var React = require('react');
+var Color = require('color');
+
+function styleFromProps(props) {
+    return {
+        color: Color(props.color).lighten(0.1).hexString(),
+        backgroundColor: Color(props.backgroundColor).lighten(0.1).hexString()
+    };
+}
+
+function classNameFromProps(props) {
+    return props.highlight === 'NONE' ? '' : props.highlight;
+}
 
 var Vim = React.createClass({
     render() {
@@ -7,7 +19,9 @@ var Vim = React.createClass({
         var {parsedSource, getGroupProps, selectGroup} = this.props;
 
         var className = parsedSource === undefined ? 'hidden' : '';
-        var style = getGroupProps('Normal');
+        var props = getGroupProps('Normal');
+        var style = styleFromProps(props);
+
         var tabLine = TabLine({getGroupProps, selectGroup});
         var content;
 
@@ -22,7 +36,7 @@ var Vim = React.createClass({
                     selectGroup}))
         }
 
-        return pre({className, style, onClick}, [tabLine].concat(content));
+        return pre({style, className, onClick}, [tabLine].concat(content));
     },
     onClick() {
         var {selectGroup} = this.props;
@@ -64,10 +78,11 @@ var TabLineFile = React.createClass({
         var {span} = React.DOM;
         var {onClick, group} = this;
         var {getGroupProps, fileName, selected} = this.props;
+        var props = getGroupProps(group());
+        var style = styleFromProps(props);
+        var className = classNameFromProps(props);
 
-        var style = getGroupProps(group());
-
-        return span({style, onClick}, ' 2 ' + fileName + ' ');
+        return span({style, className, onClick}, ' 2 ' + fileName + ' ');
     },
     onClick(e) {
         var {group} = this;
@@ -102,10 +117,12 @@ var LineNumber = React.createClass({
         var {getGroupProps, lineNumber} = this.props;
         var {line, lineCount} = lineNumber;
 
-        var style = getGroupProps('LineNr');
+        var props = getGroupProps('LineNr');
+        var style = styleFromProps(props);
+        var className = classNameFromProps(props);
         var spaces = 1 + (lineCount.toString().length - line.toString().length)
 
-        return span({style, onClick}, ' '.repeat(spaces) + line + ' ');
+        return span({style, className, onClick}, ' '.repeat(spaces) + line + ' ');
     },
     onClick(e) {
         var {selectGroup} = this.props;
@@ -123,18 +140,19 @@ var Segment = React.createClass({
 
         if (typeof(segment) === 'object') {
             var props = getGroupProps(segment.group);
-            var {color, backgroundColor, highlight} = props;
+            var style = styleFromProps(props);
+            var className = classNameFromProps(props);
 
             return span({
-                style: {color, backgroundColor},
-                className: highlight.toLowerCase(),
+                style,
+                className,
                 onClick},
                 segment.content);
         } else {
             var props = getGroupProps('Normal');
-            var {highlight} = props;
+            var className = classNameFromProps(props);
 
-            return span({className: highlight.toLowerCase()}, segment);
+            return span({className}, segment);
         }
     },
     onClick(e) {

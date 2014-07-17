@@ -21,6 +21,7 @@
     "gulp-uglify": "^0.3.1"
   },
   "dependencies": {
+    "color": "^0.6.0",
     "lodash": "^2.4.1"
   }
 }
