@@ -9,9 +9,9 @@ var Right = React.createClass({
             SelectedGroup(this.props),
             Color(this.props),
             Highlight(this.props),
-            PostProcess(this.props),
+            ModifiedGroups(this.props),
             Components(this.props),
-            AssignedGroups(this.props),
+            PostProcess(this.props),
             Export(this.props),
             DangerZone(this.props));
     }
@@ -190,15 +190,31 @@ var Components = React.createClass({
     }
 });
 
-var AssignedGroups = React.createClass({
+var ModifiedGroups = React.createClass({
     render() {
-        var {section, h2, div, button} = React.DOM;
+        var {getModifiedGroups, resetGroup} = this.props;
+        var groups = getModifiedGroups();
+
+        var {section, h2} = React.DOM;
 
         return section({},
-            h2({className: 'collapsed'}, 'Assigned groups'),
-            div({className: 'line button-line'},
-                div({className: 'left'}, 'Something'),
-                div({className: 'right'}, button({className: 'small-button'}, 'Remove'))));
+            h2({className: 'collapsed'}, 'Modified groups'),
+            groups.map(group => ModifiedGroup({group, resetGroup})));
+    }
+});
+
+var ModifiedGroup = React.createClass({
+    render() {
+        var {div, button} = React.DOM;
+        var {onClick} = this;
+        var {group} = this.props;
+
+        return div({className: 'line button-line'},
+            div({className: 'left'}, group),
+            div({className: 'right'}, button({className: 'small-button', onClick}, 'Reset')));
+    },
+    onClick() {
+        this.props.resetGroup(this.props.group);
     }
 });
 

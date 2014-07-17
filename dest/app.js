@@ -2,6 +2,7 @@
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 "use strict";
 var React = require('react');
+var _ = require('lodash');
 var Header = require('./header');
 var Left = require('./left');
 var Right = require('./right');
@@ -23,6 +24,8 @@ var App = React.createClass({
     var $__0 = this,
         getGroupProps = $__0.getGroupProps,
         setPostProcessProps = $__0.setPostProcessProps,
+        getModifiedGroups = $__0.getModifiedGroups,
+        resetGroup = $__0.resetGroup,
         parse = $__0.parse,
         selectGroup = $__0.selectGroup,
         setSelectedGroupProps = $__0.setSelectedGroupProps,
@@ -48,7 +51,9 @@ var App = React.createClass({
     }), Right({
       postProcess: postProcess,
       setPostProcessProps: setPostProcessProps,
+      resetGroup: resetGroup,
       activeVariant: activeVariant,
+      getModifiedGroups: getModifiedGroups,
       selectedGroup: selectedGroup,
       resetState: resetState,
       exportColorScheme: exportColorScheme,
@@ -77,6 +82,25 @@ var App = React.createClass({
       backgroundColor: group in groups && 'backgroundColor' in groups[group] ? groups[group].backgroundColor : groups['Normal'].backgroundColor,
       highlight: group in groups && 'highlight' in groups[group] ? groups[group].highlight : groups['Normal'].highlight
     };
+  },
+  getModifiedGroups: function() {
+    var initialState = $traceurRuntime.assertObject(this.props).initialState;
+    var initialGroups = initialState[this.state.activeVariant];
+    var groups = this.state[this.state.activeVariant];
+    return Object.keys(groups).filter((function(group) {
+      return !(group in initialGroups && _.isEqual(initialGroups[group], groups[group]));
+    }));
+  },
+  resetGroup: function(group) {
+    var initialState = $traceurRuntime.assertObject(this.props).initialState;
+    var newState = this.state;
+    var initialGroups = initialState[this.state.activeVariant];
+    var groups = newState[this.state.activeVariant];
+    if (group in initialGroups)
+      groups[group] = initialGroups[group];
+    else
+      delete groups[group];
+    this.setState(newState);
   },
   setSelectedGroupProps: function(props) {
     var newState = this.state;
@@ -123,7 +147,7 @@ module.exports = App;
 
 
 }).call(this,require("IrXUsu"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/components/app.js","/components")
-},{"./export":2,"./footer":3,"./header":4,"./left":5,"./right":6,"IrXUsu":19,"buffer":16,"react":155}],2:[function(require,module,exports){
+},{"./export":2,"./footer":3,"./header":4,"./left":5,"./right":6,"IrXUsu":19,"buffer":16,"lodash":20,"react":155}],2:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 "use strict";
 var React = require('react');
@@ -239,7 +263,7 @@ module.exports = Left;
 var React = require('react');
 var Right = React.createClass({render: function() {
     var aside = $traceurRuntime.assertObject(React.DOM).aside;
-    return aside(null, Variant(this.props), SelectedGroup(this.props), Color(this.props), Highlight(this.props), PostProcess(this.props), Components(this.props), AssignedGroups(this.props), Export(this.props), DangerZone(this.props));
+    return aside(null, Variant(this.props), SelectedGroup(this.props), Color(this.props), Highlight(this.props), ModifiedGroups(this.props), Components(this.props), PostProcess(this.props), Export(this.props), DangerZone(this.props));
   }});
 var Variant = React.createClass({
   render: function() {
@@ -434,14 +458,37 @@ var Components = React.createClass({render: function() {
         button = $__0.button;
     return section({}, h2({className: 'collapsed'}, 'Components'), div({className: 'line  button-line'}, div({className: 'left'}, 'Tab line'), div({className: 'right'}, button({className: 'small-button'}, 'Hide'))), div({className: 'line  button-line'}, div({className: 'left'}, 'Line numbers'), div({className: 'right'}, button({className: 'small-button'}, 'Hide'))), div({className: 'line button-line'}, div({className: 'left'}, 'Status line'), div({className: 'right'}, button({className: 'small-button'}, 'Show'))));
   }});
-var AssignedGroups = React.createClass({render: function() {
+var ModifiedGroups = React.createClass({render: function() {
+    var $__0 = $traceurRuntime.assertObject(this.props),
+        getModifiedGroups = $__0.getModifiedGroups,
+        resetGroup = $__0.resetGroup;
+    var groups = getModifiedGroups();
     var $__0 = $traceurRuntime.assertObject(React.DOM),
         section = $__0.section,
-        h2 = $__0.h2,
+        h2 = $__0.h2;
+    return section({}, h2({className: 'collapsed'}, 'Modified groups'), groups.map((function(group) {
+      return ModifiedGroup({
+        group: group,
+        resetGroup: resetGroup
+      });
+    })));
+  }});
+var ModifiedGroup = React.createClass({
+  render: function() {
+    var $__0 = $traceurRuntime.assertObject(React.DOM),
         div = $__0.div,
         button = $__0.button;
-    return section({}, h2({className: 'collapsed'}, 'Assigned groups'), div({className: 'line button-line'}, div({className: 'left'}, 'Something'), div({className: 'right'}, button({className: 'small-button'}, 'Remove'))));
-  }});
+    var onClick = this.onClick;
+    var group = $traceurRuntime.assertObject(this.props).group;
+    return div({className: 'line button-line'}, div({className: 'left'}, group), div({className: 'right'}, button({
+      className: 'small-button',
+      onClick: onClick
+    }, 'Reset')));
+  },
+  onClick: function() {
+    this.props.resetGroup(this.props.group);
+  }
+});
 var Export = React.createClass({
   render: function() {
     var $__0 = $traceurRuntime.assertObject(React.DOM),
@@ -743,7 +790,7 @@ React.renderComponent(App({
 }), document.body);
 
 
-}).call(this,require("IrXUsu"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/fake_e8001a6a.js","/")
+}).call(this,require("IrXUsu"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/fake_a4df4561.js","/")
 },{"./components/app":1,"./exporter":8,"./initial-state":10,"./vim-tohtml-parser":156,"IrXUsu":19,"buffer":16,"es6ify/node_modules/traceur/bin/traceur-runtime":15,"react":155}],10:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 "use strict";

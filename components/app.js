@@ -1,4 +1,5 @@
 var React = require('react');
+var _ = require('lodash');
 
 var Header = require('./header');
 var Left = require('./left');
@@ -20,6 +21,8 @@ var App = React.createClass({
         var {span, main} = React.DOM;
         var {getGroupProps,
             setPostProcessProps,
+            getModifiedGroups,
+            resetGroup,
             parse,
             selectGroup,
             setSelectedGroupProps,
@@ -44,7 +47,9 @@ var App = React.createClass({
                 Right({
                     postProcess,
                     setPostProcessProps,
+                    resetGroup,
                     activeVariant,
+                    getModifiedGroups,
                     selectedGroup,
                     resetState,
                     exportColorScheme,
@@ -79,6 +84,28 @@ var App = React.createClass({
                 groups[group].highlight :
                 groups['Normal'].highlight
         };
+    },
+    getModifiedGroups() {
+        var {initialState} = this.props;
+        var initialGroups = initialState[this.state.activeVariant];
+        var groups = this.state[this.state.activeVariant];
+
+        return Object.keys(groups).filter(group => {
+            return !(group in initialGroups && _.isEqual(initialGroups[group], groups[group]));
+        });
+    },
+    resetGroup(group) {
+        var {initialState} = this.props;
+        var newState = this.state;
+        var initialGroups = initialState[this.state.activeVariant];
+        var groups = newState[this.state.activeVariant];
+
+        if (group in initialGroups)
+            groups[group] = initialGroups[group];
+        else
+            delete groups[group];
+
+        this.setState(newState);
     },
     setSelectedGroupProps(props) {
         var newState = this.state;
