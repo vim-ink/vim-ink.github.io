@@ -216,10 +216,9 @@ var Component = React.createClass({
 
 var ModifiedGroups = React.createClass({
     render() {
+        var {section, h2} = React.DOM;
         var {getModifiedGroups, resetGroup} = this.props;
         var groups = getModifiedGroups();
-
-        var {section, h2} = React.DOM;
 
         return section({},
             h2({className: 'collapsed'}, 'Modified groups'),

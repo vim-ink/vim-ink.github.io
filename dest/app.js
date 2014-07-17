@@ -14,7 +14,7 @@ var App = React.createClass({
     if (localStorage.getItem('state') !== null) {
       return JSON.parse(localStorage.getItem('state'));
     } else {
-      return initialState;
+      return _.cloneDeep(initialState);
     }
   },
   render: function() {
@@ -151,7 +151,7 @@ var App = React.createClass({
   },
   resetState: function() {
     var initialState = $traceurRuntime.assertObject(this.props).initialState;
-    this.setState(initialState);
+    this.replaceState(_.cloneDeep(initialState));
   }
 });
 module.exports = App;
@@ -515,13 +515,13 @@ var Component = React.createClass({
   }
 });
 var ModifiedGroups = React.createClass({render: function() {
+    var $__0 = $traceurRuntime.assertObject(React.DOM),
+        section = $__0.section,
+        h2 = $__0.h2;
     var $__0 = $traceurRuntime.assertObject(this.props),
         getModifiedGroups = $__0.getModifiedGroups,
         resetGroup = $__0.resetGroup;
     var groups = getModifiedGroups();
-    var $__0 = $traceurRuntime.assertObject(React.DOM),
-        section = $__0.section,
-        h2 = $__0.h2;
     return section({}, h2({className: 'collapsed'}, 'Modified groups'), groups.map((function(group) {
       return ModifiedGroup({
         group: group,
@@ -856,7 +856,7 @@ React.renderComponent(App({
 }), document.body);
 
 
-}).call(this,require("IrXUsu"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/fake_848d0260.js","/")
+}).call(this,require("IrXUsu"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/fake_34c9171a.js","/")
 },{"./components/app":1,"./exporter":8,"./initial-state":10,"./vim-tohtml-parser":156,"IrXUsu":19,"buffer":16,"es6ify/node_modules/traceur/bin/traceur-runtime":15,"react":155}],10:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 "use strict";

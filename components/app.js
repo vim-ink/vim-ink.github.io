@@ -14,7 +14,7 @@ var App = React.createClass({
         if (localStorage.getItem('state') !== null) {
             return JSON.parse(localStorage.getItem('state'));
         } else {
-            return initialState;
+            return _.cloneDeep(initialState);
         }
     },
     render() {
@@ -161,7 +161,7 @@ var App = React.createClass({
     resetState() {
         var {initialState} = this.props;
 
-        this.setState(initialState);
+        this.replaceState(_.cloneDeep(initialState));
     }
 });
 
