@@ -115,7 +115,7 @@ var App = React.createClass({
     resetState() {
         var {initialState} = this.props;
 
-        this.replaceState(initialState);
+        this.setState(initialState);
     }
 });
 
