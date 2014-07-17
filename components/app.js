@@ -27,11 +27,12 @@ var App = React.createClass({
             selectGroup,
             setSelectedGroupProps,
             activateVariant,
+            setComponentVisibility,
             setActiveColor,
             resetState,
             exportColorScheme,
             clearExportedSource} = this;
-        var {activeVariant, parsedSource, selectedGroup, exportedSource, activeColor, postProcess} = this.state;
+        var {activeVariant, parsedSource, componentsVisibility, selectedGroup, exportedSource, activeColor, postProcess} = this.state;
         var {exportColorscheme} = this.props;
 
         return span(
@@ -41,6 +42,7 @@ var App = React.createClass({
                 Left({
                     postProcess,
                     parsedSource,
+                    componentsVisibility,
                     parse,
                     getGroupProps,
                     selectGroup}),
@@ -49,6 +51,8 @@ var App = React.createClass({
                     setPostProcessProps,
                     resetGroup,
                     activeVariant,
+                    setComponentVisibility,
+                    componentsVisibility,
                     getModifiedGroups,
                     selectedGroup,
                     resetState,
@@ -116,6 +120,12 @@ var App = React.createClass({
             groups[group] = {};
 
         Object.assign(groups[group], props);
+        this.setState(newState);
+    },
+    setComponentVisibility(component, visibility) {
+        var newState = this.state;
+        var {componentsVisibility} = newState;
+        componentsVisibility[component] = visibility;
         this.setState(newState);
     },
     setPostProcessProps(props) {

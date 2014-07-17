@@ -5,18 +5,17 @@ var Vim = React.createClass({
     render() {
         var {pre} = React.DOM;
         var {onClick, attrs} = this;
-        var {parsedSource, getGroupProps, selectGroup} = this.props;
-
+        var {componentsVisibility, parsedSource, getGroupProps, selectGroup} = this.props;
         var className = parsedSource === undefined ? 'hidden' : '';
         var props = getGroupProps('Normal');
         var {style} = attrs(props);
-
         var tabLine = TabLine({attrs, getGroupProps, selectGroup});
-        var content;
+        var source;
 
         if (parsedSource !== undefined) {
-            content = parsedSource.map(
+            source = parsedSource.map(
                 (line, index) => Line({
+                    componentsVisibility,
                     attrs,
                     getGroupProps,
                     line,
@@ -26,7 +25,14 @@ var Vim = React.createClass({
                     selectGroup}))
         }
 
-        return pre({style, className, onClick}, [tabLine].concat(content));
+        var output;
+        if (componentsVisibility['tabLine'] === 'show') {
+            output = [tabLine].concat(source);
+        } else {
+            output = source;
+        }
+
+        return pre({style, className, onClick}, output);
     },
     onClick() {
         var {selectGroup} = this.props;
@@ -112,12 +118,12 @@ var TabLineFile = React.createClass({
 var Line = React.createClass({
     render() {
         var {span} = React.DOM;
-        var {attrs, getGroupProps, line, lineNumber, selectGroup} = this.props;
-
+        var {componentsVisibility, attrs, getGroupProps, line, lineNumber, selectGroup} = this.props;
         var lineNumber_ = [LineNumber({attrs, lineNumber, getGroupProps, selectGroup})]
         var segments = line.map(segment => Segment({attrs, segment, getGroupProps, selectGroup}));
+        var output = componentsVisibility['lineNumbers'] === 'show' ? lineNumber_ : [];
 
-        return span(null, lineNumber_.concat(segments.concat(span(null, '\n'))));
+        return span(null, output.concat(segments.concat(span(null, '\n'))));
     }
 });
 

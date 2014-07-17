@@ -1,5 +1,5 @@
 var initialState = {
-    _stateFormatVersion: 0,
+    _version: 0,
     unparsedSource: undefined,
     parsedSource: undefined,
     activeVariant: 'light',
@@ -8,6 +8,10 @@ var initialState = {
     postProcess: {
         brightness: 0,
         saturation: 0
+    },
+    componentsVisibility: {
+        tabLine: 'show',
+        lineNumbers: 'show'
     },
     dark: {
         Normal: {

@@ -30,6 +30,7 @@ var App = React.createClass({
         selectGroup = $__0.selectGroup,
         setSelectedGroupProps = $__0.setSelectedGroupProps,
         activateVariant = $__0.activateVariant,
+        setComponentVisibility = $__0.setComponentVisibility,
         setActiveColor = $__0.setActiveColor,
         resetState = $__0.resetState,
         exportColorScheme = $__0.exportColorScheme,
@@ -37,6 +38,7 @@ var App = React.createClass({
     var $__0 = $traceurRuntime.assertObject(this.state),
         activeVariant = $__0.activeVariant,
         parsedSource = $__0.parsedSource,
+        componentsVisibility = $__0.componentsVisibility,
         selectedGroup = $__0.selectedGroup,
         exportedSource = $__0.exportedSource,
         activeColor = $__0.activeColor,
@@ -45,6 +47,7 @@ var App = React.createClass({
     return span(null, Header(), main(null, Left({
       postProcess: postProcess,
       parsedSource: parsedSource,
+      componentsVisibility: componentsVisibility,
       parse: parse,
       getGroupProps: getGroupProps,
       selectGroup: selectGroup
@@ -53,6 +56,8 @@ var App = React.createClass({
       setPostProcessProps: setPostProcessProps,
       resetGroup: resetGroup,
       activeVariant: activeVariant,
+      setComponentVisibility: setComponentVisibility,
+      componentsVisibility: componentsVisibility,
       getModifiedGroups: getModifiedGroups,
       selectedGroup: selectedGroup,
       resetState: resetState,
@@ -109,6 +114,12 @@ var App = React.createClass({
     if (!(group in groups))
       groups[group] = {};
     Object.assign(groups[group], props);
+    this.setState(newState);
+  },
+  setComponentVisibility: function(component, visibility) {
+    var newState = this.state;
+    var componentsVisibility = $traceurRuntime.assertObject(newState).componentsVisibility;
+    componentsVisibility[component] = visibility;
     this.setState(newState);
   },
   setPostProcessProps: function(props) {
@@ -216,11 +227,13 @@ var Left = React.createClass({render: function() {
     var article = $traceurRuntime.assertObject(React.DOM).article;
     var $__0 = $traceurRuntime.assertObject(this.props),
         parsedSource = $__0.parsedSource,
+        componentsVisibility = $__0.componentsVisibility,
         parse = $__0.parse,
         getGroupProps = $__0.getGroupProps,
         selectGroup = $__0.selectGroup,
         postProcess = $__0.postProcess;
     return article(null, Files(), Vim({
+      componentsVisibility: componentsVisibility,
       parsedSource: parsedSource,
       getGroupProps: getGroupProps,
       selectGroup: selectGroup,
@@ -456,8 +469,51 @@ var Components = React.createClass({render: function() {
         h2 = $__0.h2,
         div = $__0.div,
         button = $__0.button;
-    return section({}, h2({className: 'collapsed'}, 'Components'), div({className: 'line  button-line'}, div({className: 'left'}, 'Tab line'), div({className: 'right'}, button({className: 'small-button'}, 'Hide'))), div({className: 'line  button-line'}, div({className: 'left'}, 'Line numbers'), div({className: 'right'}, button({className: 'small-button'}, 'Hide'))), div({className: 'line button-line'}, div({className: 'left'}, 'Status line'), div({className: 'right'}, button({className: 'small-button'}, 'Show'))));
+    var $__0 = $traceurRuntime.assertObject(this.props),
+        setComponentVisibility = $__0.setComponentVisibility,
+        componentsVisibility = $__0.componentsVisibility;
+    return section({}, h2({className: 'collapsed'}, 'Components'), Component({
+      setComponentVisibility: setComponentVisibility,
+      label: 'Tab line',
+      component: 'tabLine',
+      visibility: componentsVisibility['tabLine']
+    }), Component({
+      setComponentVisibility: setComponentVisibility,
+      label: 'Line numbers',
+      component: 'lineNumbers',
+      visibility: componentsVisibility['lineNumbers']
+    }), Component({
+      setComponentVisibility: setComponentVisibility,
+      label: 'Status line',
+      component: 'statusLine',
+      visibility: componentsVisibility['statusLine']
+    }));
   }});
+var Component = React.createClass({
+  render: function() {
+    var $__0 = $traceurRuntime.assertObject(React.DOM),
+        div = $__0.div,
+        button = $__0.button;
+    var $__0 = this,
+        onClick = $__0.onClick,
+        buttonText = $__0.buttonText;
+    var $__0 = $traceurRuntime.assertObject(this.props),
+        label = $__0.label,
+        component = $__0.component,
+        visibility = $__0.visibility;
+    return div({className: 'line  button-line'}, div({className: 'left'}, label), div({className: 'right'}, button({
+      className: 'small-button',
+      onClick: onClick
+    }, buttonText())));
+  },
+  buttonText: function() {
+    return this.props.visibility === 'show' ? 'Hide' : 'Show';
+  },
+  onClick: function() {
+    var visibility = this.props.visibility === 'show' ? 'hide' : 'show';
+    this.props.setComponentVisibility(this.props.component, visibility);
+  }
+});
 var ModifiedGroups = React.createClass({render: function() {
     var $__0 = $traceurRuntime.assertObject(this.props),
         getModifiedGroups = $__0.getModifiedGroups,
@@ -544,6 +600,7 @@ var Vim = React.createClass({
         onClick = $__0.onClick,
         attrs = $__0.attrs;
     var $__0 = $traceurRuntime.assertObject(this.props),
+        componentsVisibility = $__0.componentsVisibility,
         parsedSource = $__0.parsedSource,
         getGroupProps = $__0.getGroupProps,
         selectGroup = $__0.selectGroup;
@@ -555,10 +612,11 @@ var Vim = React.createClass({
       getGroupProps: getGroupProps,
       selectGroup: selectGroup
     });
-    var content;
+    var source;
     if (parsedSource !== undefined) {
-      content = parsedSource.map((function(line, index) {
+      source = parsedSource.map((function(line, index) {
         return Line({
+          componentsVisibility: componentsVisibility,
           attrs: attrs,
           getGroupProps: getGroupProps,
           line: line,
@@ -570,11 +628,17 @@ var Vim = React.createClass({
         });
       }));
     }
+    var output;
+    if (componentsVisibility['tabLine'] === 'show') {
+      output = [tabLine].concat(source);
+    } else {
+      output = source;
+    }
     return pre({
       style: style,
       className: className,
       onClick: onClick
-    }, [tabLine].concat(content));
+    }, output);
   },
   onClick: function() {
     var selectGroup = $traceurRuntime.assertObject(this.props).selectGroup;
@@ -655,6 +719,7 @@ var TabLineFile = React.createClass({
 var Line = React.createClass({render: function() {
     var span = $traceurRuntime.assertObject(React.DOM).span;
     var $__0 = $traceurRuntime.assertObject(this.props),
+        componentsVisibility = $__0.componentsVisibility,
         attrs = $__0.attrs,
         getGroupProps = $__0.getGroupProps,
         line = $__0.line,
@@ -674,7 +739,8 @@ var Line = React.createClass({render: function() {
         selectGroup: selectGroup
       });
     }));
-    return span(null, lineNumber_.concat(segments.concat(span(null, '\n'))));
+    var output = componentsVisibility['lineNumbers'] === 'show' ? lineNumber_ : [];
+    return span(null, output.concat(segments.concat(span(null, '\n'))));
   }});
 var LineNumber = React.createClass({
   render: function() {
@@ -790,12 +856,12 @@ React.renderComponent(App({
 }), document.body);
 
 
-}).call(this,require("IrXUsu"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/fake_a4df4561.js","/")
+}).call(this,require("IrXUsu"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/fake_848d0260.js","/")
 },{"./components/app":1,"./exporter":8,"./initial-state":10,"./vim-tohtml-parser":156,"IrXUsu":19,"buffer":16,"es6ify/node_modules/traceur/bin/traceur-runtime":15,"react":155}],10:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 "use strict";
 var initialState = {
-  _stateFormatVersion: 0,
+  _version: 0,
   unparsedSource: undefined,
   parsedSource: undefined,
   activeVariant: 'light',
@@ -804,6 +870,10 @@ var initialState = {
   postProcess: {
     brightness: 0,
     saturation: 0
+  },
+  componentsVisibility: {
+    tabLine: 'show',
+    lineNumbers: 'show'
   },
   dark: {
     Normal: {

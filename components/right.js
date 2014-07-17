@@ -173,20 +173,44 @@ var PostProcess = React.createClass({
 var Components = React.createClass({
     render() {
         var {section, h2, div, button} = React.DOM;
+        var {setComponentVisibility, componentsVisibility} = this.props;
 
         return section({},
             h2({className: 'collapsed'}, 'Components'),
-            div({className: 'line  button-line'},
-                div({className: 'left'}, 'Tab line'),
-                div({className: 'right'}, button({className: 'small-button'}, 'Hide'))
-            ),
-            div({className: 'line  button-line'},
-                div({className: 'left'}, 'Line numbers'),
-                div({className: 'right'}, button({className: 'small-button'}, 'Hide'))
-            ),
-            div({className: 'line button-line'},
-                div({className: 'left'}, 'Status line'),
-                div({className: 'right'}, button({className: 'small-button'}, 'Show'))));
+            Component({
+                setComponentVisibility,
+                label: 'Tab line',
+                component: 'tabLine',
+                visibility: componentsVisibility['tabLine']}),
+            Component({
+                setComponentVisibility,
+                label: 'Line numbers',
+                component: 'lineNumbers',
+                visibility: componentsVisibility['lineNumbers']}),
+            Component({
+                setComponentVisibility,
+                label: 'Status line',
+                component: 'statusLine',
+                visibility: componentsVisibility['statusLine']}));
+    }
+});
+
+var Component = React.createClass({
+    render() {
+        var {div, button} = React.DOM;
+        var {onClick, buttonText} = this;
+        var {label, component, visibility} = this.props;
+
+        return div({className: 'line  button-line'},
+            div({className: 'left'}, label),
+            div({className: 'right'}, button({className: 'small-button', onClick}, buttonText())));
+    },
+    buttonText() {
+        return this.props.visibility === 'show' ? 'Hide' : 'Show';
+    },
+    onClick() {
+        var visibility = this.props.visibility === 'show' ? 'hide' : 'show';
+        this.props.setComponentVisibility(this.props.component, visibility);
     }
 });
 
