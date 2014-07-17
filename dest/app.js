@@ -29,6 +29,7 @@ var App = React.createClass({
         parse = $__0.parse,
         selectGroup = $__0.selectGroup,
         setSelectedGroupProps = $__0.setSelectedGroupProps,
+        setActiveFile = $__0.setActiveFile,
         activateVariant = $__0.activateVariant,
         setComponentVisibility = $__0.setComponentVisibility,
         setActiveColor = $__0.setActiveColor,
@@ -38,6 +39,7 @@ var App = React.createClass({
         clearExportedSource = $__0.clearExportedSource;
     var $__0 = $traceurRuntime.assertObject(this.state),
         activeVariant = $__0.activeVariant,
+        activeFile = $__0.activeFile,
         parsedSource = $__0.parsedSource,
         componentsVisibility = $__0.componentsVisibility,
         selectedGroup = $__0.selectedGroup,
@@ -49,6 +51,8 @@ var App = React.createClass({
       postProcess: postProcess,
       parsedSource: parsedSource,
       setParsedSource: setParsedSource,
+      setActiveFile: setActiveFile,
+      activeFile: activeFile,
       componentsVisibility: componentsVisibility,
       parse: parse,
       getGroupProps: getGroupProps,
@@ -111,6 +115,9 @@ var App = React.createClass({
   },
   setParsedSource: function(parsedSource) {
     this.setState({parsedSource: parsedSource});
+  },
+  setActiveFile: function(activeFile) {
+    this.setState({activeFile: activeFile});
   },
   setSelectedGroupProps: function(props) {
     var newState = this.state;
@@ -233,6 +240,8 @@ var Vim = require('./vim');
 var Left = React.createClass({render: function() {
     var article = $traceurRuntime.assertObject(React.DOM).article;
     var $__0 = $traceurRuntime.assertObject(this.props),
+        setActiveFile = $__0.setActiveFile,
+        activeFile = $__0.activeFile,
         setParsedSource = $__0.setParsedSource,
         parsedSource = $__0.parsedSource,
         componentsVisibility = $__0.componentsVisibility,
@@ -240,7 +249,11 @@ var Left = React.createClass({render: function() {
         getGroupProps = $__0.getGroupProps,
         selectGroup = $__0.selectGroup,
         postProcess = $__0.postProcess;
-    return article(null, Files({setParsedSource: setParsedSource}), Vim({
+    return article(null, Files({
+      setParsedSource: setParsedSource,
+      setActiveFile: setActiveFile,
+      activeFile: activeFile
+    }), Vim({
       componentsVisibility: componentsVisibility,
       parsedSource: parsedSource,
       getGroupProps: getGroupProps,
@@ -253,25 +266,32 @@ var Left = React.createClass({render: function() {
   }});
 var Files = React.createClass({render: function() {
     var ul = $traceurRuntime.assertObject(React.DOM).ul;
-    var setParsedSource = $traceurRuntime.assertObject(this.props).setParsedSource;
+    var $__0 = $traceurRuntime.assertObject(this.props),
+        setParsedSource = $__0.setParsedSource,
+        activeFile = $__0.activeFile,
+        setActiveFile = $__0.setActiveFile;
     return ul({className: 'files'}, FileLink({
       type: 'html',
       title: 'HTML',
-      active: true,
-      setParsedSource: setParsedSource
+      active: activeFile === 'html',
+      setParsedSource: setParsedSource,
+      setActiveFile: setActiveFile
     }), FileLink({
       type: 'css',
       title: 'CSS',
-      active: false,
-      setParsedSource: setParsedSource
+      active: activeFile === 'css',
+      setParsedSource: setParsedSource,
+      setActiveFile: setActiveFile
     }), FileLink({
       type: 'javascript',
       title: 'JavaScript',
-      active: false,
-      setParsedSource: setParsedSource
+      active: activeFile === 'javascript',
+      setParsedSource: setParsedSource,
+      setActiveFile: setActiveFile
     }), PasteLink({
-      active: false,
-      setParsedSource: setParsedSource
+      active: activeFile === undefined,
+      setParsedSource: setParsedSource,
+      setActiveFile: setActiveFile
     }));
   }});
 var FileLink = React.createClass({
@@ -290,8 +310,10 @@ var FileLink = React.createClass({
   onClick: function(e) {
     var $__0 = $traceurRuntime.assertObject(this.props),
         setParsedSource = $__0.setParsedSource,
+        setActiveFile = $__0.setActiveFile,
         type = $__0.type;
     setParsedSource(files[type].parsedSource);
+    setActiveFile(type);
   }
 });
 var PasteLink = React.createClass({
@@ -299,15 +321,18 @@ var PasteLink = React.createClass({
     var li = $traceurRuntime.assertObject(React.DOM).li;
     var onClick = this.onClick;
     var active = $traceurRuntime.assertObject(this.props).active;
-    var className = 'paste-link' + (active === true ? 'active' : '');
+    var className = 'paste-link' + (active === true ? ' active' : '');
     return li({
       className: className,
       onClick: onClick
     }, 'Paste');
   },
   onClick: function(e) {
-    var setParsedSource = $traceurRuntime.assertObject(this.props).setParsedSource;
+    var $__0 = $traceurRuntime.assertObject(this.props),
+        setParsedSource = $__0.setParsedSource,
+        setActiveFile = $__0.setActiveFile;
     setParsedSource(undefined);
+    setActiveFile(undefined);
   }
 });
 var Paste = React.createClass({
@@ -922,7 +947,7 @@ React.renderComponent(App({
 }), document.body);
 
 
-}).call(this,require("IrXUsu"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/fake_9aa7827e.js","/")
+}).call(this,require("IrXUsu"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/fake_1277a5a.js","/")
 },{"./components/app":1,"./exporter":8,"./initial-state":11,"./vim-tohtml-parser":157,"IrXUsu":20,"buffer":17,"es6ify/node_modules/traceur/bin/traceur-runtime":16,"react":156}],10:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 "use strict";
@@ -1443,6 +1468,7 @@ var initialState = {
   activeVariant: 'light',
   selectedGroup: 'Normal',
   activeColor: 'foreground',
+  activeFile: 'html',
   postProcess: {
     brightness: 0,
     saturation: 0

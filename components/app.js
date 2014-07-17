@@ -26,6 +26,7 @@ var App = React.createClass({
             parse,
             selectGroup,
             setSelectedGroupProps,
+            setActiveFile,
             activateVariant,
             setComponentVisibility,
             setActiveColor,
@@ -33,7 +34,7 @@ var App = React.createClass({
             setParsedSource,
             exportColorScheme,
             clearExportedSource} = this;
-        var {activeVariant, parsedSource, componentsVisibility, selectedGroup, exportedSource, activeColor, postProcess} = this.state;
+        var {activeVariant, activeFile, parsedSource, componentsVisibility, selectedGroup, exportedSource, activeColor, postProcess} = this.state;
         var {exportColorscheme} = this.props;
 
         return span(
@@ -44,6 +45,8 @@ var App = React.createClass({
                     postProcess,
                     parsedSource,
                     setParsedSource,
+                    setActiveFile,
+                    activeFile,
                     componentsVisibility,
                     parse,
                     getGroupProps,
@@ -116,6 +119,9 @@ var App = React.createClass({
     },
     setParsedSource(parsedSource) {
         this.setState({parsedSource});
+    },
+    setActiveFile(activeFile) {
+        this.setState({activeFile});
     },
     setSelectedGroupProps(props) {
         var newState = this.state;

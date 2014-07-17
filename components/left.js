@@ -7,10 +7,10 @@ var Vim = require('./vim');
 var Left = React.createClass({
     render() {
         var {article} = React.DOM;
-        var {setParsedSource, parsedSource, componentsVisibility, parse, getGroupProps, selectGroup, postProcess} = this.props;
+        var {setActiveFile, activeFile, setParsedSource, parsedSource, componentsVisibility, parse, getGroupProps, selectGroup, postProcess} = this.props;
 
         return article(null,
-            Files({setParsedSource}),
+            Files({setParsedSource, setActiveFile, activeFile}),
             Vim({componentsVisibility, parsedSource, getGroupProps, selectGroup, postProcess}),
             Paste({parsedSource, parse}));
     }
@@ -19,13 +19,13 @@ var Left = React.createClass({
 var Files = React.createClass({
     render() {
         var {ul} = React.DOM;
-        var {setParsedSource} = this.props;
+        var {setParsedSource, activeFile, setActiveFile} = this.props;
 
         return ul({className: 'files'},
-            FileLink({type: 'html', title: 'HTML', active: true, setParsedSource}),
-            FileLink({type: 'css', title: 'CSS', active: false, setParsedSource}),
-            FileLink({type: 'javascript', title: 'JavaScript', active: false, setParsedSource}),
-            PasteLink({active: false, setParsedSource}));
+            FileLink({type: 'html', title: 'HTML', active: activeFile === 'html', setParsedSource, setActiveFile}),
+            FileLink({type: 'css', title: 'CSS', active: activeFile === 'css', setParsedSource, setActiveFile}),
+            FileLink({type: 'javascript', title: 'JavaScript', active: activeFile === 'javascript', setParsedSource, setActiveFile}),
+            PasteLink({active: activeFile === undefined, setParsedSource, setActiveFile}));
     }
 });
 
@@ -39,8 +39,9 @@ var FileLink = React.createClass({
         return li({className, onClick}, title);
     },
     onClick(e) {
-        var {setParsedSource, type} = this.props;
+        var {setParsedSource, setActiveFile, type} = this.props;
         setParsedSource(files[type].parsedSource);
+        setActiveFile(type);
     }
 });
 
@@ -49,13 +50,14 @@ var PasteLink = React.createClass({
         var {li} = React.DOM;
         var {onClick} = this;
         var {active} = this.props;
-        var className = 'paste-link' + (active === true ? 'active' : '');
+        var className = 'paste-link' + (active === true ? ' active' : '');
 
         return li({className, onClick}, 'Paste');
     },
     onClick(e) {
-        var {setParsedSource} = this.props;
+        var {setParsedSource, setActiveFile} = this.props;
         setParsedSource(undefined);
+        setActiveFile(undefined);
     }
 });
 

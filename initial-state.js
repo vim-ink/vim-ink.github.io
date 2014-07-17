@@ -6,6 +6,7 @@ var initialState = {
     activeVariant: 'light',
     selectedGroup: 'Normal',
     activeColor: 'foreground',
+    activeFile: 'html',
     postProcess: {
         brightness: 0,
         saturation: 0
