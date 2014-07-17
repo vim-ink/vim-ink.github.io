@@ -228,6 +228,7 @@ module.exports = Header;
 "use strict";
 var React = require('react');
 var files = require('../files');
+var _ = require('lodash');
 var Vim = require('./vim');
 var Left = React.createClass({render: function() {
     var article = $traceurRuntime.assertObject(React.DOM).article;
@@ -318,7 +319,8 @@ var Paste = React.createClass({
     return textarea({
       onChange: onChange,
       className: className,
-      placeholder: 'Paste output of `:TOhtml` here.'
+      placeholder: 'Paste output of `:TOhtml` here.',
+      value: ''
     });
   },
   onChange: function(e) {
@@ -330,7 +332,7 @@ module.exports = Left;
 
 
 }).call(this,require("IrXUsu"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/components/left.js","/components")
-},{"../files":10,"./vim":7,"IrXUsu":20,"buffer":17,"react":156}],6:[function(require,module,exports){
+},{"../files":10,"./vim":7,"IrXUsu":20,"buffer":17,"lodash":21,"react":156}],6:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 "use strict";
 var React = require('react');
@@ -920,7 +922,7 @@ React.renderComponent(App({
 }), document.body);
 
 
-}).call(this,require("IrXUsu"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/fake_7ca57528.js","/")
+}).call(this,require("IrXUsu"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/fake_9aa7827e.js","/")
 },{"./components/app":1,"./exporter":8,"./initial-state":11,"./vim-tohtml-parser":157,"IrXUsu":20,"buffer":17,"es6ify/node_modules/traceur/bin/traceur-runtime":16,"react":156}],10:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 "use strict";
@@ -1437,7 +1439,6 @@ module.exports = files;
 var files = require('./files');
 var initialState = {
   _version: 0,
-  unparsedSource: undefined,
   parsedSource: files.html.parsedSource,
   activeVariant: 'light',
   selectedGroup: 'Normal',

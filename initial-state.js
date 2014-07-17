@@ -2,7 +2,6 @@ var files = require('./files');
 
 var initialState = {
     _version: 0,
-    unparsedSource: undefined,
     parsedSource: files.html.parsedSource,
     activeVariant: 'light',
     selectedGroup: 'Normal',

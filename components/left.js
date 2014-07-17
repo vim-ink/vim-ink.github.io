@@ -1,5 +1,6 @@
 var React = require('react');
 var files = require('../files');
+var _ = require('lodash');
 
 var Vim = require('./vim');
 
@@ -66,7 +67,7 @@ var Paste = React.createClass({
 
         var className = (parsedSource !== undefined) ? 'hidden' : 'paste';
 
-        return textarea({onChange, className, placeholder: 'Paste output of `:TOhtml` here.'});
+        return textarea({onChange, className, placeholder: 'Paste output of `:TOhtml` here.', value: ''});
     },
     onChange(e) {
         var {parse} = this.props;
