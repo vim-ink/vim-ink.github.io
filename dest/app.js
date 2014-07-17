@@ -102,7 +102,7 @@ var App = React.createClass({
     var initialGroups = initialState[this.state.activeVariant];
     var groups = newState[this.state.activeVariant];
     if (group in initialGroups)
-      groups[group] = initialGroups[group];
+      groups[group] = _.cloneDeep(initialGroups[group]);
     else
       delete groups[group];
     this.setState(newState);
@@ -522,12 +522,16 @@ var ModifiedGroups = React.createClass({render: function() {
         getModifiedGroups = $__0.getModifiedGroups,
         resetGroup = $__0.resetGroup;
     var groups = getModifiedGroups();
-    return section({}, h2({className: 'collapsed'}, 'Modified groups'), groups.map((function(group) {
-      return ModifiedGroup({
-        group: group,
-        resetGroup: resetGroup
-      });
-    })));
+    if (groups.length === 0) {
+      return section({});
+    } else {
+      return section({}, h2({className: 'collapsed'}, 'Modified groups'), groups.map((function(group) {
+        return ModifiedGroup({
+          group: group,
+          resetGroup: resetGroup
+        });
+      })));
+    }
   }});
 var ModifiedGroup = React.createClass({
   render: function() {
@@ -856,7 +860,7 @@ React.renderComponent(App({
 }), document.body);
 
 
-}).call(this,require("IrXUsu"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/fake_b632630.js","/")
+}).call(this,require("IrXUsu"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/fake_9bb9a347.js","/")
 },{"./components/app":1,"./exporter":8,"./initial-state":10,"./vim-tohtml-parser":156,"IrXUsu":19,"buffer":16,"es6ify/node_modules/traceur/bin/traceur-runtime":15,"react":155}],10:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 "use strict";

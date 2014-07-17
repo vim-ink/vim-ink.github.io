@@ -105,7 +105,7 @@ var App = React.createClass({
         var groups = newState[this.state.activeVariant];
 
         if (group in initialGroups)
-            groups[group] = initialGroups[group];
+            groups[group] = _.cloneDeep(initialGroups[group]);
         else
             delete groups[group];
 

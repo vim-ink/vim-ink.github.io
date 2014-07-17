@@ -220,9 +220,13 @@ var ModifiedGroups = React.createClass({
         var {getModifiedGroups, resetGroup} = this.props;
         var groups = getModifiedGroups();
 
-        return section({},
-            h2({className: 'collapsed'}, 'Modified groups'),
-            groups.map(group => ModifiedGroup({group, resetGroup})));
+        if (groups.length === 0) {
+            return section({});
+        } else {
+            return section({},
+                h2({className: 'collapsed'}, 'Modified groups'),
+                groups.map(group => ModifiedGroup({group, resetGroup})));
+        }
     }
 });
 
