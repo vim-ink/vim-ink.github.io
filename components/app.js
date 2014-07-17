@@ -30,6 +30,7 @@ var App = React.createClass({
             setComponentVisibility,
             setActiveColor,
             resetState,
+            setParsedSource,
             exportColorScheme,
             clearExportedSource} = this;
         var {activeVariant, parsedSource, componentsVisibility, selectedGroup, exportedSource, activeColor, postProcess} = this.state;
@@ -42,6 +43,7 @@ var App = React.createClass({
                 Left({
                     postProcess,
                     parsedSource,
+                    setParsedSource,
                     componentsVisibility,
                     parse,
                     getGroupProps,
@@ -90,6 +92,7 @@ var App = React.createClass({
         };
     },
     getModifiedGroups() {
+        // console.log(JSON.stringify(this.state.parsedSource));
         var {initialState} = this.props;
         var initialGroups = initialState[this.state.activeVariant];
         var groups = this.state[this.state.activeVariant];
@@ -110,6 +113,9 @@ var App = React.createClass({
             delete groups[group];
 
         this.setState(newState);
+    },
+    setParsedSource(parsedSource) {
+        this.setState({parsedSource});
     },
     setSelectedGroupProps(props) {
         var newState = this.state;

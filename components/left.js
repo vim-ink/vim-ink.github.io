@@ -1,14 +1,15 @@
 var React = require('react');
+var files = require('../files');
 
 var Vim = require('./vim');
 
 var Left = React.createClass({
     render() {
         var {article} = React.DOM;
-        var {parsedSource, componentsVisibility, parse, getGroupProps, selectGroup, postProcess} = this.props;
+        var {setParsedSource, parsedSource, componentsVisibility, parse, getGroupProps, selectGroup, postProcess} = this.props;
 
         return article(null,
-            Files(),
+            Files({setParsedSource}),
             Vim({componentsVisibility, parsedSource, getGroupProps, selectGroup, postProcess}),
             Paste({parsedSource, parse}));
     }
@@ -16,17 +17,44 @@ var Left = React.createClass({
 
 var Files = React.createClass({
     render() {
-        var {ul, li} = React.DOM;
+        var {ul} = React.DOM;
+        var {setParsedSource} = this.props;
 
         return ul({className: 'files'},
-            li(null, 'HTML'),
-            li({className: 'active'}, 'CSS'),
-            li(null, 'JavaScript'),
-            li(null, 'Python'),
-            li(null, 'Ruby'),
-            li(null, 'Go'),
-            li(null, 'Rust'),
-            li({className: 'paste-link'}, 'Paste'));
+            FileLink({type: 'html', title: 'HTML', active: true, setParsedSource}),
+            FileLink({type: 'css', title: 'CSS', active: false, setParsedSource}),
+            FileLink({type: 'javascript', title: 'JavaScript', active: false, setParsedSource}),
+            PasteLink({active: false, setParsedSource}));
+    }
+});
+
+var FileLink = React.createClass({
+    render() {
+        var {li} = React.DOM;
+        var {onClick} = this;
+        var {title, active} = this.props;
+        var className = active === true ? 'active' : '';
+
+        return li({className, onClick}, title);
+    },
+    onClick(e) {
+        var {setParsedSource, type} = this.props;
+        setParsedSource(files[type].parsedSource);
+    }
+});
+
+var PasteLink = React.createClass({
+    render() {
+        var {li} = React.DOM;
+        var {onClick} = this;
+        var {active} = this.props;
+        var className = 'paste-link' + (active === true ? 'active' : '');
+
+        return li({className, onClick}, 'Paste');
+    },
+    onClick(e) {
+        var {setParsedSource} = this.props;
+        setParsedSource(undefined);
     }
 });
 
