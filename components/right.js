@@ -157,10 +157,22 @@ var PostProcess = React.createClass({
             h2({className: 'collapsed'}, 'Post process'),
             div({className: 'line post-process-line'},
                 div({className: 'left'}, 'Brightness'),
-                div({className: 'right'}, input({onChange: onChangeBrightness, type: 'range', min: -0.25, max: 0.25, step: 0.025, value: brightness}))),
+                div({className: 'right'}, input({
+                    type: 'range',
+                    min: -0.25,
+                    max: 0.25,
+                    step: 0.025,
+                    value: brightness,
+                    onChange: onChangeBrightness}))),
             div({className: 'line post-process-line'},
                 div({className: 'left'}, 'Saturation'),
-                div({className: 'right'}, input({onChange: onChangeSaturation, type: 'range', min: -1.0, max: 1.0, step: 0.1, value: saturation}))));
+                div({className: 'right'}, input({
+                    type: 'range',
+                    min: -1.0,
+                    max: 1.0,
+                    step: 0.1,
+                    value: saturation,
+                    onChange: onChangeSaturation}))));
     },
     onChangeBrightness(e) {
         this.props.setPostProcessProps({brightness: e.target.value});
@@ -175,7 +187,7 @@ var Components = React.createClass({
         var {section, h2, div, button} = React.DOM;
         var {setComponentVisibility, componentsVisibility} = this.props;
 
-        return section({},
+        return section(null,
             h2({className: 'collapsed'}, 'Components'),
             Component({
                 setComponentVisibility,
@@ -198,15 +210,16 @@ var Components = React.createClass({
 var Component = React.createClass({
     render() {
         var {div, button} = React.DOM;
-        var {onClick, buttonText} = this;
+        var {onClick} = this;
         var {label, component, visibility} = this.props;
+
+        var buttonText = visibility === 'show' ? 'Hide' : 'Show';
 
         return div({className: 'line  button-line'},
             div({className: 'left'}, label),
-            div({className: 'right'}, button({className: 'small-button', onClick}, buttonText())));
-    },
-    buttonText() {
-        return this.props.visibility === 'show' ? 'Hide' : 'Show';
+            div({className: 'right'},
+                button({className: 'small-button', onClick},
+                buttonText)));
     },
     onClick() {
         var visibility = this.props.visibility === 'show' ? 'hide' : 'show';

@@ -22,10 +22,27 @@ var Files = React.createClass({
         var {setParsedSource, activeFile, setActiveFile} = this.props;
 
         return ul({className: 'files'},
-            FileLink({type: 'html', title: 'HTML', active: activeFile === 'html', setParsedSource, setActiveFile}),
-            FileLink({type: 'css', title: 'CSS', active: activeFile === 'css', setParsedSource, setActiveFile}),
-            FileLink({type: 'javascript', title: 'JavaScript', active: activeFile === 'javascript', setParsedSource, setActiveFile}),
-            PasteLink({active: activeFile === undefined, setParsedSource, setActiveFile}));
+            FileLink({
+                type: 'html',
+                title: 'HTML',
+                active: activeFile === 'html',
+                setParsedSource,
+                setActiveFile}),
+            FileLink({
+                type: 'css',
+                title: 'CSS',
+                active: activeFile === 'css',
+                setParsedSource,
+                setActiveFile}),
+            FileLink({
+                type: 'javascript',
+                title: 'JavaScript',
+                active: activeFile === 'javascript',
+                setParsedSource,
+                setActiveFile}),
+            PasteLink({
+                active: activeFile === undefined,
+                setParsedSource, setActiveFile}));
     }
 });
 
