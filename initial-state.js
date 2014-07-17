@@ -22,13 +22,33 @@ var initialState = {
             highlight: 'NONE'
         },
         TabLine: {
-            color: '#000000',
-            backgroundColor: '#aaaaaa',
+            color: '#666666',
+            backgroundColor: '#000000',
             highlight: 'NONE'
         },
         TabLineSel: {
-            color: '#000000',
-            backgroundColor: '#cccccc',
+            color: '#999999',
+            backgroundColor: '#000000',
+            highlight: 'NONE'
+        },
+        LineNr: {
+            color: '#666666',
+            backgroundColor: '#000000',
+            highlight: 'NONE'
+        },
+        String: {
+            color: '#999999',
+            backgroundColor: '#000000',
+            highlight: 'NONE'
+        },
+        Number: {
+            color: '#999999',
+            backgroundColor: '#000000',
+            highlight: 'NONE'
+        },
+        Comment: {
+            color: '#666666',
+            backgroundColor: '#000000',
             highlight: 'NONE'
         },
         Cursor: {
@@ -45,13 +65,28 @@ var initialState = {
             highlight: 'NONE'
         },
         TabLine: {
-            color: '#000000',
-            backgroundColor: '#cccccc',
+            color: '#cccccc',
+            backgroundColor: '#ffffff',
             highlight: 'NONE'
         },
         TabLineSel: {
-            color: '#000000',
-            backgroundColor: '#aaaaaa',
+            color: '#999999',
+            backgroundColor: '#ffffff',
+            highlight: 'NONE'
+        },
+        LineNr: {
+            color: '#cccccc',
+            backgroundColor: '#ffffff',
+            highlight: 'NONE'
+        },
+        String: {
+            color: '#999999',
+            backgroundColor: '#ffffff',
+            highlight: 'NONE'
+        },
+        Number: {
+            color: '#999999',
+            backgroundColor: '#ffffff',
             highlight: 'NONE'
         },
         Cursor: {

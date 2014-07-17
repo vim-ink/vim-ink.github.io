@@ -22,56 +22,56 @@ var App = React.createClass({
         span = $__0.span,
         main = $__0.main;
     var $__0 = this,
-        getGroupProps = $__0.getGroupProps,
-        setPostProcessProps = $__0.setPostProcessProps,
-        getModifiedGroups = $__0.getModifiedGroups,
-        resetGroup = $__0.resetGroup,
-        parse = $__0.parse,
-        selectGroup = $__0.selectGroup,
-        setSelectedGroupProps = $__0.setSelectedGroupProps,
-        setActiveFile = $__0.setActiveFile,
         activateVariant = $__0.activateVariant,
-        setComponentVisibility = $__0.setComponentVisibility,
-        setActiveColor = $__0.setActiveColor,
-        resetState = $__0.resetState,
-        setParsedSource = $__0.setParsedSource,
+        clearExportedSource = $__0.clearExportedSource,
         exportColorScheme = $__0.exportColorScheme,
-        clearExportedSource = $__0.clearExportedSource;
+        getGroupProps = $__0.getGroupProps,
+        getModifiedGroups = $__0.getModifiedGroups,
+        parse = $__0.parse,
+        resetGroup = $__0.resetGroup,
+        resetState = $__0.resetState,
+        selectGroup = $__0.selectGroup,
+        setActiveColor = $__0.setActiveColor,
+        setActiveFile = $__0.setActiveFile,
+        setComponentVisibility = $__0.setComponentVisibility,
+        setParsedSource = $__0.setParsedSource,
+        setPostProcessProps = $__0.setPostProcessProps,
+        setSelectedGroupProps = $__0.setSelectedGroupProps;
     var $__0 = $traceurRuntime.assertObject(this.state),
-        activeVariant = $__0.activeVariant,
-        activeFile = $__0.activeFile,
-        parsedSource = $__0.parsedSource,
-        componentsVisibility = $__0.componentsVisibility,
-        selectedGroup = $__0.selectedGroup,
-        exportedSource = $__0.exportedSource,
         activeColor = $__0.activeColor,
-        postProcess = $__0.postProcess;
+        activeFile = $__0.activeFile,
+        activeVariant = $__0.activeVariant,
+        componentsVisibility = $__0.componentsVisibility,
+        exportedSource = $__0.exportedSource,
+        parsedSource = $__0.parsedSource,
+        postProcess = $__0.postProcess,
+        selectedGroup = $__0.selectedGroup;
     var exportColorscheme = $traceurRuntime.assertObject(this.props).exportColorscheme;
     return span(null, Header(), main(null, Left({
-      postProcess: postProcess,
-      parsedSource: parsedSource,
-      setParsedSource: setParsedSource,
-      setActiveFile: setActiveFile,
       activeFile: activeFile,
       componentsVisibility: componentsVisibility,
-      parse: parse,
       getGroupProps: getGroupProps,
-      selectGroup: selectGroup
-    }), Right({
+      parse: parse,
+      parsedSource: parsedSource,
       postProcess: postProcess,
-      setPostProcessProps: setPostProcessProps,
-      resetGroup: resetGroup,
-      activeVariant: activeVariant,
-      setComponentVisibility: setComponentVisibility,
-      componentsVisibility: componentsVisibility,
-      getModifiedGroups: getModifiedGroups,
-      selectedGroup: selectedGroup,
-      resetState: resetState,
-      exportColorScheme: exportColorScheme,
+      selectGroup: selectGroup,
+      setActiveFile: setActiveFile,
+      setParsedSource: setParsedSource
+    }), Right({
       activateVariant: activateVariant,
       activeColor: activeColor,
-      setActiveColor: setActiveColor,
+      activeVariant: activeVariant,
+      componentsVisibility: componentsVisibility,
+      exportColorScheme: exportColorScheme,
       getGroupProps: getGroupProps,
+      getModifiedGroups: getModifiedGroups,
+      postProcess: postProcess,
+      resetGroup: resetGroup,
+      resetState: resetState,
+      selectedGroup: selectedGroup,
+      setActiveColor: setActiveColor,
+      setComponentVisibility: setComponentVisibility,
+      setPostProcessProps: setPostProcessProps,
       setSelectedGroupProps: setSelectedGroupProps
     })), Footer(), Export({
       exportedSource: exportedSource,
@@ -947,7 +947,7 @@ React.renderComponent(App({
 }), document.body);
 
 
-}).call(this,require("IrXUsu"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/fake_1277a5a.js","/")
+}).call(this,require("IrXUsu"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/fake_106b5bd4.js","/")
 },{"./components/app":1,"./exporter":8,"./initial-state":11,"./vim-tohtml-parser":157,"IrXUsu":20,"buffer":17,"es6ify/node_modules/traceur/bin/traceur-runtime":16,"react":156}],10:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 "use strict";
@@ -1484,13 +1484,33 @@ var initialState = {
       highlight: 'NONE'
     },
     TabLine: {
-      color: '#000000',
-      backgroundColor: '#aaaaaa',
+      color: '#666666',
+      backgroundColor: '#000000',
       highlight: 'NONE'
     },
     TabLineSel: {
-      color: '#000000',
-      backgroundColor: '#cccccc',
+      color: '#999999',
+      backgroundColor: '#000000',
+      highlight: 'NONE'
+    },
+    LineNr: {
+      color: '#666666',
+      backgroundColor: '#000000',
+      highlight: 'NONE'
+    },
+    String: {
+      color: '#999999',
+      backgroundColor: '#000000',
+      highlight: 'NONE'
+    },
+    Number: {
+      color: '#999999',
+      backgroundColor: '#000000',
+      highlight: 'NONE'
+    },
+    Comment: {
+      color: '#666666',
+      backgroundColor: '#000000',
       highlight: 'NONE'
     },
     Cursor: {highlight: 'reverse'},
@@ -1503,13 +1523,28 @@ var initialState = {
       highlight: 'NONE'
     },
     TabLine: {
-      color: '#000000',
-      backgroundColor: '#cccccc',
+      color: '#cccccc',
+      backgroundColor: '#ffffff',
       highlight: 'NONE'
     },
     TabLineSel: {
-      color: '#000000',
-      backgroundColor: '#aaaaaa',
+      color: '#999999',
+      backgroundColor: '#ffffff',
+      highlight: 'NONE'
+    },
+    LineNr: {
+      color: '#cccccc',
+      backgroundColor: '#ffffff',
+      highlight: 'NONE'
+    },
+    String: {
+      color: '#999999',
+      backgroundColor: '#ffffff',
+      highlight: 'NONE'
+    },
+    Number: {
+      color: '#999999',
+      backgroundColor: '#ffffff',
       highlight: 'NONE'
     },
     Cursor: {highlight: 'reverse'},
