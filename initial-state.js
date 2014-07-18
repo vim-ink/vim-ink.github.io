@@ -23,33 +23,33 @@ var initialState = {
         },
         TabLine: {
             color: '#666666',
-            backgroundColor: '#000000',
-            highlight: 'NONE'
         },
         TabLineSel: {
             color: '#999999',
-            backgroundColor: '#000000',
-            highlight: 'NONE'
         },
         LineNr: {
             color: '#666666',
-            backgroundColor: '#000000',
-            highlight: 'NONE'
         },
         String: {
             color: '#999999',
-            backgroundColor: '#000000',
-            highlight: 'NONE'
         },
         Number: {
             color: '#999999',
-            backgroundColor: '#000000',
-            highlight: 'NONE'
         },
         Comment: {
             color: '#666666',
-            backgroundColor: '#000000',
-            highlight: 'NONE'
+        },
+        StorageClass: {
+            color: '#666666',
+        },
+        Conditional: {
+            color: '#666666',
+        },
+        Special: {
+            color: '#666666',
+        },
+        Type: {
+            color: '#666666',
         },
         Cursor: {
             highlight: 'reverse'
@@ -66,28 +66,33 @@ var initialState = {
         },
         TabLine: {
             color: '#cccccc',
-            backgroundColor: '#ffffff',
-            highlight: 'NONE'
         },
         TabLineSel: {
             color: '#999999',
-            backgroundColor: '#ffffff',
-            highlight: 'NONE'
         },
         LineNr: {
             color: '#cccccc',
-            backgroundColor: '#ffffff',
-            highlight: 'NONE'
         },
         String: {
             color: '#999999',
-            backgroundColor: '#ffffff',
-            highlight: 'NONE'
         },
         Number: {
             color: '#999999',
-            backgroundColor: '#ffffff',
-            highlight: 'NONE'
+        },
+        Comment: {
+            color: '#cccccc',
+        },
+        StorageClass: {
+            color: '#666666',
+        },
+        Conditional: {
+            color: '#666666',
+        },
+        Special: {
+            color: '#666666',
+        },
+        Type: {
+            color: '#666666',
         },
         Cursor: {
             highlight: 'reverse'

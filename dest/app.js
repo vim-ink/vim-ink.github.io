@@ -951,7 +951,7 @@ React.renderComponent(App({
 }), document.body);
 
 
-}).call(this,require("IrXUsu"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/fake_a9a93585.js","/")
+}).call(this,require("IrXUsu"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/fake_a1d34c69.js","/")
 },{"./components/app":1,"./exporter":8,"./initial-state":11,"./vim-tohtml-parser":157,"IrXUsu":20,"buffer":17,"es6ify/node_modules/traceur/bin/traceur-runtime":16,"react":156}],10:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 "use strict";
@@ -1487,36 +1487,16 @@ var initialState = {
       backgroundColor: '#000000',
       highlight: 'NONE'
     },
-    TabLine: {
-      color: '#666666',
-      backgroundColor: '#000000',
-      highlight: 'NONE'
-    },
-    TabLineSel: {
-      color: '#999999',
-      backgroundColor: '#000000',
-      highlight: 'NONE'
-    },
-    LineNr: {
-      color: '#666666',
-      backgroundColor: '#000000',
-      highlight: 'NONE'
-    },
-    String: {
-      color: '#999999',
-      backgroundColor: '#000000',
-      highlight: 'NONE'
-    },
-    Number: {
-      color: '#999999',
-      backgroundColor: '#000000',
-      highlight: 'NONE'
-    },
-    Comment: {
-      color: '#666666',
-      backgroundColor: '#000000',
-      highlight: 'NONE'
-    },
+    TabLine: {color: '#666666'},
+    TabLineSel: {color: '#999999'},
+    LineNr: {color: '#666666'},
+    String: {color: '#999999'},
+    Number: {color: '#999999'},
+    Comment: {color: '#666666'},
+    StorageClass: {color: '#666666'},
+    Conditional: {color: '#666666'},
+    Special: {color: '#666666'},
+    Type: {color: '#666666'},
     Cursor: {highlight: 'reverse'},
     Visual: {highlight: 'reverse'}
   },
@@ -1526,31 +1506,16 @@ var initialState = {
       backgroundColor: '#ffffff',
       highlight: 'NONE'
     },
-    TabLine: {
-      color: '#cccccc',
-      backgroundColor: '#ffffff',
-      highlight: 'NONE'
-    },
-    TabLineSel: {
-      color: '#999999',
-      backgroundColor: '#ffffff',
-      highlight: 'NONE'
-    },
-    LineNr: {
-      color: '#cccccc',
-      backgroundColor: '#ffffff',
-      highlight: 'NONE'
-    },
-    String: {
-      color: '#999999',
-      backgroundColor: '#ffffff',
-      highlight: 'NONE'
-    },
-    Number: {
-      color: '#999999',
-      backgroundColor: '#ffffff',
-      highlight: 'NONE'
-    },
+    TabLine: {color: '#cccccc'},
+    TabLineSel: {color: '#999999'},
+    LineNr: {color: '#cccccc'},
+    String: {color: '#999999'},
+    Number: {color: '#999999'},
+    Comment: {color: '#cccccc'},
+    StorageClass: {color: '#666666'},
+    Conditional: {color: '#666666'},
+    Special: {color: '#666666'},
+    Type: {color: '#666666'},
     Cursor: {highlight: 'reverse'},
     Visual: {highlight: 'reverse'}
   }
