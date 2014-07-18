@@ -590,6 +590,7 @@ aside h2 {
     margin-top: 2rem;
     margin-bottom: 1.5rem;
     text-transform: uppercase;
+    cursor: default;
 }
 
 aside section:first-child h2 {
@@ -610,6 +611,14 @@ body.light aside h2 {
 body.dark aside h2 {
     border-top: 1px solid #333;
     color: #666;
+}
+
+body.light aside h2:hover {
+    color: #888;
+}
+
+body.dark aside h2:hover {
+    color: #888;
 }
 
 /* .hidden */
