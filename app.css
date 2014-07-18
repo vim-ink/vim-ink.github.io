@@ -35,14 +35,6 @@ body {
     margin: 0;
 }
 
-/* body, ul, header, footer, h2, article, input { */
-/*     transition: all 0.5s ease; */
-/* } */
-
-/* button { */
-/*     transition: all 0.2s ease; */
-/* } */
-
 body.light {
     background-color: #eee;
     color: #888;
