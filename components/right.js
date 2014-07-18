@@ -9,9 +9,9 @@ var Right = React.createClass({
             SelectedGroup(this.props),
             Color(this.props),
             Highlight(this.props),
+            PostProcess(this.props),
             ModifiedGroups(this.props),
             Components(this.props),
-            PostProcess(this.props),
             Export(this.props),
             DangerZone(this.props));
     }

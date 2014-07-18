@@ -390,7 +390,7 @@ module.exports = Left;
 var React = require('react');
 var Right = React.createClass({render: function() {
     var aside = $traceurRuntime.assertObject(React.DOM).aside;
-    return aside(null, Variant(this.props), SelectedGroup(this.props), Color(this.props), Highlight(this.props), ModifiedGroups(this.props), Components(this.props), PostProcess(this.props), Export(this.props), DangerZone(this.props));
+    return aside(null, Variant(this.props), SelectedGroup(this.props), Color(this.props), Highlight(this.props), PostProcess(this.props), ModifiedGroups(this.props), Components(this.props), Export(this.props), DangerZone(this.props));
   }});
 var Section = React.createClass({
   render: function() {
@@ -1059,7 +1059,7 @@ React.renderComponent(App({
 }), document.body);
 
 
-}).call(this,require("IrXUsu"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/fake_b03f46ed.js","/")
+}).call(this,require("IrXUsu"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/fake_699dec12.js","/")
 },{"./components/app":1,"./exporter":8,"./initial-state":11,"./vim-tohtml-parser":157,"IrXUsu":20,"buffer":17,"es6ify/node_modules/traceur/bin/traceur-runtime":16,"react":156}],10:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 "use strict";
