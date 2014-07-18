@@ -48,6 +48,9 @@ var initialState = {
         Number: {
             color: '#999999',
         },
+        Constant: {
+            color: '#999999',
+        },
         Comment: {
             color: '#666666',
         },
@@ -89,6 +92,9 @@ var initialState = {
             color: '#999999',
         },
         Number: {
+            color: '#999999',
+        },
+        Constant: {
             color: '#999999',
         },
         Comment: {

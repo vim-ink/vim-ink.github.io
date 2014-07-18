@@ -297,29 +297,16 @@ var Files = React.createClass({render: function() {
         setParsedSource = $__0.setParsedSource,
         activeFile = $__0.activeFile,
         setActiveFile = $__0.setActiveFile;
-    return ul({className: 'files'}, FileLink({
+    return ul({className: 'files'}, FileLink(Object.assign({}, this.props, {
       type: 'html',
-      title: 'HTML',
-      active: activeFile === 'html',
-      setParsedSource: setParsedSource,
-      setActiveFile: setActiveFile
-    }), FileLink({
+      title: 'HTML'
+    })), FileLink(Object.assign({}, this.props, {
       type: 'css',
-      title: 'CSS',
-      active: activeFile === 'css',
-      setParsedSource: setParsedSource,
-      setActiveFile: setActiveFile
-    }), FileLink({
+      title: 'CSS'
+    })), FileLink(Object.assign({}, this.props, {
       type: 'javascript',
-      title: 'JavaScript',
-      active: activeFile === 'javascript',
-      setParsedSource: setParsedSource,
-      setActiveFile: setActiveFile
-    }), PasteLink({
-      active: activeFile === undefined,
-      setParsedSource: setParsedSource,
-      setActiveFile: setActiveFile
-    }));
+      title: 'JavaScript'
+    })), PasteLink(this.props));
   }});
 var FileLink = React.createClass({
   render: function() {
@@ -327,8 +314,9 @@ var FileLink = React.createClass({
     var onClick = this.onClick;
     var $__0 = $traceurRuntime.assertObject(this.props),
         title = $__0.title,
-        active = $__0.active;
-    var className = active === true ? 'active' : '';
+        type = $__0.type,
+        activeFile = $__0.activeFile;
+    var className = type === activeFile ? 'active' : '';
     return li({
       className: className,
       onClick: onClick
@@ -347,8 +335,8 @@ var PasteLink = React.createClass({
   render: function() {
     var li = $traceurRuntime.assertObject(React.DOM).li;
     var onClick = this.onClick;
-    var active = $traceurRuntime.assertObject(this.props).active;
-    var className = 'paste-link' + (active === true ? ' active' : '');
+    var activeFile = $traceurRuntime.assertObject(this.props).activeFile;
+    var className = 'paste-link' + (activeFile === undefined ? ' active' : '');
     return li({
       className: className,
       onClick: onClick
@@ -394,23 +382,23 @@ var Right = React.createClass({render: function() {
   }});
 var Section = React.createClass({
   render: function() {
-    var $__0 = $traceurRuntime.assertObject(React.DOM),
-        section = $__0.section,
-        h2 = $__0.h2;
+    var $__1 = $traceurRuntime.assertObject(React.DOM),
+        section = $__1.section,
+        h2 = $__1.h2;
     var onClick = this.onClick;
-    var $__0 = $traceurRuntime.assertObject(this.props),
-        children = $__0.children,
-        title = $__0.title,
-        sectionsVisibility = $__0.sectionsVisibility,
-        id = $__0.id;
-    var content = sectionsVisibility[id] === 'show' ? children : null;
-    return section(null, h2({onClick: onClick}, title), content);
+    var $__1 = $traceurRuntime.assertObject(this.props),
+        children = $__1.children,
+        title = $__1.title,
+        sectionsVisibility = $__1.sectionsVisibility,
+        id = $__1.id;
+    var children_ = sectionsVisibility[id] === 'show' ? children : null;
+    return section(null, h2({onClick: onClick}, title), children_);
   },
   onClick: function() {
-    var $__0 = $traceurRuntime.assertObject(this.props),
-        setSectionVisibility = $__0.setSectionVisibility,
-        sectionsVisibility = $__0.sectionsVisibility,
-        id = $__0.id;
+    var $__1 = $traceurRuntime.assertObject(this.props),
+        setSectionVisibility = $__1.setSectionVisibility,
+        sectionsVisibility = $__1.sectionsVisibility,
+        id = $__1.id;
     var toggledVisibility = sectionsVisibility[id] === 'show' ? 'hide' : 'show';
     setSectionVisibility(id, toggledVisibility);
   }
@@ -418,20 +406,21 @@ var Section = React.createClass({
 var Variant = React.createClass({
   render: function() {
     var button = $traceurRuntime.assertObject(React.DOM).button;
-    var $__0 = this,
-        onLightClick = $__0.onLightClick,
-        onDarkClick = $__0.onDarkClick;
-    var lightActive = this.props.activeVariant === 'light' ? ' active' : '';
-    var darkActive = this.props.activeVariant === 'dark' ? ' active' : '';
+    var $__1 = this,
+        onLightClick = $__1.onLightClick,
+        onDarkClick = $__1.onDarkClick;
+    var activeVariant = $traceurRuntime.assertObject(this.props).activeVariant;
+    var lightClassName = 'switch-button light-button' + (activeVariant === 'light' ? ' active' : '');
+    var darkClassName = 'switch-button dark-button' + (activeVariant === 'dark' ? ' active' : '');
     return Section(Object.assign({}, this.props, {
       id: 'variant',
       title: 'Variant'
     }), button({
       onClick: onLightClick,
-      className: 'switch-button light-button' + lightActive
+      className: lightClassName
     }, 'Light'), button({
       onClick: onDarkClick,
-      className: 'switch-button dark-button' + darkActive
+      className: darkClassName
     }, 'Dark'));
   },
   onLightClick: function() {
@@ -442,15 +431,15 @@ var Variant = React.createClass({
   }
 });
 var SelectedGroup = React.createClass({render: function() {
-    var $__0 = $traceurRuntime.assertObject(React.DOM),
-        div = $__0.div,
-        span = $__0.span;
-    var $__0 = $traceurRuntime.assertObject(this.props),
-        selectedGroup = $__0.selectedGroup,
-        hoverGroup = $__0.hoverGroup,
-        sectionsVisibility = $__0.sectionsVisibility;
+    var $__1 = $traceurRuntime.assertObject(React.DOM),
+        div = $__1.div,
+        span = $__1.span;
+    var $__1 = $traceurRuntime.assertObject(this.props),
+        selectedGroup = $__1.selectedGroup,
+        hoverGroup = $__1.hoverGroup,
+        sectionsVisibility = $__1.sectionsVisibility;
     var className = 'line selected-group-line';
-    var hoverGroupContent = hoverGroup !== undefined && hoverGroup !== selectedGroup ? hoverGroup : null;
+    var hoverGroupContent = (hoverGroup !== undefined && hoverGroup !== selectedGroup ? hoverGroup : null);
     return Section(Object.assign({}, this.props, {
       id: 'selectedGroup',
       title: 'Selected group'
@@ -458,19 +447,19 @@ var SelectedGroup = React.createClass({render: function() {
   }});
 var Color = React.createClass({
   render: function() {
-    var $__0 = $traceurRuntime.assertObject(React.DOM),
-        div = $__0.div,
-        input = $__0.input,
-        label = $__0.label;
-    var $__0 = $traceurRuntime.assertObject(this.props),
-        getGroupProps = $__0.getGroupProps,
-        selectedGroup = $__0.selectedGroup,
-        activeColor = $__0.activeColor;
-    var $__0 = this,
-        onChangeColor = $__0.onChangeColor,
-        onChangeBackgroundColor = $__0.onChangeBackgroundColor,
-        onBackgroundClick = $__0.onBackgroundClick,
-        onForegroundClick = $__0.onForegroundClick;
+    var $__1 = $traceurRuntime.assertObject(React.DOM),
+        div = $__1.div,
+        input = $__1.input,
+        label = $__1.label;
+    var $__1 = $traceurRuntime.assertObject(this.props),
+        getGroupProps = $__1.getGroupProps,
+        selectedGroup = $__1.selectedGroup,
+        activeColor = $__1.activeColor;
+    var $__1 = this,
+        onBackgroundClick = $__1.onBackgroundClick,
+        onChangeBackgroundColor = $__1.onChangeBackgroundColor,
+        onChangeColor = $__1.onChangeColor,
+        onForegroundClick = $__1.onForegroundClick;
     var foregroundActive = activeColor === 'foreground' ? ' active' : '';
     var backgroundActive = activeColor === 'background' ? ' active' : '';
     var colorPair = getGroupProps(selectedGroup);
@@ -513,43 +502,46 @@ var Color = React.createClass({
   }
 });
 var Highlight = React.createClass({render: function() {
+    var $__0 = this;
     var div = $traceurRuntime.assertObject(React.DOM).div;
-    var button = this.button;
+    var button = (function(o) {
+      return HighlightButton(Object.assign({}, $__0.props, o));
+    });
     return Section(Object.assign({}, this.props, {
       id: 'highlight',
       title: 'Highlight'
-    }), div({className: 'line'}, HighlightButton(Object.assign({}, this.props, {
+    }), div({className: 'line'}, button({
       type: 'NONE',
       content: 'n'
-    })), HighlightButton(Object.assign({}, this.props, {
+    }), button({
       type: 'bold',
       content: 'b'
-    })), HighlightButton(Object.assign({}, this.props, {
+    }), button({
       type: 'italic',
       content: 'i'
-    })), HighlightButton(Object.assign({}, this.props, {
+    }), button({
       type: 'underline',
       content: 'u'
-    })), HighlightButton(Object.assign({}, this.props, {
+    }), button({
       type: 'undercurl',
       content: 'u'
-    }))), div({className: 'line'}, HighlightButton(Object.assign({}, this.props, {
+    })), div({className: 'line'}, button({
       type: 'reverse',
       content: 'r'
-    })), HighlightButton(Object.assign({}, this.props, {
+    }), button({
       type: 'standout',
       content: 's'
-    }))));
+    })));
   }});
 var HighlightButton = React.createClass({
   render: function() {
-    var $__0 = $traceurRuntime.assertObject(React.DOM),
-        button = $__0.button,
-        span = $__0.span;
+    var $__1 = $traceurRuntime.assertObject(React.DOM),
+        button = $__1.button,
+        span = $__1.span;
     var onClick = this.onClick;
-    var $__0 = $traceurRuntime.assertObject(this.props),
-        type = $__0.type,
-        content = $__0.content;
+    var $__1 = $traceurRuntime.assertObject(this.props),
+        type = $__1.type,
+        content = $__1.content;
     var className = this.className(type);
     return button({
       className: className,
@@ -557,34 +549,34 @@ var HighlightButton = React.createClass({
     }, span(null, content));
   },
   className: function(type) {
-    var $__0 = $traceurRuntime.assertObject(this.props),
-        getGroupProps = $__0.getGroupProps,
-        selectedGroup = $__0.selectedGroup;
+    var $__1 = $traceurRuntime.assertObject(this.props),
+        getGroupProps = $__1.getGroupProps,
+        selectedGroup = $__1.selectedGroup;
     var selectedType = $traceurRuntime.assertObject(this.props).selectedType;
     var selectedType = getGroupProps(selectedGroup).highlight;
     return 'highlight-button ' + type.toLowerCase() + (type === selectedType ? ' active' : '');
   },
   onClick: function(e) {
-    var $__0 = $traceurRuntime.assertObject(this.props),
-        setSelectedGroupProps = $__0.setSelectedGroupProps,
-        type = $__0.type;
+    var $__1 = $traceurRuntime.assertObject(this.props),
+        setSelectedGroupProps = $__1.setSelectedGroupProps,
+        type = $__1.type;
     setSelectedGroupProps({highlight: type});
   }
 });
 var PostProcess = React.createClass({
   render: function() {
-    var $__0 = $traceurRuntime.assertObject(React.DOM),
-        section = $__0.section,
-        h2 = $__0.h2,
-        div = $__0.div,
-        input = $__0.input;
+    var $__1 = $traceurRuntime.assertObject(React.DOM),
+        section = $__1.section,
+        h2 = $__1.h2,
+        div = $__1.div,
+        input = $__1.input;
     var postProcess = $traceurRuntime.assertObject(this.props).postProcess;
-    var $__0 = this,
-        onChangeBrightness = $__0.onChangeBrightness,
-        onChangeSaturation = $__0.onChangeSaturation;
-    var $__0 = $traceurRuntime.assertObject(postProcess),
-        brightness = $__0.brightness,
-        saturation = $__0.saturation;
+    var $__1 = this,
+        onChangeBrightness = $__1.onChangeBrightness,
+        onChangeSaturation = $__1.onChangeSaturation;
+    var $__1 = $traceurRuntime.assertObject(postProcess),
+        brightness = $__1.brightness,
+        saturation = $__1.saturation;
     var brightnessClassName = 'left' + (-brightness === 0 ? ' inactive' : '');
     var saturationClassName = 'left' + (-saturation === 0 ? ' inactive' : '');
     return Section(Object.assign({}, this.props, {
@@ -614,12 +606,12 @@ var PostProcess = React.createClass({
   }
 });
 var Components = React.createClass({render: function() {
-    var $__0 = $traceurRuntime.assertObject(React.DOM),
-        div = $__0.div,
-        button = $__0.button;
-    var $__0 = $traceurRuntime.assertObject(this.props),
-        setComponentVisibility = $__0.setComponentVisibility,
-        componentsVisibility = $__0.componentsVisibility;
+    var $__1 = $traceurRuntime.assertObject(React.DOM),
+        div = $__1.div,
+        button = $__1.button;
+    var $__1 = $traceurRuntime.assertObject(this.props),
+        setComponentVisibility = $__1.setComponentVisibility,
+        componentsVisibility = $__1.componentsVisibility;
     return Section(Object.assign({}, this.props, {
       id: 'components',
       title: 'Components'
@@ -642,14 +634,14 @@ var Components = React.createClass({render: function() {
   }});
 var Component = React.createClass({
   render: function() {
-    var $__0 = $traceurRuntime.assertObject(React.DOM),
-        div = $__0.div,
-        button = $__0.button;
+    var $__1 = $traceurRuntime.assertObject(React.DOM),
+        div = $__1.div,
+        button = $__1.button;
     var onClick = this.onClick;
-    var $__0 = $traceurRuntime.assertObject(this.props),
-        label = $__0.label,
-        component = $__0.component,
-        visibility = $__0.visibility;
+    var $__1 = $traceurRuntime.assertObject(this.props),
+        label = $__1.label,
+        component = $__1.component,
+        visibility = $__1.visibility;
     var buttonText = visibility === 'show' ? 'Hide' : 'Show';
     return div({className: 'line  button-line'}, div({className: 'left'}, label), div({className: 'right'}, button({
       className: 'small-button',
@@ -663,9 +655,9 @@ var Component = React.createClass({
 });
 var ModifiedGroups = React.createClass({render: function() {
     var div = $traceurRuntime.assertObject(React.DOM).div;
-    var $__0 = $traceurRuntime.assertObject(this.props),
-        getModifiedGroups = $__0.getModifiedGroups,
-        resetGroup = $__0.resetGroup;
+    var $__1 = $traceurRuntime.assertObject(this.props),
+        getModifiedGroups = $__1.getModifiedGroups,
+        resetGroup = $__1.resetGroup;
     var groups = getModifiedGroups();
     var content = groups.length === 0 ? div({className: 'modified-groups-line none'}, 'None') : groups.map((function(group) {
       return ModifiedGroup({
@@ -680,9 +672,9 @@ var ModifiedGroups = React.createClass({render: function() {
   }});
 var ModifiedGroup = React.createClass({
   render: function() {
-    var $__0 = $traceurRuntime.assertObject(React.DOM),
-        div = $__0.div,
-        button = $__0.button;
+    var $__1 = $traceurRuntime.assertObject(React.DOM),
+        div = $__1.div,
+        button = $__1.button;
     var onClick = this.onClick;
     var group = $traceurRuntime.assertObject(this.props).group;
     return div({className: 'line button-line'}, div({className: 'left'}, group), div({className: 'right'}, button({
@@ -696,13 +688,13 @@ var ModifiedGroup = React.createClass({
 });
 var Export = React.createClass({
   render: function() {
-    var $__0 = $traceurRuntime.assertObject(React.DOM),
-        section = $__0.section,
-        h2 = $__0.h2,
-        div = $__0.div,
-        label = $__0.label,
-        input = $__0.input,
-        button = $__0.button;
+    var $__1 = $traceurRuntime.assertObject(React.DOM),
+        section = $__1.section,
+        h2 = $__1.h2,
+        div = $__1.div,
+        label = $__1.label,
+        input = $__1.input,
+        button = $__1.button;
     var onExportClick = this.onExportClick;
     return Section(Object.assign({}, this.props, {
       id: 'export_',
@@ -721,11 +713,11 @@ var Export = React.createClass({
 });
 var DangerZone = React.createClass({
   render: function() {
-    var $__0 = $traceurRuntime.assertObject(React.DOM),
-        section = $__0.section,
-        h2 = $__0.h2,
-        div = $__0.div,
-        button = $__0.button;
+    var $__1 = $traceurRuntime.assertObject(React.DOM),
+        section = $__1.section,
+        h2 = $__1.h2,
+        div = $__1.div,
+        button = $__1.button;
     var onResetClick = this.onResetClick;
     return Section(Object.assign({}, this.props, {
       id: 'dangerZone',
@@ -1056,7 +1048,7 @@ React.renderComponent(App({
 }), document.body);
 
 
-}).call(this,require("IrXUsu"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/fake_f3ad775.js","/")
+}).call(this,require("IrXUsu"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/fake_1fcd1008.js","/")
 },{"./components/app":1,"./exporter":8,"./initial-state":11,"./vim-tohtml-parser":157,"IrXUsu":20,"buffer":17,"es6ify/node_modules/traceur/bin/traceur-runtime":16,"react":156}],10:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 "use strict";
@@ -1609,6 +1601,7 @@ var initialState = {
     LineNr: {color: '#666666'},
     String: {color: '#999999'},
     Number: {color: '#999999'},
+    Constant: {color: '#999999'},
     Comment: {color: '#666666'},
     StorageClass: {color: '#666666'},
     Conditional: {color: '#666666'},
@@ -1628,6 +1621,7 @@ var initialState = {
     LineNr: {color: '#cccccc'},
     String: {color: '#999999'},
     Number: {color: '#999999'},
+    Constant: {color: '#999999'},
     Comment: {color: '#cccccc'},
     StorageClass: {color: '#666666'},
     Conditional: {color: '#666666'},

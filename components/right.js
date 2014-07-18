@@ -23,9 +23,9 @@ var Section = React.createClass({
         var {onClick} = this;
         var {children, title, sectionsVisibility, id} = this.props;
 
-        var content = sectionsVisibility[id] === 'show' ? children : null;
+        var children_ = sectionsVisibility[id] === 'show' ? children : null;
 
-        return section(null, h2({onClick}, title), content);
+        return section(null, h2({onClick}, title), children_);
     },
     onClick() {
         var {setSectionVisibility, sectionsVisibility, id} = this.props;
@@ -39,20 +39,23 @@ var Variant = React.createClass({
     render() {
         var {button} = React.DOM;
         var {onLightClick, onDarkClick} = this;
+        var {activeVariant} = this.props;
 
-        var lightActive = this.props.activeVariant === 'light' ? ' active' : '';
-        var darkActive = this.props.activeVariant === 'dark' ? ' active' : '';
+        var lightClassName = 'switch-button light-button' + (activeVariant === 'light' ? ' active' : '');
+        var darkClassName = 'switch-button dark-button' + (activeVariant === 'dark' ? ' active' : '');
 
         return Section(Object.assign({}, this.props, {
             id: 'variant',
             title: 'Variant'}),
             button({
-                onClick: onLightClick,
-                className: 'switch-button light-button' + lightActive},
+                    onClick: onLightClick,
+                    className: lightClassName
+                },
                 'Light'),
             button({
-                onClick: onDarkClick,
-                className: 'switch-button dark-button' + darkActive},
+                    onClick: onDarkClick,
+                    className: darkClassName
+                },
                 'Dark'));
     },
     onLightClick() {
@@ -67,8 +70,11 @@ var SelectedGroup = React.createClass({
     render() {
         var {div, span} = React.DOM;
         var {selectedGroup, hoverGroup, sectionsVisibility} = this.props;
+
         var className = 'line selected-group-line';
-        var hoverGroupContent = hoverGroup !== undefined && hoverGroup !== selectedGroup ? hoverGroup : null;
+        var hoverGroupContent = (hoverGroup !== undefined && hoverGroup !== selectedGroup ?
+            hoverGroup :
+            null);
 
         return Section(Object.assign({}, this.props, {
             id: 'selectedGroup',
@@ -83,7 +89,12 @@ var Color = React.createClass({
     render() {
         var {div, input, label} = React.DOM;
         var {getGroupProps, selectedGroup, activeColor} = this.props;
-        var {onChangeColor, onChangeBackgroundColor, onBackgroundClick, onForegroundClick} = this;
+        var {
+            onBackgroundClick,
+            onChangeBackgroundColor,
+            onChangeColor,
+            onForegroundClick
+        } = this;
 
         var foregroundActive = activeColor === 'foreground' ? ' active' : '';
         var backgroundActive = activeColor === 'background' ? ' active' : '';
@@ -101,8 +112,11 @@ var Color = React.createClass({
                         accessKey: 'f',
                         value: colorPair.color,
                         onClick: onForegroundClick,
-                        onChange: onChangeColor}),
-                    div({className: 'color', style: {backgroundColor: colorPair.color}})),
+                        onChange: onChangeColor
+                    }),
+                    div({
+                        className: 'color',
+                        style: {backgroundColor: colorPair.color}})),
                 div({className: 'right' + foregroundActive},
                     label({htmlFor: 'foregroundColor'}, 'Foreground'))),
             div({className: 'line color-line'},
@@ -113,8 +127,11 @@ var Color = React.createClass({
                         accessKey: 'b',
                         value: colorPair.backgroundColor,
                         onClick: onBackgroundClick,
-                        onChange: onChangeBackgroundColor}),
-                    div({className: 'color', style: {backgroundColor: colorPair.backgroundColor}})),
+                        onChange: onChangeBackgroundColor
+                    }),
+                    div({
+                        className: 'color',
+                        style: {backgroundColor: colorPair.backgroundColor}})),
                 div({className: 'right' + backgroundActive},
                     label({htmlFor: 'backgroundColor'}, 'Background'))));
     },
@@ -135,20 +152,21 @@ var Color = React.createClass({
 var Highlight = React.createClass({
     render() {
         var {div} = React.DOM;
-        var {button} = this;
+
+        var button = (o) => HighlightButton(Object.assign({}, this.props, o));
 
         return Section(Object.assign({}, this.props, {
             id: 'highlight',
             title: 'Highlight'}),
             div({className: 'line'},
-                HighlightButton(Object.assign({}, this.props, {type: 'NONE', content: 'n'})),
-                HighlightButton(Object.assign({}, this.props, {type: 'bold', content: 'b'})),
-                HighlightButton(Object.assign({}, this.props, {type: 'italic', content: 'i'})),
-                HighlightButton(Object.assign({}, this.props, {type: 'underline', content: 'u'})),
-                HighlightButton(Object.assign({}, this.props, {type: 'undercurl', content: 'u'}))),
+                button({type: 'NONE', content: 'n'}),
+                button({type: 'bold', content: 'b'}),
+                button({type: 'italic', content: 'i'}),
+                button({type: 'underline', content: 'u'}),
+                button({type: 'undercurl', content: 'u'})),
             div({className: 'line'},
-                HighlightButton(Object.assign({}, this.props, {type: 'reverse', content: 'r'})),
-                HighlightButton(Object.assign({}, this.props, {type: 'standout', content: 's'}))));
+                button({type: 'reverse', content: 'r'}),
+                button({type: 'standout', content: 's'})));
     }
 });
 
@@ -157,6 +175,7 @@ var HighlightButton = React.createClass({
         var {button, span} = React.DOM;
         var {onClick} = this;
         var {type, content} = this.props;
+
         var className = this.className(type);
 
         return button({className, onClick}, span(null, content));
