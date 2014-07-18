@@ -549,14 +549,17 @@ var PostProcess = React.createClass({
     var $__0 = $traceurRuntime.assertObject(postProcess),
         brightness = $__0.brightness,
         saturation = $__0.saturation;
-    return section({}, h2({className: 'collapsed'}, 'Post process'), div({className: 'line post-process-line'}, div({className: 'left'}, 'Brightness'), div({className: 'right'}, input({
+    console.log(brightness);
+    var brightnessClassName = 'left' + (-brightness === 0 ? ' inactive' : '');
+    var saturationClassName = 'left' + (-saturation === 0 ? ' inactive' : '');
+    return section({}, h2({className: 'collapsed'}, 'Post process'), div({className: 'line post-process-line'}, div({className: brightnessClassName}, 'Brightness'), div({className: 'right'}, input({
       type: 'range',
       min: -0.25,
       max: 0.25,
       step: 0.025,
       value: brightness,
       onChange: onChangeBrightness
-    }))), div({className: 'line post-process-line'}, div({className: 'left'}, 'Saturation'), div({className: 'right'}, input({
+    }))), div({className: 'line post-process-line'}, div({className: saturationClassName}, 'Saturation'), div({className: 'right'}, input({
       type: 'range',
       min: -1.0,
       max: 1.0,
@@ -1010,7 +1013,7 @@ React.renderComponent(App({
 }), document.body);
 
 
-}).call(this,require("IrXUsu"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/fake_4786ce3c.js","/")
+}).call(this,require("IrXUsu"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/fake_45752053.js","/")
 },{"./components/app":1,"./exporter":8,"./initial-state":11,"./vim-tohtml-parser":157,"IrXUsu":20,"buffer":17,"es6ify/node_modules/traceur/bin/traceur-runtime":16,"react":156}],10:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 "use strict";

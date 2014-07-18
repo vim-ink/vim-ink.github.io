@@ -733,6 +733,14 @@ body.dark .color-line .right.active {
     margin-top: 0.1rem;
 }
 
+body.light .post-process-line .left.inactive {
+    color: #aaa;
+}
+
+body.dark .post-process-line .left.inactive {
+    color: #666;
+}
+
 /* .export-line-input */
 
 .export-line-input .left {

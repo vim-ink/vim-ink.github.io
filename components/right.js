@@ -163,11 +163,14 @@ var PostProcess = React.createClass({
         var {onChangeBrightness, onChangeSaturation} = this;
 
         var {brightness, saturation} = postProcess;
+        console.log(brightness);
+        var brightnessClassName = 'left' + (-brightness === 0 ? ' inactive' : '');
+        var saturationClassName = 'left' + (-saturation === 0 ? ' inactive' : '');
 
         return section({},
             h2({className: 'collapsed'}, 'Post process'),
             div({className: 'line post-process-line'},
-                div({className: 'left'}, 'Brightness'),
+                div({className: brightnessClassName}, 'Brightness'),
                 div({className: 'right'}, input({
                     type: 'range',
                     min: -0.25,
@@ -176,7 +179,7 @@ var PostProcess = React.createClass({
                     value: brightness,
                     onChange: onChangeBrightness}))),
             div({className: 'line post-process-line'},
-                div({className: 'left'}, 'Saturation'),
+                div({className: saturationClassName}, 'Saturation'),
                 div({className: 'right'}, input({
                     type: 'range',
                     min: -1.0,
