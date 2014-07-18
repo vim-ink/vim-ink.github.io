@@ -34,6 +34,7 @@ var App = React.createClass({
             setHoverGroup,
             setParsedSource,
             setPostProcessProps,
+            setSectionVisibility,
             setSelectedGroupProps} = this;
         var {activeColor,
             activeFile,
@@ -43,6 +44,7 @@ var App = React.createClass({
             hoverGroup,
             parsedSource,
             postProcess,
+            sectionsVisibility,
             selectedGroup} = this.state;
         var {exportColorscheme} = this.props;
 
@@ -71,10 +73,12 @@ var App = React.createClass({
                     postProcess,
                     resetGroup,
                     resetState,
+                    sectionsVisibility,
                     selectedGroup,
                     setActiveColor,
                     setComponentVisibility,
                     setPostProcessProps,
+                    setSectionVisibility,
                     setSelectedGroupProps})),
             Footer(),
             Export({exportedSource, clearExportedSource}));
@@ -144,6 +148,12 @@ var App = React.createClass({
             groups[group] = {};
 
         Object.assign(groups[group], props);
+        this.setState(newState);
+    },
+    setSectionVisibility(section, visibility) {
+        var newState = this.state;
+        var {sectionsVisibility} = newState;
+        sectionsVisibility[section] = visibility;
         this.setState(newState);
     },
     setComponentVisibility(component, visibility) {

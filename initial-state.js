@@ -16,6 +16,17 @@ var initialState = {
         tabLine: 'show',
         lineNumbers: 'show'
     },
+    sectionsVisibility: {
+        variant: 'show',
+        selectedGroup: 'show',
+        color: 'show',
+        highlight: 'show',
+        modifiedGroups: 'hide',
+        components: 'hide',
+        postProcess: 'hide',
+        export_: 'show',
+        dangerZone: 'hide'
+    },
     dark: {
         Normal: {
             color: '#cccccc',

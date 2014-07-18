@@ -17,16 +17,35 @@ var Right = React.createClass({
     }
 });
 
+var Section = React.createClass({
+    render() {
+        var {section, h2} = React.DOM;
+        var {onClick} = this;
+        var {children, title, sectionsVisibility, id} = this.props;
+
+        var content = sectionsVisibility[id] === 'show' ? children : null;
+
+        return section(null, h2({onClick}, title), content);
+    },
+    onClick() {
+        var {setSectionVisibility, sectionsVisibility, id} = this.props;
+        var toggledVisibility = sectionsVisibility[id] === 'show' ? 'hide' : 'show';
+
+        setSectionVisibility(id, toggledVisibility);
+    }
+});
+
 var Variant = React.createClass({
     render() {
-        var {section, h2, button} = React.DOM;
+        var {button} = React.DOM;
         var {onLightClick, onDarkClick} = this;
 
         var lightActive = this.props.activeVariant === 'light' ? ' active' : '';
         var darkActive = this.props.activeVariant === 'dark' ? ' active' : '';
 
-        return section({},
-            h2(null, 'Variant'),
+        return Section(Object.assign({}, this.props, {
+            id: 'variant',
+            title: 'Variant'}),
             button({
                 onClick: onLightClick,
                 className: 'switch-button light-button' + lightActive},
@@ -46,14 +65,14 @@ var Variant = React.createClass({
 
 var SelectedGroup = React.createClass({
     render() {
-        var {section, h2, div, span} = React.DOM;
-        var {selectedGroup, hoverGroup} = this.props;
+        var {div, span} = React.DOM;
+        var {selectedGroup, hoverGroup, sectionsVisibility} = this.props;
         var className = 'line selected-group-line';
         var hoverGroupContent = hoverGroup !== undefined && hoverGroup !== selectedGroup ? hoverGroup : null;
 
-        return section(
-            null,
-            h2(null, 'Selected group'),
+        return Section(Object.assign({}, this.props, {
+            id: 'selectedGroup',
+            title: 'Selected group'}),
             div({className},
                 span({className: 'left'}, selectedGroup),
                 span({className: 'right'}, hoverGroupContent)));
@@ -62,7 +81,7 @@ var SelectedGroup = React.createClass({
 
 var Color = React.createClass({
     render() {
-        var {section, h2, div, input, label} = React.DOM;
+        var {div, input, label} = React.DOM;
         var {getGroupProps, selectedGroup, activeColor} = this.props;
         var {onChangeColor, onChangeBackgroundColor, onBackgroundClick, onForegroundClick} = this;
 
@@ -71,8 +90,9 @@ var Color = React.createClass({
 
         var colorPair = getGroupProps(selectedGroup);
 
-        return section({},
-            h2(null, 'Color'),
+        return Section(Object.assign({}, this.props, {
+            id: 'color',
+            title: 'Color'}),
             div({className: 'line color-line'},
                 div({className: 'left'},
                     input({
@@ -114,11 +134,12 @@ var Color = React.createClass({
 
 var Highlight = React.createClass({
     render() {
-        var {section, h2, div} = React.DOM;
+        var {div} = React.DOM;
         var {button} = this;
 
-        return section({},
-            h2({className: 'collapsed'}, 'Highlight'),
+        return Section(Object.assign({}, this.props, {
+            id: 'highlight',
+            title: 'Highlight'}),
             div({className: 'line'},
                 HighlightButton(Object.assign({}, this.props, {type: 'NONE', content: 'n'})),
                 HighlightButton(Object.assign({}, this.props, {type: 'bold', content: 'b'})),
@@ -163,12 +184,12 @@ var PostProcess = React.createClass({
         var {onChangeBrightness, onChangeSaturation} = this;
 
         var {brightness, saturation} = postProcess;
-        console.log(brightness);
         var brightnessClassName = 'left' + (-brightness === 0 ? ' inactive' : '');
         var saturationClassName = 'left' + (-saturation === 0 ? ' inactive' : '');
 
-        return section({},
-            h2({className: 'collapsed'}, 'Post process'),
+        return Section(Object.assign({}, this.props, {
+            id: 'postProcess',
+            title: 'Post process'}),
             div({className: 'line post-process-line'},
                 div({className: brightnessClassName}, 'Brightness'),
                 div({className: 'right'}, input({
@@ -198,11 +219,12 @@ var PostProcess = React.createClass({
 
 var Components = React.createClass({
     render() {
-        var {section, h2, div, button} = React.DOM;
+        var {div, button} = React.DOM;
         var {setComponentVisibility, componentsVisibility} = this.props;
 
-        return section(null,
-            h2({className: 'collapsed'}, 'Components'),
+        return Section(Object.assign({}, this.props, {
+            id: 'components',
+            title: 'Components'}),
             Component({
                 setComponentVisibility,
                 label: 'Tab line',
@@ -243,15 +265,16 @@ var Component = React.createClass({
 
 var ModifiedGroups = React.createClass({
     render() {
-        var {section, h2} = React.DOM;
+        var {section} = React.DOM;
         var {getModifiedGroups, resetGroup} = this.props;
         var groups = getModifiedGroups();
 
         if (groups.length === 0) {
-            return section({});
+            return section({}); // TODO: return null after upgrading React
         } else {
-            return section({},
-                h2({className: 'collapsed'}, 'Modified groups'),
+            return Section(Object.assign({}, this.props, {
+                id: 'modifiedGroups',
+                title: 'Modified groups'}),
                 groups.map(group => ModifiedGroup({group, resetGroup})));
         }
     }
@@ -277,8 +300,9 @@ var Export = React.createClass({
         var {section, h2, div, label, input, button} = React.DOM;
         var {onExportClick} = this;
         
-        return section({},
-            h2(null, 'Export'),
+        return Section(Object.assign({}, this.props, {
+            id: 'export_',
+            title: 'Export'}),
             div({className: 'line export-line-input'},
                 div({className: 'left'}, label(null, 'Name')),
                 div({className: 'right'}, input({className: 'text', value: 'whatever'}))),
@@ -295,8 +319,9 @@ var DangerZone = React.createClass({
         var {section, h2, div, button} = React.DOM;
         var {onResetClick} = this;
 
-        return section({},
-            h2({className: 'collapsed'}, 'Danger zone'),
+        return Section(Object.assign({}, this.props, {
+            id: 'dangerZone',
+            title: 'Danger zone'}),
             div({className: 'line danger-zone-line'},
                 button({className: 'button', onClick: onResetClick}, 'Reset')));
     },
