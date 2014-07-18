@@ -662,24 +662,21 @@ var Component = React.createClass({
   }
 });
 var ModifiedGroups = React.createClass({render: function() {
-    var section = $traceurRuntime.assertObject(React.DOM).section;
+    var div = $traceurRuntime.assertObject(React.DOM).div;
     var $__0 = $traceurRuntime.assertObject(this.props),
         getModifiedGroups = $__0.getModifiedGroups,
         resetGroup = $__0.resetGroup;
     var groups = getModifiedGroups();
-    if (groups.length === 0) {
-      return section({});
-    } else {
-      return Section(Object.assign({}, this.props, {
-        id: 'modifiedGroups',
-        title: 'Modified groups'
-      }), groups.map((function(group) {
-        return ModifiedGroup({
-          group: group,
-          resetGroup: resetGroup
-        });
-      })));
-    }
+    var content = groups.length === 0 ? div({className: 'modified-groups-line none'}, 'None') : groups.map((function(group) {
+      return ModifiedGroup({
+        group: group,
+        resetGroup: resetGroup
+      });
+    }));
+    return Section(Object.assign({}, this.props, {
+      id: 'modifiedGroups',
+      title: 'Modified groups'
+    }), content);
   }});
 var ModifiedGroup = React.createClass({
   render: function() {
@@ -1059,7 +1056,7 @@ React.renderComponent(App({
 }), document.body);
 
 
-}).call(this,require("IrXUsu"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/fake_699dec12.js","/")
+}).call(this,require("IrXUsu"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/fake_4efe2413.js","/")
 },{"./components/app":1,"./exporter":8,"./initial-state":11,"./vim-tohtml-parser":157,"IrXUsu":20,"buffer":17,"es6ify/node_modules/traceur/bin/traceur-runtime":16,"react":156}],10:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 "use strict";

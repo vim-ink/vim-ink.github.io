@@ -772,6 +772,16 @@ body.dark .selected-group-line .right {
     color: #555;
 }
 
+/* .modified-groups-line */
+
+body.light .modified-groups-line.none {
+    color: #aaa;
+}
+
+body.dark .modified-groups-line.none {
+    color: #666;
+}
+
 /* .text */
 
 .text {

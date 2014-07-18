@@ -265,18 +265,17 @@ var Component = React.createClass({
 
 var ModifiedGroups = React.createClass({
     render() {
-        var {section} = React.DOM;
+        var {div} = React.DOM;
         var {getModifiedGroups, resetGroup} = this.props;
         var groups = getModifiedGroups();
 
-        if (groups.length === 0) {
-            return section({}); // TODO: return null after upgrading React
-        } else {
-            return Section(Object.assign({}, this.props, {
-                id: 'modifiedGroups',
-                title: 'Modified groups'}),
-                groups.map(group => ModifiedGroup({group, resetGroup})));
-        }
+        var content = groups.length === 0 ? div({className: 'modified-groups-line none'}, 'None') :
+            groups.map(group => ModifiedGroup({group, resetGroup}));
+
+        return Section(Object.assign({}, this.props, {
+            id: 'modifiedGroups',
+            title: 'Modified groups'}),
+            content);
     }
 });
 
