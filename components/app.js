@@ -31,6 +31,7 @@ var App = React.createClass({
             setActiveColor,
             setActiveFile,
             setComponentVisibility,
+            setHoverGroup,
             setParsedSource,
             setPostProcessProps,
             setSelectedGroupProps} = this;
@@ -39,6 +40,7 @@ var App = React.createClass({
             activeVariant,
             componentsVisibility,
             exportedSource,
+            hoverGroup,
             parsedSource,
             postProcess,
             selectedGroup} = this.state;
@@ -56,6 +58,7 @@ var App = React.createClass({
                     postProcess,
                     selectGroup,
                     setActiveFile,
+                    setHoverGroup,
                     setParsedSource}),
                 Right({activateVariant,
                     activeColor,
@@ -64,6 +67,7 @@ var App = React.createClass({
                     exportColorScheme,
                     getGroupProps,
                     getModifiedGroups,
+                    hoverGroup,
                     postProcess,
                     resetGroup,
                     resetState,
@@ -127,6 +131,9 @@ var App = React.createClass({
     },
     setActiveFile(activeFile) {
         this.setState({activeFile});
+    },
+    setHoverGroup(hoverGroup) {
+        this.setState({hoverGroup});
     },
     setSelectedGroupProps(props) {
         var newState = this.state;

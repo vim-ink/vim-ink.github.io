@@ -27,8 +27,14 @@ var Variant = React.createClass({
 
         return section({},
             h2(null, 'Variant'),
-            button({onClick: onLightClick, className: 'switch-button light-button' + lightActive}, 'Light'),
-            button({onClick: onDarkClick, className: 'switch-button dark-button' + darkActive}, 'Dark'));
+            button({
+                onClick: onLightClick,
+                className: 'switch-button light-button' + lightActive},
+                'Light'),
+            button({
+                onClick: onDarkClick,
+                className: 'switch-button dark-button' + darkActive},
+                'Dark'));
     },
     onLightClick() {
         this.props.activateVariant('light');
@@ -40,12 +46,17 @@ var Variant = React.createClass({
 
 var SelectedGroup = React.createClass({
     render() {
-        var {section, h2, div} = React.DOM;
-        var {selectedGroup} = this.props;
+        var {section, h2, div, span} = React.DOM;
+        var {selectedGroup, hoverGroup} = this.props;
+        var className = 'line selected-group-line';
+        var hoverGroupContent = hoverGroup !== undefined && hoverGroup !== selectedGroup ? hoverGroup : null;
 
-        return section({},
+        return section(
+            null,
             h2(null, 'Selected group'),
-            div({className: 'line'}, selectedGroup))
+            div({className},
+                span({className: 'left'}, selectedGroup),
+                span({className: 'right'}, hoverGroupContent)));
     }
 });
 

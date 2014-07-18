@@ -7,11 +7,20 @@ var Vim = require('./vim');
 var Left = React.createClass({
     render() {
         var {article} = React.DOM;
-        var {setActiveFile, activeFile, setParsedSource, parsedSource, componentsVisibility, parse, getGroupProps, selectGroup, postProcess} = this.props;
+        var {activeFile,
+            componentsVisibility,
+            getGroupProps,
+            parse,
+            parsedSource,
+            postProcess,
+            selectGroup,
+            setActiveFile,
+            setHoverGroup,
+            setParsedSource} = this.props;
 
         return article(null,
             Files({setParsedSource, setActiveFile, activeFile}),
-            Vim({componentsVisibility, parsedSource, getGroupProps, selectGroup, postProcess}),
+            Vim({componentsVisibility, parsedSource, getGroupProps, selectGroup, setHoverGroup, postProcess}),
             Paste({parsedSource, parse}));
     }
 });

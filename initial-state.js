@@ -5,6 +5,7 @@ var initialState = {
     parsedSource: files.html.parsedSource,
     activeVariant: 'light',
     selectedGroup: 'Normal',
+    hoverGroup: undefined,
     activeColor: 'foreground',
     activeFile: 'html',
     postProcess: {

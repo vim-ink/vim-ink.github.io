@@ -38,7 +38,7 @@ body {
 /* body, ul, header, footer, h2, article, input { */
 /*     transition: all 0.5s ease; */
 /* } */
-/*  */
+
 /* button { */
 /*     transition: all 0.2s ease; */
 /* } */
@@ -748,6 +748,20 @@ body.dark .color-line .right.active {
 
 .export-line-input .right input {
     width: 100%;
+}
+
+/* .selected-group-line */
+
+.selected-group-line .right {
+    margin-left: 1rem;
+}
+
+body.light .selected-group-line .right {
+    color: #bbb;
+}
+
+body.dark .selected-group-line .right {
+    color: #555;
 }
 
 /* .text */

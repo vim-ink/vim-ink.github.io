@@ -34,6 +34,7 @@ var App = React.createClass({
         setActiveColor = $__0.setActiveColor,
         setActiveFile = $__0.setActiveFile,
         setComponentVisibility = $__0.setComponentVisibility,
+        setHoverGroup = $__0.setHoverGroup,
         setParsedSource = $__0.setParsedSource,
         setPostProcessProps = $__0.setPostProcessProps,
         setSelectedGroupProps = $__0.setSelectedGroupProps;
@@ -43,6 +44,7 @@ var App = React.createClass({
         activeVariant = $__0.activeVariant,
         componentsVisibility = $__0.componentsVisibility,
         exportedSource = $__0.exportedSource,
+        hoverGroup = $__0.hoverGroup,
         parsedSource = $__0.parsedSource,
         postProcess = $__0.postProcess,
         selectedGroup = $__0.selectedGroup;
@@ -56,6 +58,7 @@ var App = React.createClass({
       postProcess: postProcess,
       selectGroup: selectGroup,
       setActiveFile: setActiveFile,
+      setHoverGroup: setHoverGroup,
       setParsedSource: setParsedSource
     }), Right({
       activateVariant: activateVariant,
@@ -65,6 +68,7 @@ var App = React.createClass({
       exportColorScheme: exportColorScheme,
       getGroupProps: getGroupProps,
       getModifiedGroups: getModifiedGroups,
+      hoverGroup: hoverGroup,
       postProcess: postProcess,
       resetGroup: resetGroup,
       resetState: resetState,
@@ -118,6 +122,9 @@ var App = React.createClass({
   },
   setActiveFile: function(activeFile) {
     this.setState({activeFile: activeFile});
+  },
+  setHoverGroup: function(hoverGroup) {
+    this.setState({hoverGroup: hoverGroup});
   },
   setSelectedGroupProps: function(props) {
     var newState = this.state;
@@ -248,15 +255,16 @@ var Vim = require('./vim');
 var Left = React.createClass({render: function() {
     var article = $traceurRuntime.assertObject(React.DOM).article;
     var $__0 = $traceurRuntime.assertObject(this.props),
-        setActiveFile = $__0.setActiveFile,
         activeFile = $__0.activeFile,
-        setParsedSource = $__0.setParsedSource,
-        parsedSource = $__0.parsedSource,
         componentsVisibility = $__0.componentsVisibility,
-        parse = $__0.parse,
         getGroupProps = $__0.getGroupProps,
+        parse = $__0.parse,
+        parsedSource = $__0.parsedSource,
+        postProcess = $__0.postProcess,
         selectGroup = $__0.selectGroup,
-        postProcess = $__0.postProcess;
+        setActiveFile = $__0.setActiveFile,
+        setHoverGroup = $__0.setHoverGroup,
+        setParsedSource = $__0.setParsedSource;
     return article(null, Files({
       setParsedSource: setParsedSource,
       setActiveFile: setActiveFile,
@@ -266,6 +274,7 @@ var Left = React.createClass({render: function() {
       parsedSource: parsedSource,
       getGroupProps: getGroupProps,
       selectGroup: selectGroup,
+      setHoverGroup: setHoverGroup,
       postProcess: postProcess
     }), Paste({
       parsedSource: parsedSource,
@@ -403,9 +412,14 @@ var SelectedGroup = React.createClass({render: function() {
     var $__0 = $traceurRuntime.assertObject(React.DOM),
         section = $__0.section,
         h2 = $__0.h2,
-        div = $__0.div;
-    var selectedGroup = $traceurRuntime.assertObject(this.props).selectedGroup;
-    return section({}, h2(null, 'Selected group'), div({className: 'line'}, selectedGroup));
+        div = $__0.div,
+        span = $__0.span;
+    var $__0 = $traceurRuntime.assertObject(this.props),
+        selectedGroup = $__0.selectedGroup,
+        hoverGroup = $__0.hoverGroup;
+    var className = 'line selected-group-line';
+    var hoverGroupContent = hoverGroup !== undefined && hoverGroup !== selectedGroup ? hoverGroup : null;
+    return section(null, h2(null, 'Selected group'), div({className: className}, span({className: 'left'}, selectedGroup), span({className: 'right'}, hoverGroupContent)));
   }});
 var Color = React.createClass({
   render: function() {
@@ -693,16 +707,20 @@ var Vim = React.createClass({
     var pre = $traceurRuntime.assertObject(React.DOM).pre;
     var $__0 = this,
         onClick = $__0.onClick,
+        onMouseOver = $__0.onMouseOver,
+        onMouseOut = $__0.onMouseOut,
         attrs = $__0.attrs;
     var $__0 = $traceurRuntime.assertObject(this.props),
         componentsVisibility = $__0.componentsVisibility,
         parsedSource = $__0.parsedSource,
         getGroupProps = $__0.getGroupProps,
-        selectGroup = $__0.selectGroup;
+        selectGroup = $__0.selectGroup,
+        setHoverGroup = $__0.setHoverGroup;
     var className = parsedSource === undefined ? 'hidden' : '';
     var props = getGroupProps('Normal');
     var style = $traceurRuntime.assertObject(attrs(props)).style;
     var tabLine = TabLine({
+      setHoverGroup: setHoverGroup,
       attrs: attrs,
       getGroupProps: getGroupProps,
       selectGroup: selectGroup
@@ -711,6 +729,7 @@ var Vim = React.createClass({
     if (parsedSource !== undefined) {
       source = parsedSource.map((function(line, index) {
         return Line({
+          setHoverGroup: setHoverGroup,
           componentsVisibility: componentsVisibility,
           attrs: attrs,
           getGroupProps: getGroupProps,
@@ -732,8 +751,16 @@ var Vim = React.createClass({
     return pre({
       style: style,
       className: className,
-      onClick: onClick
+      onClick: onClick,
+      onMouseOver: onMouseOver,
+      onMouseOut: onMouseOut
     }, output);
+  },
+  onMouseOver: function() {
+    this.props.setHoverGroup('Normal');
+  },
+  onMouseOut: function() {
+    this.props.setHoverGroup(undefined);
   },
   onClick: function() {
     var selectGroup = $traceurRuntime.assertObject(this.props).selectGroup;
@@ -756,22 +783,26 @@ var Vim = React.createClass({
 var TabLine = React.createClass({render: function() {
     var span = $traceurRuntime.assertObject(React.DOM).span;
     var $__0 = $traceurRuntime.assertObject(this.props),
+        setHoverGroup = $__0.setHoverGroup,
         getGroupProps = $__0.getGroupProps,
         selectGroup = $__0.selectGroup,
         attrs = $__0.attrs;
     return span(null, [TabLineFile({
+      setHoverGroup: setHoverGroup,
       attrs: attrs,
       getGroupProps: getGroupProps,
       selectGroup: selectGroup,
       fileName: 'one-file.js',
       selected: false
     }), TabLineFile({
+      setHoverGroup: setHoverGroup,
       attrs: attrs,
       getGroupProps: getGroupProps,
       selectGroup: selectGroup,
       fileName: 'another-file.js',
       selected: false
     }), TabLineFile({
+      setHoverGroup: setHoverGroup,
       attrs: attrs,
       getGroupProps: getGroupProps,
       selectGroup: selectGroup,
@@ -784,6 +815,7 @@ var TabLineFile = React.createClass({
     var span = $traceurRuntime.assertObject(React.DOM).span;
     var $__0 = this,
         onClick = $__0.onClick,
+        onMouseOver = $__0.onMouseOver,
         group = $__0.group;
     var $__0 = $traceurRuntime.assertObject(this.props),
         getGroupProps = $__0.getGroupProps,
@@ -797,8 +829,15 @@ var TabLineFile = React.createClass({
     return span({
       style: style,
       className: className,
-      onClick: onClick
+      onClick: onClick,
+      onMouseOver: onMouseOver
     }, ' 2 ' + fileName + ' ');
+  },
+  onMouseOver: function(e) {
+    var group = this.group;
+    var setHoverGroup = $traceurRuntime.assertObject(this.props).setHoverGroup;
+    setHoverGroup(group());
+    e.stopPropagation();
   },
   onClick: function(e) {
     var group = this.group;
@@ -814,6 +853,7 @@ var TabLineFile = React.createClass({
 var Line = React.createClass({render: function() {
     var span = $traceurRuntime.assertObject(React.DOM).span;
     var $__0 = $traceurRuntime.assertObject(this.props),
+        setHoverGroup = $__0.setHoverGroup,
         componentsVisibility = $__0.componentsVisibility,
         attrs = $__0.attrs,
         getGroupProps = $__0.getGroupProps,
@@ -821,6 +861,7 @@ var Line = React.createClass({render: function() {
         lineNumber = $__0.lineNumber,
         selectGroup = $__0.selectGroup;
     var lineNumber_ = [LineNumber({
+      setHoverGroup: setHoverGroup,
       attrs: attrs,
       lineNumber: lineNumber,
       getGroupProps: getGroupProps,
@@ -828,6 +869,7 @@ var Line = React.createClass({render: function() {
     })];
     var segments = line.map((function(segment) {
       return Segment({
+        setHoverGroup: setHoverGroup,
         attrs: attrs,
         segment: segment,
         getGroupProps: getGroupProps,
@@ -840,7 +882,9 @@ var Line = React.createClass({render: function() {
 var LineNumber = React.createClass({
   render: function() {
     var span = $traceurRuntime.assertObject(React.DOM).span;
-    var onClick = this.onClick;
+    var $__0 = this,
+        onClick = $__0.onClick,
+        onMouseOver = $__0.onMouseOver;
     var $__0 = $traceurRuntime.assertObject(this.props),
         attrs = $__0.attrs,
         getGroupProps = $__0.getGroupProps,
@@ -856,8 +900,14 @@ var LineNumber = React.createClass({
     return span({
       style: style,
       className: className,
-      onClick: onClick
+      onClick: onClick,
+      onMouseOver: onMouseOver
     }, ' '.repeat(spaces) + line + ' ');
+  },
+  onMouseOver: function(e) {
+    var setHoverGroup = $traceurRuntime.assertObject(this.props).setHoverGroup;
+    setHoverGroup('LineNr');
+    e.stopPropagation();
   },
   onClick: function(e) {
     var selectGroup = $traceurRuntime.assertObject(this.props).selectGroup;
@@ -870,6 +920,7 @@ var Segment = React.createClass({
     var span = $traceurRuntime.assertObject(React.DOM).span;
     var $__0 = this,
         onClick = $__0.onClick,
+        onMouseOver = $__0.onMouseOver,
         style = $__0.style;
     var $__0 = $traceurRuntime.assertObject(this.props),
         segment = $__0.segment,
@@ -883,13 +934,21 @@ var Segment = React.createClass({
       return span({
         style: style,
         className: className,
-        onClick: onClick
+        onClick: onClick,
+        onMouseOver: onMouseOver
       }, segment.content);
     } else {
       var props = getGroupProps('Normal');
       var className = $traceurRuntime.assertObject(attrs(props)).className;
       return span({className: className}, segment);
     }
+  },
+  onMouseOver: function(e) {
+    var $__0 = $traceurRuntime.assertObject(this.props),
+        setHoverGroup = $__0.setHoverGroup,
+        segment = $__0.segment;
+    setHoverGroup(segment.group);
+    e.stopPropagation();
   },
   onClick: function(e) {
     var $__0 = $traceurRuntime.assertObject(this.props),
@@ -951,7 +1010,7 @@ React.renderComponent(App({
 }), document.body);
 
 
-}).call(this,require("IrXUsu"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/fake_a1d34c69.js","/")
+}).call(this,require("IrXUsu"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/fake_4786ce3c.js","/")
 },{"./components/app":1,"./exporter":8,"./initial-state":11,"./vim-tohtml-parser":157,"IrXUsu":20,"buffer":17,"es6ify/node_modules/traceur/bin/traceur-runtime":16,"react":156}],10:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 "use strict";
@@ -1471,6 +1530,7 @@ var initialState = {
   parsedSource: files.html.parsedSource,
   activeVariant: 'light',
   selectedGroup: 'Normal',
+  hoverGroup: undefined,
   activeColor: 'foreground',
   activeFile: 'html',
   postProcess: {
