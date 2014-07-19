@@ -339,6 +339,7 @@ var Export = React.createClass({
                 button({className: 'button', onClick: onExportClick}, 'Export')));
     },
     onExportClick() {
+        console.log(this.props);
         this.props.exportColorScheme();
     }
 });

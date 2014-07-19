@@ -21,74 +21,42 @@ var App = React.createClass({
     var $__0 = $traceurRuntime.assertObject(React.DOM),
         span = $__0.span,
         main = $__0.main;
-    var $__0 = this,
-        clearExportedSource = $__0.clearExportedSource,
-        exportColorScheme = $__0.exportColorScheme,
-        getGroupProps = $__0.getGroupProps,
-        getModifiedGroups = $__0.getModifiedGroups,
-        parse = $__0.parse,
-        resetGroup = $__0.resetGroup,
-        resetState = $__0.resetState,
-        selectGroup = $__0.selectGroup,
-        setActiveColor = $__0.setActiveColor,
-        setActiveFile = $__0.setActiveFile,
-        setActivePane = $__0.setActivePane,
-        setActiveVariant = $__0.setActiveVariant,
-        setComponentVisibility = $__0.setComponentVisibility,
-        setHoverGroup = $__0.setHoverGroup,
-        setParsedSource = $__0.setParsedSource,
-        setPostProcessProps = $__0.setPostProcessProps,
-        setSectionVisibility = $__0.setSectionVisibility,
-        setSelectedGroupProps = $__0.setSelectedGroupProps;
-    var $__0 = $traceurRuntime.assertObject(this.state),
-        activeColor = $__0.activeColor,
-        activeFile = $__0.activeFile,
-        activePane = $__0.activePane,
-        activeVariant = $__0.activeVariant,
-        componentsVisibility = $__0.componentsVisibility,
-        exportedSource = $__0.exportedSource,
-        hoverGroup = $__0.hoverGroup,
-        parsedSource = $__0.parsedSource,
-        postProcess = $__0.postProcess,
-        sectionsVisibility = $__0.sectionsVisibility,
-        selectedGroup = $__0.selectedGroup;
-    var exportColorscheme = $traceurRuntime.assertObject(this.props).exportColorscheme;
     return span(null, Header(), main(null, Left({
-      activeFile: activeFile,
-      activeVariant: activeVariant,
-      componentsVisibility: componentsVisibility,
-      getGroupProps: getGroupProps,
-      parse: parse,
-      parsedSource: parsedSource,
-      postProcess: postProcess,
-      selectGroup: selectGroup,
-      setActiveFile: setActiveFile,
-      setHoverGroup: setHoverGroup,
-      setParsedSource: setParsedSource
+      getGroupProps: this.getGroupProps,
+      parse: this.parse,
+      selectGroup: this.selectGroup,
+      setActiveFile: this.setActiveFile,
+      setHoverGroup: this.setHoverGroup,
+      setParsedSource: this.setParsedSource,
+      activeFile: this.state.activeFile,
+      activeVariant: this.state.activeVariant,
+      componentsVisibility: this.state.componentsVisibility,
+      parsedSource: this.state.parsedSource,
+      postProcess: this.state.postProcess
     }), Right({
-      activeColor: activeColor,
-      activePane: activePane,
-      activeVariant: activeVariant,
-      componentsVisibility: componentsVisibility,
-      exportColorScheme: exportColorScheme,
-      getGroupProps: getGroupProps,
-      getModifiedGroups: getModifiedGroups,
-      hoverGroup: hoverGroup,
-      postProcess: postProcess,
-      resetGroup: resetGroup,
-      resetState: resetState,
-      sectionsVisibility: sectionsVisibility,
-      selectedGroup: selectedGroup,
-      setActiveColor: setActiveColor,
-      setActivePane: setActivePane,
-      setActiveVariant: setActiveVariant,
-      setComponentVisibility: setComponentVisibility,
-      setPostProcessProps: setPostProcessProps,
-      setSectionVisibility: setSectionVisibility,
-      setSelectedGroupProps: setSelectedGroupProps
+      exportColorScheme: this.exportColorScheme,
+      getGroupProps: this.getGroupProps,
+      getModifiedGroups: this.getModifiedGroups,
+      resetGroup: this.resetGroup,
+      resetState: this.resetState,
+      setActiveColor: this.setActiveColor,
+      setActivePane: this.setActivePane,
+      setActiveVariant: this.setActiveVariant,
+      setComponentVisibility: this.setComponentVisibility,
+      setPostProcessProps: this.setPostProcessProps,
+      setSectionVisibility: this.setSectionVisibility,
+      setSelectedGroupProps: this.setSelectedGroupProps,
+      activeColor: this.state.activeColor,
+      activePane: this.state.activePane,
+      activeVariant: this.state.activeVariant,
+      componentsVisibility: this.state.componentsVisibility,
+      hoverGroup: this.state.hoverGroup,
+      postProcess: this.state.postProcess,
+      sectionsVisibility: this.state.sectionsVisibility,
+      selectedGroup: this.state.selectedGroup
     })), Footer(), Export({
-      exportedSource: exportedSource,
-      clearExportedSource: clearExportedSource
+      clearExportedSource: this.clearExportedSource,
+      exportedSource: this.state.exportedSource
     }));
   },
   componentDidMount: function() {
@@ -744,6 +712,7 @@ var Export = React.createClass({
     }, 'Export')));
   },
   onExportClick: function() {
+    console.log(this.props);
     this.props.exportColorScheme();
   }
 });
@@ -1086,7 +1055,7 @@ React.renderComponent(App({
 }), document.body);
 
 
-}).call(this,require("IrXUsu"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/fake_4a07b847.js","/")
+}).call(this,require("IrXUsu"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/fake_b5990ba5.js","/")
 },{"./components/app":1,"./exporter":8,"./initial-state":11,"./vim-tohtml-parser":157,"IrXUsu":20,"buffer":17,"es6ify/node_modules/traceur/bin/traceur-runtime":16,"react":156}],10:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 "use strict";
