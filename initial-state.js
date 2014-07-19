@@ -10,8 +10,14 @@ var initialState = {
     activeFile: 'html',
     activePane: 'light',
     postProcess: {
-        brightness: 0,
-        saturation: 0
+        dark: {
+            brightness: 0,
+            saturation: 0
+        },
+        light: {
+            brightness: 0,
+            saturation: 0
+        }
     },
     componentsVisibility: {
         tabLine: 'show',

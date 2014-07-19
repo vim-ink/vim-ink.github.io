@@ -55,7 +55,9 @@ var App = React.createClass({
             null,
             Header(),
             main(null,
-                Left({activeFile,
+                Left({
+                    activeFile,
+                    activeVariant,
                     componentsVisibility,
                     getGroupProps,
                     parse,
@@ -174,7 +176,9 @@ var App = React.createClass({
     },
     setPostProcessProps(props) {
         var newState = this.state;
-        Object.assign(newState.postProcess, props);
+        var {activeVariant} = newState;
+        var postProcess = newState.postProcess[activeVariant];
+        Object.assign(postProcess, props);
         this.setState(newState);
     },
     setActiveVariant(activeVariant) {

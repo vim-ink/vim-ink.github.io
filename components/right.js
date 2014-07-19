@@ -210,10 +210,10 @@ var HighlightButton = React.createClass({
 var PostProcess = React.createClass({
     render() {
         var {div, input} = React.DOM;
-        var {postProcess} = this.props;
+        var {postProcess, activeVariant} = this.props;
         var {onChangeBrightness, onChangeSaturation} = this;
 
-        var {brightness, saturation} = postProcess;
+        var {brightness, saturation} = postProcess[activeVariant];
         var brightnessClassName = 'left' + (-brightness === 0 ? ' inactive' : '');
         var saturationClassName = 'left' + (-saturation === 0 ? ' inactive' : '');
 

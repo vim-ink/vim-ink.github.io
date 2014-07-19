@@ -47,8 +47,8 @@ var Vim = React.createClass({
         selectGroup('Normal');
     },
     attrs(props) {
-        var {postProcess} = this.props;
-        var {brightness, saturation} = postProcess;
+        var {postProcess, activeVariant} = this.props;
+        var {brightness, saturation} = postProcess[activeVariant];
 
         return {
             style: {

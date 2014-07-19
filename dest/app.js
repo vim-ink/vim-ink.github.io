@@ -55,6 +55,7 @@ var App = React.createClass({
     var exportColorscheme = $traceurRuntime.assertObject(this.props).exportColorscheme;
     return span(null, Header(), main(null, Left({
       activeFile: activeFile,
+      activeVariant: activeVariant,
       componentsVisibility: componentsVisibility,
       getGroupProps: getGroupProps,
       parse: parse,
@@ -161,7 +162,9 @@ var App = React.createClass({
   },
   setPostProcessProps: function(props) {
     var newState = this.state;
-    Object.assign(newState.postProcess, props);
+    var activeVariant = $traceurRuntime.assertObject(newState).activeVariant;
+    var postProcess = newState.postProcess[activeVariant];
+    Object.assign(postProcess, props);
     this.setState(newState);
   },
   setActiveVariant: function(activeVariant) {
@@ -274,6 +277,7 @@ var Left = React.createClass({render: function() {
     var article = $traceurRuntime.assertObject(React.DOM).article;
     var $__0 = $traceurRuntime.assertObject(this.props),
         activeFile = $__0.activeFile,
+        activeVariant = $__0.activeVariant,
         componentsVisibility = $__0.componentsVisibility,
         getGroupProps = $__0.getGroupProps,
         parse = $__0.parse,
@@ -288,12 +292,13 @@ var Left = React.createClass({render: function() {
       setActiveFile: setActiveFile,
       activeFile: activeFile
     }), Vim({
+      activeVariant: activeVariant,
       componentsVisibility: componentsVisibility,
-      parsedSource: parsedSource,
       getGroupProps: getGroupProps,
+      parsedSource: parsedSource,
+      postProcess: postProcess,
       selectGroup: selectGroup,
-      setHoverGroup: setHoverGroup,
-      postProcess: postProcess
+      setHoverGroup: setHoverGroup
     }), Paste({
       parsedSource: parsedSource,
       parse: parse
@@ -593,11 +598,13 @@ var PostProcess = React.createClass({
     var $__1 = $traceurRuntime.assertObject(React.DOM),
         div = $__1.div,
         input = $__1.input;
-    var postProcess = $traceurRuntime.assertObject(this.props).postProcess;
+    var $__1 = $traceurRuntime.assertObject(this.props),
+        postProcess = $__1.postProcess,
+        activeVariant = $__1.activeVariant;
     var $__1 = this,
         onChangeBrightness = $__1.onChangeBrightness,
         onChangeSaturation = $__1.onChangeSaturation;
-    var $__1 = $traceurRuntime.assertObject(postProcess),
+    var $__1 = $traceurRuntime.assertObject(postProcess[activeVariant]),
         brightness = $__1.brightness,
         saturation = $__1.saturation;
     var brightnessClassName = 'left' + (-brightness === 0 ? ' inactive' : '');
@@ -823,8 +830,10 @@ var Vim = React.createClass({
     selectGroup('Normal');
   },
   attrs: function(props) {
-    var postProcess = $traceurRuntime.assertObject(this.props).postProcess;
-    var $__0 = $traceurRuntime.assertObject(postProcess),
+    var $__0 = $traceurRuntime.assertObject(this.props),
+        postProcess = $__0.postProcess,
+        activeVariant = $__0.activeVariant;
+    var $__0 = $traceurRuntime.assertObject(postProcess[activeVariant]),
         brightness = $__0.brightness,
         saturation = $__0.saturation;
     return {
@@ -1066,7 +1075,7 @@ React.renderComponent(App({
 }), document.body);
 
 
-}).call(this,require("IrXUsu"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/fake_3dbaa066.js","/")
+}).call(this,require("IrXUsu"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/fake_b4889123.js","/")
 },{"./components/app":1,"./exporter":8,"./initial-state":11,"./vim-tohtml-parser":157,"IrXUsu":20,"buffer":17,"es6ify/node_modules/traceur/bin/traceur-runtime":16,"react":156}],10:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 "use strict";
@@ -1591,8 +1600,14 @@ var initialState = {
   activeFile: 'html',
   activePane: 'light',
   postProcess: {
-    brightness: 0,
-    saturation: 0
+    dark: {
+      brightness: 0,
+      saturation: 0
+    },
+    light: {
+      brightness: 0,
+      saturation: 0
+    }
   },
   componentsVisibility: {
     tabLine: 'show',

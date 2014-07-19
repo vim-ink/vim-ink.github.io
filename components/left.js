@@ -9,6 +9,7 @@ var Left = React.createClass({
         var {article} = React.DOM;
         var {
             activeFile,
+            activeVariant,
             componentsVisibility,
             getGroupProps,
             parse,
@@ -23,12 +24,13 @@ var Left = React.createClass({
         return article(null,
             Files({setParsedSource, setActiveFile, activeFile}),
             Vim({
+                activeVariant,
                 componentsVisibility,
-                parsedSource,
                 getGroupProps,
+                parsedSource,
+                postProcess,
                 selectGroup,
-                setHoverGroup,
-                postProcess
+                setHoverGroup
             }),
             Paste({parsedSource, parse}));
     }
