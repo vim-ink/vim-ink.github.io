@@ -1,4 +1,5 @@
 var React = require('react');
+var merge = (...args) => Object.assign({}, ...args);
 
 var Right = React.createClass({
     render() {
@@ -8,14 +9,14 @@ var Right = React.createClass({
         if (activePane === 'global') {
             return aside(null,
                 Panes(this.props),
-                Export(Object.assign({}, this.props, {firstSection: true})),
+                Export(merge(this.props, {firstSection: true})),
                 Components(this.props),
                 DangerZone(this.props));
         }
         else {
             return aside(null,
                 Panes(this.props),
-                SelectedGroup(Object.assign({}, this.props, {firstSection: true})),
+                SelectedGroup(merge(this.props, {firstSection: true})),
                 Color(this.props),
                 Highlight(this.props),
                 PostProcess(this.props),
@@ -30,9 +31,9 @@ var Panes = React.createClass({
         var {activePane, setActivePane} = this.props;
 
         return ul({className: 'nav'},
-            Pane(Object.assign({}, this.props, {id: 'light'}), 'Light'),
-            Pane(Object.assign({}, this.props, {id: 'dark'}), 'Dark'),
-            Pane(Object.assign({}, this.props, {id: 'global', additionalClassName: 'right-link'}), 'Global'));
+            Pane(merge(this.props, {id: 'light'}), 'Light'),
+            Pane(merge(this.props, {id: 'dark'}), 'Dark'),
+            Pane(merge(this.props, {id: 'global', additionalClassName: 'right-link'}), 'Global'));
     }
 });
 
@@ -87,7 +88,7 @@ var SelectedGroup = React.createClass({
             hoverGroup :
             null);
 
-        return Section(Object.assign({}, this.props, {
+        return Section(merge(this.props, {
             id: 'selectedGroup',
             title: 'Selected group'}),
             div({className},
@@ -112,7 +113,7 @@ var Color = React.createClass({
 
         var colorPair = getGroupProps(selectedGroup);
 
-        return Section(Object.assign({}, this.props, {
+        return Section(merge(this.props, {
             id: 'color',
             title: 'Color'}),
             div({className: 'line color-line'},
@@ -164,9 +165,9 @@ var Highlight = React.createClass({
     render() {
         var {div} = React.DOM;
 
-        var button = (o) => HighlightButton(Object.assign({}, this.props, o));
+        var button = (o) => HighlightButton(merge(this.props, o));
 
-        return Section(Object.assign({}, this.props, {
+        return Section(merge(this.props, {
             id: 'highlight',
             title: 'Highlight'}),
             div({className: 'line'},
@@ -217,7 +218,7 @@ var PostProcess = React.createClass({
         var brightnessClassName = 'left' + (-brightness === 0 ? ' inactive' : '');
         var saturationClassName = 'left' + (-saturation === 0 ? ' inactive' : '');
 
-        return Section(Object.assign({}, this.props, {
+        return Section(merge(this.props, {
             id: 'postProcess',
             title: 'Post process'}),
             div({className: 'line post-process-line'},
@@ -251,7 +252,7 @@ var Components = React.createClass({
     render() {
         var {setComponentVisibility, componentsVisibility} = this.props;
 
-        return Section(Object.assign({}, this.props, {
+        return Section(merge(this.props, {
             id: 'components',
             title: 'Components'}),
             Component({
@@ -301,7 +302,7 @@ var ModifiedGroups = React.createClass({
         var content = groups.length === 0 ? div({className: 'modified-groups-line none'}, 'None') :
             groups.map(group => ModifiedGroup({group, resetGroup}));
 
-        return Section(Object.assign({}, this.props, {
+        return Section(merge(this.props, {
             id: 'modifiedGroups',
             title: 'Modified groups'}),
             content);
@@ -328,7 +329,7 @@ var Export = React.createClass({
         var {div, label, input, button} = React.DOM;
         var {onExportClick} = this;
         
-        return Section(Object.assign({}, this.props, {
+        return Section(merge(this.props, {
             id: 'export_',
             title: 'Export'}),
             div({className: 'line export-line-input'},
@@ -347,7 +348,7 @@ var DangerZone = React.createClass({
         var {section, h2, div, button} = React.DOM;
         var {onResetClick} = this;
 
-        return Section(Object.assign({}, this.props, {
+        return Section(merge(this.props, {
             id: 'dangerZone',
             title: 'Danger zone'}),
             div({className: 'line danger-zone-line'},

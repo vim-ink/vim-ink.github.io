@@ -221,13 +221,17 @@ var Export = React.createClass({
     var onClick = this.onClick;
     var exportedSource = $traceurRuntime.assertObject(this.props).exportedSource;
     var hiddenConditional = exportedSource === undefined ? 'hidden' : '';
-    return div({className: 'export dialog ' + hiddenConditional}, h2(null, 'Here is your color scheme!'), p(null, 'Copy the code below to clipboard and paste into a new vim buffer. Do `:w ~/.vim/colors/whatever.vim`, `:set background light`, and finally `:colorscheme whatever`.'), textarea({
+    return div({className: 'export dialog ' + hiddenConditional}, h2(null, 'Export'), p(null, 'Copy text into a new vim buffer, do `:w ~/.vim/colors/whatever.vim`, `:set background light`, and `:colorscheme whatever`.'), textarea({
+      ref: 'exportedSource',
       value: exportedSource,
       readOnly: true
     }), button({
       className: 'button',
       onClick: onClick
     }, 'Close'));
+  },
+  componentDidUpdate: function() {
+    this.refs.exportedSource.getDOMNode().select();
   },
   onClick: function() {
     this.props.clearExportedSource();
@@ -389,23 +393,30 @@ module.exports = Left;
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 "use strict";
 var React = require('react');
+var merge = (function() {
+  var $__3;
+  for (var args = [],
+      $__1 = 0; $__1 < arguments.length; $__1++)
+    args[$__1] = arguments[$__1];
+  return ($__3 = Object).assign.apply($__3, $traceurRuntime.spread([{}], args));
+});
 var Right = React.createClass({render: function() {
     var aside = $traceurRuntime.assertObject(React.DOM).aside;
     var activePane = $traceurRuntime.assertObject(this.props).activePane;
     if (activePane === 'global') {
-      return aside(null, Panes(this.props), Export(Object.assign({}, this.props, {firstSection: true})), Components(this.props), DangerZone(this.props));
+      return aside(null, Panes(this.props), Export(merge(this.props, {firstSection: true})), Components(this.props), DangerZone(this.props));
     } else {
-      return aside(null, Panes(this.props), SelectedGroup(Object.assign({}, this.props, {firstSection: true})), Color(this.props), Highlight(this.props), PostProcess(this.props), ModifiedGroups(this.props));
+      return aside(null, Panes(this.props), SelectedGroup(merge(this.props, {firstSection: true})), Color(this.props), Highlight(this.props), PostProcess(this.props), ModifiedGroups(this.props));
     }
   }});
 var Panes = React.createClass({render: function() {
-    var $__1 = $traceurRuntime.assertObject(React.DOM),
-        ul = $__1.ul,
-        li = $__1.li;
-    var $__1 = $traceurRuntime.assertObject(this.props),
-        activePane = $__1.activePane,
-        setActivePane = $__1.setActivePane;
-    return ul({className: 'nav'}, Pane(Object.assign({}, this.props, {id: 'light'}), 'Light'), Pane(Object.assign({}, this.props, {id: 'dark'}), 'Dark'), Pane(Object.assign({}, this.props, {
+    var $__2 = $traceurRuntime.assertObject(React.DOM),
+        ul = $__2.ul,
+        li = $__2.li;
+    var $__2 = $traceurRuntime.assertObject(this.props),
+        activePane = $__2.activePane,
+        setActivePane = $__2.setActivePane;
+    return ul({className: 'nav'}, Pane(merge(this.props, {id: 'light'}), 'Light'), Pane(merge(this.props, {id: 'dark'}), 'Dark'), Pane(merge(this.props, {
       id: 'global',
       additionalClassName: 'right-link'
     }), 'Global'));
@@ -414,11 +425,11 @@ var Pane = React.createClass({
   render: function() {
     var li = $traceurRuntime.assertObject(React.DOM).li;
     var onClick = this.onClick;
-    var $__1 = $traceurRuntime.assertObject(this.props),
-        children = $__1.children,
-        additionalClassName = $__1.additionalClassName,
-        activePane = $__1.activePane,
-        id = $__1.id;
+    var $__2 = $traceurRuntime.assertObject(this.props),
+        children = $__2.children,
+        additionalClassName = $__2.additionalClassName,
+        activePane = $__2.activePane,
+        id = $__2.id;
     var className = (additionalClassName !== undefined ? additionalClassName : '') + (activePane === id ? ' active' : '');
     return li({
       className: className,
@@ -426,10 +437,10 @@ var Pane = React.createClass({
     }, children);
   },
   onClick: function() {
-    var $__1 = $traceurRuntime.assertObject(this.props),
-        setActivePane = $__1.setActivePane,
-        setActiveVariant = $__1.setActiveVariant,
-        id = $__1.id;
+    var $__2 = $traceurRuntime.assertObject(this.props),
+        setActivePane = $__2.setActivePane,
+        setActiveVariant = $__2.setActiveVariant,
+        id = $__2.id;
     setActivePane(id);
     if (id !== 'global') {
       setActiveVariant(id);
@@ -438,62 +449,62 @@ var Pane = React.createClass({
 });
 var Section = React.createClass({
   render: function() {
-    var $__1 = $traceurRuntime.assertObject(React.DOM),
-        section = $__1.section,
-        h2 = $__1.h2;
+    var $__2 = $traceurRuntime.assertObject(React.DOM),
+        section = $__2.section,
+        h2 = $__2.h2;
     var onClick = this.onClick;
-    var $__1 = $traceurRuntime.assertObject(this.props),
-        children = $__1.children,
-        title = $__1.title,
-        sectionsVisibility = $__1.sectionsVisibility,
-        id = $__1.id;
+    var $__2 = $traceurRuntime.assertObject(this.props),
+        children = $__2.children,
+        title = $__2.title,
+        sectionsVisibility = $__2.sectionsVisibility,
+        id = $__2.id;
     var className = 'firstSection' in this.props && this.props.firstSection === true ? 'first' : null;
     var children_ = sectionsVisibility[id] === 'show' ? children : null;
     return section({className: className}, h2({onClick: onClick}, title), children_);
   },
   onClick: function() {
-    var $__1 = $traceurRuntime.assertObject(this.props),
-        setSectionVisibility = $__1.setSectionVisibility,
-        sectionsVisibility = $__1.sectionsVisibility,
-        id = $__1.id;
+    var $__2 = $traceurRuntime.assertObject(this.props),
+        setSectionVisibility = $__2.setSectionVisibility,
+        sectionsVisibility = $__2.sectionsVisibility,
+        id = $__2.id;
     var toggledVisibility = sectionsVisibility[id] === 'show' ? 'hide' : 'show';
     setSectionVisibility(id, toggledVisibility);
   }
 });
 var SelectedGroup = React.createClass({render: function() {
-    var $__1 = $traceurRuntime.assertObject(React.DOM),
-        div = $__1.div,
-        span = $__1.span;
-    var $__1 = $traceurRuntime.assertObject(this.props),
-        selectedGroup = $__1.selectedGroup,
-        hoverGroup = $__1.hoverGroup,
-        sectionsVisibility = $__1.sectionsVisibility;
+    var $__2 = $traceurRuntime.assertObject(React.DOM),
+        div = $__2.div,
+        span = $__2.span;
+    var $__2 = $traceurRuntime.assertObject(this.props),
+        selectedGroup = $__2.selectedGroup,
+        hoverGroup = $__2.hoverGroup,
+        sectionsVisibility = $__2.sectionsVisibility;
     var className = 'line selected-group-line';
     var hoverGroupContent = (hoverGroup !== undefined && hoverGroup !== selectedGroup ? hoverGroup : null);
-    return Section(Object.assign({}, this.props, {
+    return Section(merge(this.props, {
       id: 'selectedGroup',
       title: 'Selected group'
     }), div({className: className}, span({className: 'left'}, selectedGroup), span({className: 'right'}, hoverGroupContent)));
   }});
 var Color = React.createClass({
   render: function() {
-    var $__1 = $traceurRuntime.assertObject(React.DOM),
-        div = $__1.div,
-        input = $__1.input,
-        label = $__1.label;
-    var $__1 = $traceurRuntime.assertObject(this.props),
-        getGroupProps = $__1.getGroupProps,
-        selectedGroup = $__1.selectedGroup,
-        activeColor = $__1.activeColor;
-    var $__1 = this,
-        onBackgroundClick = $__1.onBackgroundClick,
-        onChangeBackgroundColor = $__1.onChangeBackgroundColor,
-        onChangeColor = $__1.onChangeColor,
-        onForegroundClick = $__1.onForegroundClick;
+    var $__2 = $traceurRuntime.assertObject(React.DOM),
+        div = $__2.div,
+        input = $__2.input,
+        label = $__2.label;
+    var $__2 = $traceurRuntime.assertObject(this.props),
+        getGroupProps = $__2.getGroupProps,
+        selectedGroup = $__2.selectedGroup,
+        activeColor = $__2.activeColor;
+    var $__2 = this,
+        onBackgroundClick = $__2.onBackgroundClick,
+        onChangeBackgroundColor = $__2.onChangeBackgroundColor,
+        onChangeColor = $__2.onChangeColor,
+        onForegroundClick = $__2.onForegroundClick;
     var foregroundActive = activeColor === 'foreground' ? ' active' : '';
     var backgroundActive = activeColor === 'background' ? ' active' : '';
     var colorPair = getGroupProps(selectedGroup);
-    return Section(Object.assign({}, this.props, {
+    return Section(merge(this.props, {
       id: 'color',
       title: 'Color'
     }), div({className: 'line color-line'}, div({className: 'left'}, input({
@@ -535,9 +546,9 @@ var Highlight = React.createClass({render: function() {
     var $__0 = this;
     var div = $traceurRuntime.assertObject(React.DOM).div;
     var button = (function(o) {
-      return HighlightButton(Object.assign({}, $__0.props, o));
+      return HighlightButton(merge($__0.props, o));
     });
-    return Section(Object.assign({}, this.props, {
+    return Section(merge(this.props, {
       id: 'highlight',
       title: 'Highlight'
     }), div({className: 'line'}, button({
@@ -565,13 +576,13 @@ var Highlight = React.createClass({render: function() {
   }});
 var HighlightButton = React.createClass({
   render: function() {
-    var $__1 = $traceurRuntime.assertObject(React.DOM),
-        button = $__1.button,
-        span = $__1.span;
+    var $__2 = $traceurRuntime.assertObject(React.DOM),
+        button = $__2.button,
+        span = $__2.span;
     var onClick = this.onClick;
-    var $__1 = $traceurRuntime.assertObject(this.props),
-        type = $__1.type,
-        content = $__1.content;
+    var $__2 = $traceurRuntime.assertObject(this.props),
+        type = $__2.type,
+        content = $__2.content;
     var className = this.className(type);
     return button({
       className: className,
@@ -579,37 +590,37 @@ var HighlightButton = React.createClass({
     }, span(null, content));
   },
   className: function(type) {
-    var $__1 = $traceurRuntime.assertObject(this.props),
-        getGroupProps = $__1.getGroupProps,
-        selectedGroup = $__1.selectedGroup;
+    var $__2 = $traceurRuntime.assertObject(this.props),
+        getGroupProps = $__2.getGroupProps,
+        selectedGroup = $__2.selectedGroup;
     var selectedType = $traceurRuntime.assertObject(this.props).selectedType;
     var selectedType = getGroupProps(selectedGroup).highlight;
     return 'highlight-button ' + type.toLowerCase() + (type === selectedType ? ' active' : '');
   },
   onClick: function(e) {
-    var $__1 = $traceurRuntime.assertObject(this.props),
-        setSelectedGroupProps = $__1.setSelectedGroupProps,
-        type = $__1.type;
+    var $__2 = $traceurRuntime.assertObject(this.props),
+        setSelectedGroupProps = $__2.setSelectedGroupProps,
+        type = $__2.type;
     setSelectedGroupProps({highlight: type});
   }
 });
 var PostProcess = React.createClass({
   render: function() {
-    var $__1 = $traceurRuntime.assertObject(React.DOM),
-        div = $__1.div,
-        input = $__1.input;
-    var $__1 = $traceurRuntime.assertObject(this.props),
-        postProcess = $__1.postProcess,
-        activeVariant = $__1.activeVariant;
-    var $__1 = this,
-        onChangeBrightness = $__1.onChangeBrightness,
-        onChangeSaturation = $__1.onChangeSaturation;
-    var $__1 = $traceurRuntime.assertObject(postProcess[activeVariant]),
-        brightness = $__1.brightness,
-        saturation = $__1.saturation;
+    var $__2 = $traceurRuntime.assertObject(React.DOM),
+        div = $__2.div,
+        input = $__2.input;
+    var $__2 = $traceurRuntime.assertObject(this.props),
+        postProcess = $__2.postProcess,
+        activeVariant = $__2.activeVariant;
+    var $__2 = this,
+        onChangeBrightness = $__2.onChangeBrightness,
+        onChangeSaturation = $__2.onChangeSaturation;
+    var $__2 = $traceurRuntime.assertObject(postProcess[activeVariant]),
+        brightness = $__2.brightness,
+        saturation = $__2.saturation;
     var brightnessClassName = 'left' + (-brightness === 0 ? ' inactive' : '');
     var saturationClassName = 'left' + (-saturation === 0 ? ' inactive' : '');
-    return Section(Object.assign({}, this.props, {
+    return Section(merge(this.props, {
       id: 'postProcess',
       title: 'Post process'
     }), div({className: 'line post-process-line'}, div({className: brightnessClassName}, 'Brightness'), div({className: 'right'}, input({
@@ -636,10 +647,10 @@ var PostProcess = React.createClass({
   }
 });
 var Components = React.createClass({render: function() {
-    var $__1 = $traceurRuntime.assertObject(this.props),
-        setComponentVisibility = $__1.setComponentVisibility,
-        componentsVisibility = $__1.componentsVisibility;
-    return Section(Object.assign({}, this.props, {
+    var $__2 = $traceurRuntime.assertObject(this.props),
+        setComponentVisibility = $__2.setComponentVisibility,
+        componentsVisibility = $__2.componentsVisibility;
+    return Section(merge(this.props, {
       id: 'components',
       title: 'Components'
     }), Component({
@@ -661,14 +672,14 @@ var Components = React.createClass({render: function() {
   }});
 var Component = React.createClass({
   render: function() {
-    var $__1 = $traceurRuntime.assertObject(React.DOM),
-        div = $__1.div,
-        button = $__1.button;
+    var $__2 = $traceurRuntime.assertObject(React.DOM),
+        div = $__2.div,
+        button = $__2.button;
     var onClick = this.onClick;
-    var $__1 = $traceurRuntime.assertObject(this.props),
-        label = $__1.label,
-        component = $__1.component,
-        visibility = $__1.visibility;
+    var $__2 = $traceurRuntime.assertObject(this.props),
+        label = $__2.label,
+        component = $__2.component,
+        visibility = $__2.visibility;
     var buttonText = visibility === 'show' ? 'Hide' : 'Show';
     return div({className: 'line  button-line'}, div({className: 'left'}, label), div({className: 'right'}, button({
       className: 'small-button',
@@ -682,9 +693,9 @@ var Component = React.createClass({
 });
 var ModifiedGroups = React.createClass({render: function() {
     var div = $traceurRuntime.assertObject(React.DOM).div;
-    var $__1 = $traceurRuntime.assertObject(this.props),
-        getModifiedGroups = $__1.getModifiedGroups,
-        resetGroup = $__1.resetGroup;
+    var $__2 = $traceurRuntime.assertObject(this.props),
+        getModifiedGroups = $__2.getModifiedGroups,
+        resetGroup = $__2.resetGroup;
     var groups = getModifiedGroups();
     var content = groups.length === 0 ? div({className: 'modified-groups-line none'}, 'None') : groups.map((function(group) {
       return ModifiedGroup({
@@ -692,16 +703,16 @@ var ModifiedGroups = React.createClass({render: function() {
         resetGroup: resetGroup
       });
     }));
-    return Section(Object.assign({}, this.props, {
+    return Section(merge(this.props, {
       id: 'modifiedGroups',
       title: 'Modified groups'
     }), content);
   }});
 var ModifiedGroup = React.createClass({
   render: function() {
-    var $__1 = $traceurRuntime.assertObject(React.DOM),
-        div = $__1.div,
-        button = $__1.button;
+    var $__2 = $traceurRuntime.assertObject(React.DOM),
+        div = $__2.div,
+        button = $__2.button;
     var onClick = this.onClick;
     var group = $traceurRuntime.assertObject(this.props).group;
     return div({className: 'line button-line'}, div({className: 'left'}, group), div({className: 'right'}, button({
@@ -715,13 +726,13 @@ var ModifiedGroup = React.createClass({
 });
 var Export = React.createClass({
   render: function() {
-    var $__1 = $traceurRuntime.assertObject(React.DOM),
-        div = $__1.div,
-        label = $__1.label,
-        input = $__1.input,
-        button = $__1.button;
+    var $__2 = $traceurRuntime.assertObject(React.DOM),
+        div = $__2.div,
+        label = $__2.label,
+        input = $__2.input,
+        button = $__2.button;
     var onExportClick = this.onExportClick;
-    return Section(Object.assign({}, this.props, {
+    return Section(merge(this.props, {
       id: 'export_',
       title: 'Export'
     }), div({className: 'line export-line-input'}, div({className: 'left'}, label(null, 'Name')), div({className: 'right'}, input({
@@ -738,13 +749,13 @@ var Export = React.createClass({
 });
 var DangerZone = React.createClass({
   render: function() {
-    var $__1 = $traceurRuntime.assertObject(React.DOM),
-        section = $__1.section,
-        h2 = $__1.h2,
-        div = $__1.div,
-        button = $__1.button;
+    var $__2 = $traceurRuntime.assertObject(React.DOM),
+        section = $__2.section,
+        h2 = $__2.h2,
+        div = $__2.div,
+        button = $__2.button;
     var onResetClick = this.onResetClick;
-    return Section(Object.assign({}, this.props, {
+    return Section(merge(this.props, {
       id: 'dangerZone',
       title: 'Danger zone'
     }), div({className: 'line danger-zone-line'}, button({
@@ -1075,7 +1086,7 @@ React.renderComponent(App({
 }), document.body);
 
 
-}).call(this,require("IrXUsu"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/fake_b1689fa2.js","/")
+}).call(this,require("IrXUsu"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/fake_4a07b847.js","/")
 },{"./components/app":1,"./exporter":8,"./initial-state":11,"./vim-tohtml-parser":157,"IrXUsu":20,"buffer":17,"es6ify/node_modules/traceur/bin/traceur-runtime":16,"react":156}],10:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 "use strict";

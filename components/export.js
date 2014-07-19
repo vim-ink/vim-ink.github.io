@@ -9,10 +9,13 @@ var Export = React.createClass({
         var hiddenConditional = exportedSource === undefined ? 'hidden' : '';
 
         return div({className: 'export dialog ' + hiddenConditional},
-            h2(null, 'Here is your color scheme!'),
-            p(null, 'Copy the code below to clipboard and paste into a new vim buffer. Do `:w ~/.vim/colors/whatever.vim`, `:set background light`, and finally `:colorscheme whatever`.'),
-            textarea({value: exportedSource, readOnly: true}),
+            h2(null, 'Export'),
+            p(null, 'Copy text into a new vim buffer, do `:w ~/.vim/colors/whatever.vim`, `:set background light`, and `:colorscheme whatever`.'),
+            textarea({ref: 'exportedSource', value: exportedSource, readOnly: true}),
             button({className: 'button', onClick}, 'Close'));
+    },
+    componentDidUpdate() {
+        this.refs.exportedSource.getDOMNode().select();
     },
     onClick() {
         this.props.clearExportedSource();
