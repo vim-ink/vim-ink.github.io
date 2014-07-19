@@ -8,9 +8,9 @@ var Right = React.createClass({
         if (activePane === 'global') {
             return aside(null,
                 Panes(this.props),
-                Components(Object.assign({}, this.props, {firstSection: true})),
-                Export(this.props),
-                DangerZone(this.props));
+                Export(Object.assign({}, this.props, {firstSection: true})),
+                DangerZone(this.props),
+                Components(this.props));
         }
         else {
             return aside(null,
