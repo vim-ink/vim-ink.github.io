@@ -22,7 +22,6 @@ var App = React.createClass({
         span = $__0.span,
         main = $__0.main;
     var $__0 = this,
-        activateVariant = $__0.activateVariant,
         clearExportedSource = $__0.clearExportedSource,
         exportColorScheme = $__0.exportColorScheme,
         getGroupProps = $__0.getGroupProps,
@@ -33,6 +32,8 @@ var App = React.createClass({
         selectGroup = $__0.selectGroup,
         setActiveColor = $__0.setActiveColor,
         setActiveFile = $__0.setActiveFile,
+        setActivePane = $__0.setActivePane,
+        setActiveVariant = $__0.setActiveVariant,
         setComponentVisibility = $__0.setComponentVisibility,
         setHoverGroup = $__0.setHoverGroup,
         setParsedSource = $__0.setParsedSource,
@@ -42,6 +43,7 @@ var App = React.createClass({
     var $__0 = $traceurRuntime.assertObject(this.state),
         activeColor = $__0.activeColor,
         activeFile = $__0.activeFile,
+        activePane = $__0.activePane,
         activeVariant = $__0.activeVariant,
         componentsVisibility = $__0.componentsVisibility,
         exportedSource = $__0.exportedSource,
@@ -63,8 +65,8 @@ var App = React.createClass({
       setHoverGroup: setHoverGroup,
       setParsedSource: setParsedSource
     }), Right({
-      activateVariant: activateVariant,
       activeColor: activeColor,
+      activePane: activePane,
       activeVariant: activeVariant,
       componentsVisibility: componentsVisibility,
       exportColorScheme: exportColorScheme,
@@ -77,6 +79,8 @@ var App = React.createClass({
       sectionsVisibility: sectionsVisibility,
       selectedGroup: selectedGroup,
       setActiveColor: setActiveColor,
+      setActivePane: setActivePane,
+      setActiveVariant: setActiveVariant,
       setComponentVisibility: setComponentVisibility,
       setPostProcessProps: setPostProcessProps,
       setSectionVisibility: setSectionVisibility,
@@ -104,8 +108,9 @@ var App = React.createClass({
   },
   getModifiedGroups: function() {
     var initialState = $traceurRuntime.assertObject(this.props).initialState;
-    var initialGroups = initialState[this.state.activeVariant];
-    var groups = this.state[this.state.activeVariant];
+    var activeVariant = $traceurRuntime.assertObject(this.state).activeVariant;
+    var initialGroups = initialState[activeVariant];
+    var groups = this.state[activeVariant];
     return Object.keys(groups).filter((function(group) {
       return !(group in initialGroups && _.isEqual(initialGroups[group], groups[group]));
     }));
@@ -126,6 +131,9 @@ var App = React.createClass({
   },
   setActiveFile: function(activeFile) {
     this.setState({activeFile: activeFile});
+  },
+  setActivePane: function(activePane) {
+    this.setState({activePane: activePane});
   },
   setHoverGroup: function(hoverGroup) {
     this.setState({hoverGroup: hoverGroup});
@@ -156,7 +164,7 @@ var App = React.createClass({
     Object.assign(newState.postProcess, props);
     this.setState(newState);
   },
-  activateVariant: function(activeVariant) {
+  setActiveVariant: function(activeVariant) {
     var body = document.getElementsByTagName('body')[0];
     body.className = activeVariant;
     this.setState({activeVariant: activeVariant});
@@ -297,7 +305,7 @@ var Files = React.createClass({render: function() {
         setParsedSource = $__0.setParsedSource,
         activeFile = $__0.activeFile,
         setActiveFile = $__0.setActiveFile;
-    return ul({className: 'files'}, FileLink(Object.assign({}, this.props, {
+    return ul({className: 'nav'}, FileLink(Object.assign({}, this.props, {
       type: 'html',
       title: 'HTML'
     })), FileLink(Object.assign({}, this.props, {
@@ -336,7 +344,7 @@ var PasteLink = React.createClass({
     var li = $traceurRuntime.assertObject(React.DOM).li;
     var onClick = this.onClick;
     var activeFile = $traceurRuntime.assertObject(this.props).activeFile;
-    var className = 'paste-link' + (activeFile === undefined ? ' active' : '');
+    var className = 'right-link' + (activeFile === undefined ? ' active' : '');
     return li({
       className: className,
       onClick: onClick
@@ -378,8 +386,51 @@ module.exports = Left;
 var React = require('react');
 var Right = React.createClass({render: function() {
     var aside = $traceurRuntime.assertObject(React.DOM).aside;
-    return aside(null, Variant(this.props), SelectedGroup(this.props), Color(this.props), Highlight(this.props), PostProcess(this.props), ModifiedGroups(this.props), Components(this.props), Export(this.props), DangerZone(this.props));
+    var activePane = $traceurRuntime.assertObject(this.props).activePane;
+    if (activePane === 'global') {
+      return aside(null, Panes(this.props), Components(Object.assign({}, this.props, {firstSection: true})), Export(this.props), DangerZone(this.props));
+    } else {
+      return aside(null, Panes(this.props), SelectedGroup(Object.assign({}, this.props, {firstSection: true})), Color(this.props), Highlight(this.props), PostProcess(this.props), ModifiedGroups(this.props));
+    }
   }});
+var Panes = React.createClass({render: function() {
+    var $__1 = $traceurRuntime.assertObject(React.DOM),
+        ul = $__1.ul,
+        li = $__1.li;
+    var $__1 = $traceurRuntime.assertObject(this.props),
+        activePane = $__1.activePane,
+        setActivePane = $__1.setActivePane;
+    return ul({className: 'nav'}, Pane(Object.assign({}, this.props, {id: 'light'}), 'Light'), Pane(Object.assign({}, this.props, {id: 'dark'}), 'Dark'), Pane(Object.assign({}, this.props, {
+      id: 'global',
+      additionalClassName: 'right-link'
+    }), 'Global'));
+  }});
+var Pane = React.createClass({
+  render: function() {
+    var li = $traceurRuntime.assertObject(React.DOM).li;
+    var onClick = this.onClick;
+    var $__1 = $traceurRuntime.assertObject(this.props),
+        children = $__1.children,
+        additionalClassName = $__1.additionalClassName,
+        activePane = $__1.activePane,
+        id = $__1.id;
+    var className = (additionalClassName !== undefined ? additionalClassName : '') + (activePane === id ? ' active' : '');
+    return li({
+      className: className,
+      onClick: onClick
+    }, children);
+  },
+  onClick: function() {
+    var $__1 = $traceurRuntime.assertObject(this.props),
+        setActivePane = $__1.setActivePane,
+        setActiveVariant = $__1.setActiveVariant,
+        id = $__1.id;
+    setActivePane(id);
+    if (id !== 'global') {
+      setActiveVariant(id);
+    }
+  }
+});
 var Section = React.createClass({
   render: function() {
     var $__1 = $traceurRuntime.assertObject(React.DOM),
@@ -391,8 +442,9 @@ var Section = React.createClass({
         title = $__1.title,
         sectionsVisibility = $__1.sectionsVisibility,
         id = $__1.id;
+    var className = 'firstSection' in this.props && this.props.firstSection === true ? 'first' : null;
     var children_ = sectionsVisibility[id] === 'show' ? children : null;
-    return section(null, h2({onClick: onClick}, title), children_);
+    return section({className: className}, h2({onClick: onClick}, title), children_);
   },
   onClick: function() {
     var $__1 = $traceurRuntime.assertObject(this.props),
@@ -401,33 +453,6 @@ var Section = React.createClass({
         id = $__1.id;
     var toggledVisibility = sectionsVisibility[id] === 'show' ? 'hide' : 'show';
     setSectionVisibility(id, toggledVisibility);
-  }
-});
-var Variant = React.createClass({
-  render: function() {
-    var button = $traceurRuntime.assertObject(React.DOM).button;
-    var $__1 = this,
-        onLightClick = $__1.onLightClick,
-        onDarkClick = $__1.onDarkClick;
-    var activeVariant = $traceurRuntime.assertObject(this.props).activeVariant;
-    var lightClassName = 'switch-button light-button' + (activeVariant === 'light' ? ' active' : '');
-    var darkClassName = 'switch-button dark-button' + (activeVariant === 'dark' ? ' active' : '');
-    return Section(Object.assign({}, this.props, {
-      id: 'variant',
-      title: 'Variant'
-    }), button({
-      onClick: onLightClick,
-      className: lightClassName
-    }, 'Light'), button({
-      onClick: onDarkClick,
-      className: darkClassName
-    }, 'Dark'));
-  },
-  onLightClick: function() {
-    this.props.activateVariant('light');
-  },
-  onDarkClick: function() {
-    this.props.activateVariant('dark');
   }
 });
 var SelectedGroup = React.createClass({render: function() {
@@ -566,8 +591,6 @@ var HighlightButton = React.createClass({
 var PostProcess = React.createClass({
   render: function() {
     var $__1 = $traceurRuntime.assertObject(React.DOM),
-        section = $__1.section,
-        h2 = $__1.h2,
         div = $__1.div,
         input = $__1.input;
     var postProcess = $traceurRuntime.assertObject(this.props).postProcess;
@@ -606,9 +629,6 @@ var PostProcess = React.createClass({
   }
 });
 var Components = React.createClass({render: function() {
-    var $__1 = $traceurRuntime.assertObject(React.DOM),
-        div = $__1.div,
-        button = $__1.button;
     var $__1 = $traceurRuntime.assertObject(this.props),
         setComponentVisibility = $__1.setComponentVisibility,
         componentsVisibility = $__1.componentsVisibility;
@@ -689,8 +709,6 @@ var ModifiedGroup = React.createClass({
 var Export = React.createClass({
   render: function() {
     var $__1 = $traceurRuntime.assertObject(React.DOM),
-        section = $__1.section,
-        h2 = $__1.h2,
         div = $__1.div,
         label = $__1.label,
         input = $__1.input,
@@ -1048,7 +1066,7 @@ React.renderComponent(App({
 }), document.body);
 
 
-}).call(this,require("IrXUsu"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/fake_1fcd1008.js","/")
+}).call(this,require("IrXUsu"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/fake_3dbaa066.js","/")
 },{"./components/app":1,"./exporter":8,"./initial-state":11,"./vim-tohtml-parser":157,"IrXUsu":20,"buffer":17,"es6ify/node_modules/traceur/bin/traceur-runtime":16,"react":156}],10:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 "use strict";
@@ -1571,6 +1589,7 @@ var initialState = {
   hoverGroup: undefined,
   activeColor: 'foreground',
   activeFile: 'html',
+  activePane: 'light',
   postProcess: {
     brightness: 0,
     saturation: 0

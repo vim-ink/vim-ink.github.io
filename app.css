@@ -48,7 +48,7 @@ body.dark {
 /* header */
 
 header {
-    margin: 0 0 4rem 0;
+    margin: 0 0 2rem 0;
     overflow: hidden;
 }
 
@@ -63,42 +63,11 @@ body.dark header {
 }
 
 /* footer */
+
 footer {
     margin: 2rem 0 2rem 0;
     overflow: hidden;
     text-align: center;
-}
-
-/* .nav */
-
-.nav {
-    margin: 0;
-    padding: 0;
-    margin-left: 2rem;
-}
-
-.nav li {
-    display: inline-block;
-    line-height: 6rem;
-    width: 6.66rem;
-    text-align: center;
-    font-size: 1.4rem;
-}
-
-body.light .nav li {
-    color: #aaa;
-}
-
-body.dark .nav li {
-    color: #666;
-}
-
-.nav li:first-child {
-    text-align: left;
-}
-
-.nav li:last-child {
-    text-align: right;
 }
 
 /* h1 */
@@ -125,55 +94,57 @@ article {
 }
 
 body.light article {
-    box-shadow: 0px 0px 3px #ddd;
+    box-shadow: 0 0 0.3rem #ddd;
 }
 
 body.dark article {
-    box-shadow: 0px 0px 3px #111;
+    box-shadow: 0 0 0.3rem #111;
 }
 
-/* ul.files */
+/* .nav */
 
-ul.files {
+ul.nav {
     margin: 0;
     padding: 0;
     overflow: hidden;
     font-size: 1.4rem;
 }
 
-body.light ul.files {
+body.light ul.nav {
     color: #aaa;
 }
 
-body.dark ul.files {
+body.dark ul.nav {
     color: #666;
 }
 
-.paste-link {
-    float: right;
-}
-
-ul.files li {
+ul.nav li {
     display: inline-block;
-    padding: 0.5rem 1rem;
-    margin: 1rem 1rem;
+    padding: 1.25rem 1.5rem;
+    margin: 0rem 0rem;
     cursor: default;
 }
 
-body.light ul.files li:hover {
+body.light ul.nav li:hover {
     color: #888;
 }
 
-body.dark ul.files li:hover {
+body.dark ul.nav li:hover {
     color: #888;
 }
 
-body.light ul.files li.active {
+body.light ul.nav li.active {
     color: #888;
+    border-bottom: 0.1rem solid #aaa;
 }
 
-body.dark ul.files li.active {
+body.dark ul.nav li.active {
     color: #888;
+    border-bottom: 0.1rem solid #666;
+}
+
+ul.nav li.right-link {
+    float: right;
 }
 
 /* pre */
@@ -193,11 +164,11 @@ pre span.italic {
 }
 
 pre span.underline {
-    border-bottom: 1px solid #888;
+    border-bottom: 0.1rem solid #888;
 }
 
 pre span.undercurl {
-    border-bottom: 1px dotted #888;
+    border-bottom: 0.1rem dotted #888;
 }
 
 pre span.reverse {
@@ -208,7 +179,7 @@ pre span.reverse {
 pre span.standout {
     font-weight: 600;
     font-style: italic;
-    border-bottom: 1px solid #888;
+    border-bottom: 0.1rem solid #888;
     filter: invert(100%);
     -webkit-filter: invert(100%);
 }
@@ -238,73 +209,13 @@ body.light .dialog textarea {
 }
 
 body.light .paste {
-    box-shadow: 4px 4px 4px #eee;
+    box-shadow: 0.4rem 0.4rem 0.4rem #eee;
     border: 0;
 }
 
 body.dark .paste {
-    box-shadow: 4px 4px 4px #222;
+    box-shadow: 0.4rem 0.4rem 0.4rem #222;
     border: 0;
-}
-
-/* .switch-button */
-
-.switch-button {
-    background-color: transparent;
-    height: 4rem;
-    margin: 0;
-    font-size: 1.5rem;
-}
-
-body.light .switch-button {
-    border: 1px solid #bbb;
-    color: #aaa;
-}
-
-body.dark .switch-button {
-    border: 1px solid #555;
-    color: #666;
-}
-
-body.light .switch-button.active {
-    color: #888;
-}
-
-body.dark .switch-button.active {
-    color: #888;
-}
-
-body.light .switch-button:hover {
-    background-color: #bbb;
-    color: #444;
-}
-
-body.dark .switch-button:hover {
-    background-color: #555;
-    color: #aaa;
-}
-
-body.light .switch-button:active {
-    color: #222;
-}
-
-body.dark .switch-button:active {
-    color: #ccc;
-}
-
-.switch-button:focus {
-    outline: 0;
-}
-
-.light-button {
-    padding: 0 1.5rem 0 2rem;
-    border-radius: 2rem 0 0 2rem;
-}
-
-.dark-button {
-    padding: 0 2rem 0 1.5rem;
-    border-left: 0 !important;
-    border-radius: 0 2rem 2rem 0;
 }
 
 /* .highlight-button */
@@ -333,11 +244,11 @@ body.dark .highlight-button {
 }
 
 body.light .highlight-button.none {
-    border: 1px solid #aaa;
+    border: 0.1rem solid #aaa;
 }
 
 body.dark .highlight-button.none {
-    border: 1px solid #666;
+    border: 0.1rem solid #666;
 }
 
 .highlight-button.none span {
@@ -353,19 +264,19 @@ body.dark .highlight-button.none {
 }
 
 body.light .highlight-button.underline span {
-    border-bottom: 1px solid #888;
+    border-bottom: 0.1rem solid #888;
 }
 
 body.dark .highlight-button.underline span {
-    border-bottom: 1px solid #888;
+    border-bottom: 0.1rem solid #888;
 }
 
 body.light .highlight-button.undercurl span {
-    border-bottom: 1px dotted #888;
+    border-bottom: 0.1rem dotted #888;
 }
 
 body.dark .highlight-button.undercurl span {
-    border-bottom: 1px dotted #888;
+    border-bottom: 0.1rem dotted #888;
 }
 
 body.light .highlight-button.reverse {
@@ -393,11 +304,11 @@ body.dark .highlight-button.standout {
 }
 
 body.light .highlight-button.standout span {
-    border-bottom: 1px solid #eee;
+    border-bottom: 0.1rem solid #eee;
 }
 
 body.dark .highlight-button.standout span {
-    border-bottom: 1px solid #222;
+    border-bottom: 0.1rem solid #222;
 }
 
 body.light .highlight-button:hover {
@@ -434,12 +345,12 @@ body.dark .highlight-button:active {
 }
 
 body.light .small-button {
-    border: 1px solid #bbb;
+    border: 0.1rem solid #bbb;
     color: #888;
 }
 
 body.dark .small-button {
-    border: 1px solid #555;
+    border: 0.1rem solid #555;
     color: #888;
 }
 
@@ -455,8 +366,8 @@ body.dark .small-button:hover {
 
 .small-button:active {
     position: relative;
-    left: 1px;
-    top: 1px;
+    left: 0.1rem;
+    top: 0.1rem;
 }
 
 .small-button:focus {
@@ -476,13 +387,13 @@ body.dark .small-button:hover {
 
 body.light .button,
 body.dark .dialog .button {
-    border: 1px solid #bbb;
+    border: 0.1rem solid #bbb;
     color: #888;
 }
 
 body.dark .button,
 body.light .dialog .button {
-    border: 1px solid #555;
+    border: 0.1rem solid #555;
     color: #888;
 }
 
@@ -500,8 +411,8 @@ body.light .dialog .button:hover {
 
 .button:active {
     position: relative;
-    left: 1px;
-    top: 1px;
+    left: 0.1rem;
+    top: 0.1rem;
 }
 
 .button:focus {
@@ -595,15 +506,14 @@ aside {
 aside h2 {
     font-size: 1.4rem;
     text-align: right;
-    padding-top: 0.75rem;
+    padding-top: 1rem;
     margin-top: 2rem;
     margin-bottom: 1.5rem;
-    text-transform: uppercase;
     cursor: default;
 }
 
-aside section:first-child h2 {
-    margin-top: 0;
+aside section.first h2 {
+    margin-top: -0.1rem;
 }
 
 aside h2 span + span {
@@ -613,12 +523,12 @@ aside h2 span + span {
 }
 
 body.light aside h2 {
-    border-top: 1px solid #ddd;
+    border-top: 0.1rem solid #ddd;
     color: #aaa;
 }
 
 body.dark aside h2 {
-    border-top: 1px solid #333;
+    border-top: 0.1rem solid #333;
     color: #666;
 }
 

@@ -39,7 +39,7 @@ var Files = React.createClass({
         var {ul} = React.DOM;
         var {setParsedSource, activeFile, setActiveFile} = this.props;
 
-        return ul({className: 'files'},
+        return ul({className: 'nav'},
             FileLink(Object.assign({}, this.props, {
                 type: 'html',
                 title: 'HTML'
@@ -79,7 +79,7 @@ var PasteLink = React.createClass({
         var {onClick} = this;
         var {activeFile} = this.props;
 
-        var className = 'paste-link' + (activeFile === undefined ? ' active' : '');
+        var className = 'right-link' + (activeFile === undefined ? ' active' : '');
 
         return li({className, onClick}, 'Paste');
     },

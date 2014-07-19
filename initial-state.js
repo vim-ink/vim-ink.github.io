@@ -8,6 +8,7 @@ var initialState = {
     hoverGroup: undefined,
     activeColor: 'foreground',
     activeFile: 'html',
+    activePane: 'light',
     postProcess: {
         brightness: 0,
         saturation: 0

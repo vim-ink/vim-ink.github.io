@@ -3,17 +3,58 @@ var React = require('react');
 var Right = React.createClass({
     render() {
         var {aside} = React.DOM;
+        var {activePane} = this.props;
 
-        return aside(null,
-            Variant(this.props),
-            SelectedGroup(this.props),
-            Color(this.props),
-            Highlight(this.props),
-            PostProcess(this.props),
-            ModifiedGroups(this.props),
-            Components(this.props),
-            Export(this.props),
-            DangerZone(this.props));
+        if (activePane === 'global') {
+            return aside(null,
+                Panes(this.props),
+                Components(Object.assign({}, this.props, {firstSection: true})),
+                Export(this.props),
+                DangerZone(this.props));
+        }
+        else {
+            return aside(null,
+                Panes(this.props),
+                SelectedGroup(Object.assign({}, this.props, {firstSection: true})),
+                Color(this.props),
+                Highlight(this.props),
+                PostProcess(this.props),
+                ModifiedGroups(this.props));
+        }
+    }
+});
+
+var Panes = React.createClass({
+    render() {
+        var {ul, li} = React.DOM;
+        var {activePane, setActivePane} = this.props;
+
+        return ul({className: 'nav'},
+            Pane(Object.assign({}, this.props, {id: 'light'}), 'Light'),
+            Pane(Object.assign({}, this.props, {id: 'dark'}), 'Dark'),
+            Pane(Object.assign({}, this.props, {id: 'global', additionalClassName: 'right-link'}), 'Global'));
+    }
+});
+
+var Pane = React.createClass({
+    render() {
+        var {li} = React.DOM;
+        var {onClick} = this;
+        var {children, additionalClassName, activePane, id} = this.props;
+
+        var className = (additionalClassName !== undefined ? additionalClassName : '') +
+            (activePane ===  id ? ' active' : '');
+
+        return li({className, onClick}, children);
+    },
+    onClick() {
+        var {setActivePane, setActiveVariant, id} = this.props;
+
+        setActivePane(id);
+
+        if (id !== 'global') {
+            setActiveVariant(id);
+        }
     }
 });
 
@@ -23,46 +64,16 @@ var Section = React.createClass({
         var {onClick} = this;
         var {children, title, sectionsVisibility, id} = this.props;
 
+        var className = 'firstSection' in this.props && this.props.firstSection === true ? 'first' : null;
         var children_ = sectionsVisibility[id] === 'show' ? children : null;
 
-        return section(null, h2({onClick}, title), children_);
+        return section({className}, h2({onClick}, title), children_);
     },
     onClick() {
         var {setSectionVisibility, sectionsVisibility, id} = this.props;
         var toggledVisibility = sectionsVisibility[id] === 'show' ? 'hide' : 'show';
 
         setSectionVisibility(id, toggledVisibility);
-    }
-});
-
-var Variant = React.createClass({
-    render() {
-        var {button} = React.DOM;
-        var {onLightClick, onDarkClick} = this;
-        var {activeVariant} = this.props;
-
-        var lightClassName = 'switch-button light-button' + (activeVariant === 'light' ? ' active' : '');
-        var darkClassName = 'switch-button dark-button' + (activeVariant === 'dark' ? ' active' : '');
-
-        return Section(Object.assign({}, this.props, {
-            id: 'variant',
-            title: 'Variant'}),
-            button({
-                    onClick: onLightClick,
-                    className: lightClassName
-                },
-                'Light'),
-            button({
-                    onClick: onDarkClick,
-                    className: darkClassName
-                },
-                'Dark'));
-    },
-    onLightClick() {
-        this.props.activateVariant('light');
-    },
-    onDarkClick() {
-        this.props.activateVariant('dark');
     }
 });
 
@@ -198,7 +209,7 @@ var HighlightButton = React.createClass({
 
 var PostProcess = React.createClass({
     render() {
-        var {section, h2, div, input} = React.DOM;
+        var {div, input} = React.DOM;
         var {postProcess} = this.props;
         var {onChangeBrightness, onChangeSaturation} = this;
 
@@ -238,7 +249,6 @@ var PostProcess = React.createClass({
 
 var Components = React.createClass({
     render() {
-        var {div, button} = React.DOM;
         var {setComponentVisibility, componentsVisibility} = this.props;
 
         return Section(Object.assign({}, this.props, {
@@ -315,7 +325,7 @@ var ModifiedGroup = React.createClass({
 
 var Export = React.createClass({
     render() {
-        var {section, h2, div, label, input, button} = React.DOM;
+        var {div, label, input, button} = React.DOM;
         var {onExportClick} = this;
         
         return Section(Object.assign({}, this.props, {

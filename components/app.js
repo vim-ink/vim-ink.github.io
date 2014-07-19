@@ -19,7 +19,7 @@ var App = React.createClass({
     },
     render() {
         var {span, main} = React.DOM;
-        var {activateVariant,
+        var {
             clearExportedSource,
             exportColorScheme,
             getGroupProps,
@@ -30,6 +30,8 @@ var App = React.createClass({
             selectGroup,
             setActiveColor,
             setActiveFile,
+            setActivePane,
+            setActiveVariant,
             setComponentVisibility,
             setHoverGroup,
             setParsedSource,
@@ -38,6 +40,7 @@ var App = React.createClass({
             setSelectedGroupProps} = this;
         var {activeColor,
             activeFile,
+            activePane,
             activeVariant,
             componentsVisibility,
             exportedSource,
@@ -62,8 +65,9 @@ var App = React.createClass({
                     setActiveFile,
                     setHoverGroup,
                     setParsedSource}),
-                Right({activateVariant,
+                Right({
                     activeColor,
+                    activePane,
                     activeVariant,
                     componentsVisibility,
                     exportColorScheme,
@@ -76,6 +80,8 @@ var App = React.createClass({
                     sectionsVisibility,
                     selectedGroup,
                     setActiveColor,
+                    setActivePane,
+                    setActiveVariant,
                     setComponentVisibility,
                     setPostProcessProps,
                     setSectionVisibility,
@@ -110,8 +116,9 @@ var App = React.createClass({
     getModifiedGroups() {
         // console.log(JSON.stringify(this.state.parsedSource));
         var {initialState} = this.props;
-        var initialGroups = initialState[this.state.activeVariant];
-        var groups = this.state[this.state.activeVariant];
+        var {activeVariant} = this.state;
+        var initialGroups = initialState[activeVariant];
+        var groups = this.state[activeVariant];
 
         return Object.keys(groups).filter(group => {
             return !(group in initialGroups && _.isEqual(initialGroups[group], groups[group]));
@@ -135,6 +142,9 @@ var App = React.createClass({
     },
     setActiveFile(activeFile) {
         this.setState({activeFile});
+    },
+    setActivePane(activePane) {
+        this.setState({activePane});
     },
     setHoverGroup(hoverGroup) {
         this.setState({hoverGroup});
@@ -167,7 +177,7 @@ var App = React.createClass({
         Object.assign(newState.postProcess, props);
         this.setState(newState);
     },
-    activateVariant(activeVariant) {
+    setActiveVariant(activeVariant) {
         var body = document.getElementsByTagName('body')[0];
 
         body.className = activeVariant;
