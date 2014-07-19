@@ -9,8 +9,8 @@ var Right = React.createClass({
             return aside(null,
                 Panes(this.props),
                 Export(Object.assign({}, this.props, {firstSection: true})),
-                DangerZone(this.props),
-                Components(this.props));
+                Components(this.props),
+                DangerZone(this.props));
         }
         else {
             return aside(null,
