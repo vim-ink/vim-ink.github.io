@@ -86,14 +86,15 @@ var App = React.createClass({
   },
   resetGroup: function(group) {
     var initialState = $traceurRuntime.assertObject(this.props).initialState;
-    var newState = this.state;
-    var initialGroups = initialState[this.state.activeVariant];
-    var groups = newState[this.state.activeVariant];
-    if (group in initialGroups)
-      groups[group] = _.cloneDeep(initialGroups[group]);
-    else
-      delete groups[group];
-    this.setState(newState);
+    var activeVariant = $traceurRuntime.assertObject(this.state).activeVariant;
+    var state = {};
+    state[activeVariant] = _.cloneDeep(this.state[activeVariant]);
+    if (group in initialState[activeVariant]) {
+      state[activeVariant][group] = _.cloneDeep(initialState[activeVariant][group]);
+    } else {
+      delete state[activeVariant][group];
+    }
+    this.setState(state);
   },
   setParsedSource: function(parsedSource) {
     this.setState({parsedSource: parsedSource});
@@ -1059,7 +1060,7 @@ React.renderComponent(App({
 }), document.body);
 
 
-}).call(this,require("IrXUsu"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/fake_a23fa96a.js","/")
+}).call(this,require("IrXUsu"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/fake_fb6ee8f0.js","/")
 },{"./components/app":1,"./exporter":8,"./initial-state":11,"./vim-tohtml-parser":157,"IrXUsu":20,"buffer":17,"es6ify/node_modules/traceur/bin/traceur-runtime":16,"react":156}],10:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 "use strict";

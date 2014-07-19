@@ -104,16 +104,17 @@ var App = React.createClass({
     },
     resetGroup(group) {
         var {initialState} = this.props;
-        var newState = this.state;
-        var initialGroups = initialState[this.state.activeVariant];
-        var groups = newState[this.state.activeVariant];
+        var {activeVariant} = this.state;
+        var state = {};
+        state[activeVariant] = _.cloneDeep(this.state[activeVariant]);
 
-        if (group in initialGroups)
-            groups[group] = _.cloneDeep(initialGroups[group]);
-        else
-            delete groups[group];
+        if (group in initialState[activeVariant]) {
+            state[activeVariant][group] = _.cloneDeep(initialState[activeVariant][group]);
+        } else {
+            delete state[activeVariant][group];
+        }
 
-        this.setState(newState);
+        this.setState(state);
     },
     setParsedSource(parsedSource) {
         this.setState({parsedSource});
