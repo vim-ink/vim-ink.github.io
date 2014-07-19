@@ -108,32 +108,36 @@ var App = React.createClass({
     this.setState({hoverGroup: hoverGroup});
   },
   setSelectedGroupProps: function(props) {
-    var newState = this.state;
-    var group = newState.selectedGroup;
-    var groups = newState[this.state.activeVariant];
-    if (!(group in groups))
-      groups[group] = {};
-    Object.assign(groups[group], props);
-    this.setState(newState);
+    var $__0 = $traceurRuntime.assertObject(this.state),
+        activeVariant = $__0.activeVariant,
+        selectedGroup = $__0.selectedGroup;
+    var state = {};
+    state[activeVariant] = _.cloneDeep(this.state[activeVariant]);
+    if (!(selectedGroup in state[activeVariant])) {
+      state[activeVariant][selectedGroup] = {};
+    }
+    Object.assign(state[activeVariant][selectedGroup], props);
+    this.setState(state);
   },
   setSectionVisibility: function(section, visibility) {
-    var newState = this.state;
-    var sectionsVisibility = $traceurRuntime.assertObject(newState).sectionsVisibility;
-    sectionsVisibility[section] = visibility;
-    this.setState(newState);
+    var sectionsVisibility = $traceurRuntime.assertObject(this.state).sectionsVisibility;
+    var state = {sectionsVisibility: _.cloneDeep(sectionsVisibility)};
+    state.sectionsVisibility[section] = visibility;
+    this.setState(state);
   },
   setComponentVisibility: function(component, visibility) {
-    var newState = this.state;
-    var componentsVisibility = $traceurRuntime.assertObject(newState).componentsVisibility;
-    componentsVisibility[component] = visibility;
-    this.setState(newState);
+    var componentsVisibility = $traceurRuntime.assertObject(this.state).componentsVisibility;
+    var state = {componentsVisibility: _.cloneDeep(componentsVisibility)};
+    state.componentsVisibility[component] = visibility;
+    this.setState(state);
   },
   setPostProcessProps: function(props) {
-    var newState = this.state;
-    var activeVariant = $traceurRuntime.assertObject(newState).activeVariant;
-    var postProcess = newState.postProcess[activeVariant];
-    Object.assign(postProcess, props);
-    this.setState(newState);
+    var $__0 = $traceurRuntime.assertObject(this.state),
+        activeVariant = $__0.activeVariant,
+        postProcess = $__0.postProcess;
+    var state = {postProcess: _.cloneDeep(postProcess)};
+    Object.assign(state.postProcess[activeVariant], props);
+    this.setState(state);
   },
   setActiveVariant: function(activeVariant) {
     var body = document.getElementsByTagName('body')[0];
@@ -1055,7 +1059,7 @@ React.renderComponent(App({
 }), document.body);
 
 
-}).call(this,require("IrXUsu"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/fake_b5990ba5.js","/")
+}).call(this,require("IrXUsu"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/fake_a23fa96a.js","/")
 },{"./components/app":1,"./exporter":8,"./initial-state":11,"./vim-tohtml-parser":157,"IrXUsu":20,"buffer":17,"es6ify/node_modules/traceur/bin/traceur-runtime":16,"react":156}],10:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 "use strict";

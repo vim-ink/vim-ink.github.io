@@ -128,34 +128,36 @@ var App = React.createClass({
         this.setState({hoverGroup});
     },
     setSelectedGroupProps(props) {
-        var newState = this.state;
-        var group = newState.selectedGroup;
-        var groups = newState[this.state.activeVariant];
-
-        if (!(group in groups))
-            groups[group] = {};
-
-        Object.assign(groups[group], props);
-        this.setState(newState);
+        var {activeVariant, selectedGroup} = this.state;
+        var state = {};
+        state[activeVariant] = _.cloneDeep(this.state[activeVariant]);
+        
+        if (!(selectedGroup in state[activeVariant])) {
+            state[activeVariant][selectedGroup] = {};
+        }
+        
+        Object.assign(state[activeVariant][selectedGroup], props);
+        this.setState(state);
     },
     setSectionVisibility(section, visibility) {
-        var newState = this.state;
-        var {sectionsVisibility} = newState;
-        sectionsVisibility[section] = visibility;
-        this.setState(newState);
+        var {sectionsVisibility} = this.state;
+        var state = {sectionsVisibility: _.cloneDeep(sectionsVisibility)};
+        state.sectionsVisibility[section] = visibility;
+        this.setState(state);
     },
     setComponentVisibility(component, visibility) {
-        var newState = this.state;
-        var {componentsVisibility} = newState;
-        componentsVisibility[component] = visibility;
-        this.setState(newState);
+        var {componentsVisibility} = this.state;
+        var state = {componentsVisibility: _.cloneDeep(componentsVisibility)};
+        state.componentsVisibility[component] = visibility;
+        this.setState(state);
     },
     setPostProcessProps(props) {
-        var newState = this.state;
-        var {activeVariant} = newState;
-        var postProcess = newState.postProcess[activeVariant];
-        Object.assign(postProcess, props);
-        this.setState(newState);
+        var {activeVariant, postProcess} = this.state;
+        var state = {
+            postProcess: _.cloneDeep(postProcess)
+        };
+        Object.assign(state.postProcess[activeVariant], props);
+        this.setState(state);
     },
     setActiveVariant(activeVariant) {
         var body = document.getElementsByTagName('body')[0];
