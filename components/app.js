@@ -56,6 +56,7 @@ var App = React.createClass({
                     activePane: this.state.activePane,
                     activeVariant: this.state.activeVariant,
                     componentsVisibility: this.state.componentsVisibility,
+                    exportName: this.state.exportName,
                     hoverGroup: this.state.hoverGroup,
                     postProcess: this.state.postProcess,
                     sectionsVisibility: this.state.sectionsVisibility,
@@ -64,6 +65,8 @@ var App = React.createClass({
             Footer(),
             Export({
                 clearExportedSource: this.clearExportedSource,
+
+                exportName: this.state.exportName,
                 exportedSource: this.state.exportedSource
             }));
     },
@@ -179,8 +182,11 @@ var App = React.createClass({
     },
     exportColorScheme() {
         var {exporter} = this.props;
+        var {exportName} = this.state;
 
-        this.setState({exportedSource: exporter.exportColorScheme(_.cloneDeep(this.state))});
+        this.setState({
+            exportedSource: exporter.exportColorScheme(_.cloneDeep(this.state))
+        });
     },
     clearExportedSource() {
         this.setState({exportedSource: undefined});

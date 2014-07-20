@@ -9,6 +9,8 @@ var initialState = {
     activeColor: 'foreground',
     activeFile: 'html',
     activePane: 'light',
+    exportName: 'my-default',
+    exportedSource: undefined,
     postProcess: {
         dark: {
             brightness: 0,

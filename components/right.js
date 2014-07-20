@@ -328,13 +328,14 @@ var Export = React.createClass({
     render() {
         var {div, label, input, button} = React.DOM;
         var {onExportClick} = this;
+        var {exportName} = this.props;
         
         return Section(merge(this.props, {
             id: 'export_',
             title: 'Export'}),
             div({className: 'line export-line-input'},
                 div({className: 'left'}, label(null, 'Name')),
-                div({className: 'right'}, input({className: 'text', value: 'whatever'}))),
+                div({className: 'right'}, input({className: 'text', value: exportName}))),
             div({className: 'line export-line-button'},
                 button({className: 'button', onClick: onExportClick}, 'Export')));
     },

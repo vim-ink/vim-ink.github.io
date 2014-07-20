@@ -4,13 +4,13 @@ var Export = React.createClass({
     render() {
         var {div, button, p, h2, textarea} = React.DOM;
         var {onClick} = this;
-        var {exportedSource} = this.props;
+        var {exportedSource, exportName} = this.props;
 
         var hiddenConditional = exportedSource === undefined ? 'hidden' : '';
 
         return div({className: 'export dialog ' + hiddenConditional},
             h2(null, 'Export'),
-            p(null, 'Copy text into a new vim buffer, do `:w ~/.vim/colors/whatever.vim`, `:set background light`, and `:colorscheme whatever`.'),
+            p(null, 'Copy text into a new vim buffer, then `:w ~/.vim/colors/' + exportName + '.vim` and `:colorscheme ' + exportName + '`.'),
             textarea({ref: 'exportedSource', value: exportedSource, readOnly: true}),
             button({className: 'button', onClick}, 'Close'));
     },

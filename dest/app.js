@@ -50,12 +50,14 @@ var App = React.createClass({
       activePane: this.state.activePane,
       activeVariant: this.state.activeVariant,
       componentsVisibility: this.state.componentsVisibility,
+      exportName: this.state.exportName,
       hoverGroup: this.state.hoverGroup,
       postProcess: this.state.postProcess,
       sectionsVisibility: this.state.sectionsVisibility,
       selectedGroup: this.state.selectedGroup
     })), Footer(), Export({
       clearExportedSource: this.clearExportedSource,
+      exportName: this.state.exportName,
       exportedSource: this.state.exportedSource
     }));
   },
@@ -157,6 +159,7 @@ var App = React.createClass({
   },
   exportColorScheme: function() {
     var exporter = $traceurRuntime.assertObject(this.props).exporter;
+    var exportName = $traceurRuntime.assertObject(this.state).exportName;
     this.setState({exportedSource: exporter.exportColorScheme(_.cloneDeep(this.state))});
   },
   clearExportedSource: function() {
@@ -192,9 +195,11 @@ var Export = React.createClass({
         h2 = $__0.h2,
         textarea = $__0.textarea;
     var onClick = this.onClick;
-    var exportedSource = $traceurRuntime.assertObject(this.props).exportedSource;
+    var $__0 = $traceurRuntime.assertObject(this.props),
+        exportedSource = $__0.exportedSource,
+        exportName = $__0.exportName;
     var hiddenConditional = exportedSource === undefined ? 'hidden' : '';
-    return div({className: 'export dialog ' + hiddenConditional}, h2(null, 'Export'), p(null, 'Copy text into a new vim buffer, do `:w ~/.vim/colors/whatever.vim`, `:set background light`, and `:colorscheme whatever`.'), textarea({
+    return div({className: 'export dialog ' + hiddenConditional}, h2(null, 'Export'), p(null, 'Copy text into a new vim buffer, then `:w ~/.vim/colors/' + exportName + '.vim` and `:colorscheme ' + exportName + '`.'), textarea({
       ref: 'exportedSource',
       value: exportedSource,
       readOnly: true
@@ -705,12 +710,13 @@ var Export = React.createClass({
         input = $__2.input,
         button = $__2.button;
     var onExportClick = this.onExportClick;
+    var exportName = $traceurRuntime.assertObject(this.props).exportName;
     return Section(merge(this.props, {
       id: 'export_',
       title: 'Export'
     }), div({className: 'line export-line-input'}, div({className: 'left'}, label(null, 'Name')), div({className: 'right'}, input({
       className: 'text',
-      value: 'whatever'
+      value: exportName
     }))), div({className: 'line export-line-button'}, button({
       className: 'button',
       onClick: onExportClick
@@ -1037,7 +1043,8 @@ function exportVariant(variant) {
   return str;
 }
 function exportColorScheme(state) {
-  var str = [].concat(['hi clear', 'syntax reset', 'let g:colors_name = "whatever"', 'if &background == "light"'], exportVariant(state.light), ['elseif &background == "dark"'], exportVariant(state.dark), ['endif']);
+  var exportName = $traceurRuntime.assertObject(state).exportName;
+  var str = [].concat(['hi clear', 'syntax reset', 'let g:colors_name = "' + exportName + '"', 'if &background == "light"'], exportVariant(state.light), ['elseif &background == "dark"'], exportVariant(state.dark), ['endif']);
   return str.join('\n');
 }
 module.exports = {exportColorScheme: exportColorScheme};
@@ -1060,7 +1067,7 @@ React.renderComponent(App({
 }), document.body);
 
 
-}).call(this,require("IrXUsu"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/fake_fb6ee8f0.js","/")
+}).call(this,require("IrXUsu"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/fake_598b1cc8.js","/")
 },{"./components/app":1,"./exporter":8,"./initial-state":11,"./vim-tohtml-parser":157,"IrXUsu":20,"buffer":17,"es6ify/node_modules/traceur/bin/traceur-runtime":16,"react":156}],10:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 "use strict";
@@ -1584,6 +1591,8 @@ var initialState = {
   activeColor: 'foreground',
   activeFile: 'html',
   activePane: 'light',
+  exportName: 'my-default',
+  exportedSource: undefined,
   postProcess: {
     dark: {
       brightness: 0,

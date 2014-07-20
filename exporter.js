@@ -33,10 +33,12 @@ function exportVariant(variant) {
 }
 
 function exportColorScheme(state) {
+    var {exportName} = state;
+
     var str = [].concat(
         ['hi clear',
         'syntax reset',
-        'let g:colors_name = "whatever"',
+        'let g:colors_name = "' + exportName + '"',
         'if &background == "light"'],
         exportVariant(state.light),
         ['elseif &background == "dark"'],
