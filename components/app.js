@@ -193,9 +193,9 @@ var App = React.createClass({
     },
     resetState() {
         var {initialState} = this.props;
-        var {dark, light, postProcess} = _.cloneDeep(initialState);
+        var state = _.cloneDeep(initialState);
 
-        this.setState({dark, light, postProcess});
+        this.setState(state);
     }
 });
 

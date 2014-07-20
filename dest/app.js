@@ -167,15 +167,8 @@ var App = React.createClass({
   },
   resetState: function() {
     var initialState = $traceurRuntime.assertObject(this.props).initialState;
-    var $__0 = $traceurRuntime.assertObject(_.cloneDeep(initialState)),
-        dark = $__0.dark,
-        light = $__0.light,
-        postProcess = $__0.postProcess;
-    this.setState({
-      dark: dark,
-      light: light,
-      postProcess: postProcess
-    });
+    var state = _.cloneDeep(initialState);
+    this.setState(state);
   }
 });
 module.exports = App;
@@ -1067,7 +1060,7 @@ React.renderComponent(App({
 }), document.body);
 
 
-}).call(this,require("IrXUsu"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/fake_23001b1e.js","/")
+}).call(this,require("IrXUsu"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/fake_2f2ff111.js","/")
 },{"./components/app":1,"./exporter":8,"./initial-state":11,"./vim-tohtml-parser":157,"IrXUsu":20,"buffer":17,"es6ify/node_modules/traceur/bin/traceur-runtime":16,"react":156}],10:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 "use strict";
