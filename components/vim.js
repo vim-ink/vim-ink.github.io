@@ -79,21 +79,21 @@ var TabLine = React.createClass({
                     attrs,
                     getGroupProps,
                     selectGroup,
-                    fileName: 'one-file.js',
+                    fileName: 'one-file',
                     selected: false}),
                 TabLineFile({
                     setHoverGroup,
                     attrs,
                     getGroupProps,
                     selectGroup,
-                    fileName: 'another-file.js',
+                    fileName: 'another-file',
                     selected: false}),
                 TabLineFile({
                     setHoverGroup,
                     attrs,
                     getGroupProps,
                     selectGroup,
-                    fileName: 'yet-another-file.js',
+                    fileName: 'yet-another-file',
                     selected: true}),
                 '\n'
             ]);

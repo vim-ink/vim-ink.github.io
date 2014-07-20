@@ -228,7 +228,7 @@ var Footer = React.createClass({render: function() {
         footer = $__0.footer,
         ul = $__0.ul,
         li = $__0.li;
-    return footer(null, ul({className: 'nav'}, li(null, 'About'), li(null, 'GitHub'), li(null, 'Gittip')));
+    return footer(null, ul({className: 'nav'}, li(null, 'FAQ'), li(null, 'GitHub'), li(null, 'Donate')));
   }});
 module.exports = Footer;
 
@@ -848,21 +848,21 @@ var TabLine = React.createClass({render: function() {
       attrs: attrs,
       getGroupProps: getGroupProps,
       selectGroup: selectGroup,
-      fileName: 'one-file.js',
+      fileName: 'one-file',
       selected: false
     }), TabLineFile({
       setHoverGroup: setHoverGroup,
       attrs: attrs,
       getGroupProps: getGroupProps,
       selectGroup: selectGroup,
-      fileName: 'another-file.js',
+      fileName: 'another-file',
       selected: false
     }), TabLineFile({
       setHoverGroup: setHoverGroup,
       attrs: attrs,
       getGroupProps: getGroupProps,
       selectGroup: selectGroup,
-      fileName: 'yet-another-file.js',
+      fileName: 'yet-another-file',
       selected: true
     }), '\n']);
   }});
@@ -1067,7 +1067,7 @@ React.renderComponent(App({
 }), document.body);
 
 
-}).call(this,require("IrXUsu"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/fake_598b1cc8.js","/")
+}).call(this,require("IrXUsu"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/fake_23001b1e.js","/")
 },{"./components/app":1,"./exporter":8,"./initial-state":11,"./vim-tohtml-parser":157,"IrXUsu":20,"buffer":17,"es6ify/node_modules/traceur/bin/traceur-runtime":16,"react":156}],10:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 "use strict";

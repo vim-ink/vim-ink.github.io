@@ -6,9 +6,9 @@ var Footer = React.createClass({
 
         return footer(null,
             ul({className: 'nav'},
-              li(null, 'About'),
+              li(null, 'FAQ'),
               li(null, 'GitHub'),
-              li(null, 'Gittip')));
+              li(null, 'Donate')));
     }
 });
 
