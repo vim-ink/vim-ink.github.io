@@ -31,13 +31,13 @@ body {
 }
 
 body.light {
-    background-color: #eee;
-    color: #888;
+    background-color: #fff;
+    color: #999;
 }
 
 body.dark {
-    background-color: #111;
-    color: #888;
+    background-color: #000;
+    color: #999;
 }
 
 /* .wrap */
@@ -50,7 +50,7 @@ body.dark {
 /* header */
 
 body.light header {
-    border-bottom: 1px solid #ddd;
+    border-bottom: 1px solid #eee;
 }
 
 body.dark header {
@@ -70,12 +70,16 @@ footer {
 h1 {
     text-align: left;
     margin: 0;
-    font-size: 2.0rem;
+    font-size: 1.5rem;
     margin: 3rem 0rem 1rem 0rem;
 }
 
 body.dark h1 {
-    color: #555;
+    color: #666;
+}
+
+body.light h1 {
+    color: #bbb;
 }
 
 /* main */
@@ -115,7 +119,7 @@ body.light ul.nav {
 }
 
 body.dark ul.nav {
-    color: #555;
+    color: #666;
 }
 
 ul.nav li {
@@ -128,21 +132,21 @@ ul.nav li:last-child {
 }
 
 body.light ul.nav li:hover {
-    color: #888;
+    color: #999;
 }
 
 body.dark ul.nav li:hover {
-    color: #888;
+    color: #999;
 }
 
 body.light ul.nav li.active {
-    color: #888;
+    color: #999;
     border-bottom: 1px solid #bbb;
 }
 
 body.dark ul.nav li.active {
-    color: #888;
-    border-bottom: 1px solid #444;
+    color: #999;
+    border-bottom: 1px solid #666;
 }
 
 ul.nav li.right-link {
@@ -152,7 +156,7 @@ ul.nav li.right-link {
 /* pre */
 
 pre {
-    font-size: 1.5rem;
+    font-size: 1.6rem;
     font-weight: 400;
     margin: 0;
     margin-top: 2.5rem;
@@ -167,11 +171,11 @@ pre span.italic {
 }
 
 pre span.underline {
-    border-bottom: 0.1rem solid #888;
+    border-bottom: 0.1rem solid #999;
 }
 
 pre span.undercurl {
-    border-bottom: 0.1rem dotted #888;
+    border-bottom: 0.1rem dotted #999;
 }
 
 pre span.reverse {
@@ -182,7 +186,7 @@ pre span.reverse {
 pre span.standout {
     font-weight: 600;
     font-style: italic;
-    border-bottom: 0.1rem solid #888;
+    border-bottom: 0.1rem solid #999;
     filter: invert(100%);
     -webkit-filter: invert(100%);
 }
@@ -211,7 +215,7 @@ body.dark textarea {
 }
 
 body.light .paste {
-    box-shadow: 0.4rem 0.4rem 0.4rem #eee;
+    box-shadow: 0.4rem 0.4rem 0.4rem #ddd;
     border: 0;
 }
 
@@ -234,11 +238,11 @@ body.dark .paste {
 }
 
 body.light .highlight-button {
-    color: #888;
+    color: #999;
 }
 
 body.dark .highlight-button {
-    color: #888;
+    color: #999;
 }
 
 .highlight-button.active {
@@ -250,7 +254,7 @@ body.light .highlight-button.none {
 }
 
 body.dark .highlight-button.none {
-    border: 0.1rem solid #555;
+    border: 0.1rem solid #666;
 }
 
 .highlight-button.none span {
@@ -266,19 +270,19 @@ body.dark .highlight-button.none {
 }
 
 body.light .highlight-button.underline span {
-    border-bottom: 0.1rem solid #888;
+    border-bottom: 0.1rem solid #999;
 }
 
 body.dark .highlight-button.underline span {
-    border-bottom: 0.1rem solid #888;
+    border-bottom: 0.1rem solid #999;
 }
 
 body.light .highlight-button.undercurl span {
-    border-bottom: 0.1rem dotted #888;
+    border-bottom: 0.1rem dotted #999;
 }
 
 body.dark .highlight-button.undercurl span {
-    border-bottom: 0.1rem dotted #888;
+    border-bottom: 0.1rem dotted #999;
 }
 
 body.light .highlight-button.reverse {
@@ -287,7 +291,7 @@ body.light .highlight-button.reverse {
 }
 
 body.dark .highlight-button.reverse {
-    background-color: #555;
+    background-color: #666;
     color: #111;
 }
 
@@ -298,7 +302,7 @@ body.light .highlight-button.standout {
 }
 
 body.dark .highlight-button.standout {
-    background-color: #555;
+    background-color: #666;
     color: #111;
     font-weight: 400;
     font-style: italic;
@@ -347,12 +351,12 @@ body.dark .highlight-button:active {
 
 body.light .small-button {
     border: 0.1rem solid #bbb;
-    color: #888;
+    color: #999;
 }
 
 body.dark .small-button {
-    border: 0.1rem solid #555;
-    color: #888;
+    border: 0.1rem solid #666;
+    color: #999;
 }
 
 body.light .small-button:hover {
@@ -382,18 +386,18 @@ body.dark .small-button:hover {
     padding-right: 3rem;
     height: 4rem;
     background-color: transparent;
-    font-size: 1.5rem;
+    font-size: 1.4rem;
     border-radius: 0.3rem;
 }
 
 body.light .button {
     border: 0.1rem solid #bbb;
-    color: #888;
+    color: #999;
 }
 
 body.dark .button {
-    border: 0.1rem solid #555;
-    color: #888;
+    border: 0.1rem solid #666;
+    color: #999;
 }
 
 body.light .button:hover {
@@ -515,7 +519,7 @@ aside section {
 }
 
 body.light aside section {
-    border-top: 0.1rem solid #ddd;
+    border-top: 0.1rem solid #eee;
 }
 
 body.dark aside section {
@@ -527,15 +531,15 @@ body.light aside section h2 {
 }
 
 body.dark aside section h2 {
-    color: #555;
+    color: #666;
 }
 
 body.light aside h2:hover {
-    color: #888;
+    color: #999;
 }
 
 body.dark aside h2:hover {
-    color: #888;
+    color: #999;
 }
 
 /* .hidden */
@@ -626,15 +630,15 @@ body.light .color-line .right {
 }
 
 body.dark .color-line .right {
-    color: #555;
+    color: #666;
 }
 
 body.light .color-line .right.active {
-    color: #888;
+    color: #999;
 }
 
 body.dark .color-line .right.active {
-    color: #888;
+    color: #999;
 }
 
 /* .post-process-line */
@@ -656,7 +660,7 @@ body.light .post-process-line .left.inactive {
 }
 
 body.dark .post-process-line .left.inactive {
-    color: #555;
+    color: #666;
 }
 
 /* .export-line-input */
@@ -687,7 +691,7 @@ body.light .selected-group-line .right {
 }
 
 body.dark .selected-group-line .right {
-    color: #555;
+    color: #666;
 }
 
 /* .modified-groups-line */
@@ -697,7 +701,7 @@ body.light .modified-groups-line.none {
 }
 
 body.dark .modified-groups-line.none {
-    color: #555;
+    color: #666;
 }
 
 /* .text */
@@ -715,7 +719,7 @@ body.dark .modified-groups-line.none {
 
 body.light .text {
     color: #888;
-    background-color: #ddd;
+    background-color: #eee;
 }
 
 body.dark .text {
