@@ -1,4 +1,5 @@
 var React = require('react');
+
 var merge = (...args) => Object.assign({}, ...args);
 
 var Right = React.createClass({
@@ -8,53 +9,17 @@ var Right = React.createClass({
 
         if (activePane === 'global') {
             return aside(null,
-                Panes(this.props),
                 Export(merge(this.props, {firstSection: true})),
                 Components(this.props),
                 DangerZone(this.props));
         }
         else {
             return aside(null,
-                Panes(this.props),
                 SelectedGroup(merge(this.props, {firstSection: true})),
                 Color(this.props),
                 Highlight(this.props),
                 PostProcess(this.props),
                 ModifiedGroups(this.props));
-        }
-    }
-});
-
-var Panes = React.createClass({
-    render() {
-        var {ul, li} = React.DOM;
-        var {activePane, setActivePane} = this.props;
-
-        return ul({className: 'nav'},
-            Pane(merge(this.props, {id: 'light'}), 'Light'),
-            Pane(merge(this.props, {id: 'dark'}), 'Dark'),
-            Pane(merge(this.props, {id: 'global', additionalClassName: 'right-link'}), 'Global'));
-    }
-});
-
-var Pane = React.createClass({
-    render() {
-        var {li} = React.DOM;
-        var {onClick} = this;
-        var {children, additionalClassName, activePane, id} = this.props;
-
-        var className = (additionalClassName !== undefined ? additionalClassName : '') +
-            (activePane ===  id ? ' active' : '');
-
-        return li({className, onClick}, children);
-    },
-    onClick() {
-        var {setActivePane, setActiveVariant, id} = this.props;
-
-        setActivePane(id);
-
-        if (id !== 'global') {
-            setActiveVariant(id);
         }
     }
 });

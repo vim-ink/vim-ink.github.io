@@ -49,6 +49,4 @@ function parse(input) {
     });
 }
 
-module.exports = {
-    parse
-};
+module.exports = parse;

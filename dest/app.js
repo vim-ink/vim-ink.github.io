@@ -3,6 +3,9 @@
 "use strict";
 var React = require('react');
 var _ = require('lodash');
+var initialState = require('../initial-state');
+var parse = require('../vim-tohtml-parser');
+var exporter = require('../exporter');
 var Header = require('./header');
 var Left = require('./left');
 var Right = require('./right');
@@ -10,7 +13,6 @@ var Footer = require('./footer');
 var Export = require('./export');
 var App = React.createClass({
   getInitialState: function() {
-    var initialState = $traceurRuntime.assertObject(this.props).initialState;
     if (localStorage.getItem('state') !== null) {
       return JSON.parse(localStorage.getItem('state'));
     } else {
@@ -21,7 +23,14 @@ var App = React.createClass({
     var $__0 = $traceurRuntime.assertObject(React.DOM),
         span = $__0.span,
         main = $__0.main;
-    return span(null, Header(), main(null, Left({
+    return span(null, Header({
+      setActiveFile: this.setActiveFile,
+      setActivePane: this.setActivePane,
+      setActiveVariant: this.setActiveVariant,
+      setParsedSource: this.setParsedSource,
+      activeFile: this.state.activeFile,
+      activePane: this.state.activePane
+    }), main({className: 'wrap'}, Left({
       getGroupProps: this.getGroupProps,
       parse: this.parse,
       selectGroup: this.selectGroup,
@@ -78,7 +87,6 @@ var App = React.createClass({
     };
   },
   getModifiedGroups: function() {
-    var initialState = $traceurRuntime.assertObject(this.props).initialState;
     var activeVariant = $traceurRuntime.assertObject(this.state).activeVariant;
     var initialGroups = initialState[activeVariant];
     var groups = this.state[activeVariant];
@@ -87,7 +95,6 @@ var App = React.createClass({
     }));
   },
   resetGroup: function(group) {
-    var initialState = $traceurRuntime.assertObject(this.props).initialState;
     var activeVariant = $traceurRuntime.assertObject(this.state).activeVariant;
     var state = {};
     state[activeVariant] = _.cloneDeep(this.state[activeVariant]);
@@ -154,19 +161,16 @@ var App = React.createClass({
     this.setState({activeColor: activeColor});
   },
   parse: function(unparsedSource) {
-    var parse = $traceurRuntime.assertObject(this.props).parse;
     this.setState({parsedSource: parse(unparsedSource)});
   },
   exportColorScheme: function() {
-    var exporter = $traceurRuntime.assertObject(this.props).exporter;
     var exportName = $traceurRuntime.assertObject(this.state).exportName;
-    this.setState({exportedSource: exporter.exportColorScheme(_.cloneDeep(this.state))});
+    this.setState({exportedSource: exporter(_.cloneDeep(this.state))});
   },
   clearExportedSource: function() {
     this.setState({exportedSource: undefined});
   },
   resetState: function() {
-    var initialState = $traceurRuntime.assertObject(this.props).initialState;
     var state = _.cloneDeep(initialState);
     this.setState(state);
   }
@@ -175,7 +179,7 @@ module.exports = App;
 
 
 }).call(this,require("IrXUsu"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/components/app.js","/components")
-},{"./export":2,"./footer":3,"./header":4,"./left":5,"./right":6,"IrXUsu":20,"buffer":17,"lodash":21,"react":156}],2:[function(require,module,exports){
+},{"../exporter":8,"../initial-state":11,"../vim-tohtml-parser":157,"./export":2,"./footer":3,"./header":4,"./left":5,"./right":6,"IrXUsu":20,"buffer":17,"lodash":21,"react":156}],2:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 "use strict";
 var React = require('react');
@@ -231,17 +235,119 @@ module.exports = Footer;
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 "use strict";
 var React = require('react');
+var files = require('../files');
+var merge = (function() {
+  var $__2;
+  for (var args = [],
+      $__0 = 0; $__0 < arguments.length; $__0++)
+    args[$__0] = arguments[$__0];
+  return ($__2 = Object).assign.apply($__2, $traceurRuntime.spread([{}], args));
+});
 var Header = React.createClass({render: function() {
-    var $__0 = $traceurRuntime.assertObject(React.DOM),
-        header = $__0.header,
-        h1 = $__0.h1;
-    return header(null, h1(null, 'vim.ink'));
+    var $__1 = $traceurRuntime.assertObject(React.DOM),
+        header = $__1.header,
+        h1 = $__1.h1,
+        div = $__1.div;
+    return header(null, div({className: 'wrap cf'}, h1(null, 'vim.ink'), Files(this.props), Panes(this.props)));
   }});
+var Files = React.createClass({render: function() {
+    var ul = $traceurRuntime.assertObject(React.DOM).ul;
+    return ul({className: 'nav files'}, FileLink(Object.assign({}, this.props, {
+      type: 'html',
+      title: 'HTML'
+    })), FileLink(Object.assign({}, this.props, {
+      type: 'css',
+      title: 'CSS'
+    })), FileLink(Object.assign({}, this.props, {
+      type: 'javascript',
+      title: 'JavaScript'
+    })), PasteLink(this.props));
+  }});
+var FileLink = React.createClass({
+  render: function() {
+    var li = $traceurRuntime.assertObject(React.DOM).li;
+    var onClick = this.onClick;
+    var $__1 = $traceurRuntime.assertObject(this.props),
+        title = $__1.title,
+        type = $__1.type,
+        activeFile = $__1.activeFile;
+    var className = type === activeFile ? 'active' : '';
+    return li({
+      className: className,
+      onClick: onClick
+    }, title);
+  },
+  onClick: function(e) {
+    var $__1 = $traceurRuntime.assertObject(this.props),
+        setParsedSource = $__1.setParsedSource,
+        setActiveFile = $__1.setActiveFile,
+        type = $__1.type;
+    setParsedSource(files[type].parsedSource);
+    setActiveFile(type);
+  }
+});
+var PasteLink = React.createClass({
+  render: function() {
+    var li = $traceurRuntime.assertObject(React.DOM).li;
+    var onClick = this.onClick;
+    var activeFile = $traceurRuntime.assertObject(this.props).activeFile;
+    var className = (activeFile === undefined ? ' active' : '');
+    return li({
+      className: className,
+      onClick: onClick
+    }, 'Paste');
+  },
+  onClick: function(e) {
+    var $__1 = $traceurRuntime.assertObject(this.props),
+        setParsedSource = $__1.setParsedSource,
+        setActiveFile = $__1.setActiveFile;
+    setParsedSource(undefined);
+    setActiveFile(undefined);
+  }
+});
+var Panes = React.createClass({render: function() {
+    var $__1 = $traceurRuntime.assertObject(React.DOM),
+        ul = $__1.ul,
+        li = $__1.li;
+    var $__1 = $traceurRuntime.assertObject(this.props),
+        activePane = $__1.activePane,
+        setActivePane = $__1.setActivePane;
+    return ul({className: 'nav panes'}, Pane(merge(this.props, {id: 'light'}), 'Light'), Pane(merge(this.props, {id: 'dark'}), 'Dark'), Pane(merge(this.props, {
+      id: 'global',
+      additionalClassName: 'right-link'
+    }), 'Global'));
+  }});
+var Pane = React.createClass({
+  render: function() {
+    var li = $traceurRuntime.assertObject(React.DOM).li;
+    var onClick = this.onClick;
+    var $__1 = $traceurRuntime.assertObject(this.props),
+        children = $__1.children,
+        additionalClassName = $__1.additionalClassName,
+        activePane = $__1.activePane,
+        id = $__1.id;
+    var className = (additionalClassName !== undefined ? additionalClassName : '') + (activePane === id ? ' active' : '');
+    return li({
+      className: className,
+      onClick: onClick
+    }, children);
+  },
+  onClick: function() {
+    var $__1 = $traceurRuntime.assertObject(this.props),
+        setActivePane = $__1.setActivePane,
+        setActiveVariant = $__1.setActiveVariant,
+        id = $__1.id;
+    setActivePane(id);
+    if (id !== 'global') {
+      setActiveVariant(id);
+    }
+  }
+});
 module.exports = Header;
 
 
 }).call(this,require("IrXUsu"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/components/header.js","/components")
-},{"IrXUsu":20,"buffer":17,"react":156}],5:[function(require,module,exports){
+},{"../files":10,"IrXUsu":20,"buffer":17,"react":156}],5:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 "use strict";
 var React = require('react');
@@ -262,11 +368,7 @@ var Left = React.createClass({render: function() {
         setActiveFile = $__0.setActiveFile,
         setHoverGroup = $__0.setHoverGroup,
         setParsedSource = $__0.setParsedSource;
-    return article(null, Files({
-      setParsedSource: setParsedSource,
-      setActiveFile: setActiveFile,
-      activeFile: activeFile
-    }), Vim({
+    return article(null, Vim({
       activeVariant: activeVariant,
       componentsVisibility: componentsVisibility,
       getGroupProps: getGroupProps,
@@ -279,65 +381,6 @@ var Left = React.createClass({render: function() {
       parse: parse
     }));
   }});
-var Files = React.createClass({render: function() {
-    var ul = $traceurRuntime.assertObject(React.DOM).ul;
-    var $__0 = $traceurRuntime.assertObject(this.props),
-        setParsedSource = $__0.setParsedSource,
-        activeFile = $__0.activeFile,
-        setActiveFile = $__0.setActiveFile;
-    return ul({className: 'nav'}, FileLink(Object.assign({}, this.props, {
-      type: 'html',
-      title: 'HTML'
-    })), FileLink(Object.assign({}, this.props, {
-      type: 'css',
-      title: 'CSS'
-    })), FileLink(Object.assign({}, this.props, {
-      type: 'javascript',
-      title: 'JavaScript'
-    })), PasteLink(this.props));
-  }});
-var FileLink = React.createClass({
-  render: function() {
-    var li = $traceurRuntime.assertObject(React.DOM).li;
-    var onClick = this.onClick;
-    var $__0 = $traceurRuntime.assertObject(this.props),
-        title = $__0.title,
-        type = $__0.type,
-        activeFile = $__0.activeFile;
-    var className = type === activeFile ? 'active' : '';
-    return li({
-      className: className,
-      onClick: onClick
-    }, title);
-  },
-  onClick: function(e) {
-    var $__0 = $traceurRuntime.assertObject(this.props),
-        setParsedSource = $__0.setParsedSource,
-        setActiveFile = $__0.setActiveFile,
-        type = $__0.type;
-    setParsedSource(files[type].parsedSource);
-    setActiveFile(type);
-  }
-});
-var PasteLink = React.createClass({
-  render: function() {
-    var li = $traceurRuntime.assertObject(React.DOM).li;
-    var onClick = this.onClick;
-    var activeFile = $traceurRuntime.assertObject(this.props).activeFile;
-    var className = 'right-link' + (activeFile === undefined ? ' active' : '');
-    return li({
-      className: className,
-      onClick: onClick
-    }, 'Paste');
-  },
-  onClick: function(e) {
-    var $__0 = $traceurRuntime.assertObject(this.props),
-        setParsedSource = $__0.setParsedSource,
-        setActiveFile = $__0.setActiveFile;
-    setParsedSource(undefined);
-    setActiveFile(undefined);
-  }
-});
 var Paste = React.createClass({
   render: function() {
     var textarea = $traceurRuntime.assertObject(React.DOM).textarea;
@@ -375,49 +418,11 @@ var Right = React.createClass({render: function() {
     var aside = $traceurRuntime.assertObject(React.DOM).aside;
     var activePane = $traceurRuntime.assertObject(this.props).activePane;
     if (activePane === 'global') {
-      return aside(null, Panes(this.props), Export(merge(this.props, {firstSection: true})), Components(this.props), DangerZone(this.props));
+      return aside(null, Export(merge(this.props, {firstSection: true})), Components(this.props), DangerZone(this.props));
     } else {
-      return aside(null, Panes(this.props), SelectedGroup(merge(this.props, {firstSection: true})), Color(this.props), Highlight(this.props), PostProcess(this.props), ModifiedGroups(this.props));
+      return aside(null, SelectedGroup(merge(this.props, {firstSection: true})), Color(this.props), Highlight(this.props), PostProcess(this.props), ModifiedGroups(this.props));
     }
   }});
-var Panes = React.createClass({render: function() {
-    var $__2 = $traceurRuntime.assertObject(React.DOM),
-        ul = $__2.ul,
-        li = $__2.li;
-    var $__2 = $traceurRuntime.assertObject(this.props),
-        activePane = $__2.activePane,
-        setActivePane = $__2.setActivePane;
-    return ul({className: 'nav'}, Pane(merge(this.props, {id: 'light'}), 'Light'), Pane(merge(this.props, {id: 'dark'}), 'Dark'), Pane(merge(this.props, {
-      id: 'global',
-      additionalClassName: 'right-link'
-    }), 'Global'));
-  }});
-var Pane = React.createClass({
-  render: function() {
-    var li = $traceurRuntime.assertObject(React.DOM).li;
-    var onClick = this.onClick;
-    var $__2 = $traceurRuntime.assertObject(this.props),
-        children = $__2.children,
-        additionalClassName = $__2.additionalClassName,
-        activePane = $__2.activePane,
-        id = $__2.id;
-    var className = (additionalClassName !== undefined ? additionalClassName : '') + (activePane === id ? ' active' : '');
-    return li({
-      className: className,
-      onClick: onClick
-    }, children);
-  },
-  onClick: function() {
-    var $__2 = $traceurRuntime.assertObject(this.props),
-        setActivePane = $__2.setActivePane,
-        setActiveVariant = $__2.setActiveVariant,
-        id = $__2.id;
-    setActivePane(id);
-    if (id !== 'global') {
-      setActiveVariant(id);
-    }
-  }
-});
 var Section = React.createClass({
   render: function() {
     var $__2 = $traceurRuntime.assertObject(React.DOM),
@@ -1049,19 +1054,12 @@ module.exports = {exportColorScheme: exportColorScheme};
 "use strict";
 require('es6ify/node_modules/traceur/bin/traceur-runtime');
 var React = require('react');
-var parse = require('./vim-tohtml-parser').parse;
-var exporter = require('./exporter');
-var initialState = require('./initial-state');
 var App = require('./components/app');
-React.renderComponent(App({
-  parse: parse,
-  exporter: exporter,
-  initialState: initialState
-}), document.body);
+React.renderComponent(App(), document.body);
 
 
-}).call(this,require("IrXUsu"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/fake_2f2ff111.js","/")
-},{"./components/app":1,"./exporter":8,"./initial-state":11,"./vim-tohtml-parser":157,"IrXUsu":20,"buffer":17,"es6ify/node_modules/traceur/bin/traceur-runtime":16,"react":156}],10:[function(require,module,exports){
+}).call(this,require("IrXUsu"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/fake_3d747d66.js","/")
+},{"./components/app":1,"IrXUsu":20,"buffer":17,"es6ify/node_modules/traceur/bin/traceur-runtime":16,"react":156}],10:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 "use strict";
 var files = {
@@ -30266,7 +30264,7 @@ function parse(input) {
     return parseLine([], line);
   });
 }
-module.exports = {parse: parse};
+module.exports = parse;
 
 
 }).call(this,require("IrXUsu"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/vim-tohtml-parser.js","/")

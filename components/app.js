@@ -1,6 +1,10 @@
 var React = require('react');
 var _ = require('lodash');
 
+var initialState = require('../initial-state');
+var parse = require('../vim-tohtml-parser');
+var exporter = require('../exporter');
+
 var Header = require('./header');
 var Left = require('./left');
 var Right = require('./right');
@@ -9,8 +13,6 @@ var Export = require('./export');
 
 var App = React.createClass({
     getInitialState() {
-        var {initialState} = this.props;
-
         if (localStorage.getItem('state') !== null) {
             return JSON.parse(localStorage.getItem('state'));
         } else {
@@ -22,8 +24,16 @@ var App = React.createClass({
 
         return span(
             null,
-            Header(),
-            main(null,
+            Header({
+                setActiveFile: this.setActiveFile,
+                setActivePane: this.setActivePane,
+                setActiveVariant: this.setActiveVariant,
+                setParsedSource: this.setParsedSource,
+
+                activeFile: this.state.activeFile,
+                activePane: this.state.activePane // TODO: Remove these below.
+            }),
+            main({className: 'wrap'},
                 Left({
                     getGroupProps: this.getGroupProps,
                     parse: this.parse,
@@ -96,7 +106,6 @@ var App = React.createClass({
     },
     getModifiedGroups() {
         // console.log(JSON.stringify(this.state.parsedSource));
-        var {initialState} = this.props;
         var {activeVariant} = this.state;
         var initialGroups = initialState[activeVariant];
         var groups = this.state[activeVariant];
@@ -106,7 +115,6 @@ var App = React.createClass({
         });
     },
     resetGroup(group) {
-        var {initialState} = this.props;
         var {activeVariant} = this.state;
         var state = {};
         state[activeVariant] = _.cloneDeep(this.state[activeVariant]);
@@ -176,23 +184,19 @@ var App = React.createClass({
         this.setState({activeColor});
     },
     parse(unparsedSource) {
-        var {parse} = this.props;
-
         this.setState({parsedSource: parse(unparsedSource)});
     },
     exportColorScheme() {
-        var {exporter} = this.props;
         var {exportName} = this.state;
 
         this.setState({
-            exportedSource: exporter.exportColorScheme(_.cloneDeep(this.state))
+            exportedSource: exporter(_.cloneDeep(this.state))
         });
     },
     clearExportedSource() {
         this.setState({exportedSource: undefined});
     },
     resetState() {
-        var {initialState} = this.props;
         var state = _.cloneDeep(initialState);
 
         this.setState(state);

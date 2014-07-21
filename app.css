@@ -36,25 +36,25 @@ body.light {
 }
 
 body.dark {
-    background-color: #222;
+    background-color: #111;
     color: #888;
+}
+
+/* .wrap */
+
+.wrap {
+    width: 110rem;
+    margin: 0 auto;
 }
 
 /* header */
 
-header {
-    margin: 0 0 2rem 0;
-    overflow: hidden;
-}
-
 body.light header {
-    background-color: #ddd;
-    color: #888;
+    border-bottom: 1px solid #ddd;
 }
 
 body.dark header {
-    background-color: #333;
-    color: #888;
+    border-bottom: 1px solid #222;
 }
 
 /* footer */
@@ -68,12 +68,14 @@ footer {
 /* h1 */
 
 h1 {
+    text-align: left;
     margin: 0;
     font-size: 2.0rem;
-    line-height: 6rem;
-    float: left;
-    width: 100rem;
-    padding-left: 2rem;
+    margin: 3rem 0rem 1rem 0rem;
+}
+
+body.dark h1 {
+    color: #555;
 }
 
 /* main */
@@ -83,17 +85,19 @@ main {
 }
 
 /* article */
+
 article {
     float: left;
-    width: 100rem;
+    width: 83.5rem;
 }
 
-body.light article {
-    box-shadow: 0 0 0.3rem #ddd;
+header .nav.files {
+    width: 80rem;
+    float: left;
 }
-
-body.dark article {
-    box-shadow: 0 0 0.3rem #111;
+header .nav.panes {
+    width: 24rem;
+    float: right;
 }
 
 /* .nav */
@@ -103,20 +107,24 @@ ul.nav {
     padding: 0;
     overflow: hidden;
     font-size: 1.4rem;
+    margin-bottom: -1px;
 }
 
 body.light ul.nav {
-    color: #aaa;
+    color: #bbb;
 }
 
 body.dark ul.nav {
-    color: #666;
+    color: #555;
 }
 
 ul.nav li {
     display: inline-block;
-    padding: 1.25rem 1.5rem;
-    margin: 0rem 0rem;
+    padding: 1.5rem 0;
+    margin: 0 3rem 0 0;
+}
+ul.nav li:last-child {
+    margin-right: 0;
 }
 
 body.light ul.nav li:hover {
@@ -129,12 +137,12 @@ body.dark ul.nav li:hover {
 
 body.light ul.nav li.active {
     color: #888;
-    border-bottom: 0.1rem solid #aaa;
+    border-bottom: 1px solid #bbb;
 }
 
 body.dark ul.nav li.active {
     color: #888;
-    border-bottom: 0.1rem solid #666;
+    border-bottom: 1px solid #444;
 }
 
 ul.nav li.right-link {
@@ -144,9 +152,10 @@ ul.nav li.right-link {
 /* pre */
 
 pre {
-    font-size: 1.6rem;
+    font-size: 1.5rem;
     font-weight: 400;
     margin: 0;
+    margin-top: 2.5rem;
 }
 
 pre span.bold {
@@ -179,6 +188,7 @@ pre span.standout {
 }
 
 /* textarea */
+
 body.light textarea {
     background-color: #fff;
     color: #444;
@@ -236,11 +246,11 @@ body.dark .highlight-button {
 }
 
 body.light .highlight-button.none {
-    border: 0.1rem solid #aaa;
+    border: 0.1rem solid #bbb;
 }
 
 body.dark .highlight-button.none {
-    border: 0.1rem solid #666;
+    border: 0.1rem solid #555;
 }
 
 .highlight-button.none span {
@@ -272,25 +282,24 @@ body.dark .highlight-button.undercurl span {
 }
 
 body.light .highlight-button.reverse {
-    background-color: #aaa;
+    background-color: #bbb;
     color: #eee;
 }
 
 body.dark .highlight-button.reverse {
-    background-color: #666;
-    color: #222;
+    background-color: #555;
+    color: #111;
 }
 
 body.light .highlight-button.standout {
-    background-color: #aaa;
+    background-color: #bbb;
     color: #eee;
-    font-weight: 400;
     font-style: italic;
 }
 
 body.dark .highlight-button.standout {
-    background-color: #666;
-    color: #222;
+    background-color: #555;
+    color: #111;
     font-weight: 400;
     font-style: italic;
 }
@@ -484,39 +493,41 @@ body.dark input[type="range"]::-moz-range-thumb {
 /* aside */
 
 aside {
-    width: 20rem;
-    float: left;
-    margin-left: 2rem;
+    width: 24rem;
+    float: right;
 }
 
 /* aside h2 */
 
 aside h2 {
     font-size: 1.4rem;
+    margin: 1.5rem 0;
     text-align: right;
-    padding-top: 1rem;
-    margin-top: 2rem;
-    margin-bottom: 1.5rem;
 }
 
-aside section.first h2 {
-    margin-top: -0.1rem;
+aside section.first {
+    margin-top: 2.5rem !important;
+    border-top: 0!important;
 }
 
-aside h2 span + span {
-    margin-left: 0.625rem;
-    position: relative;
-    top: 0.1rem;
+aside section {
+    margin: 1.5rem 0;
 }
 
-body.light aside h2 {
+body.light aside section {
     border-top: 0.1rem solid #ddd;
-    color: #aaa;
 }
 
-body.dark aside h2 {
-    border-top: 0.1rem solid #333;
-    color: #666;
+body.dark aside section {
+    border-top: 0.1rem solid #222;
+}
+
+body.light aside section h2 {
+    color: #bbb;
+}
+
+body.dark aside section h2 {
+    color: #555;
 }
 
 body.light aside h2:hover {
@@ -611,15 +622,15 @@ body.dark .export {
 }
 
 body.light .color-line .right {
-    color: #aaa;
+    color: #bbb;
+}
+
+body.dark .color-line .right {
+    color: #555;
 }
 
 body.light .color-line .right.active {
     color: #888;
-}
-
-body.dark .color-line .right {
-    color: #666;
 }
 
 body.dark .color-line .right.active {
@@ -641,11 +652,11 @@ body.dark .color-line .right.active {
 }
 
 body.light .post-process-line .left.inactive {
-    color: #aaa;
+    color: #bbb;
 }
 
 body.dark .post-process-line .left.inactive {
-    color: #666;
+    color: #555;
 }
 
 /* .export-line-input */
@@ -682,11 +693,11 @@ body.dark .selected-group-line .right {
 /* .modified-groups-line */
 
 body.light .modified-groups-line.none {
-    color: #aaa;
+    color: #bbb;
 }
 
 body.dark .modified-groups-line.none {
-    color: #666;
+    color: #555;
 }
 
 /* .text */
@@ -708,7 +719,7 @@ body.light .text {
 }
 
 body.dark .text {
-    background-color: #333;
+    background-color: #222;
     color: #888;
 }
 
@@ -734,4 +745,23 @@ body.dark .text {
     pointer-events: none;
     margin-top: -3rem;
     border-radius: 1.5rem;
+}
+
+/**
+ * For modern browsers
+ * 1. The space content is one way to avoid an Opera bug when the
+ *    contenteditable attribute is included anywhere else in the document.
+ *    Otherwise it causes space to appear at the top and bottom of elements
+ *    that are clearfixed.
+ * 2. The use of `table` rather than `block` is only necessary if using
+ *    `:before` to contain the top-margins of child elements.
+ */
+.cf:before,
+.cf:after {
+    content: ' '; /* 1 */
+    display: table; /* 2 */
+}
+
+.cf:after {
+    clear: both;
 }
