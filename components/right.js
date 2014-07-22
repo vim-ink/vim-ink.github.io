@@ -80,7 +80,7 @@ var Color = React.createClass({
         var backgroundClassName = 'color';
 
        if ((activeVariant === 'light' && colorPair.backgroundColor === '#ffffff') ||
-           (activeVariant === 'dark' && colorPair.backgroundColor === '#000000') {
+           (activeVariant === 'dark' && colorPair.backgroundColor === '#000000')) {
            backgroundClassName += ' border';
        }
 
