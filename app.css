@@ -50,11 +50,11 @@ body.dark {
 /* header */
 
 body.light header {
-    border-bottom: 1px solid #eee;
+    border-bottom: 1px solid #ddd;
 }
 
 body.dark header {
-    border-bottom: 1px solid #222;
+    border-bottom: 1px solid #333;
 }
 
 /* footer */
@@ -228,7 +228,7 @@ body.light .paste {
 }
 
 body.dark .paste {
-    box-shadow: 0.4rem 0.4rem 0.4rem #222;
+    box-shadow: 0.4rem 0.4rem 0.4rem #333;
     border: 0;
 }
 
@@ -317,11 +317,11 @@ body.dark .highlight-button.standout {
 }
 
 body.light .highlight-button.standout span {
-    border-bottom: 0.1rem solid #eee;
+    border-bottom: 0.1rem solid #ddd;
 }
 
 body.dark .highlight-button.standout span {
-    border-bottom: 0.1rem solid #222;
+    border-bottom: 0.1rem solid #333;
 }
 
 body.light .highlight-button:hover {
@@ -549,11 +549,11 @@ aside section {
 }
 
 body.light aside section {
-    border-top: 0.1rem solid #eee;
+    border-top: 0.1rem solid #ddd;
 }
 
 body.dark aside section {
-    border-top: 0.1rem solid #222;
+    border-top: 0.1rem solid #333;
 }
 
 body.light aside section h2 {
@@ -757,11 +757,11 @@ body.dark .modified-groups-line.none {
 
 body.light .text {
     color: #999;
-    background-color: #eee;
+    background-color: #ddd;
 }
 
 body.dark .text {
-    background-color: #222;
+    background-color: #333;
     color: #999;
 }
 
@@ -787,6 +787,14 @@ body.dark .text {
     pointer-events: none;
     margin-top: -3rem;
     border-radius: 1.5rem;
+}
+
+body.light .color.border {
+    border: 0.1rem solid #ddd;
+}
+
+body.dark .color.border {
+    border: 0.1rem solid #333;
 }
 
 /**

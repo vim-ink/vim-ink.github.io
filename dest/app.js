@@ -471,7 +471,8 @@ var Color = React.createClass({
     var $__2 = $traceurRuntime.assertObject(this.props),
         getGroupProps = $__2.getGroupProps,
         selectedGroup = $__2.selectedGroup,
-        activeColor = $__2.activeColor;
+        activeColor = $__2.activeColor,
+        activeVariant = $__2.activeVariant;
     var $__2 = this,
         onBackgroundClick = $__2.onBackgroundClick,
         onChangeBackgroundColor = $__2.onChangeBackgroundColor,
@@ -480,6 +481,12 @@ var Color = React.createClass({
     var foregroundActive = activeColor === 'foreground' ? ' active' : '';
     var backgroundActive = activeColor === 'background' ? ' active' : '';
     var colorPair = getGroupProps(selectedGroup);
+    console.log(activeVariant);
+    var backgroundClassName = 'color';
+    if (activeVariant === 'light' && colorPair.backgroundColor === '#ffffff')
+      backgroundClassName += ' border';
+    if (activeVariant === 'dark' && colorPair.backgroundColor === '#000000')
+      backgroundClassName += ' border';
     return Section(merge(this.props, {
       id: 'color',
       title: 'Color'
@@ -501,7 +508,7 @@ var Color = React.createClass({
       onClick: onBackgroundClick,
       onChange: onChangeBackgroundColor
     }), div({
-      className: 'color',
+      className: backgroundClassName,
       style: {backgroundColor: colorPair.backgroundColor}
     })), div({className: 'right' + backgroundActive}, label({htmlFor: 'backgroundColor'}, 'Background'))));
   },
@@ -1058,7 +1065,7 @@ var App = require('./components/app');
 React.renderComponent(App(), document.body);
 
 
-}).call(this,require("IrXUsu"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/fake_941afcb0.js","/")
+}).call(this,require("IrXUsu"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/fake_8399d092.js","/")
 },{"./components/app":1,"IrXUsu":20,"buffer":17,"es6ify/node_modules/traceur/bin/traceur-runtime":16,"react":156}],10:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 "use strict";

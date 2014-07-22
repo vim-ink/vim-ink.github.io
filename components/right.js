@@ -65,7 +65,7 @@ var SelectedGroup = React.createClass({
 var Color = React.createClass({
     render() {
         var {div, input, label} = React.DOM;
-        var {getGroupProps, selectedGroup, activeColor} = this.props;
+        var {getGroupProps, selectedGroup, activeColor, activeVariant} = this.props;
         var {
             onBackgroundClick,
             onChangeBackgroundColor,
@@ -77,6 +77,13 @@ var Color = React.createClass({
         var backgroundActive = activeColor === 'background' ? ' active' : '';
 
         var colorPair = getGroupProps(selectedGroup);
+        var backgroundClassName = 'color';
+
+       if ((activeVariant === 'light' && colorPair.backgroundColor === '#ffffff') ||
+           (activeVariant === 'dark' && colorPair.backgroundColor === '#000000') {
+           backgroundClassName += ' border';
+       }
+
 
         return Section(merge(this.props, {
             id: 'color',
@@ -107,7 +114,7 @@ var Color = React.createClass({
                         onChange: onChangeBackgroundColor
                     }),
                     div({
-                        className: 'color',
+                        className: backgroundClassName,
                         style: {backgroundColor: colorPair.backgroundColor}})),
                 div({className: 'right' + backgroundActive},
                     label({htmlFor: 'backgroundColor'}, 'Background'))));
@@ -305,7 +312,6 @@ var Export = React.createClass({
                 button({className: 'button', onClick: onExportClick}, 'Export')));
     },
     onExportClick() {
-        console.log(this.props);
         this.props.exportColorScheme();
     }
 });
