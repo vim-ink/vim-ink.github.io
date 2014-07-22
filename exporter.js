@@ -48,6 +48,4 @@ function exportColorScheme(state) {
     return str.join('\n');
 }
 
-module.exports = {
-    exportColorScheme
-}
+module.exports = exportColorScheme;
