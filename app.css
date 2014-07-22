@@ -50,7 +50,7 @@ body.dark {
 /* header */
 
 body.light header {
-    border-bottom: 1px solid #ddd;
+    border-bottom: 1px solid #eee;
 }
 
 body.dark header {
@@ -223,7 +223,7 @@ body.dark textarea {
 }
 
 body.light .paste {
-    box-shadow: 0.4rem 0.4rem 0.4rem #ddd;
+    box-shadow: 0.4rem 0.4rem 0.4rem #eee;
     border: 0;
 }
 
@@ -317,7 +317,7 @@ body.dark .highlight-button.standout {
 }
 
 body.light .highlight-button.standout span {
-    border-bottom: 0.1rem solid #ddd;
+    border-bottom: 0.1rem solid #eee;
 }
 
 body.dark .highlight-button.standout span {
@@ -549,7 +549,7 @@ aside section {
 }
 
 body.light aside section {
-    border-top: 0.1rem solid #ddd;
+    border-top: 0.1rem solid #eee;
 }
 
 body.dark aside section {
@@ -605,7 +605,7 @@ body.dark aside h2:active {
 }
 
 body.light .export {
-    background-color: #ddd;
+    background-color: #eee;
     color: #888;
 }
 
@@ -757,7 +757,7 @@ body.dark .modified-groups-line.none {
 
 body.light .text {
     color: #999;
-    background-color: #ddd;
+    background-color: #eee;
 }
 
 body.dark .text {
@@ -790,7 +790,7 @@ body.dark .text {
 }
 
 body.light .color.border {
-    border: 0.1rem solid #ddd;
+    border: 0.1rem solid #eee;
 }
 
 body.dark .color.border {
