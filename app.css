@@ -19,7 +19,7 @@ pre, textarea {
     font-family: 'Source Code Pro';
 }
 
-body, h1, h2, button, input {
+h1, h2 {
     font-weight: 400;
 }
 
@@ -55,14 +55,6 @@ body.light header {
 
 body.dark header {
     border-bottom: 1px solid #333;
-}
-
-/* footer */
-
-footer {
-    margin: 2rem 0 2rem 0;
-    overflow: hidden;
-    text-align: center;
 }
 
 /* h1 */
@@ -161,13 +153,19 @@ ul.nav li.right-link {
     float: right;
 }
 
+/* footer */
+
+footer {
+    margin: 2rem 0 2rem 0;
+    overflow: hidden;
+    text-align: center;
+}
+
 /* pre */
 
 pre {
     font-size: 1.6rem;
-    font-weight: 400;
-    margin: 0;
-    margin-top: 2.5rem;
+    margin: 2.5rem 0 0 0;
 }
 
 pre span.bold {
@@ -201,35 +199,28 @@ pre span.standout {
 
 /* textarea */
 
+textarea {
+    border: 0;
+}
+
 body.light textarea {
     background-color: #fff;
-    color: #444;
-    border: 0;
+    color: #000;
 }
 
 body.dark textarea {
     background-color: #000;
     color: #ccc;
-    border: 0;
 }
 
 /* .paste */
 
 .paste {
-    width: 100rem;
+    width: 100%;
     height: 40rem;
     float: left;
     font-size: 1.6rem;
-}
-
-body.light .paste {
-    box-shadow: 0.4rem 0.4rem 0.4rem #eee;
-    border: 0;
-}
-
-body.dark .paste {
-    box-shadow: 0.4rem 0.4rem 0.4rem #333;
-    border: 0;
+    margin: 2.5rem 0 0 0;
 }
 
 /* .highlight-button */
