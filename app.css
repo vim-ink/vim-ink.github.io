@@ -139,6 +139,14 @@ body.dark ul.nav li:hover {
     color: #999;
 }
 
+body.light ul.nav li:active {
+    color: #777;
+}
+
+body.dark ul.nav li:active {
+    color: #aaa;
+}
+
 body.light ul.nav li.active {
     color: #999;
     border-bottom: 1px solid #bbb;
@@ -287,23 +295,23 @@ body.dark .highlight-button.undercurl span {
 
 body.light .highlight-button.reverse {
     background-color: #bbb;
-    color: #eee;
+    color: #fff;
 }
 
 body.dark .highlight-button.reverse {
     background-color: #666;
-    color: #111;
+    color: #000;
 }
 
 body.light .highlight-button.standout {
     background-color: #bbb;
-    color: #eee;
+    color: #fff;
     font-style: italic;
 }
 
 body.dark .highlight-button.standout {
     background-color: #666;
-    color: #111;
+    color: #000;
     font-weight: 400;
     font-style: italic;
 }
@@ -317,21 +325,43 @@ body.dark .highlight-button.standout span {
 }
 
 body.light .highlight-button:hover {
-    background-color: #aaa;
-    color: #444;
+    opacity: 1;
 }
 
 body.dark .highlight-button:hover {
-    background-color: #666;
+    opacity: 1;
+}
+
+body.light .highlight-button.none:active {
+    border: 0.1rem solid #999;
+}
+
+body.dark .highlight-button.none:active {
+    border: 0.1rem solid #777;
+}
+
+body.light .highlight-button.bold:active,
+body.light .highlight-button.italic:active,
+body.light .highlight-button.underline:active,
+body.light .highlight-button.undercurl:active {
+    color: #777;
+}
+
+body.dark .highlight-button.bold:active,
+body.dark .highlight-button.italic:active,
+body.dark .highlight-button.underline:active,
+body.dark .highlight-button.undercurl:active {
     color: #aaa;
 }
 
-body.light .highlight-button:active {
-    color: #222;
+body.light .highlight-button.reverse:active,
+body.light .highlight-button.standout:active {
+    background-color: #999;
 }
 
-body.dark .highlight-button:active {
-    color: #ccc;
+body.dark .highlight-button.reverse:active,
+body.dark .highlight-button.standout:active {
+    background-color: #777;
 }
 
 .highlight-button:focus {
@@ -542,6 +572,14 @@ body.dark aside h2:hover {
     color: #999;
 }
 
+body.light aside h2:active {
+    color: #888;
+}
+
+body.dark aside h2:active {
+    color: #aaa;
+}
+
 /* .hidden */
 
 .hidden {
@@ -718,13 +756,13 @@ body.dark .modified-groups-line.none {
 }
 
 body.light .text {
-    color: #888;
+    color: #999;
     background-color: #eee;
 }
 
 body.dark .text {
     background-color: #222;
-    color: #888;
+    color: #999;
 }
 
 /* .export-line-button */
