@@ -472,11 +472,11 @@ input[type="range"]::-webkit-slider-runnable-track {
 }
 
 body.light input[type="range"]::-webkit-slider-runnable-track {
-    background-color: #ccc;
+    background-color: #eee;
 }
 
 body.dark input[type="range"]::-webkit-slider-runnable-track {
-    background-color: #444;
+    background-color: #333;
 }
 
 input[type="range"]::-webkit-slider-thumb {
@@ -488,7 +488,7 @@ input[type="range"]::-webkit-slider-thumb {
 }
 
 body.light input[type="range"]::-webkit-slider-thumb {
-    background-color: #aaa;
+    background-color: #bbb;
 }
 
 body.dark input[type="range"]::-webkit-slider-thumb {
@@ -501,11 +501,11 @@ input[type="range"]::-moz-range-track {
 }
 
 body.light input[type="range"]::-moz-range-track {
-    background-color: #ccc;
+    background-color: #eee;
 }
 
 body.dark input[type="range"]::-moz-range-track {
-    background-color: #444;
+    background-color: #333;
 }
 
 input[type="range"]::-moz-range-thumb {
