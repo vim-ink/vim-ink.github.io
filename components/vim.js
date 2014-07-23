@@ -8,32 +8,32 @@ var Vim = React.createClass({
         var {pre} = React.DOM;
         var {onClick, onMouseOver, onMouseOut, attrs} = this;
         var {componentsVisibility, parsedSource, getGroupProps, selectGroup, setHoverGroup} = this.props;
+        var args = {attrs, getGroupProps, selectGroup, setHoverGroup};
+
         var className = parsedSource === undefined ? 'hidden' : '';
         var props = getGroupProps('Normal');
         var {style} = attrs(props);
-        var tabLine = TabLine({setHoverGroup, attrs, getGroupProps, selectGroup});
         var source;
 
         if (parsedSource !== undefined) {
             source = parsedSource.map(
-                (line, index) => Line({
-                    setHoverGroup,
-                    componentsVisibility,
-                    attrs,
-                    getGroupProps,
-                    line,
-                    lineNumber: {
-                        line: index,
-                        lineCount: parsedSource.length},
-                    selectGroup}))
+                (line, index) => Line(merge(args, {
+                        componentsVisibility,
+                        line,
+                        lineNumber: {
+                            line: index,
+                            lineCount: parsedSource.length
+                        }
+                    })));
         }
 
-        var output;
+        var output = [];
+
         if (componentsVisibility['tabLine'] === 'show') {
-            output = [tabLine].concat(source);
-        } else {
-            output = source;
+            output = output.concat(TabLine(args));
         }
+
+        output = output.concat(source).concat(NonText(args));
 
         return pre({style, className, onClick, onMouseOver, onMouseOut}, output);
     },
@@ -65,6 +65,20 @@ var Vim = React.createClass({
             },
             className: props.highlight === 'NONE' ? '' : props.highlight
         };
+    }
+});
+
+var NonText = React.createClass({
+    render() {
+        var {attrs, getGroupProps, selectGroup, setHoverGroup} = this.props;
+        var args = {attrs, getGroupProps, selectGroup, setHoverGroup};
+
+        return Segment(merge(args, {
+            segment: {
+                group: 'NonText',
+                content: '~                                                                                   \n'.repeat(10)
+            }
+        }));
     }
 });
 

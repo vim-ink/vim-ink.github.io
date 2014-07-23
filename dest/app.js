@@ -780,38 +780,33 @@ var Vim = React.createClass({
         getGroupProps = $__1.getGroupProps,
         selectGroup = $__1.selectGroup,
         setHoverGroup = $__1.setHoverGroup;
+    var args = {
+      attrs: attrs,
+      getGroupProps: getGroupProps,
+      selectGroup: selectGroup,
+      setHoverGroup: setHoverGroup
+    };
     var className = parsedSource === undefined ? 'hidden' : '';
     var props = getGroupProps('Normal');
     var style = $traceurRuntime.assertObject(attrs(props)).style;
-    var tabLine = TabLine({
-      setHoverGroup: setHoverGroup,
-      attrs: attrs,
-      getGroupProps: getGroupProps,
-      selectGroup: selectGroup
-    });
     var source;
     if (parsedSource !== undefined) {
       source = parsedSource.map((function(line, index) {
-        return Line({
-          setHoverGroup: setHoverGroup,
+        return Line(merge(args, {
           componentsVisibility: componentsVisibility,
-          attrs: attrs,
-          getGroupProps: getGroupProps,
           line: line,
           lineNumber: {
             line: index,
             lineCount: parsedSource.length
-          },
-          selectGroup: selectGroup
-        });
+          }
+        }));
       }));
     }
-    var output;
+    var output = [];
     if (componentsVisibility['tabLine'] === 'show') {
-      output = [tabLine].concat(source);
-    } else {
-      output = source;
+      output = output.concat(TabLine(args));
     }
+    output = output.concat(source).concat(NonText(args));
     return pre({
       style: style,
       className: className,
@@ -846,6 +841,23 @@ var Vim = React.createClass({
     };
   }
 });
+var NonText = React.createClass({render: function() {
+    var $__1 = $traceurRuntime.assertObject(this.props),
+        attrs = $__1.attrs,
+        getGroupProps = $__1.getGroupProps,
+        selectGroup = $__1.selectGroup,
+        setHoverGroup = $__1.setHoverGroup;
+    var args = {
+      attrs: attrs,
+      getGroupProps: getGroupProps,
+      selectGroup: selectGroup,
+      setHoverGroup: setHoverGroup
+    };
+    return Segment(merge(args, {segment: {
+        group: 'NonText',
+        content: '~                                                                                   \n'.repeat(10)
+      }}));
+  }});
 var TabLine = React.createClass({render: function() {
     var span = $traceurRuntime.assertObject(React.DOM).span;
     var $__1 = $traceurRuntime.assertObject(this.props),
@@ -1049,7 +1061,7 @@ var App = require('./components/app');
 React.renderComponent(App(), document.body);
 
 
-}).call(this,require("IrXUsu"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/fake_8b7794f9.js","/")
+}).call(this,require("IrXUsu"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/fake_6dc22670.js","/")
 },{"./components/app":1,"IrXUsu":20,"buffer":17,"es6ify/node_modules/traceur/bin/traceur-runtime":16,"react":156}],10:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 "use strict";
@@ -1619,6 +1631,7 @@ var initialState = {
     Number: {color: '#999999'},
     Constant: {color: '#999999'},
     Comment: {color: '#666666'},
+    NonText: {color: '#666666'},
     StorageClass: {color: '#666666'},
     Conditional: {color: '#666666'},
     Special: {color: '#666666'},
@@ -1647,6 +1660,7 @@ var initialState = {
     Number: {color: '#999999'},
     Constant: {color: '#999999'},
     Comment: {color: '#cccccc'},
+    NonText: {color: '#cccccc'},
     StorageClass: {color: '#666666'},
     Conditional: {color: '#666666'},
     Special: {color: '#666666'},

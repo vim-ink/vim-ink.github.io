@@ -65,6 +65,9 @@ var initialState = {
         Comment: {
             color: '#666666',
         },
+        NonText: {
+            color: '#666666',
+        },
         StorageClass: {
             color: '#666666',
         },
@@ -113,6 +116,9 @@ var initialState = {
             color: '#999999',
         },
         Comment: {
+            color: '#cccccc',
+        },
+        NonText: {
             color: '#cccccc',
         },
         StorageClass: {
