@@ -807,6 +807,9 @@ var Vim = React.createClass({
       output = output.concat(TabLine(args));
     }
     output = output.concat(source).concat(NonText(args));
+    if (componentsVisibility['statusLine'] === 'show') {
+      output = output.concat(StatusLine(args));
+    }
     return pre({
       style: style,
       className: className,
@@ -857,6 +860,24 @@ var NonText = React.createClass({render: function() {
         group: 'NonText',
         content: '~                                                                                   \n'.repeat(10)
       }}));
+  }});
+var StatusLine = React.createClass({render: function() {
+    var span = $traceurRuntime.assertObject(React.DOM).span;
+    var $__1 = $traceurRuntime.assertObject(this.props),
+        attrs = $__1.attrs,
+        getGroupProps = $__1.getGroupProps,
+        selectGroup = $__1.selectGroup,
+        setHoverGroup = $__1.setHoverGroup;
+    var args = {
+      attrs: attrs,
+      getGroupProps: getGroupProps,
+      selectGroup: selectGroup,
+      setHoverGroup: setHoverGroup
+    };
+    return span(null, [Segment(merge(args, {segment: {
+        group: 'StatusLine',
+        content: '~/path/to/file                                                      1,1         Top'
+      }}))]);
   }});
 var TabLine = React.createClass({render: function() {
     var span = $traceurRuntime.assertObject(React.DOM).span;
@@ -1061,7 +1082,7 @@ var App = require('./components/app');
 React.renderComponent(App(), document.body);
 
 
-}).call(this,require("IrXUsu"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/fake_6dc22670.js","/")
+}).call(this,require("IrXUsu"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/fake_5ee31f98.js","/")
 },{"./components/app":1,"IrXUsu":20,"buffer":17,"es6ify/node_modules/traceur/bin/traceur-runtime":16,"react":156}],10:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 "use strict";
@@ -1599,7 +1620,8 @@ var initialState = {
   },
   componentsVisibility: {
     tabLine: 'show',
-    lineNumbers: 'show'
+    lineNumbers: 'show',
+    statusLine: 'show'
   },
   sectionsVisibility: {
     variant: 'show',
@@ -1626,6 +1648,8 @@ var initialState = {
       color: '#999999',
       backgroundColor: '#000000'
     },
+    StatusLine: {color: '#999999'},
+    StatusLineNC: {color: '#666666'},
     LineNr: {color: '#666666'},
     String: {color: '#999999'},
     Number: {color: '#999999'},
@@ -1655,6 +1679,8 @@ var initialState = {
       backgroundColor: '#ffffff',
       highlight: 'NONE'
     },
+    StatusLine: {color: '#999999'},
+    StatusLineNC: {color: '#cccccc'},
     LineNr: {color: '#cccccc'},
     String: {color: '#999999'},
     Number: {color: '#999999'},

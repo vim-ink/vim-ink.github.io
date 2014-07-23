@@ -23,7 +23,8 @@ var initialState = {
     },
     componentsVisibility: {
         tabLine: 'show',
-        lineNumbers: 'show'
+        lineNumbers: 'show',
+        statusLine: 'show'
     },
     sectionsVisibility: {
         variant: 'show',
@@ -49,6 +50,12 @@ var initialState = {
         TabLineSel: {
             color: '#999999',
             backgroundColor: '#000000',
+        },
+        StatusLine: {
+            color: '#999999',
+        },
+        StatusLineNC: {
+            color: '#666666',
         },
         LineNr: {
             color: '#666666',
@@ -102,6 +109,12 @@ var initialState = {
             color: '#999999',
             backgroundColor: '#ffffff',
             highlight: 'NONE'
+        },
+        StatusLine: {
+            color: '#999999',
+        },
+        StatusLineNC: {
+            color: '#cccccc',
         },
         LineNr: {
             color: '#cccccc',

@@ -35,6 +35,10 @@ var Vim = React.createClass({
 
         output = output.concat(source).concat(NonText(args));
 
+        if (componentsVisibility['statusLine'] === 'show') {
+            output = output.concat(StatusLine(args));
+        }
+
         return pre({style, className, onClick, onMouseOver, onMouseOut}, output);
     },
     onMouseOver() {
@@ -79,6 +83,25 @@ var NonText = React.createClass({
                 content: '~                                                                                   \n'.repeat(10)
             }
         }));
+    }
+});
+
+var StatusLine = React.createClass({
+    render() {
+        var {span} = React.DOM;
+        var {attrs, getGroupProps, selectGroup, setHoverGroup} = this.props;
+        var args = {attrs, getGroupProps, selectGroup, setHoverGroup};
+
+        return span(
+            null,
+            [
+                Segment(merge(args, {
+                    segment: {
+                        group: 'StatusLine',
+                        content: '~/path/to/file                                                      1,1         Top'
+                    }
+                }))
+            ]);
     }
 });
 
