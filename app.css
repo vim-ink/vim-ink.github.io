@@ -19,8 +19,8 @@ pre, textarea {
     font-family: 'Source Code Pro';
 }
 
-h1, h2 {
-    font-weight: 400;
+h1, h2, body, input, button {
+    font-weight: 300;
 }
 
 /* body */
@@ -54,7 +54,7 @@ body.light header {
 }
 
 body.dark header {
-    border-bottom: 1px solid #333;
+    border-bottom: 1px solid #222;
 }
 
 /* h1 */
@@ -166,6 +166,7 @@ footer {
 pre {
     font-size: 1.6rem;
     margin: 2.5rem 0 0 0;
+    font-weight: 400;
 }
 
 pre span.bold {
@@ -312,7 +313,7 @@ body.light .highlight-button.standout span {
 }
 
 body.dark .highlight-button.standout span {
-    border-bottom: 0.1rem solid #333;
+    border-bottom: 0.1rem solid #222;
 }
 
 body.light .highlight-button:hover {
@@ -467,7 +468,7 @@ body.light input[type="range"]::-webkit-slider-runnable-track {
 }
 
 body.dark input[type="range"]::-webkit-slider-runnable-track {
-    background-color: #333;
+    background-color: #222;
 }
 
 input[type="range"]::-webkit-slider-thumb {
@@ -496,7 +497,7 @@ body.light input[type="range"]::-moz-range-track {
 }
 
 body.dark input[type="range"]::-moz-range-track {
-    background-color: #333;
+    background-color: #222;
 }
 
 input[type="range"]::-moz-range-thumb {
@@ -544,7 +545,7 @@ body.light aside section {
 }
 
 body.dark aside section {
-    border-top: 0.1rem solid #333;
+    border-top: 0.1rem solid #222;
 }
 
 body.light aside section h2 {
@@ -601,7 +602,7 @@ body.light .export {
 }
 
 body.dark .export {
-    background-color: #333;
+    background-color: #222;
     color: #aaa;
 }
 
@@ -752,7 +753,7 @@ body.light .text {
 }
 
 body.dark .text {
-    background-color: #333;
+    background-color: #222;
     color: #999;
 }
 
@@ -785,7 +786,7 @@ body.light .color.border {
 }
 
 body.dark .color.border {
-    border: 0.1rem solid #333;
+    border: 0.1rem solid #222;
 }
 
 /**
