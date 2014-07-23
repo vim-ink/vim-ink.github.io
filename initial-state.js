@@ -44,9 +44,11 @@ var initialState = {
         },
         TabLine: {
             color: '#666666',
+            backgroundColor: '#000000',
         },
         TabLineSel: {
             color: '#999999',
+            backgroundColor: '#000000',
         },
         LineNr: {
             color: '#666666',
@@ -90,9 +92,13 @@ var initialState = {
         },
         TabLine: {
             color: '#cccccc',
+            backgroundColor: '#ffffff',
+            highlight: 'NONE'
         },
         TabLineSel: {
             color: '#999999',
+            backgroundColor: '#ffffff',
+            highlight: 'NONE'
         },
         LineNr: {
             color: '#cccccc',

@@ -88,20 +88,20 @@ var App = React.createClass({
     componentDidUpdate() {
         localStorage.setItem('state', JSON.stringify(this.state));
     },
-    getGroupProps(group) {
+    getGroupProps(group, parentGroup = 'Normal') {
         var {activeVariant} = this.state;
         var groups = this.state[activeVariant];
 
         return {
             color: group in groups && 'color' in groups[group] ?
                 groups[group].color :
-                groups['Normal'].color,
+                groups[parentGroup].color,
             backgroundColor: group in groups && 'backgroundColor' in groups[group] ?
                 groups[group].backgroundColor :
-                groups['Normal'].backgroundColor,
+                groups[parentGroup].backgroundColor,
             highlight: group in groups && 'highlight' in groups[group] ?
                 groups[group].highlight :
-                groups['Normal'].highlight
+                groups[parentGroup].highlight
         };
     },
     getModifiedGroups() {

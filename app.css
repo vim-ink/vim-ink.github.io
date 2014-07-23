@@ -167,6 +167,7 @@ pre {
     font-size: 1.6rem;
     margin: 2.5rem 0 0 0;
     font-weight: 400;
+    overflow: hidden;
 }
 
 pre span.bold {

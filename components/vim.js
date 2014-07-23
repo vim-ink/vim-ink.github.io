@@ -1,6 +1,8 @@
 var React = require('react');
 var Color = require('color');
 
+var merge = (...args) => Object.assign({}, ...args);
+
 var Vim = React.createClass({
     render() {
         var {pre} = React.DOM;
@@ -69,66 +71,77 @@ var Vim = React.createClass({
 var TabLine = React.createClass({
     render() {
         var {span} = React.DOM;
-        var {setHoverGroup, getGroupProps, selectGroup, attrs} = this.props;
+        var {attrs, getGroupProps, selectGroup, setHoverGroup} = this.props;
+        var args = {attrs, getGroupProps, selectGroup, setHoverGroup};
 
         return span(
             null,
             [
-                TabLineFile({
-                    setHoverGroup,
-                    attrs,
-                    getGroupProps,
-                    selectGroup,
-                    fileName: 'one-file',
-                    selected: false}),
-                TabLineFile({
-                    setHoverGroup,
-                    attrs,
-                    getGroupProps,
-                    selectGroup,
-                    fileName: 'another-file',
-                    selected: false}),
-                TabLineFile({
-                    setHoverGroup,
-                    attrs,
-                    getGroupProps,
-                    selectGroup,
-                    fileName: 'yet-another-file',
-                    selected: true}),
+                Segment(merge(args, {
+                    segment: {
+                        group: 'TabLine',
+                        content: ' '
+                    }
+                })),
+                Segment(merge(args, {
+                    segment: {
+                        group: 'Title',
+                        parentGroup: 'TabLine',
+                        content: '2'
+                    }
+                })),
+                Segment(merge(args, {
+                    segment: {
+                        group: 'TabLine',
+                        content: ' one-file  '
+                    }
+                })),
+                Segment(merge(args, {
+                    segment: {
+                        group: 'Title',
+                        parentGroup: 'TabLine',
+                        content: '2'
+                    }
+                })),
+                Segment(merge(args, {
+                    segment: {
+                        group: 'TabLine',
+                        content: ' another-file '
+                    }
+                })),
+                Segment(merge(args, {
+                    segment: {
+                        group: 'TabLineSel',
+                        content: ' '
+                    }
+                })),
+                Segment(merge(args, {
+                    segment: {
+                        group: 'Title',
+                        parentGroup: 'TabLineSel',
+                        content: '2'
+                    }
+                })),
+                Segment(merge(args, {
+                    segment: {
+                        group: 'TabLineSel',
+                        content: ' selected-file '
+                    }
+                })),
+                Segment(merge(args, {
+                    segment: {
+                        group: 'TabLineFill',
+                        content: '                                     '
+                    }
+                })),
+                Segment(merge(args, {
+                    segment: {
+                        group: 'TabLine',
+                        content: 'X '
+                    }
+                })),
                 '\n'
             ]);
-    }
-});
-
-var TabLineFile = React.createClass({
-    render() {
-        var {span} = React.DOM;
-        var {onClick, onMouseOver, group} = this;
-        var {getGroupProps, fileName, selected, attrs} = this.props;
-
-        var props = getGroupProps(group());
-        var {style, className} = attrs(props);
-
-        return span({style, className, onClick, onMouseOver}, ' 2 ' + fileName + ' ');
-    },
-    onMouseOver(e) {
-        var {group} = this;
-        var {setHoverGroup} = this.props;
-
-        setHoverGroup(group());
-        e.stopPropagation();
-    },
-    onClick(e) {
-        var {group} = this;
-        var {selectGroup} = this.props;
-
-        selectGroup(group());
-        e.stopPropagation();
-    },
-    group() {
-        var {selected} = this.props;
-
-        return (selected === true ? 'TabLineSel' : 'TabLine');
     }
 });
 
@@ -178,7 +191,8 @@ var Segment = React.createClass({
         var {segment, getGroupProps, attrs} = this.props;
 
         if (typeof(segment) === 'object') {
-            var props = getGroupProps(segment.group);
+            var parentGroup = ('parentGroup' in segment ? segment.parentGroup : 'Normal');
+            var props = getGroupProps(segment.group, parentGroup);
             var {style, className} = attrs(props);
 
             return span({
@@ -196,6 +210,7 @@ var Segment = React.createClass({
     },
     onMouseOver(e) {
         var {setHoverGroup, segment} = this.props;
+
         setHoverGroup(segment.group);
         e.stopPropagation();
     },
