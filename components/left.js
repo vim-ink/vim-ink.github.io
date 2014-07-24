@@ -11,7 +11,7 @@ var Left = React.createClass({
             activeFile,
             activeVariant,
             componentsVisibility,
-            getGroupProps,
+            getGroup,
             parse,
             parsedSource,
             postProcess,
@@ -26,7 +26,7 @@ var Left = React.createClass({
             Vim({
                 activeVariant,
                 componentsVisibility,
-                getGroupProps,
+                getGroup,
                 parsedSource,
                 postProcess,
                 selectGroup,

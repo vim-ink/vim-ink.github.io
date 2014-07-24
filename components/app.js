@@ -35,7 +35,7 @@ var App = React.createClass({
             }),
             main({className: 'wrap'},
                 Left({
-                    getGroupProps: this.getGroupProps,
+                    getGroup: this.getGroup,
                     parse: this.parse,
                     selectGroup: this.selectGroup,
                     setActiveFile: this.setActiveFile,
@@ -52,7 +52,6 @@ var App = React.createClass({
                     deleteSelectedGroupProp: this.deleteSelectedGroupProp,
                     exportColorScheme: this.exportColorScheme,
                     getGroup: this.getGroup,
-                    getGroupProps: this.getGroupProps,
                     getModifiedGroups: this.getModifiedGroups,
                     resetGroup: this.resetGroup,
                     resetSelectedGroupProp: this.resetSelectedGroupProp,
@@ -97,25 +96,6 @@ var App = React.createClass({
     getGroup(group) {
         var groups =  this.state[this.state.activeVariant];
         return (group in groups ? groups[group] : {});
-    },
-    getGroupProps(group, parentGroup = 'Normal') {
-        var {activeVariant} = this.state;
-        var groups = this.state[activeVariant];
-
-        return {
-            color: (group in groups && 'color' in groups[group] &&
-                groups[group].color !== undefined ?
-                groups[group].color :
-                groups[parentGroup].color),
-            backgroundColor: (group in groups && 'backgroundColor' in groups[group] &&
-                groups[group].backgroundColor !== undefined ?
-                groups[group].backgroundColor :
-                groups[parentGroup].backgroundColor),
-            highlight: (group in groups && 'highlight' in groups[group] &&
-                groups[group].highlight !== undefined ?
-                groups[group].highlight :
-                groups[parentGroup].highlight)
-        };
     },
     getModifiedGroups() {
         // console.log(JSON.stringify(this.state.parsedSource));

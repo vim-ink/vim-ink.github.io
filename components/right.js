@@ -70,7 +70,6 @@ var Colors = React.createClass({
             activeVariant,
             deleteSelectedGroupProp,
             getGroup,
-            getGroupProps,
             resetSelectedGroupProp,
             selectedGroup,
             setActiveColor,
@@ -78,7 +77,6 @@ var Colors = React.createClass({
         } = this.props;
 
         var group = getGroup(selectedGroup);
-        var colorPair = getGroupProps(selectedGroup);
 
         return Section(merge(this.props, {
             id: 'color',
@@ -91,7 +89,6 @@ var Colors = React.createClass({
                 prop: 'color',
                 accessKey: 'f',
                 value: group.color,
-                color: colorPair.color,
                 label_: 'Foreground',
                 deleteSelectedGroupProp,
                 resetSelectedGroupProp,
@@ -106,7 +103,6 @@ var Colors = React.createClass({
                 prop: 'backgroundColor',
                 accessKey: 'b',
                 value: group.backgroundColor,
-                color: colorPair.backgroundColor,
                 label_: 'Background',
                 deleteSelectedGroupProp,
                 resetSelectedGroupProp,
@@ -119,7 +115,7 @@ var Colors = React.createClass({
 var Color = React.createClass({
     render() {
         var {div, input, label} = React.DOM;
-        var {id, accessKey, value, color, label_, active, pageBackgroundColor} = this.props;
+        var {id, accessKey, value, label_, active, pageBackgroundColor} = this.props;
         var {onChange, onClick} = this;
 
         var rightClassName = (active === true ? ' active' : '');
@@ -130,7 +126,7 @@ var Color = React.createClass({
                     type: 'color',
                     id,
                     accessKey,
-                    value: color, // `color` is either selected group color or selected group parent color
+                    value: value,
                     onClick: onClick,
                     onChange: onChange
                 }),
@@ -219,10 +215,10 @@ var HighlightButton = React.createClass({
         return button({className, onClick}, span(null, content));
     },
     className(type) {
-        var {getGroupProps, selectedGroup} = this.props;
+        var {getGroup, selectedGroup} = this.props;
         var {selectedType} = this.props;
 
-        var selectedType = getGroupProps(selectedGroup).highlight;
+        var selectedType = getGroup(selectedGroup).highlight;
 
         return 'highlight-button ' + type.toLowerCase() +
             (type === selectedType ? ' active' : '');

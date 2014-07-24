@@ -7,11 +7,11 @@ var Vim = React.createClass({
     render() {
         var {pre} = React.DOM;
         var {onClick, onMouseOver, onMouseOut, attrs} = this;
-        var {componentsVisibility, parsedSource, getGroupProps, selectGroup, setHoverGroup} = this.props;
-        var args = {attrs, getGroupProps, selectGroup, setHoverGroup};
+        var {componentsVisibility, parsedSource, getGroup, selectGroup, setHoverGroup} = this.props;
+        var args = {attrs, getGroup, selectGroup, setHoverGroup};
 
         var className = parsedSource === undefined ? 'hidden' : '';
-        var props = getGroupProps('Normal');
+        var props = getGroup('Normal');
         var {style} = attrs(props);
         var source;
 
@@ -56,17 +56,24 @@ var Vim = React.createClass({
         var {postProcess, activeVariant} = this.props;
         var {brightness, saturation} = postProcess[activeVariant];
 
+        var style = {};
+
+        if (props.color !== undefined) {
+            style['color'] = Color(props.color)
+                .lighten(brightness)
+                .saturate(saturation)
+                .hexString();
+        }
+
+        if (props.backgroundColor !== undefined) {
+            style['backgroundColor'] = Color(props.backgroundColor)
+                .lighten(brightness)
+                .saturate(saturation)
+                .hexString();
+        }
+
         return {
-            style: {
-                color: Color(props.color)
-                    .lighten(brightness)
-                    .saturate(saturation)
-                    .hexString(),
-                backgroundColor: Color(props.backgroundColor)
-                    .lighten(brightness)
-                    .saturate(saturation)
-                    .hexString()
-            },
+            style,
             className: props.highlight === 'NONE' ? '' : props.highlight
         };
     }
@@ -74,8 +81,8 @@ var Vim = React.createClass({
 
 var NonText = React.createClass({
     render() {
-        var {attrs, getGroupProps, selectGroup, setHoverGroup} = this.props;
-        var args = {attrs, getGroupProps, selectGroup, setHoverGroup};
+        var {attrs, getGroup, selectGroup, setHoverGroup} = this.props;
+        var args = {attrs, getGroup, selectGroup, setHoverGroup};
 
         return Segment(merge(args, {
             segment: {
@@ -89,8 +96,8 @@ var NonText = React.createClass({
 var StatusLine = React.createClass({
     render() {
         var {span} = React.DOM;
-        var {attrs, getGroupProps, selectGroup, setHoverGroup} = this.props;
-        var args = {attrs, getGroupProps, selectGroup, setHoverGroup};
+        var {attrs, getGroup, selectGroup, setHoverGroup} = this.props;
+        var args = {attrs, getGroup, selectGroup, setHoverGroup};
 
         return span(
             null,
@@ -108,8 +115,8 @@ var StatusLine = React.createClass({
 var TabLine = React.createClass({
     render() {
         var {span} = React.DOM;
-        var {attrs, getGroupProps, selectGroup, setHoverGroup} = this.props;
-        var args = {attrs, getGroupProps, selectGroup, setHoverGroup};
+        var {attrs, getGroup, selectGroup, setHoverGroup} = this.props;
+        var args = {attrs, getGroup, selectGroup, setHoverGroup};
 
         return span(
             null,
@@ -117,14 +124,16 @@ var TabLine = React.createClass({
                 Segment(merge(args, {
                     segment: {
                         group: 'TabLine',
-                        content: ' '
-                    }
-                })),
-                Segment(merge(args, {
-                    segment: {
-                        group: 'Title',
-                        parentGroup: 'TabLine',
-                        content: '2'
+                        content: [
+                            ' ',
+                            Segment(merge(args, {
+                                segment: {
+                                    group: 'Title',
+                                    content: '2'
+                                }
+                            })),
+                            'one-file'
+                        ]
                     }
                 })),
                 Segment(merge(args, {
@@ -185,9 +194,9 @@ var TabLine = React.createClass({
 var Line = React.createClass({
     render() {
         var {span} = React.DOM;
-        var {setHoverGroup, componentsVisibility, attrs, getGroupProps, line, lineNumber, selectGroup} = this.props;
-        var lineNumber_ = [LineNumber({setHoverGroup, attrs, lineNumber, getGroupProps, selectGroup})]
-        var segments = line.map(segment => Segment({setHoverGroup, attrs, segment, getGroupProps, selectGroup}));
+        var {setHoverGroup, componentsVisibility, attrs, getGroup, line, lineNumber, selectGroup} = this.props;
+        var lineNumber_ = [LineNumber({setHoverGroup, attrs, lineNumber, getGroup, selectGroup})]
+        var segments = line.map(segment => Segment({setHoverGroup, attrs, segment, getGroup, selectGroup}));
         var output = componentsVisibility['lineNumbers'] === 'show' ? lineNumber_ : [];
 
         return span(null, output.concat(segments.concat(span(null, '\n'))));
@@ -198,10 +207,10 @@ var LineNumber = React.createClass({
     render() {
         var {span} = React.DOM;
         var {onClick, onMouseOver} = this;
-        var {attrs, getGroupProps, lineNumber} = this.props;
+        var {attrs, getGroup, lineNumber} = this.props;
         var {line, lineCount} = lineNumber;
 
-        var props = getGroupProps('LineNr');
+        var props = getGroup('LineNr');
         var {style, className} = attrs(props);
         var spaces = 1 + (lineCount.toString().length - line.toString().length)
 
@@ -225,11 +234,11 @@ var Segment = React.createClass({
     render() {
         var {span} = React.DOM;
         var {onClick, onMouseOver, style} = this;
-        var {segment, getGroupProps, attrs} = this.props;
+        var {segment, getGroup, attrs} = this.props;
 
         if (typeof(segment) === 'object') {
             var parentGroup = ('parentGroup' in segment ? segment.parentGroup : 'Normal');
-            var props = getGroupProps(segment.group, parentGroup);
+            var props = getGroup(segment.group, parentGroup);
             var {style, className} = attrs(props);
 
             return span({
@@ -239,7 +248,7 @@ var Segment = React.createClass({
                 onMouseOver},
                 segment.content);
         } else {
-            var props = getGroupProps('Normal');
+            var props = getGroup('Normal');
             var {className} = attrs(props)
 
             return span({className}, segment);
