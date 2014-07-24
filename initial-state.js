@@ -72,6 +72,9 @@ var initialState = {
         Comment: {
             color: '#666666',
         },
+        Title: {
+            color: '#999999',
+        },
         NonText: {
             color: '#666666',
         },
@@ -92,6 +95,10 @@ var initialState = {
         },
         Visual: {
             highlight: 'reverse'
+        },
+        VertSplit: {
+            color: '#222222',
+            backgroundColor: '#222222',
         }
     },
     light: {
@@ -131,6 +138,9 @@ var initialState = {
         Comment: {
             color: '#cccccc',
         },
+        Title: {
+            color: '#999999',
+        },
         NonText: {
             color: '#cccccc',
         },
@@ -151,6 +161,10 @@ var initialState = {
         },
         Visual: {
             highlight: 'reverse'
+        },
+        VertSplit: {
+            color: '#eeeeee',
+            backgroundColor: '#eeeeee',
         }
     }
 };

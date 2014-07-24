@@ -81,9 +81,12 @@ var App = React.createClass({
             }));
     },
     componentDidMount() {
+        this.setBodyClassName(this.state.activeVariant);
+    },
+    setBodyClassName(variant) {
         var body = document.getElementsByTagName('body')[0];
 
-        body.className = this.state.activeVariant;
+        body.className = variant;
     },
     componentDidUpdate() {
         localStorage.setItem('state', JSON.stringify(this.state));
@@ -200,6 +203,7 @@ var App = React.createClass({
         var state = _.cloneDeep(initialState);
 
         this.setState(state);
+        this.setBodyClassName(initialState.activeVariant);
     }
 });
 

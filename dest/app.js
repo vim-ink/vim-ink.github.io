@@ -71,8 +71,11 @@ var App = React.createClass({
     }));
   },
   componentDidMount: function() {
+    this.setBodyClassName(this.state.activeVariant);
+  },
+  setBodyClassName: function(variant) {
     var body = document.getElementsByTagName('body')[0];
-    body.className = this.state.activeVariant;
+    body.className = variant;
   },
   componentDidUpdate: function() {
     localStorage.setItem('state', JSON.stringify(this.state));
@@ -174,6 +177,7 @@ var App = React.createClass({
   resetState: function() {
     var state = _.cloneDeep(initialState);
     this.setState(state);
+    this.setBodyClassName(initialState.activeVariant);
   }
 });
 module.exports = App;
@@ -1082,7 +1086,7 @@ var App = require('./components/app');
 React.renderComponent(App(), document.body);
 
 
-}).call(this,require("IrXUsu"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/fake_5ee31f98.js","/")
+}).call(this,require("IrXUsu"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/fake_1f6c8417.js","/")
 },{"./components/app":1,"IrXUsu":20,"buffer":17,"es6ify/node_modules/traceur/bin/traceur-runtime":16,"react":156}],10:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 "use strict";
@@ -1655,13 +1659,18 @@ var initialState = {
     Number: {color: '#999999'},
     Constant: {color: '#999999'},
     Comment: {color: '#666666'},
+    Title: {color: '#999999'},
     NonText: {color: '#666666'},
     StorageClass: {color: '#666666'},
     Conditional: {color: '#666666'},
     Special: {color: '#666666'},
     Type: {color: '#666666'},
     Cursor: {highlight: 'reverse'},
-    Visual: {highlight: 'reverse'}
+    Visual: {highlight: 'reverse'},
+    VertSplit: {
+      color: '#222222',
+      backgroundColor: '#222222'
+    }
   },
   light: {
     Normal: {
@@ -1686,13 +1695,18 @@ var initialState = {
     Number: {color: '#999999'},
     Constant: {color: '#999999'},
     Comment: {color: '#cccccc'},
+    Title: {color: '#999999'},
     NonText: {color: '#cccccc'},
     StorageClass: {color: '#666666'},
     Conditional: {color: '#666666'},
     Special: {color: '#666666'},
     Type: {color: '#666666'},
     Cursor: {highlight: 'reverse'},
-    Visual: {highlight: 'reverse'}
+    Visual: {highlight: 'reverse'},
+    VertSplit: {
+      color: '#eeeeee',
+      backgroundColor: '#eeeeee'
+    }
   }
 };
 module.exports = initialState;
