@@ -125,47 +125,16 @@ var TabLine = React.createClass({
                     segment: {
                         group: 'TabLine',
                         content: [
-                            ' ',
-                            Segment(merge(args, {
-                                segment: {
-                                    group: 'Title',
-                                    content: '2'
-                                }
-                            })),
-                            'one-file'
+                            ' one-file '
                         ]
                     }
                 })),
                 Segment(merge(args, {
                     segment: {
                         group: 'TabLine',
-                        content: ' one-file  '
-                    }
-                })),
-                Segment(merge(args, {
-                    segment: {
-                        group: 'Title',
-                        parentGroup: 'TabLine',
-                        content: '2'
-                    }
-                })),
-                Segment(merge(args, {
-                    segment: {
-                        group: 'TabLine',
-                        content: ' another-file '
-                    }
-                })),
-                Segment(merge(args, {
-                    segment: {
-                        group: 'TabLineSel',
-                        content: ' '
-                    }
-                })),
-                Segment(merge(args, {
-                    segment: {
-                        group: 'Title',
-                        parentGroup: 'TabLineSel',
-                        content: '2'
+                        content: [
+                            ' another-file '
+                        ]
                     }
                 })),
                 Segment(merge(args, {
@@ -177,7 +146,7 @@ var TabLine = React.createClass({
                 Segment(merge(args, {
                     segment: {
                         group: 'TabLineFill',
-                        content: '                                     '
+                        content: '                                           '
                     }
                 })),
                 Segment(merge(args, {

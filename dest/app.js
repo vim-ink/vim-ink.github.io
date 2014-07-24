@@ -988,33 +988,16 @@ var TabLine = React.createClass({render: function() {
     };
     return span(null, [Segment(merge(args, {segment: {
         group: 'TabLine',
-        content: [' ', Segment(merge(args, {segment: {
-            group: 'Title',
-            content: '2'
-          }})), 'one-file']
+        content: [' one-file ']
       }})), Segment(merge(args, {segment: {
         group: 'TabLine',
-        content: ' one-file  '
-      }})), Segment(merge(args, {segment: {
-        group: 'Title',
-        parentGroup: 'TabLine',
-        content: '2'
-      }})), Segment(merge(args, {segment: {
-        group: 'TabLine',
-        content: ' another-file '
-      }})), Segment(merge(args, {segment: {
-        group: 'TabLineSel',
-        content: ' '
-      }})), Segment(merge(args, {segment: {
-        group: 'Title',
-        parentGroup: 'TabLineSel',
-        content: '2'
+        content: [' another-file ']
       }})), Segment(merge(args, {segment: {
         group: 'TabLineSel',
         content: ' selected-file '
       }})), Segment(merge(args, {segment: {
         group: 'TabLineFill',
-        content: '                                     '
+        content: '                                           '
       }})), Segment(merge(args, {segment: {
         group: 'TabLine',
         content: 'X '
@@ -1175,7 +1158,7 @@ var App = require('./components/app');
 React.renderComponent(App(), document.body);
 
 
-}).call(this,require("IrXUsu"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/fake_21878c83.js","/")
+}).call(this,require("IrXUsu"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/fake_85f969a8.js","/")
 },{"./components/app":1,"IrXUsu":20,"buffer":17,"es6ify/node_modules/traceur/bin/traceur-runtime":16,"react":156}],10:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 "use strict";
