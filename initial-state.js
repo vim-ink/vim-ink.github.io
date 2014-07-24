@@ -98,10 +98,16 @@ var initialState = {
             highlight: 'reverse'
         },
         Visual: {
-            highlight: 'reverse'
+            backgroundColor: '#555555'
         },
         IncSearch: {
-            highlight: 'reverse'
+            backgroundColor: '#666666'
+        },
+        Search: {
+            backgroundColor: '#666666'
+        },
+        MatchParen: {
+            backgroundColor: '#666666'
         },
         VertSplit: {
             color: '#222222',
@@ -115,12 +121,12 @@ var initialState = {
             highlight: 'NONE'
         },
         TabLine: {
-            color: '#cccccc',
+            color: '#aaaaaa',
             backgroundColor: '#eeeeee',
             highlight: 'NONE'
         },
         TabLineSel: {
-            color: '#999999',
+            color: '#666666',
             backgroundColor: '#eeeeee',
             highlight: 'NONE'
         },
@@ -128,15 +134,15 @@ var initialState = {
             backgroundColor: '#eeeeee'
         },
         StatusLine: {
-            color: '#999999',
+            color: '#666666',
             backgroundColor: '#eeeeee'
         },
         StatusLineNC: {
-            color: '#cccccc',
+            color: '#aaaaaa',
             backgroundColor: '#eeeeee'
         },
         LineNr: {
-            color: '#cccccc',
+            color: '#bbbbbb',
         },
         String: {
             color: '#999999',
@@ -148,10 +154,10 @@ var initialState = {
             color: '#999999',
         },
         Comment: {
-            color: '#cccccc',
+            color: '#bbbbbb',
         },
         NonText: {
-            color: '#cccccc',
+            color: '#bbbbbb',
         },
         StorageClass: {
             color: '#666666',
@@ -169,10 +175,16 @@ var initialState = {
             highlight: 'reverse'
         },
         Visual: {
-            highlight: 'reverse'
+            backgroundColor: '#dddddd'
         },
         IncSearch: {
-            highlight: 'reverse'
+            backgroundColor: '#dddddd'
+        },
+        Search: {
+            backgroundColor: '#dddddd'
+        },
+        MatchParen: {
+            backgroundColor: '#cccccc'
         },
         VertSplit: {
             color: '#eeeeee',
