@@ -777,9 +777,9 @@ body.dark .text {
     text-align: right;
 }
 
-/* .color */
+/* .color-overlay */
 
-.color {
+.color-overlay {
     width: 3rem;
     height: 3rem;
     background-color: #fff;
@@ -789,15 +789,15 @@ body.dark .text {
     border-radius: 1.5rem;
 }
 
-body.light .color.border {
+body.light .color-overlay.border {
     border: 0.1rem solid #eee;
 }
 
-body.dark .color.border {
+body.dark .color-overlay.border {
     border: 0.1rem solid #222;
 }
 
-body.light .color.none {
+body.light .color-overlay.none {
     background-color: #eee !important;
     background-image:
         linear-gradient(
@@ -818,7 +818,7 @@ body.light .color.none {
     background-position: 0 0, 6px 6px;
 }
 
-body.dark .color.none {
+body.dark .color-overlay.none {
     background-color: #222 !important;
     background-image:
         linear-gradient(

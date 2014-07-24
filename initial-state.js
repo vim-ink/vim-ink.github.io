@@ -178,7 +178,7 @@ var initialState = {
             backgroundColor: '#cccccc'
         },
         IncSearch: {
-            backgroundColor: '#dddddd'
+            backgroundColor: '#cccccc'
         },
         Search: {
             backgroundColor: '#eeeeee'

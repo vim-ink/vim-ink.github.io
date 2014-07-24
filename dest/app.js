@@ -532,13 +532,7 @@ var Color = React.createClass({
     var $__2 = this,
         onChange = $__2.onChange,
         onClick = $__2.onClick;
-    var activeClassName = (active === true ? ' active' : '');
-    var className = 'color';
-    if (value === undefined) {
-      className += ' none';
-    } else if (color === pageBackgroundColor) {
-      className += ' border';
-    }
+    var rightClassName = (active === true ? ' active' : '');
     return div({className: 'line color-line'}, div({className: 'left'}, input({
       type: 'color',
       id: id,
@@ -546,10 +540,10 @@ var Color = React.createClass({
       value: color,
       onClick: onClick,
       onChange: onChange
-    }), div({
-      className: className,
-      style: {backgroundColor: color}
-    })), div({className: 'right' + activeClassName}, label({htmlFor: id}, label_)));
+    }), ColorOverlay({
+      value: value,
+      pageBackgroundColor: pageBackgroundColor
+    })), div({className: 'right' + rightClassName}, label({htmlFor: id}, label_)));
   },
   onChange: function(e) {
     var prop = $traceurRuntime.assertObject(this.props).prop;
@@ -559,6 +553,35 @@ var Color = React.createClass({
   },
   onClick: function(e) {
     this.props.setActiveColor(this.props.activeId);
+  }
+});
+var ColorOverlay = React.createClass({
+  render: function() {
+    var div = $traceurRuntime.assertObject(React.DOM).div;
+    var className = this.className();
+    var style = this.style();
+    return div({
+      className: className,
+      style: style
+    });
+  },
+  className: function() {
+    var $__2 = $traceurRuntime.assertObject(this.props),
+        value = $__2.value,
+        pageBackgroundColor = $__2.pageBackgroundColor;
+    var className = 'color-overlay';
+    if (value === undefined) {
+      return className + ' none';
+    } else {
+      if (value === pageBackgroundColor) {
+        className += ' border';
+      }
+      return className;
+    }
+  },
+  style: function() {
+    var value = $traceurRuntime.assertObject(this.props).value;
+    return (value === undefined ? {} : {backgroundColor: value});
   }
 });
 var Highlight = React.createClass({render: function() {
@@ -1119,7 +1142,7 @@ var App = require('./components/app');
 React.renderComponent(App(), document.body);
 
 
-}).call(this,require("IrXUsu"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/fake_30562de.js","/")
+}).call(this,require("IrXUsu"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/fake_b31ca8eb.js","/")
 },{"./components/app":1,"IrXUsu":20,"buffer":17,"es6ify/node_modules/traceur/bin/traceur-runtime":16,"react":156}],10:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 "use strict";
@@ -1753,7 +1776,7 @@ var initialState = {
     Type: {color: '#666666'},
     Cursor: {highlight: 'reverse'},
     Visual: {backgroundColor: '#cccccc'},
-    IncSearch: {backgroundColor: '#dddddd'},
+    IncSearch: {backgroundColor: '#cccccc'},
     Search: {backgroundColor: '#eeeeee'},
     MatchParen: {backgroundColor: '#cccccc'},
     VertSplit: {

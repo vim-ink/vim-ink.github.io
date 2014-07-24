@@ -107,16 +107,7 @@ var Color = React.createClass({
         var {id, accessKey, value, color, label_, active, pageBackgroundColor} = this.props;
         var {onChange, onClick} = this;
 
-        var activeClassName = (active === true ? ' active' : '');
-
-        var className = 'color';
-
-        if (value === undefined) {
-            className += ' none';
-        }
-        else if (color === pageBackgroundColor) {
-            className += ' border';
-        }
+        var rightClassName = (active === true ? ' active' : '');
 
         return div({className: 'line color-line'},
             div({className: 'left'},
@@ -124,12 +115,12 @@ var Color = React.createClass({
                     type: 'color',
                     id,
                     accessKey,
-                    value: color,
+                    value: color, // `color` is either selected group color or selected group parent color
                     onClick: onClick,
                     onChange: onChange
                 }),
-                div({className, style: {backgroundColor: color}})),
-            div({className: 'right' + activeClassName},
+                ColorOverlay({value, pageBackgroundColor})),
+            div({className: 'right' + rightClassName},
                 label({htmlFor: id}, label_)));
     },
     onChange(e) {
@@ -140,6 +131,36 @@ var Color = React.createClass({
     },
     onClick(e) {
         this.props.setActiveColor(this.props.activeId);
+    }
+});
+
+var ColorOverlay = React.createClass({
+    render() {
+        var {div} = React.DOM;
+        var className = this.className();
+        var style = this.style();
+
+        return div({className, style});
+    },
+    className() {
+        var {value, pageBackgroundColor} = this.props;
+        var className = 'color-overlay';
+
+        if (value === undefined) {
+            return className + ' none';
+        }
+        else {
+            if (value === pageBackgroundColor) {
+                className += ' border';
+            }
+
+            return className;
+        }
+    },
+    style() {
+        var {value} = this.props;
+
+        return (value === undefined ? {} : {backgroundColor: value});
     }
 });
 
