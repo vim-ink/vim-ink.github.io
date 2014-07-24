@@ -39,7 +39,7 @@ var initialState = {
     },
     dark: {
         Normal: {
-            color: '#bbbbbb',
+            color: '#aaaaaa',
             backgroundColor: '#000000',
             highlight: 'NONE'
         },
@@ -68,31 +68,31 @@ var initialState = {
             color: '#666666'
         },
         String: {
-            color: '#888888',
+            color: '#888888'
         },
         Number: {
-            color: '#888888',
+            color: '#888888'
         },
         Constant: {
-            color: '#888888',
+            color: '#888888'
         },
         Comment: {
-            color: '#666666',
+            color: '#666666'
         },
         NonText: {
-            color: '#666666',
+            color: '#666666'
         },
         StorageClass: {
-            color: '#666666',
+            color: '#666666'
         },
         Conditional: {
-            color: '#666666',
+            color: '#666666'
         },
         Special: {
-            color: '#666666',
+            color: '#666666'
         },
         Type: {
-            color: '#666666',
+            color: '#666666'
         },
         Cursor: {
             highlight: 'reverse'
@@ -142,34 +142,34 @@ var initialState = {
             backgroundColor: '#eeeeee'
         },
         LineNr: {
-            color: '#bbbbbb',
+            color: '#bbbbbb'
         },
         String: {
-            color: '#999999',
+            color: '#999999'
         },
         Number: {
-            color: '#999999',
+            color: '#999999'
         },
         Constant: {
-            color: '#999999',
+            color: '#999999'
         },
         Comment: {
-            color: '#bbbbbb',
+            color: '#bbbbbb'
         },
         NonText: {
-            color: '#bbbbbb',
+            color: '#bbbbbb'
         },
         StorageClass: {
-            color: '#666666',
+            color: '#666666'
         },
         Conditional: {
-            color: '#666666',
+            color: '#666666'
         },
         Special: {
-            color: '#666666',
+            color: '#666666'
         },
         Type: {
-            color: '#666666',
+            color: '#666666'
         },
         Cursor: {
             highlight: 'reverse'
@@ -188,7 +188,7 @@ var initialState = {
         },
         VertSplit: {
             color: '#eeeeee',
-            backgroundColor: '#eeeeee',
+            backgroundColor: '#eeeeee'
         }
     }
 };

@@ -65,7 +65,17 @@ var SelectedGroup = React.createClass({
 var Colors = React.createClass({
     render() {
         var {div, input, label} = React.DOM;
-        var {getGroup, getGroupProps, selectedGroup, activeColor, activeVariant} = this.props;
+        var {
+            activeColor,
+            activeVariant,
+            deleteSelectedGroupProp,
+            getGroup,
+            getGroupProps,
+            resetSelectedGroupProp,
+            selectedGroup,
+            setActiveColor,
+            setSelectedGroupProps
+        } = this.props;
 
         var group = getGroup(selectedGroup);
         var colorPair = getGroupProps(selectedGroup);
@@ -83,9 +93,11 @@ var Colors = React.createClass({
                 value: group.color,
                 color: colorPair.color,
                 label_: 'Foreground',
-                activeVariant,
-                setSelectedGroupProps: this.props.setSelectedGroupProps,
-                setActiveColor: this.props.setActiveColor}),
+                deleteSelectedGroupProp,
+                resetSelectedGroupProp,
+                setActiveColor,
+                setSelectedGroupProps
+            }),
             Color({
                 pageBackgroundColor: activeVariant === 'light' ? '#ffffff' : '#000000',
                 id: 'backgroundColor',
@@ -96,8 +108,11 @@ var Colors = React.createClass({
                 value: group.backgroundColor,
                 color: colorPair.backgroundColor,
                 label_: 'Background',
-                setSelectedGroupProps: this.props.setSelectedGroupProps,
-                setActiveColor: this.props.setActiveColor}));
+                deleteSelectedGroupProp,
+                resetSelectedGroupProp,
+                setActiveColor,
+                setSelectedGroupProps
+            }));
     }
 });
 
@@ -131,7 +146,15 @@ var Color = React.createClass({
     },
     onClick(e) {
         this.props.setActiveColor(this.props.activeId);
-    }
+
+        if (e.shiftKey === true) {
+            this.props.deleteSelectedGroupProp(this.props.prop);
+            e.preventDefault();
+        } else if (e.altKey === true) {
+            this.props.resetSelectedGroupProp(this.props.prop);
+            e.preventDefault();
+        }
+    },
 });
 
 var ColorOverlay = React.createClass({
@@ -207,7 +230,15 @@ var HighlightButton = React.createClass({
     onClick(e) {
         var {setSelectedGroupProps, type} = this.props;
 
-        setSelectedGroupProps({highlight: type})
+        if (e.shiftKey === true) {
+            this.props.deleteSelectedGroupProp('highlight');
+            e.preventDefault();
+        } else if (e.altKey === true) {
+            this.props.resetSelectedGroupProp('highlight');
+            e.preventDefault();
+        } else {
+            setSelectedGroupProps({highlight: type});
+        }
     }
 });
 

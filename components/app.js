@@ -49,11 +49,13 @@ var App = React.createClass({
                     postProcess: this.state.postProcess
                 }),
                 Right({
+                    deleteSelectedGroupProp: this.deleteSelectedGroupProp,
                     exportColorScheme: this.exportColorScheme,
                     getGroup: this.getGroup,
                     getGroupProps: this.getGroupProps,
                     getModifiedGroups: this.getModifiedGroups,
                     resetGroup: this.resetGroup,
+                    resetSelectedGroupProp: this.resetSelectedGroupProp,
                     resetState: this.resetState,
                     setActiveColor: this.setActiveColor,
                     setActivePane: this.setActivePane,
@@ -101,15 +103,18 @@ var App = React.createClass({
         var groups = this.state[activeVariant];
 
         return {
-            color: group in groups && 'color' in groups[group] ?
+            color: (group in groups && 'color' in groups[group] &&
+                groups[group].color !== undefined ?
                 groups[group].color :
-                groups[parentGroup].color,
-            backgroundColor: group in groups && 'backgroundColor' in groups[group] ?
+                groups[parentGroup].color),
+            backgroundColor: (group in groups && 'backgroundColor' in groups[group] &&
+                groups[group].backgroundColor !== undefined ?
                 groups[group].backgroundColor :
-                groups[parentGroup].backgroundColor,
-            highlight: group in groups && 'highlight' in groups[group] ?
+                groups[parentGroup].backgroundColor),
+            highlight: (group in groups && 'highlight' in groups[group] &&
+                groups[group].highlight !== undefined ?
                 groups[group].highlight :
-                groups[parentGroup].highlight
+                groups[parentGroup].highlight)
         };
     },
     getModifiedGroups() {
@@ -158,6 +163,30 @@ var App = React.createClass({
         
         Object.assign(state[activeVariant][selectedGroup], props);
         this.setState(state);
+    },
+    deleteSelectedGroupProp(prop) {
+        var {selectedGroup} = this.state;
+
+        if (selectedGroup === 'Normal') {
+            this.resetSelectedGroupProp(prop);
+        } else {
+            var props = {};
+            props[prop] = undefined;
+            this.setSelectedGroupProps(props);
+        }
+    },
+    resetSelectedGroupProp(prop) {
+        var {activeVariant, selectedGroup} = this.state;
+        var props = {};
+
+        if (selectedGroup in initialState[activeVariant] &&
+            prop in initialState[activeVariant][selectedGroup]) {
+            props[prop] = initialState[activeVariant][selectedGroup][prop];
+        } else {
+            props[prop] = undefined;
+        }
+
+        this.setSelectedGroupProps(props);
     },
     setSectionVisibility(section, visibility) {
         var {sectionsVisibility} = this.state;

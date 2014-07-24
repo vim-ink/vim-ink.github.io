@@ -43,11 +43,13 @@ var App = React.createClass({
       parsedSource: this.state.parsedSource,
       postProcess: this.state.postProcess
     }), Right({
+      deleteSelectedGroupProp: this.deleteSelectedGroupProp,
       exportColorScheme: this.exportColorScheme,
       getGroup: this.getGroup,
       getGroupProps: this.getGroupProps,
       getModifiedGroups: this.getModifiedGroups,
       resetGroup: this.resetGroup,
+      resetSelectedGroupProp: this.resetSelectedGroupProp,
       resetState: this.resetState,
       setActiveColor: this.setActiveColor,
       setActivePane: this.setActivePane,
@@ -90,9 +92,9 @@ var App = React.createClass({
     var activeVariant = $traceurRuntime.assertObject(this.state).activeVariant;
     var groups = this.state[activeVariant];
     return {
-      color: group in groups && 'color' in groups[group] ? groups[group].color : groups[parentGroup].color,
-      backgroundColor: group in groups && 'backgroundColor' in groups[group] ? groups[group].backgroundColor : groups[parentGroup].backgroundColor,
-      highlight: group in groups && 'highlight' in groups[group] ? groups[group].highlight : groups[parentGroup].highlight
+      color: (group in groups && 'color' in groups[group] && groups[group].color !== undefined ? groups[group].color : groups[parentGroup].color),
+      backgroundColor: (group in groups && 'backgroundColor' in groups[group] && groups[group].backgroundColor !== undefined ? groups[group].backgroundColor : groups[parentGroup].backgroundColor),
+      highlight: (group in groups && 'highlight' in groups[group] && groups[group].highlight !== undefined ? groups[group].highlight : groups[parentGroup].highlight)
     };
   },
   getModifiedGroups: function() {
@@ -137,6 +139,28 @@ var App = React.createClass({
     }
     Object.assign(state[activeVariant][selectedGroup], props);
     this.setState(state);
+  },
+  deleteSelectedGroupProp: function(prop) {
+    var selectedGroup = $traceurRuntime.assertObject(this.state).selectedGroup;
+    if (selectedGroup === 'Normal') {
+      this.resetSelectedGroupProp(prop);
+    } else {
+      var props = {};
+      props[prop] = undefined;
+      this.setSelectedGroupProps(props);
+    }
+  },
+  resetSelectedGroupProp: function(prop) {
+    var $__0 = $traceurRuntime.assertObject(this.state),
+        activeVariant = $__0.activeVariant,
+        selectedGroup = $__0.selectedGroup;
+    var props = {};
+    if (selectedGroup in initialState[activeVariant] && prop in initialState[activeVariant][selectedGroup]) {
+      props[prop] = initialState[activeVariant][selectedGroup][prop];
+    } else {
+      props[prop] = undefined;
+    }
+    this.setSelectedGroupProps(props);
   },
   setSectionVisibility: function(section, visibility) {
     var sectionsVisibility = $traceurRuntime.assertObject(this.state).sectionsVisibility;
@@ -478,11 +502,15 @@ var Colors = React.createClass({render: function() {
         input = $__2.input,
         label = $__2.label;
     var $__2 = $traceurRuntime.assertObject(this.props),
+        activeColor = $__2.activeColor,
+        activeVariant = $__2.activeVariant,
+        deleteSelectedGroupProp = $__2.deleteSelectedGroupProp,
         getGroup = $__2.getGroup,
         getGroupProps = $__2.getGroupProps,
+        resetSelectedGroupProp = $__2.resetSelectedGroupProp,
         selectedGroup = $__2.selectedGroup,
-        activeColor = $__2.activeColor,
-        activeVariant = $__2.activeVariant;
+        setActiveColor = $__2.setActiveColor,
+        setSelectedGroupProps = $__2.setSelectedGroupProps;
     var group = getGroup(selectedGroup);
     var colorPair = getGroupProps(selectedGroup);
     return Section(merge(this.props, {
@@ -498,9 +526,10 @@ var Colors = React.createClass({render: function() {
       value: group.color,
       color: colorPair.color,
       label_: 'Foreground',
-      activeVariant: activeVariant,
-      setSelectedGroupProps: this.props.setSelectedGroupProps,
-      setActiveColor: this.props.setActiveColor
+      deleteSelectedGroupProp: deleteSelectedGroupProp,
+      resetSelectedGroupProp: resetSelectedGroupProp,
+      setActiveColor: setActiveColor,
+      setSelectedGroupProps: setSelectedGroupProps
     }), Color({
       pageBackgroundColor: activeVariant === 'light' ? '#ffffff' : '#000000',
       id: 'backgroundColor',
@@ -511,8 +540,10 @@ var Colors = React.createClass({render: function() {
       value: group.backgroundColor,
       color: colorPair.backgroundColor,
       label_: 'Background',
-      setSelectedGroupProps: this.props.setSelectedGroupProps,
-      setActiveColor: this.props.setActiveColor
+      deleteSelectedGroupProp: deleteSelectedGroupProp,
+      resetSelectedGroupProp: resetSelectedGroupProp,
+      setActiveColor: setActiveColor,
+      setSelectedGroupProps: setSelectedGroupProps
     }));
   }});
 var Color = React.createClass({
@@ -553,6 +584,13 @@ var Color = React.createClass({
   },
   onClick: function(e) {
     this.props.setActiveColor(this.props.activeId);
+    if (e.shiftKey === true) {
+      this.props.deleteSelectedGroupProp(this.props.prop);
+      e.preventDefault();
+    } else if (e.altKey === true) {
+      this.props.resetSelectedGroupProp(this.props.prop);
+      e.preventDefault();
+    }
   }
 });
 var ColorOverlay = React.createClass({
@@ -643,7 +681,15 @@ var HighlightButton = React.createClass({
     var $__2 = $traceurRuntime.assertObject(this.props),
         setSelectedGroupProps = $__2.setSelectedGroupProps,
         type = $__2.type;
-    setSelectedGroupProps({highlight: type});
+    if (e.shiftKey === true) {
+      this.props.deleteSelectedGroupProp('highlight');
+      e.preventDefault();
+    } else if (e.altKey === true) {
+      this.props.resetSelectedGroupProp('highlight');
+      e.preventDefault();
+    } else {
+      setSelectedGroupProps({highlight: type});
+    }
   }
 });
 var PostProcess = React.createClass({
@@ -1142,7 +1188,7 @@ var App = require('./components/app');
 React.renderComponent(App(), document.body);
 
 
-}).call(this,require("IrXUsu"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/fake_b31ca8eb.js","/")
+}).call(this,require("IrXUsu"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/fake_4956ca5a.js","/")
 },{"./components/app":1,"IrXUsu":20,"buffer":17,"es6ify/node_modules/traceur/bin/traceur-runtime":16,"react":156}],10:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 "use strict";
@@ -1696,7 +1742,7 @@ var initialState = {
   },
   dark: {
     Normal: {
-      color: '#bbbbbb',
+      color: '#aaaaaa',
       backgroundColor: '#000000',
       highlight: 'NONE'
     },
