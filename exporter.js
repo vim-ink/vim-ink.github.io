@@ -1,15 +1,9 @@
-function exportGroup(name, props, defaultProps) {
+function exportGroup(name, props) {
     var str = ['hi', name];
 
-    str.push('gui=' + ('highlight' in props ?
-        props.highlight :
-        defaultProps.highlight));
-    str.push('guifg=' + ('color' in props ?
-        props.color :
-        defaultProps.color));
-    str.push('guibg=' + ('backgroundColor' in props ?
-        props.backgroundColor :
-        defaultProps.backgroundColor));
+    str.push('gui=' + ('highlight' in props ?  props.highlight : 'NONE'));
+    str.push('guifg=' + ('color' in props ?  props.color : 'NONE'));
+    str.push('guibg=' + ('backgroundColor' in props ?  props.backgroundColor : 'NONE'));
 
     return str.join(' ');
 }
@@ -26,7 +20,7 @@ function exportVariant(variant) {
     });
 
     for (var group in groups) {
-        str.push('    ' + exportGroup(group, groups[group], groups['Normal']));
+        str.push('    ' + exportGroup(group, groups[group]));
     }
 
     return str;

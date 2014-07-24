@@ -39,41 +39,45 @@ var initialState = {
     },
     dark: {
         Normal: {
-            color: '#cccccc',
+            color: '#bbbbbb',
             backgroundColor: '#000000',
             highlight: 'NONE'
         },
         TabLine: {
             color: '#666666',
-            backgroundColor: '#000000',
+            backgroundColor: '#222222',
+            highlight: 'NONE'
         },
         TabLineSel: {
-            color: '#999999',
-            backgroundColor: '#000000',
+            color: '#888888',
+            backgroundColor: '#222222',
+            highlight: 'NONE'
+        },
+        TabLineFill: {
+            backgroundColor: '#222222'
         },
         StatusLine: {
-            color: '#999999',
+            color: '#888888',
+            backgroundColor: '#222222'
         },
         StatusLineNC: {
             color: '#666666',
+            backgroundColor: '#222222'
         },
         LineNr: {
-            color: '#666666',
+            color: '#666666'
         },
         String: {
-            color: '#999999',
+            color: '#888888',
         },
         Number: {
-            color: '#999999',
+            color: '#888888',
         },
         Constant: {
-            color: '#999999',
+            color: '#888888',
         },
         Comment: {
             color: '#666666',
-        },
-        Title: {
-            color: '#999999',
         },
         NonText: {
             color: '#666666',
@@ -96,9 +100,12 @@ var initialState = {
         Visual: {
             highlight: 'reverse'
         },
+        IncSearch: {
+            highlight: 'reverse'
+        },
         VertSplit: {
             color: '#222222',
-            backgroundColor: '#222222',
+            backgroundColor: '#222222'
         }
     },
     light: {
@@ -109,22 +116,28 @@ var initialState = {
         },
         TabLine: {
             color: '#cccccc',
-            backgroundColor: '#ffffff',
+            backgroundColor: '#eeeeee',
             highlight: 'NONE'
         },
         TabLineSel: {
             color: '#999999',
-            backgroundColor: '#ffffff',
+            backgroundColor: '#eeeeee',
             highlight: 'NONE'
+        },
+        TabLineFill: {
+            backgroundColor: '#eeeeee'
         },
         StatusLine: {
             color: '#999999',
+            backgroundColor: '#eeeeee'
         },
         StatusLineNC: {
             color: '#cccccc',
+            backgroundColor: '#eeeeee'
         },
         LineNr: {
             color: '#cccccc',
+            backgroundColor: '#ffffff'
         },
         String: {
             color: '#999999',
@@ -137,9 +150,6 @@ var initialState = {
         },
         Comment: {
             color: '#cccccc',
-        },
-        Title: {
-            color: '#999999',
         },
         NonText: {
             color: '#cccccc',
@@ -160,6 +170,9 @@ var initialState = {
             highlight: 'reverse'
         },
         Visual: {
+            highlight: 'reverse'
+        },
+        IncSearch: {
             highlight: 'reverse'
         },
         VertSplit: {

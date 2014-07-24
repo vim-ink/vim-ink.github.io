@@ -1047,11 +1047,11 @@ module.exports = Vim;
 },{"IrXUsu":20,"buffer":17,"color":12,"react":156}],8:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 "use strict";
-function exportGroup(name, props, defaultProps) {
+function exportGroup(name, props) {
   var str = ['hi', name];
-  str.push('gui=' + ('highlight' in props ? props.highlight : defaultProps.highlight));
-  str.push('guifg=' + ('color' in props ? props.color : defaultProps.color));
-  str.push('guibg=' + ('backgroundColor' in props ? props.backgroundColor : defaultProps.backgroundColor));
+  str.push('gui=' + ('highlight' in props ? props.highlight : 'NONE'));
+  str.push('guifg=' + ('color' in props ? props.color : 'NONE'));
+  str.push('guibg=' + ('backgroundColor' in props ? props.backgroundColor : 'NONE'));
   return str.join(' ');
 }
 function exportVariant(variant) {
@@ -1064,7 +1064,7 @@ function exportVariant(variant) {
     }
   }));
   for (var group in groups) {
-    str.push('    ' + exportGroup(group, groups[group], groups['Normal']));
+    str.push('    ' + exportGroup(group, groups[group]));
   }
   return str;
 }
@@ -1086,7 +1086,7 @@ var App = require('./components/app');
 React.renderComponent(App(), document.body);
 
 
-}).call(this,require("IrXUsu"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/fake_1f6c8417.js","/")
+}).call(this,require("IrXUsu"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/fake_a2ff410b.js","/")
 },{"./components/app":1,"IrXUsu":20,"buffer":17,"es6ify/node_modules/traceur/bin/traceur-runtime":16,"react":156}],10:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 "use strict";
@@ -1640,26 +1640,34 @@ var initialState = {
   },
   dark: {
     Normal: {
-      color: '#cccccc',
+      color: '#bbbbbb',
       backgroundColor: '#000000',
       highlight: 'NONE'
     },
     TabLine: {
       color: '#666666',
-      backgroundColor: '#000000'
+      backgroundColor: '#222222',
+      highlight: 'NONE'
     },
     TabLineSel: {
-      color: '#999999',
-      backgroundColor: '#000000'
+      color: '#888888',
+      backgroundColor: '#222222',
+      highlight: 'NONE'
     },
-    StatusLine: {color: '#999999'},
-    StatusLineNC: {color: '#666666'},
+    TabLineFill: {backgroundColor: '#222222'},
+    StatusLine: {
+      color: '#888888',
+      backgroundColor: '#222222'
+    },
+    StatusLineNC: {
+      color: '#666666',
+      backgroundColor: '#222222'
+    },
     LineNr: {color: '#666666'},
-    String: {color: '#999999'},
-    Number: {color: '#999999'},
-    Constant: {color: '#999999'},
+    String: {color: '#888888'},
+    Number: {color: '#888888'},
+    Constant: {color: '#888888'},
     Comment: {color: '#666666'},
-    Title: {color: '#999999'},
     NonText: {color: '#666666'},
     StorageClass: {color: '#666666'},
     Conditional: {color: '#666666'},
@@ -1667,6 +1675,7 @@ var initialState = {
     Type: {color: '#666666'},
     Cursor: {highlight: 'reverse'},
     Visual: {highlight: 'reverse'},
+    IncSearch: {highlight: 'reverse'},
     VertSplit: {
       color: '#222222',
       backgroundColor: '#222222'
@@ -1680,22 +1689,31 @@ var initialState = {
     },
     TabLine: {
       color: '#cccccc',
-      backgroundColor: '#ffffff',
+      backgroundColor: '#eeeeee',
       highlight: 'NONE'
     },
     TabLineSel: {
       color: '#999999',
-      backgroundColor: '#ffffff',
+      backgroundColor: '#eeeeee',
       highlight: 'NONE'
     },
-    StatusLine: {color: '#999999'},
-    StatusLineNC: {color: '#cccccc'},
-    LineNr: {color: '#cccccc'},
+    TabLineFill: {backgroundColor: '#eeeeee'},
+    StatusLine: {
+      color: '#999999',
+      backgroundColor: '#eeeeee'
+    },
+    StatusLineNC: {
+      color: '#cccccc',
+      backgroundColor: '#eeeeee'
+    },
+    LineNr: {
+      color: '#cccccc',
+      backgroundColor: '#ffffff'
+    },
     String: {color: '#999999'},
     Number: {color: '#999999'},
     Constant: {color: '#999999'},
     Comment: {color: '#cccccc'},
-    Title: {color: '#999999'},
     NonText: {color: '#cccccc'},
     StorageClass: {color: '#666666'},
     Conditional: {color: '#666666'},
@@ -1703,6 +1721,7 @@ var initialState = {
     Type: {color: '#666666'},
     Cursor: {highlight: 'reverse'},
     Visual: {highlight: 'reverse'},
+    IncSearch: {highlight: 'reverse'},
     VertSplit: {
       color: '#eeeeee',
       backgroundColor: '#eeeeee'
