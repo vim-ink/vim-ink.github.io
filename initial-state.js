@@ -175,13 +175,13 @@ var initialState = {
             highlight: 'reverse'
         },
         Visual: {
-            backgroundColor: '#dddddd'
+            backgroundColor: '#cccccc'
         },
         IncSearch: {
             backgroundColor: '#dddddd'
         },
         Search: {
-            backgroundColor: '#dddddd'
+            backgroundColor: '#eeeeee'
         },
         MatchParen: {
             backgroundColor: '#cccccc'

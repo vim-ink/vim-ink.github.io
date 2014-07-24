@@ -2,7 +2,10 @@
 
 * {
     box-sizing: border-box;
-    /* cursor: default; */
+}
+
+h2, .nav {
+    cursor: default;
 }
 
 /* Typography */
