@@ -690,8 +690,8 @@ var PostProcess = React.createClass({
     var $__2 = $traceurRuntime.assertObject(postProcess[activeVariant]),
         brightness = $__2.brightness,
         saturation = $__2.saturation;
-    var brightnessClassName = 'left' + (-brightness === 0 ? ' inactive' : '');
-    var saturationClassName = 'left' + (-saturation === 0 ? ' inactive' : '');
+    var brightnessClassName = 'left' + (Number(brightness) === 0 ? ' inactive' : '');
+    var saturationClassName = 'left' + (Number(saturation) === 0 ? ' inactive' : '');
     return Section(merge(this.props, {
       id: 'postProcess',
       title: 'Post process'
@@ -1119,14 +1119,21 @@ module.exports = Vim;
 },{"IrXUsu":20,"buffer":17,"color":12,"react":156}],8:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 "use strict";
-function exportGroup(name, props) {
+var Color = require('color');
+function postProcessColor(color, postProcess) {
+  var $__0 = $traceurRuntime.assertObject(postProcess),
+      brightness = $__0.brightness,
+      saturation = $__0.saturation;
+  return Color(color).lighten(brightness).saturate(saturation).hexString().toLowerCase();
+}
+function exportGroup(name, props, postProcess) {
   var str = ['hi', name];
   str.push('gui=' + ('highlight' in props ? props.highlight : 'NONE'));
-  str.push('guifg=' + ('color' in props ? props.color : 'NONE'));
-  str.push('guibg=' + ('backgroundColor' in props ? props.backgroundColor : 'NONE'));
+  str.push('guifg=' + ('color' in props ? postProcessColor(props.color, postProcess) : 'NONE'));
+  str.push('guibg=' + ('backgroundColor' in props ? postProcessColor(props.backgroundColor, postProcess) : 'NONE'));
   return str.join(' ');
 }
-function exportVariant(variant) {
+function exportVariant(variant, postProcess) {
   var reset = ['SpecialKey', 'NonText', 'Directory', 'ErrorMsg', 'IncSearch', 'Search', 'MoreMsg', 'ModeMsg', 'LineNr', 'CursorLineNr', 'Question', 'StatusLine', 'StatusLineNC', 'VertSplit', 'Title', 'Visual', 'VisualNOS', 'WarningMsg', 'WildMenu', 'Folded', 'FoldColumn', 'DiffAdd', 'DiffChange', 'DiffDelete', 'DiffText', 'SignColumn', 'Conceal', 'SpellBad', 'SpellCap', 'SpellRare', 'SpellLocal', 'Pmenu', 'PmenuSel', 'PmenuSbar', 'PmenuThumb', 'TabLine', 'TabLineSel', 'TabLineFill', 'CursorColumn', 'CursorLine', 'ColorColumn', 'Cursor', 'lCursor', 'MatchParen', 'Normal', 'Error', 'Comment', 'Constant', 'Special', 'Identifier', 'Statement', 'PreProc', 'Type', 'Underlined', 'Ignore', 'Todo', 'String', 'Boolean'];
   var str = [];
   var groups = variant;
@@ -1136,20 +1143,22 @@ function exportVariant(variant) {
     }
   }));
   for (var group in groups) {
-    str.push('    ' + exportGroup(group, groups[group]));
+    str.push('    ' + exportGroup(group, groups[group], postProcess));
   }
   return str;
 }
 function exportColorScheme(state) {
-  var exportName = $traceurRuntime.assertObject(state).exportName;
-  var str = [].concat(['hi clear', 'syntax reset', 'let g:colors_name = "' + exportName + '"', 'if &background == "light"'], exportVariant(state.light), ['elseif &background == "dark"'], exportVariant(state.dark), ['endif']);
+  var $__0 = $traceurRuntime.assertObject(state),
+      exportName = $__0.exportName,
+      postProcess = $__0.postProcess;
+  var str = [].concat(['hi clear', 'syntax reset', 'let g:colors_name = "' + exportName + '"', 'if &background == "light"'], exportVariant(state.light, postProcess.light), ['elseif &background == "dark"'], exportVariant(state.dark, postProcess.dark), ['endif']);
   return str.join('\n');
 }
 module.exports = exportColorScheme;
 
 
 }).call(this,require("IrXUsu"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/exporter.js","/")
-},{"IrXUsu":20,"buffer":17}],9:[function(require,module,exports){
+},{"IrXUsu":20,"buffer":17,"color":12}],9:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 "use strict";
 require('es6ify/node_modules/traceur/bin/traceur-runtime');
@@ -1158,7 +1167,7 @@ var App = require('./components/app');
 React.renderComponent(App(), document.body);
 
 
-}).call(this,require("IrXUsu"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/fake_85f969a8.js","/")
+}).call(this,require("IrXUsu"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/fake_9df2fc72.js","/")
 },{"./components/app":1,"IrXUsu":20,"buffer":17,"es6ify/node_modules/traceur/bin/traceur-runtime":16,"react":156}],10:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 "use strict";

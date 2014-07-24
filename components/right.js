@@ -245,8 +245,8 @@ var PostProcess = React.createClass({
         var {onChangeBrightness, onChangeSaturation} = this;
 
         var {brightness, saturation} = postProcess[activeVariant];
-        var brightnessClassName = 'left' + (-brightness === 0 ? ' inactive' : '');
-        var saturationClassName = 'left' + (-saturation === 0 ? ' inactive' : '');
+        var brightnessClassName = 'left' + (Number(brightness) === 0 ? ' inactive' : '');
+        var saturationClassName = 'left' + (Number(saturation) === 0 ? ' inactive' : '');
 
         return Section(merge(this.props, {
             id: 'postProcess',
