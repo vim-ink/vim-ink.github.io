@@ -137,7 +137,6 @@ var initialState = {
         },
         LineNr: {
             color: '#cccccc',
-            backgroundColor: '#ffffff'
         },
         String: {
             color: '#999999',

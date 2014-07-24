@@ -98,7 +98,7 @@ var StatusLine = React.createClass({
                 Segment(merge(args, {
                     segment: {
                         group: 'StatusLine',
-                        content: '~/path/to/file                                                      1,1         Top'
+                        content: '~/path/to/file                                                      1,1         Top '
                     }
                 }))
             ]);

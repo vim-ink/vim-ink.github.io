@@ -16,7 +16,7 @@ var Right = React.createClass({
         else {
             return aside(null,
                 SelectedGroup(merge(this.props, {firstSection: true})),
-                Color(this.props),
+                Colors(this.props),
                 Highlight(this.props),
                 PostProcess(this.props),
                 ModifiedGroups(this.props));
@@ -62,74 +62,84 @@ var SelectedGroup = React.createClass({
     }
 });
 
-var Color = React.createClass({
+var Colors = React.createClass({
     render() {
         var {div, input, label} = React.DOM;
-        var {getGroupProps, selectedGroup, activeColor, activeVariant} = this.props;
-        var {
-            onBackgroundClick,
-            onChangeBackgroundColor,
-            onChangeColor,
-            onForegroundClick
-        } = this;
+        var {getGroup, getGroupProps, selectedGroup, activeColor, activeVariant} = this.props;
 
-        var foregroundActive = activeColor === 'foreground' ? ' active' : '';
-        var backgroundActive = activeColor === 'background' ? ' active' : '';
-
+        var group = getGroup(selectedGroup);
         var colorPair = getGroupProps(selectedGroup);
-        var backgroundClassName = 'color';
-
-       if ((activeVariant === 'light' && colorPair.backgroundColor === '#ffffff') ||
-           (activeVariant === 'dark' && colorPair.backgroundColor === '#000000')) {
-           backgroundClassName += ' border';
-       }
-
 
         return Section(merge(this.props, {
             id: 'color',
             title: 'Color'}),
-            div({className: 'line color-line'},
-                div({className: 'left'},
-                    input({
-                        type: 'color',
-                        id: 'foregroundColor',
-                        accessKey: 'f',
-                        value: colorPair.color,
-                        onClick: onForegroundClick,
-                        onChange: onChangeColor
-                    }),
-                    div({
-                        className: 'color',
-                        style: {backgroundColor: colorPair.color}})),
-                div({className: 'right' + foregroundActive},
-                    label({htmlFor: 'foregroundColor'}, 'Foreground'))),
-            div({className: 'line color-line'},
-                div({className: 'left'},
-                    input({
-                        type: 'color',
-                        id: 'backgroundColor',
-                        accessKey: 'b',
-                        value: colorPair.backgroundColor,
-                        onClick: onBackgroundClick,
-                        onChange: onChangeBackgroundColor
-                    }),
-                    div({
-                        className: backgroundClassName,
-                        style: {backgroundColor: colorPair.backgroundColor}})),
-                div({className: 'right' + backgroundActive},
-                    label({htmlFor: 'backgroundColor'}, 'Background'))));
+            Color({
+                pageBackgroundColor: activeVariant === 'light' ? '#ffffff' : '#000000',
+                id: 'foregroundColor',
+                activeId: 'foreground',
+                active: activeColor === 'foreground',
+                prop: 'color',
+                accessKey: 'f',
+                value: group.color,
+                color: colorPair.color,
+                label_: 'Foreground',
+                activeVariant,
+                setSelectedGroupProps: this.props.setSelectedGroupProps,
+                setActiveColor: this.props.setActiveColor}),
+            Color({
+                pageBackgroundColor: activeVariant === 'light' ? '#ffffff' : '#000000',
+                id: 'backgroundColor',
+                activeId: 'background',
+                active: activeColor === 'background',
+                prop: 'backgroundColor',
+                accessKey: 'b',
+                value: group.backgroundColor,
+                color: colorPair.backgroundColor,
+                label_: 'Background',
+                setSelectedGroupProps: this.props.setSelectedGroupProps,
+                setActiveColor: this.props.setActiveColor}));
+    }
+});
+
+var Color = React.createClass({
+    render() {
+        var {div, input, label} = React.DOM;
+        var {id, accessKey, value, color, label_, active, pageBackgroundColor} = this.props;
+        var {onChange, onClick} = this;
+
+        var activeClassName = (active === true ? ' active' : '');
+
+        var className = 'color';
+
+        if (value === undefined) {
+            className += ' none';
+        }
+        else if (color === pageBackgroundColor) {
+            className += ' border';
+        }
+
+        return div({className: 'line color-line'},
+            div({className: 'left'},
+                input({
+                    type: 'color',
+                    id,
+                    accessKey,
+                    value: color,
+                    onClick: onClick,
+                    onChange: onChange
+                }),
+                div({className, style: {backgroundColor: color}})),
+            div({className: 'right' + activeClassName},
+                label({htmlFor: id}, label_)));
     },
-    onChangeColor(e) {
-        this.props.setSelectedGroupProps({color: e.target.value});
+    onChange(e) {
+        var {prop} = this.props;
+        var props = {};
+        props[prop] = e.target.value;
+        this.props.setSelectedGroupProps(props);
     },
-    onChangeBackgroundColor(e) {
-        this.props.setSelectedGroupProps({backgroundColor: e.target.value});
-    },
-    onForegroundClick(e) {
-        this.props.setActiveColor('foreground');
-    },
-    onBackgroundClick(e) {
-        this.props.setActiveColor('background');
+    onClick(e) {
+        this.props.setActiveColor(this.props.activeId);
     }
 });
 

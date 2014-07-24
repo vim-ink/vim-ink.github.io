@@ -44,6 +44,7 @@ var App = React.createClass({
       postProcess: this.state.postProcess
     }), Right({
       exportColorScheme: this.exportColorScheme,
+      getGroup: this.getGroup,
       getGroupProps: this.getGroupProps,
       getModifiedGroups: this.getModifiedGroups,
       resetGroup: this.resetGroup,
@@ -79,6 +80,10 @@ var App = React.createClass({
   },
   componentDidUpdate: function() {
     localStorage.setItem('state', JSON.stringify(this.state));
+  },
+  getGroup: function(group) {
+    var groups = this.state[this.state.activeVariant];
+    return (group in groups ? groups[group] : {});
   },
   getGroupProps: function(group) {
     var parentGroup = arguments[1] !== (void 0) ? arguments[1] : 'Normal';
@@ -425,7 +430,7 @@ var Right = React.createClass({render: function() {
     if (activePane === 'global') {
       return aside(null, Export(merge(this.props, {firstSection: true})), Components(this.props), DangerZone(this.props));
     } else {
-      return aside(null, SelectedGroup(merge(this.props, {firstSection: true})), Color(this.props), Highlight(this.props), PostProcess(this.props), ModifiedGroups(this.props));
+      return aside(null, SelectedGroup(merge(this.props, {firstSection: true})), Colors(this.props), Highlight(this.props), PostProcess(this.props), ModifiedGroups(this.props));
     }
   }});
 var Section = React.createClass({
@@ -467,6 +472,49 @@ var SelectedGroup = React.createClass({render: function() {
       title: 'Selected group'
     }), div({className: className}, span({className: 'left'}, selectedGroup), span({className: 'right'}, hoverGroupContent)));
   }});
+var Colors = React.createClass({render: function() {
+    var $__2 = $traceurRuntime.assertObject(React.DOM),
+        div = $__2.div,
+        input = $__2.input,
+        label = $__2.label;
+    var $__2 = $traceurRuntime.assertObject(this.props),
+        getGroup = $__2.getGroup,
+        getGroupProps = $__2.getGroupProps,
+        selectedGroup = $__2.selectedGroup,
+        activeColor = $__2.activeColor,
+        activeVariant = $__2.activeVariant;
+    var group = getGroup(selectedGroup);
+    var colorPair = getGroupProps(selectedGroup);
+    return Section(merge(this.props, {
+      id: 'color',
+      title: 'Color'
+    }), Color({
+      pageBackgroundColor: activeVariant === 'light' ? '#ffffff' : '#000000',
+      id: 'foregroundColor',
+      activeId: 'foreground',
+      active: activeColor === 'foreground',
+      prop: 'color',
+      accessKey: 'f',
+      value: group.color,
+      color: colorPair.color,
+      label_: 'Foreground',
+      activeVariant: activeVariant,
+      setSelectedGroupProps: this.props.setSelectedGroupProps,
+      setActiveColor: this.props.setActiveColor
+    }), Color({
+      pageBackgroundColor: activeVariant === 'light' ? '#ffffff' : '#000000',
+      id: 'backgroundColor',
+      activeId: 'background',
+      active: activeColor === 'background',
+      prop: 'backgroundColor',
+      accessKey: 'b',
+      value: group.backgroundColor,
+      color: colorPair.backgroundColor,
+      label_: 'Background',
+      setSelectedGroupProps: this.props.setSelectedGroupProps,
+      setActiveColor: this.props.setActiveColor
+    }));
+  }});
 var Color = React.createClass({
   render: function() {
     var $__2 = $traceurRuntime.assertObject(React.DOM),
@@ -474,58 +522,43 @@ var Color = React.createClass({
         input = $__2.input,
         label = $__2.label;
     var $__2 = $traceurRuntime.assertObject(this.props),
-        getGroupProps = $__2.getGroupProps,
-        selectedGroup = $__2.selectedGroup,
-        activeColor = $__2.activeColor,
-        activeVariant = $__2.activeVariant;
+        id = $__2.id,
+        accessKey = $__2.accessKey,
+        value = $__2.value,
+        color = $__2.color,
+        label_ = $__2.label_,
+        active = $__2.active,
+        pageBackgroundColor = $__2.pageBackgroundColor;
     var $__2 = this,
-        onBackgroundClick = $__2.onBackgroundClick,
-        onChangeBackgroundColor = $__2.onChangeBackgroundColor,
-        onChangeColor = $__2.onChangeColor,
-        onForegroundClick = $__2.onForegroundClick;
-    var foregroundActive = activeColor === 'foreground' ? ' active' : '';
-    var backgroundActive = activeColor === 'background' ? ' active' : '';
-    var colorPair = getGroupProps(selectedGroup);
-    var backgroundClassName = 'color';
-    if ((activeVariant === 'light' && colorPair.backgroundColor === '#ffffff') || (activeVariant === 'dark' && colorPair.backgroundColor === '#000000')) {
-      backgroundClassName += ' border';
+        onChange = $__2.onChange,
+        onClick = $__2.onClick;
+    var activeClassName = (active === true ? ' active' : '');
+    var className = 'color';
+    if (value === undefined) {
+      className += ' none';
+    } else if (color === pageBackgroundColor) {
+      className += ' border';
     }
-    return Section(merge(this.props, {
-      id: 'color',
-      title: 'Color'
-    }), div({className: 'line color-line'}, div({className: 'left'}, input({
+    return div({className: 'line color-line'}, div({className: 'left'}, input({
       type: 'color',
-      id: 'foregroundColor',
-      accessKey: 'f',
-      value: colorPair.color,
-      onClick: onForegroundClick,
-      onChange: onChangeColor
+      id: id,
+      accessKey: accessKey,
+      value: color,
+      onClick: onClick,
+      onChange: onChange
     }), div({
-      className: 'color',
-      style: {backgroundColor: colorPair.color}
-    })), div({className: 'right' + foregroundActive}, label({htmlFor: 'foregroundColor'}, 'Foreground'))), div({className: 'line color-line'}, div({className: 'left'}, input({
-      type: 'color',
-      id: 'backgroundColor',
-      accessKey: 'b',
-      value: colorPair.backgroundColor,
-      onClick: onBackgroundClick,
-      onChange: onChangeBackgroundColor
-    }), div({
-      className: backgroundClassName,
-      style: {backgroundColor: colorPair.backgroundColor}
-    })), div({className: 'right' + backgroundActive}, label({htmlFor: 'backgroundColor'}, 'Background'))));
+      className: className,
+      style: {backgroundColor: color}
+    })), div({className: 'right' + activeClassName}, label({htmlFor: id}, label_)));
   },
-  onChangeColor: function(e) {
-    this.props.setSelectedGroupProps({color: e.target.value});
+  onChange: function(e) {
+    var prop = $traceurRuntime.assertObject(this.props).prop;
+    var props = {};
+    props[prop] = e.target.value;
+    this.props.setSelectedGroupProps(props);
   },
-  onChangeBackgroundColor: function(e) {
-    this.props.setSelectedGroupProps({backgroundColor: e.target.value});
-  },
-  onForegroundClick: function(e) {
-    this.props.setActiveColor('foreground');
-  },
-  onBackgroundClick: function(e) {
-    this.props.setActiveColor('background');
+  onClick: function(e) {
+    this.props.setActiveColor(this.props.activeId);
   }
 });
 var Highlight = React.createClass({render: function() {
@@ -880,7 +913,7 @@ var StatusLine = React.createClass({render: function() {
     };
     return span(null, [Segment(merge(args, {segment: {
         group: 'StatusLine',
-        content: '~/path/to/file                                                      1,1         Top'
+        content: '~/path/to/file                                                      1,1         Top '
       }}))]);
   }});
 var TabLine = React.createClass({render: function() {
@@ -1086,7 +1119,7 @@ var App = require('./components/app');
 React.renderComponent(App(), document.body);
 
 
-}).call(this,require("IrXUsu"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/fake_a2ff410b.js","/")
+}).call(this,require("IrXUsu"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/fake_92595256.js","/")
 },{"./components/app":1,"IrXUsu":20,"buffer":17,"es6ify/node_modules/traceur/bin/traceur-runtime":16,"react":156}],10:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 "use strict";
@@ -1706,10 +1739,7 @@ var initialState = {
       color: '#cccccc',
       backgroundColor: '#eeeeee'
     },
-    LineNr: {
-      color: '#cccccc',
-      backgroundColor: '#ffffff'
-    },
+    LineNr: {color: '#cccccc'},
     String: {color: '#999999'},
     Number: {color: '#999999'},
     Constant: {color: '#999999'},

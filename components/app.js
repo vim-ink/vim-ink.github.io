@@ -50,6 +50,7 @@ var App = React.createClass({
                 }),
                 Right({
                     exportColorScheme: this.exportColorScheme,
+                    getGroup: this.getGroup,
                     getGroupProps: this.getGroupProps,
                     getModifiedGroups: this.getModifiedGroups,
                     resetGroup: this.resetGroup,
@@ -90,6 +91,10 @@ var App = React.createClass({
     },
     componentDidUpdate() {
         localStorage.setItem('state', JSON.stringify(this.state));
+    },
+    getGroup(group) {
+        var groups =  this.state[this.state.activeVariant];
+        return (group in groups ? groups[group] : {});
     },
     getGroupProps(group, parentGroup = 'Normal') {
         var {activeVariant} = this.state;
