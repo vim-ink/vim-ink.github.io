@@ -370,32 +370,34 @@ body.dark .highlight-button.standout:active {
     font-size: 1.2rem;
     height: 3rem;
     border-radius: 0.3rem;
+    border: 0;
+    letter-spacing: 0.1rem;
 }
 
 body.light .small-button {
-    border: 0.1rem solid #bbb;
+    border: 1px solid #ddd;
     color: #999;
 }
 
 body.dark .small-button {
-    border: 0.1rem solid #666;
+    border: 1px solid #333;
     color: #999;
 }
 
 body.light .small-button:hover {
-    background-color: #bbb;
+    background-color: #ddd;
     color: #444;
 }
 
 body.dark .small-button:hover {
-    background-color: #555;
+    background-color: #333;
     color: #aaa;
 }
 
-.small-button:active {
-    position: relative;
-    left: 0.1rem;
-    top: 0.1rem;
+body.light .small-button:active {
+}
+
+body.dark .small-button:active {
 }
 
 .small-button:focus {
@@ -411,25 +413,27 @@ body.dark .small-button:hover {
     background-color: transparent;
     font-size: 1.4rem;
     border-radius: 0.3rem;
+    border: 0;
+    letter-spacing: 0.1rem;
 }
 
 body.light .button {
-    border: 0.1rem solid #bbb;
+    border: 1px solid #ddd;
     color: #999;
 }
 
 body.dark .button {
-    border: 0.1rem solid #666;
+    border: 1px solid #333;
     color: #999;
 }
 
 body.light .button:hover {
-    background-color: #bbb;
+    background-color: #ddd;
     color: #444;
 }
 
 body.dark .button:hover {
-    background-color: #555;
+    background-color: #333;
     color: #aaa;
 }
 
@@ -481,11 +485,11 @@ input[type="range"]::-webkit-slider-thumb {
 }
 
 body.light input[type="range"]::-webkit-slider-thumb {
-    background-color: #aaa;
+    background-color: #bbb;
 }
 
 body.dark input[type="range"]::-webkit-slider-thumb {
-    background-color: #777;
+    background-color: #666;
 }
 
 input[type="range"]::-moz-range-track {
@@ -510,11 +514,11 @@ input[type="range"]::-moz-range-thumb {
 }
 
 body.light input[type="range"]::-moz-range-thumb {
-    background: #aaa;
+    background: #bbb;
 }
 
 body.dark input[type="range"]::-moz-range-thumb {
-    background: #777;
+    background: #666;
 }
 
 /* aside */
@@ -750,7 +754,7 @@ body.dark .modified-groups-line.none {
 
 body.light .text {
     color: #999;
-    background-color: #eee;
+    background-color: #f4f4f4;
 }
 
 body.dark .text {
