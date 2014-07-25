@@ -44,25 +44,18 @@ var initialState = {
             highlight: 'NONE'
         },
         TabLine: {
-            color: '#666666',
-            backgroundColor: '#222222',
-            highlight: 'NONE'
+            color: '#666666'
         },
         TabLineSel: {
-            color: '#888888',
-            backgroundColor: '#222222',
-            highlight: 'NONE'
+            color: '#888888'
         },
         TabLineFill: {
-            backgroundColor: '#222222'
         },
         StatusLine: {
-            color: '#888888',
-            backgroundColor: '#222222'
+            color: '#888888'
         },
         StatusLineNC: {
-            color: '#666666',
-            backgroundColor: '#222222'
+            color: '#666666'
         },
         LineNr: {
             color: '#666666'
@@ -121,25 +114,16 @@ var initialState = {
             highlight: 'NONE'
         },
         TabLine: {
-            color: '#aaaaaa',
-            backgroundColor: '#eeeeee',
-            highlight: 'NONE'
+            color: '#aaaaaa'
         },
         TabLineSel: {
-            color: '#666666',
-            backgroundColor: '#eeeeee',
-            highlight: 'NONE'
-        },
-        TabLineFill: {
-            backgroundColor: '#eeeeee'
+            color: '#666666'
         },
         StatusLine: {
-            color: '#666666',
-            backgroundColor: '#eeeeee'
+            color: '#666666'
         },
         StatusLineNC: {
-            color: '#aaaaaa',
-            backgroundColor: '#eeeeee'
+            color: '#aaaaaa'
         },
         LineNr: {
             color: '#bbbbbb'

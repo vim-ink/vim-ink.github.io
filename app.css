@@ -34,12 +34,12 @@ body {
 }
 
 body.light {
-    background-color: #fff;
+    background-color: #fafafa;
     color: #999;
 }
 
 body.dark {
-    background-color: #000;
+    background-color: #222;
     color: #999;
 }
 
@@ -351,17 +351,16 @@ body.dark .highlight-button.standout:active {
 /* .small-button */
 
 .small-button {
-    padding-left: 0.75rem;
-    padding-right: 0.75rem;
+    padding: 0 1rem;
     background-color: transparent;
-    font-size: 1.2rem;
+    font-size: 1.4rem;
     height: 3rem;
     border-radius: 0.3rem;
     border: 0;
 }
 
 body.light .small-button {
-    border: 1px solid #ccc;
+    border: 1px solid #ddd;
     color: #999;
 }
 
@@ -371,8 +370,8 @@ body.dark .small-button {
 }
 
 body.light .small-button:hover {
-    background-color: #ccc;
-    color: #444;
+    background-color: #ddd;
+    color: #777;
 }
 
 body.dark .small-button:hover {
@@ -381,6 +380,7 @@ body.dark .small-button:hover {
 }
 
 body.light .small-button:active {
+    color: #555;
 }
 
 body.dark .small-button:active {
@@ -403,7 +403,7 @@ body.dark .small-button:active {
 }
 
 body.light .button {
-    border: 1px solid #ccc;
+    border: 1px solid #ddd;
     color: #999;
 }
 
@@ -413,13 +413,17 @@ body.dark .button {
 }
 
 body.light .button:hover {
-    background-color: #ccc;
-    color: #444;
+    background-color: #ddd;
+    color: #777;
 }
 
 body.dark .button:hover {
     background-color: #444;
     color: #aaa;
+}
+
+body.light .button:active {
+    color: #555;
 }
 
 .button:active {
@@ -555,7 +559,7 @@ body.dark aside h2:hover {
 }
 
 body.light aside h2:active {
-    color: #888;
+    color: #555;
 }
 
 body.dark aside h2:active {
@@ -588,7 +592,7 @@ body.dark aside h2:active {
 
 body.light .export {
     background-color: #eee;
-    color: #888;
+    color: #555;
 }
 
 body.dark .export {
@@ -739,7 +743,7 @@ body.dark .modified-groups-line.none {
 
 body.light .text {
     color: #999;
-    background-color: #f4f4f4;
+    background-color: #eee;
 }
 
 body.dark .text {
@@ -764,23 +768,13 @@ body.dark .text {
 .color-overlay {
     width: 3rem;
     height: 3rem;
-    background-color: #fff;
     opacity: 1;
     pointer-events: none;
     margin-top: -3rem;
     border-radius: 1.5rem;
 }
 
-body.light .color-overlay.border {
-    border: 0.1rem solid #eee;
-}
-
-body.dark .color-overlay.border {
-    border: 0.1rem solid #333;
-}
-
 body.light .color-overlay.none {
-    background-color: #eee !important;
     background-image:
         linear-gradient(
             45deg,
@@ -801,7 +795,6 @@ body.light .color-overlay.none {
 }
 
 body.dark .color-overlay.none {
-    background-color: #333 !important;
     background-image:
         linear-gradient(
             45deg,

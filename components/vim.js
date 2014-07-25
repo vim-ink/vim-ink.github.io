@@ -15,7 +15,7 @@ var Vim = React.createClass({
         var {style} = attrs(props);
         var source;
 
-        var nonTextLinesCount = Math.max(0, 24 - parsedSource.length);
+        var nonTextLinesCount = Math.max(0, 32 - parsedSource.length);
 
         if (parsedSource !== undefined) {
             source = parsedSource.map(

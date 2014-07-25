@@ -918,7 +918,7 @@ var Vim = React.createClass({
     var props = getGroup('Normal');
     var style = $traceurRuntime.assertObject(attrs(props)).style;
     var source;
-    var nonTextLinesCount = Math.max(0, 24 - parsedSource.length);
+    var nonTextLinesCount = Math.max(0, 32 - parsedSource.length);
     if (parsedSource !== undefined) {
       source = parsedSource.map((function(line, index) {
         return Line(merge(args, {
@@ -1240,7 +1240,7 @@ var App = require('./components/app');
 React.renderComponent(App(), document.body);
 
 
-}).call(this,require("IrXUsu"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/fake_614be741.js","/")
+}).call(this,require("IrXUsu"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/fake_b04b34e1.js","/")
 },{"./components/app":1,"IrXUsu":20,"buffer":17,"es6ify/node_modules/traceur/bin/traceur-runtime":16,"react":156}],10:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 "use strict";
@@ -1830,25 +1830,11 @@ var initialState = {
       backgroundColor: '#000000',
       highlight: 'NONE'
     },
-    TabLine: {
-      color: '#666666',
-      backgroundColor: '#222222',
-      highlight: 'NONE'
-    },
-    TabLineSel: {
-      color: '#888888',
-      backgroundColor: '#222222',
-      highlight: 'NONE'
-    },
-    TabLineFill: {backgroundColor: '#222222'},
-    StatusLine: {
-      color: '#888888',
-      backgroundColor: '#222222'
-    },
-    StatusLineNC: {
-      color: '#666666',
-      backgroundColor: '#222222'
-    },
+    TabLine: {color: '#666666'},
+    TabLineSel: {color: '#888888'},
+    TabLineFill: {},
+    StatusLine: {color: '#888888'},
+    StatusLineNC: {color: '#666666'},
     LineNr: {color: '#666666'},
     String: {color: '#888888'},
     Number: {color: '#888888'},
@@ -1875,25 +1861,10 @@ var initialState = {
       backgroundColor: '#ffffff',
       highlight: 'NONE'
     },
-    TabLine: {
-      color: '#aaaaaa',
-      backgroundColor: '#eeeeee',
-      highlight: 'NONE'
-    },
-    TabLineSel: {
-      color: '#666666',
-      backgroundColor: '#eeeeee',
-      highlight: 'NONE'
-    },
-    TabLineFill: {backgroundColor: '#eeeeee'},
-    StatusLine: {
-      color: '#666666',
-      backgroundColor: '#eeeeee'
-    },
-    StatusLineNC: {
-      color: '#aaaaaa',
-      backgroundColor: '#eeeeee'
-    },
+    TabLine: {color: '#aaaaaa'},
+    TabLineSel: {color: '#666666'},
+    StatusLine: {color: '#666666'},
+    StatusLineNC: {color: '#aaaaaa'},
     LineNr: {color: '#bbbbbb'},
     String: {color: '#999999'},
     Number: {color: '#999999'},
