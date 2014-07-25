@@ -3,30 +3,21 @@ var files = require('../files');
 
 var Footer = React.createClass({
     render() {
-        var {footer, ul, li} = React.DOM;
+        var {footer, ul, li, a} = React.DOM;
         var {onClick} = this;
         var {setActiveFile, setParsedSource} = this.props;
 
         return footer(null,
             ul({className: 'nav'},
-               Site({title: 'About', onClick: () => {
-                   setActiveFile('about');
-                   setParsedSource(files.about.parsedSource);
-               }}),
-              Site({title: 'GitHub'}),
-              Site({title: 'Donate'})));
+                li(null, a({onClick: () => {
+                    setActiveFile('about');
+                    setParsedSource(files.about.parsedSource);
+                }}, 'About')),
+                li(null, a({href: 'http://github.com/alexanderte'}, 'GitHub')),
+                li(null, a({href: ''}, 'Donate'))));
     },
     onClick() {
         console.log('onClick');
-    }
-});
-
-var Site = React.createClass({
-    render() {
-        var {li} = React.DOM;
-        var {onClick, title} = this.props;
-
-        return li({onClick}, title);
     }
 });
 

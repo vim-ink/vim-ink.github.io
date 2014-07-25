@@ -252,30 +252,21 @@ var Footer = React.createClass({
     var $__0 = $traceurRuntime.assertObject(React.DOM),
         footer = $__0.footer,
         ul = $__0.ul,
-        li = $__0.li;
+        li = $__0.li,
+        a = $__0.a;
     var onClick = this.onClick;
     var $__0 = $traceurRuntime.assertObject(this.props),
         setActiveFile = $__0.setActiveFile,
         setParsedSource = $__0.setParsedSource;
-    return footer(null, ul({className: 'nav'}, Site({
-      title: 'About',
-      onClick: (function() {
+    return footer(null, ul({className: 'nav'}, li(null, a({onClick: (function() {
         setActiveFile('about');
         setParsedSource(files.about.parsedSource);
-      })
-    }), Site({title: 'GitHub'}), Site({title: 'Donate'})));
+      })}, 'About')), li(null, a({href: 'http://github.com/alexanderte'}, 'GitHub')), li(null, a({href: ''}, 'Donate'))));
   },
   onClick: function() {
     console.log('onClick');
   }
 });
-var Site = React.createClass({render: function() {
-    var li = $traceurRuntime.assertObject(React.DOM).li;
-    var $__0 = $traceurRuntime.assertObject(this.props),
-        onClick = $__0.onClick,
-        title = $__0.title;
-    return li({onClick: onClick}, title);
-  }});
 module.exports = Footer;
 
 
@@ -1249,7 +1240,7 @@ var App = require('./components/app');
 React.renderComponent(App(), document.body);
 
 
-}).call(this,require("IrXUsu"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/fake_168bf1f2.js","/")
+}).call(this,require("IrXUsu"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/fake_614be741.js","/")
 },{"./components/app":1,"IrXUsu":20,"buffer":17,"es6ify/node_modules/traceur/bin/traceur-runtime":16,"react":156}],10:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 "use strict";

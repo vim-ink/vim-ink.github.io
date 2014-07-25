@@ -109,11 +109,18 @@ ul.nav {
     margin-bottom: -1px;
 }
 
-body.light ul.nav {
+ul.nav a {
+    text-decoration: none;
+    cursor: default;
+}
+
+body.light ul.nav,
+body.light ul.nav a {
     color: #bbb;
 }
 
-body.dark ul.nav {
+body.dark ul.nav,
+body.dark ul.nav a {
     color: #666;
 }
 
@@ -122,32 +129,39 @@ ul.nav li {
     padding: 1.5rem 0;
     margin: 0 3rem 0 0;
 }
+
 ul.nav li:last-child {
     margin-right: 0;
 }
 
-body.light ul.nav li:hover {
+body.light ul.nav li:hover,
+body.light ul.nav li a:hover {
     color: #999;
 }
 
-body.dark ul.nav li:hover {
+body.dark ul.nav li:hover,
+body.dark ul.nav li a:hover {
     color: #999;
 }
 
-body.light ul.nav li:active {
+body.light ul.nav li:active,
+body.light ul.nav li a:active {
     color: #777;
 }
 
-body.dark ul.nav li:active {
+body.dark ul.nav li:active,
+body.dark ul.nav li a:active {
     color: #aaa;
 }
 
-body.light ul.nav li.active {
+body.light ul.nav li.active,
+body.light ul.nav li.active a {
     color: #999;
     border-bottom: 1px solid #bbb;
 }
 
-body.dark ul.nav li.active {
+body.dark ul.nav li.active,
+body.dark ul.nav li.active a {
     color: #999;
     border-bottom: 1px solid #666;
 }
