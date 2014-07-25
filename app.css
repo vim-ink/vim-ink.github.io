@@ -22,7 +22,7 @@ pre, textarea {
     font-family: 'Source Code Pro';
 }
 
-h1, h2, body, input, button {
+h1, h2, body, input, button, textarea {
     font-weight: 300;
 }
 
@@ -775,43 +775,11 @@ body.dark .text {
 }
 
 body.light .color-overlay.none {
-    background-image:
-        linear-gradient(
-            45deg,
-            #bbb 25%,
-            transparent 25%,
-            transparent 75%,
-            #bbb 75%,
-            #bbb),
-        linear-gradient(
-            45deg,
-            #bbb 25%,
-            transparent 25%,
-            transparent 75%,
-            #bbb 75%,
-            #bbb);
-    background-size: 12px 12px;
-    background-position: 0 0, 6px 6px;
+    border: 1px dashed #bbb;
 }
 
 body.dark .color-overlay.none {
-    background-image:
-        linear-gradient(
-            45deg,
-            #666 25%,
-            transparent 25%,
-            transparent 75%,
-            #666 75%,
-            #666),
-        linear-gradient(
-            45deg,
-            #666 25%,
-            transparent 25%,
-            transparent 75%,
-            #666 75%,
-            #666);
-    background-size: 12px 12px;
-    background-position: 0 0, 6px 6px;
+    border: 1px dashed #666;
 }
 
 /**
