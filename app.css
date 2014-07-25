@@ -283,25 +283,18 @@ body.dark .highlight-button.reverse {
     color: #000;
 }
 
+.highlight-button.standout {
+    font-weight: 400;
+}
+
 body.light .highlight-button.standout {
     background-color: #bbb;
     color: #fafafa;
-    font-style: italic;
 }
 
 body.dark .highlight-button.standout {
     background-color: #666;
     color: #000;
-    font-weight: 400;
-    font-style: italic;
-}
-
-body.light .highlight-button.standout span {
-    border-bottom: 0.1rem solid #eee;
-}
-
-body.dark .highlight-button.standout span {
-    border-bottom: 0.1rem solid #333;
 }
 
 body.light .highlight-button:hover {
