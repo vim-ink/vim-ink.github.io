@@ -33,7 +33,7 @@ var App = React.createClass({
                 activeFile: this.state.activeFile,
                 activePane: this.state.activePane // TODO: Remove these below.
             }),
-            main({className: 'wrap'},
+            main({className: 'wrap cf'},
                 Left({
                     getGroup: this.getGroup,
                     parse: this.parse,

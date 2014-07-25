@@ -65,7 +65,7 @@ body.dark header {
 h1 {
     text-align: left;
     margin: 0;
-    font-size: 1.5rem;
+    font-size: 2rem;
     margin: 3rem 0rem 1rem 0rem;
 }
 
@@ -75,12 +75,6 @@ body.dark h1 {
 
 body.light h1 {
     color: #bbb;
-}
-
-/* main */
-
-main {
-    overflow: hidden;
 }
 
 /* article */
@@ -184,6 +178,7 @@ pre {
     font-size: 1.6rem;
     margin: 2.5rem 0 0 0;
     overflow: hidden;
+    box-shadow: 0.25rem 0.25rem 0.75rem #ddd;
 }
 
 /* textarea */
@@ -577,6 +572,7 @@ body.dark aside h2:active {
     margin-top: -30rem;
     padding: 2rem;
     text-align: right;
+    box-shadow: 0.25rem 0.25rem 0.75rem #bbb;
 }
 
 .export p {
