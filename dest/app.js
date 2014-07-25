@@ -689,7 +689,9 @@ var PostProcess = React.createClass({
         activeVariant = $__2.activeVariant;
     var $__2 = this,
         onChangeBrightness = $__2.onChangeBrightness,
-        onChangeSaturation = $__2.onChangeSaturation;
+        onChangeSaturation = $__2.onChangeSaturation,
+        onBrightnessClick = $__2.onBrightnessClick,
+        onSaturationClick = $__2.onSaturationClick;
     var $__2 = $traceurRuntime.assertObject(postProcess[activeVariant]),
         brightness = $__2.brightness,
         saturation = $__2.saturation;
@@ -698,14 +700,20 @@ var PostProcess = React.createClass({
     return Section(merge(this.props, {
       id: 'postProcess',
       title: 'Post process'
-    }), div({className: 'line post-process-line'}, div({className: brightnessClassName}, 'Brightness'), div({className: 'right'}, input({
+    }), div({className: 'line post-process-line'}, div({className: brightnessClassName}, 'Brightness'), div({
+      className: 'right',
+      onClick: onBrightnessClick
+    }, input({
       type: 'range',
       min: -0.25,
       max: 0.25,
       step: 0.025,
       value: brightness,
       onChange: onChangeBrightness
-    }))), div({className: 'line post-process-line'}, div({className: saturationClassName}, 'Saturation'), div({className: 'right'}, input({
+    }))), div({className: 'line post-process-line'}, div({className: saturationClassName}, 'Saturation'), div({
+      className: 'right',
+      onClick: onSaturationClick
+    }, input({
       type: 'range',
       min: -1.0,
       max: 1.0,
@@ -719,6 +727,16 @@ var PostProcess = React.createClass({
   },
   onChangeSaturation: function(e) {
     this.props.setPostProcessProps({saturation: e.target.value});
+  },
+  onBrightnessClick: function(e) {
+    if (e.shiftKey === true || e.altKey === true) {
+      this.props.setPostProcessProps({brightness: 0});
+    }
+  },
+  onSaturationClick: function(e) {
+    if (e.shiftKey === true || e.altKey === true) {
+      this.props.setPostProcessProps({saturation: 0});
+    }
   }
 });
 var Components = React.createClass({render: function() {
@@ -1201,7 +1219,7 @@ var App = require('./components/app');
 React.renderComponent(App(), document.body);
 
 
-}).call(this,require("IrXUsu"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/fake_765a4f4a.js","/")
+}).call(this,require("IrXUsu"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/fake_519bf190.js","/")
 },{"./components/app":1,"IrXUsu":20,"buffer":17,"es6ify/node_modules/traceur/bin/traceur-runtime":16,"react":156}],10:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 "use strict";

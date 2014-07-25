@@ -242,7 +242,7 @@ var PostProcess = React.createClass({
     render() {
         var {div, input} = React.DOM;
         var {postProcess, activeVariant} = this.props;
-        var {onChangeBrightness, onChangeSaturation} = this;
+        var {onChangeBrightness, onChangeSaturation, onBrightnessClick, onSaturationClick} = this;
 
         var {brightness, saturation} = postProcess[activeVariant];
         var brightnessClassName = 'left' + (Number(brightness) === 0 ? ' inactive' : '');
@@ -253,7 +253,7 @@ var PostProcess = React.createClass({
             title: 'Post process'}),
             div({className: 'line post-process-line'},
                 div({className: brightnessClassName}, 'Brightness'),
-                div({className: 'right'}, input({
+                div({className: 'right', onClick: onBrightnessClick}, input({
                     type: 'range',
                     min: -0.25,
                     max: 0.25,
@@ -262,7 +262,7 @@ var PostProcess = React.createClass({
                     onChange: onChangeBrightness}))),
             div({className: 'line post-process-line'},
                 div({className: saturationClassName}, 'Saturation'),
-                div({className: 'right'}, input({
+                div({className: 'right', onClick: onSaturationClick}, input({
                     type: 'range',
                     min: -1.0,
                     max: 1.0,
@@ -275,6 +275,16 @@ var PostProcess = React.createClass({
     },
     onChangeSaturation(e) {
         this.props.setPostProcessProps({saturation: e.target.value});
+    },
+    onBrightnessClick(e) {
+        if (e.shiftKey === true || e.altKey === true) {
+            this.props.setPostProcessProps({brightness: 0});
+        }
+    },
+    onSaturationClick(e) {
+        if (e.shiftKey === true || e.altKey === true) {
+            this.props.setPostProcessProps({saturation: 0});
+        }
     }
 });
 
