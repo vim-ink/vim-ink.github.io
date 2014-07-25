@@ -94,7 +94,7 @@ var Vim = React.createClass({
                 break;
         }
 
-        if (props.color !== undefined) {
+        if (color !== undefined) {
             style['color'] = Color(color)
                 .lighten(brightness)
                 .saturate(saturation)

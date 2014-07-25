@@ -976,7 +976,7 @@ var Vim = React.createClass({
         backgroundColor = color_ !== undefined ? color_ : normal.color;
         break;
     }
-    if (props.color !== undefined) {
+    if (color !== undefined) {
       style['color'] = Color(color).lighten(brightness).saturate(saturation).hexString();
     } else {
       style['color'] = undefined;
@@ -1221,7 +1221,7 @@ var App = require('./components/app');
 React.renderComponent(App(), document.body);
 
 
-}).call(this,require("IrXUsu"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/fake_6a44e2d9.js","/")
+}).call(this,require("IrXUsu"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/fake_babfab25.js","/")
 },{"./components/app":1,"IrXUsu":20,"buffer":17,"es6ify/node_modules/traceur/bin/traceur-runtime":16,"react":156}],10:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 "use strict";
@@ -1231,7 +1231,7 @@ var files = {
     parsedSource: [[{
       group: 'Cursor',
       content: ' '
-    }, 'is the cursor'], [{
+    }, ' is the cursor'], [{
       group: 'Visual',
       content: 'These words'
     }, ' are selected'], ['Currently searching for ', {
@@ -1240,7 +1240,10 @@ var files = {
     }, ', already found ', {
       group: 'Search',
       content: 'bar'
-    }], ['( has matching parenthesis ', {
+    }], [{
+      group: 'Cursor',
+      content: '('
+    }, 'matching_parenthesis', {
       group: 'MatchParen',
       content: ')'
     }]]

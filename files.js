@@ -2,10 +2,10 @@ var files = {
     vim: {
         title: 'Vim',
         parsedSource: [
-            [{group: 'Cursor', content: ' '}, 'is the cursor'],
+            [{group: 'Cursor', content: ' '}, ' is the cursor'],
             [{group: 'Visual', content: 'These words'}, ' are selected'],
             ['Currently searching for ', {group: 'IncSearch', content: 'foo'}, ', already found ', {group: 'Search', content: 'bar'}],
-            ['( has matching parenthesis ', {group: 'MatchParen', content: ')'}]
+            [{group: 'Cursor', content: '('}, 'matching_parenthesis', {group: 'MatchParen', content: ')'}]
         ]
     },
     html: {
