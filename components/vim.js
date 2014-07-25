@@ -15,6 +15,8 @@ var Vim = React.createClass({
         var {style} = attrs(props);
         var source;
 
+        var nonTextLinesCount = Math.max(0, 24 - parsedSource.length);
+
         if (parsedSource !== undefined) {
             source = parsedSource.map(
                 (line, index) => Line(merge(args, {
@@ -33,7 +35,7 @@ var Vim = React.createClass({
             output = output.concat(TabLine(args));
         }
 
-        output = output.concat(source).concat(NonText(args));
+        output = output.concat(source).concat(NonText(merge(args, {linesCount: nonTextLinesCount})));
 
         if (componentsVisibility['statusLine'] === 'show') {
             output = output.concat(StatusLine(args));
@@ -121,13 +123,13 @@ var Vim = React.createClass({
 
 var NonText = React.createClass({
     render() {
-        var {attrs, getGroup, selectGroup, setHoverGroup} = this.props;
+        var {attrs, getGroup, selectGroup, setHoverGroup, linesCount} = this.props;
         var args = {attrs, getGroup, selectGroup, setHoverGroup};
 
         return Segment(merge(args, {
             segment: {
                 group: 'NonText',
-                content: '~                                                                                   \n'.repeat(10)
+                content: '~                                                                                   \n'.repeat(linesCount)
             }
         }));
     }

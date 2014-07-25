@@ -927,6 +927,7 @@ var Vim = React.createClass({
     var props = getGroup('Normal');
     var style = $traceurRuntime.assertObject(attrs(props)).style;
     var source;
+    var nonTextLinesCount = Math.max(0, 24 - parsedSource.length);
     if (parsedSource !== undefined) {
       source = parsedSource.map((function(line, index) {
         return Line(merge(args, {
@@ -943,7 +944,7 @@ var Vim = React.createClass({
     if (componentsVisibility['tabLine'] === 'show') {
       output = output.concat(TabLine(args));
     }
-    output = output.concat(source).concat(NonText(args));
+    output = output.concat(source).concat(NonText(merge(args, {linesCount: nonTextLinesCount})));
     if (componentsVisibility['statusLine'] === 'show') {
       output = output.concat(StatusLine(args));
     }
@@ -1023,7 +1024,8 @@ var NonText = React.createClass({render: function() {
         attrs = $__1.attrs,
         getGroup = $__1.getGroup,
         selectGroup = $__1.selectGroup,
-        setHoverGroup = $__1.setHoverGroup;
+        setHoverGroup = $__1.setHoverGroup,
+        linesCount = $__1.linesCount;
     var args = {
       attrs: attrs,
       getGroup: getGroup,
@@ -1032,7 +1034,7 @@ var NonText = React.createClass({render: function() {
     };
     return Segment(merge(args, {segment: {
         group: 'NonText',
-        content: '~                                                                                   \n'.repeat(10)
+        content: '~                                                                                   \n'.repeat(linesCount)
       }}));
   }});
 var StatusLine = React.createClass({render: function() {
@@ -1247,7 +1249,7 @@ var App = require('./components/app');
 React.renderComponent(App(), document.body);
 
 
-}).call(this,require("IrXUsu"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/fake_85f0dadd.js","/")
+}).call(this,require("IrXUsu"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/fake_168bf1f2.js","/")
 },{"./components/app":1,"IrXUsu":20,"buffer":17,"es6ify/node_modules/traceur/bin/traceur-runtime":16,"react":156}],10:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 "use strict";
