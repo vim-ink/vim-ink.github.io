@@ -118,22 +118,22 @@ var initialState = {
         },
         TabLine: {
             color: '#bbbbbb',
-            backgroundColor: '#f4f4f4'
+            backgroundColor: '#f8f8f8'
         },
         TabLineSel: {
             color: '#777777',
-            backgroundColor: '#f4f4f4'
+            backgroundColor: '#f8f8f8'
         },
         TabLineFill: {
-            backgroundColor: '#f4f4f4'
+            backgroundColor: '#f8f8f8'
         },
         StatusLine: {
             color: '#777777',
-            backgroundColor: '#f4f4f4'
+            backgroundColor: '#f8f8f8'
         },
         StatusLineNC: {
             color: '#bbbbbb',
-            backgroundColor: '#f4f4f4'
+            backgroundColor: '#f8f8f8'
         },
         LineNr: {
             color: '#dddddd'

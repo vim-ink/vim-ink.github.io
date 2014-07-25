@@ -34,7 +34,7 @@ body {
 }
 
 body.light {
-    background-color: #fafafa;
+    background-color: #fcfcfc;
     color: #999;
 }
 
@@ -178,7 +178,7 @@ pre {
     font-size: 1.6rem;
     margin: 2.5rem 0 0 0;
     overflow: hidden;
-    box-shadow: 0.2rem 0.2rem 0.75rem #ddd;
+    box-shadow: 0.2rem 0.2rem 0.6rem #ddd;
 }
 
 /* textarea */
@@ -270,7 +270,7 @@ body.dark .highlight-button.undercurl span {
 
 body.light .highlight-button.reverse {
     background-color: #bbb;
-    color: #fafafa;
+    color: #fcfcfc;
 }
 
 body.dark .highlight-button.reverse {
@@ -284,7 +284,7 @@ body.dark .highlight-button.reverse {
 
 body.light .highlight-button.standout {
     background-color: #bbb;
-    color: #fafafa;
+    color: #fcfcfc;
 }
 
 body.dark .highlight-button.standout {
@@ -572,7 +572,7 @@ body.dark aside h2:active {
     margin-top: -30rem;
     padding: 2rem;
     text-align: right;
-    box-shadow: 0.2rem 0.2rem 0.75rem #bbb;
+    box-shadow: 0.2rem 0.2rem 0.6rem #ddd;
 }
 
 .export p {
