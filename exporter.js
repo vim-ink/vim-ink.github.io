@@ -13,9 +13,12 @@ function postProcessColor(color, postProcess) {
 function exportGroup(name, props, postProcess) {
     var str = ['hi', name];
 
-    str.push('gui=' + ('highlight' in props ?  props.highlight : 'NONE'));
-    str.push('guifg=' + ('color' in props ?  postProcessColor(props.color, postProcess) : 'NONE'));
-    str.push('guibg=' + ('backgroundColor' in props ?  postProcessColor(props.backgroundColor, postProcess) : 'NONE'));
+    str.push('gui=' + ('highlight' in props && props.highlight !== undefined ?
+       props.highlight : 'NONE'));
+    str.push('guifg=' + ('color' in props && props.color !== undefined ?
+        postProcessColor(props.color, postProcess) : 'NONE'));
+    str.push('guibg=' + ('backgroundColor' in props && props.backgroundColor !== undefined ?
+        postProcessColor(props.backgroundColor, postProcess) : 'NONE'));
 
     return str.join(' ');
 }

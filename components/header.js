@@ -20,19 +20,19 @@ var Files = React.createClass({
         var {ul} = React.DOM;
 
         return ul({className: 'nav files'},
-            FileLink(Object.assign({}, this.props, {
+            FileLink(merge(this.props, {
                 type: 'vim',
-                title: 'Vim'
+                title: 'UI'
             })),
-            FileLink(Object.assign({}, this.props, {
+            FileLink(merge(this.props, {
                 type: 'html',
                 title: 'HTML'
             })),
-            FileLink(Object.assign({}, this.props, {
+            FileLink(merge(this.props, {
                 type: 'css',
                 title: 'CSS'
             })),
-            FileLink(Object.assign({}, this.props, {
+            FileLink(merge(this.props, {
                 type: 'javascript',
                 title: 'JavaScript'
             })),

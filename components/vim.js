@@ -53,28 +53,18 @@ var Vim = React.createClass({
         selectGroup('Normal');
     },
     attrs(props) {
-        var {postProcess, activeVariant} = this.props;
+        var {postProcess, activeVariant, getGroup} = this.props;
         var {brightness, saturation} = postProcess[activeVariant];
+        var normal = getGroup('Normal');
+
+        var color = ('color' in props ?
+            props.color :
+            undefined);
+        var backgroundColor = ('backgroundColor' in props ?
+            props.backgroundColor :
+            undefined);
 
         var style = {};
-
-        if (props.color !== undefined) {
-            style['color'] = Color(props.color)
-                .lighten(brightness)
-                .saturate(saturation)
-                .hexString();
-        } else {
-            style['color'] = undefined;
-        }
-
-        if (props.backgroundColor !== undefined) {
-            style['backgroundColor'] = Color(props.backgroundColor)
-                .lighten(brightness)
-                .saturate(saturation)
-                .hexString();
-        } else {
-            style['backgroundColor'] = undefined;
-        }
 
         switch (props.highlight) {
             case 'bold':
@@ -87,21 +77,39 @@ var Vim = React.createClass({
                 style['textDecoration'] = 'underline';
                 break;
             case 'undercurl':
-                style['border-bottom'] = '1px dotted ' + ('color' in style ? style.color : '#888888');
+                style['border-bottom'] = '1px dotted #888888';
                 break;
             case 'reverse':
-                var tmp = style['color'];
-                style['color'] = style['backgroundColor'];
-                style['backgroundColor'] = tmp;
+                var color_ = color;
+
+                color = backgroundColor !== undefined ? backgroundColor : normal.backgroundColor;
+                backgroundColor = color_ !== undefined ? color_ : normal.color;
                 break;
             case 'standout':
-                style['fontWeight'] = 'bold';
-                style['fontStyle'] = 'italic';
-                style['textDecoration'] = 'underline';
-                var tmp = style['color'];
-                style['color'] = style['backgroundColor'];
-                style['backgroundColor'] = tmp;
+                style['fontWeight'] = 600;
+                var color_ = color;
+
+                color = backgroundColor !== undefined ? backgroundColor : normal.backgroundColor;
+                backgroundColor = color_ !== undefined ? color_ : normal.color;
                 break;
+        }
+
+        if (props.color !== undefined) {
+            style['color'] = Color(color)
+                .lighten(brightness)
+                .saturate(saturation)
+                .hexString();
+        } else {
+            style['color'] = undefined;
+        }
+
+        if (backgroundColor !== undefined) {
+            style['backgroundColor'] = Color(backgroundColor)
+                .lighten(brightness)
+                .saturate(saturation)
+                .hexString();
+        } else {
+            style['backgroundColor'] = undefined;
         }
 
         return {

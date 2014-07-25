@@ -275,16 +275,16 @@ var Header = React.createClass({render: function() {
   }});
 var Files = React.createClass({render: function() {
     var ul = $traceurRuntime.assertObject(React.DOM).ul;
-    return ul({className: 'nav files'}, FileLink(Object.assign({}, this.props, {
+    return ul({className: 'nav files'}, FileLink(merge(this.props, {
       type: 'vim',
-      title: 'Vim'
-    })), FileLink(Object.assign({}, this.props, {
+      title: 'UI'
+    })), FileLink(merge(this.props, {
       type: 'html',
       title: 'HTML'
-    })), FileLink(Object.assign({}, this.props, {
+    })), FileLink(merge(this.props, {
       type: 'css',
       title: 'CSS'
-    })), FileLink(Object.assign({}, this.props, {
+    })), FileLink(merge(this.props, {
       type: 'javascript',
       title: 'JavaScript'
     })), PasteLink(this.props));
@@ -942,21 +942,15 @@ var Vim = React.createClass({
   attrs: function(props) {
     var $__1 = $traceurRuntime.assertObject(this.props),
         postProcess = $__1.postProcess,
-        activeVariant = $__1.activeVariant;
+        activeVariant = $__1.activeVariant,
+        getGroup = $__1.getGroup;
     var $__1 = $traceurRuntime.assertObject(postProcess[activeVariant]),
         brightness = $__1.brightness,
         saturation = $__1.saturation;
+    var normal = getGroup('Normal');
+    var color = ('color' in props ? props.color : undefined);
+    var backgroundColor = ('backgroundColor' in props ? props.backgroundColor : undefined);
     var style = {};
-    if (props.color !== undefined) {
-      style['color'] = Color(props.color).lighten(brightness).saturate(saturation).hexString();
-    } else {
-      style['color'] = undefined;
-    }
-    if (props.backgroundColor !== undefined) {
-      style['backgroundColor'] = Color(props.backgroundColor).lighten(brightness).saturate(saturation).hexString();
-    } else {
-      style['backgroundColor'] = undefined;
-    }
     switch (props.highlight) {
       case 'bold':
         style['fontWeight'] = '600';
@@ -968,21 +962,29 @@ var Vim = React.createClass({
         style['textDecoration'] = 'underline';
         break;
       case 'undercurl':
-        style['border-bottom'] = '1px dotted ' + ('color' in style ? style.color : '#888888');
+        style['border-bottom'] = '1px dotted #888888';
         break;
       case 'reverse':
-        var tmp = style['color'];
-        style['color'] = style['backgroundColor'];
-        style['backgroundColor'] = tmp;
+        var color_ = color;
+        color = backgroundColor !== undefined ? backgroundColor : normal.backgroundColor;
+        backgroundColor = color_ !== undefined ? color_ : normal.color;
         break;
       case 'standout':
-        style['fontWeight'] = 'bold';
-        style['fontStyle'] = 'italic';
-        style['textDecoration'] = 'underline';
-        var tmp = style['color'];
-        style['color'] = style['backgroundColor'];
-        style['backgroundColor'] = tmp;
+        style['fontWeight'] = 600;
+        var color_ = color;
+        color = backgroundColor !== undefined ? backgroundColor : normal.backgroundColor;
+        backgroundColor = color_ !== undefined ? color_ : normal.color;
         break;
+    }
+    if (props.color !== undefined) {
+      style['color'] = Color(color).lighten(brightness).saturate(saturation).hexString();
+    } else {
+      style['color'] = undefined;
+    }
+    if (backgroundColor !== undefined) {
+      style['backgroundColor'] = Color(backgroundColor).lighten(brightness).saturate(saturation).hexString();
+    } else {
+      style['backgroundColor'] = undefined;
     }
     return {
       style: style,
@@ -1180,9 +1182,9 @@ function postProcessColor(color, postProcess) {
 }
 function exportGroup(name, props, postProcess) {
   var str = ['hi', name];
-  str.push('gui=' + ('highlight' in props ? props.highlight : 'NONE'));
-  str.push('guifg=' + ('color' in props ? postProcessColor(props.color, postProcess) : 'NONE'));
-  str.push('guibg=' + ('backgroundColor' in props ? postProcessColor(props.backgroundColor, postProcess) : 'NONE'));
+  str.push('gui=' + ('highlight' in props && props.highlight !== undefined ? props.highlight : 'NONE'));
+  str.push('guifg=' + ('color' in props && props.color !== undefined ? postProcessColor(props.color, postProcess) : 'NONE'));
+  str.push('guibg=' + ('backgroundColor' in props && props.backgroundColor !== undefined ? postProcessColor(props.backgroundColor, postProcess) : 'NONE'));
   return str.join(' ');
 }
 function exportVariant(variant, postProcess) {
@@ -1219,7 +1221,7 @@ var App = require('./components/app');
 React.renderComponent(App(), document.body);
 
 
-}).call(this,require("IrXUsu"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/fake_519bf190.js","/")
+}).call(this,require("IrXUsu"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/fake_6a44e2d9.js","/")
 },{"./components/app":1,"IrXUsu":20,"buffer":17,"es6ify/node_modules/traceur/bin/traceur-runtime":16,"react":156}],10:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 "use strict";
