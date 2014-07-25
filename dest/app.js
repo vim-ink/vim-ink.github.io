@@ -66,7 +66,10 @@ var App = React.createClass({
       postProcess: this.state.postProcess,
       sectionsVisibility: this.state.sectionsVisibility,
       selectedGroup: this.state.selectedGroup
-    })), Footer(), Export({
+    })), Footer({
+      setActiveFile: this.setActiveFile,
+      setParsedSource: this.setParsedSource
+    }), Export({
       clearExportedSource: this.clearExportedSource,
       exportName: this.state.exportName,
       exportedSource: this.state.exportedSource
@@ -243,18 +246,41 @@ module.exports = Export;
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 "use strict";
 var React = require('react');
-var Footer = React.createClass({render: function() {
+var files = require('../files');
+var Footer = React.createClass({
+  render: function() {
     var $__0 = $traceurRuntime.assertObject(React.DOM),
         footer = $__0.footer,
         ul = $__0.ul,
         li = $__0.li;
-    return footer(null, ul({className: 'nav'}, li(null, 'FAQ'), li(null, 'GitHub'), li(null, 'Donate')));
+    var onClick = this.onClick;
+    var $__0 = $traceurRuntime.assertObject(this.props),
+        setActiveFile = $__0.setActiveFile,
+        setParsedSource = $__0.setParsedSource;
+    return footer(null, ul({className: 'nav'}, Site({
+      title: 'About',
+      onClick: (function() {
+        setActiveFile('about');
+        setParsedSource(files.about.parsedSource);
+      })
+    }), Site({title: 'GitHub'}), Site({title: 'Donate'})));
+  },
+  onClick: function() {
+    console.log('onClick');
+  }
+});
+var Site = React.createClass({render: function() {
+    var li = $traceurRuntime.assertObject(React.DOM).li;
+    var $__0 = $traceurRuntime.assertObject(this.props),
+        onClick = $__0.onClick,
+        title = $__0.title;
+    return li({onClick: onClick}, title);
   }});
 module.exports = Footer;
 
 
 }).call(this,require("IrXUsu"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/components/footer.js","/components")
-},{"IrXUsu":20,"buffer":17,"react":156}],4:[function(require,module,exports){
+},{"../files":10,"IrXUsu":20,"buffer":17,"react":156}],4:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 "use strict";
 var React = require('react');
@@ -1221,7 +1247,7 @@ var App = require('./components/app');
 React.renderComponent(App(), document.body);
 
 
-}).call(this,require("IrXUsu"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/fake_babfab25.js","/")
+}).call(this,require("IrXUsu"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/fake_85f0dadd.js","/")
 },{"./components/app":1,"IrXUsu":20,"buffer":17,"es6ify/node_modules/traceur/bin/traceur-runtime":16,"react":156}],10:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 "use strict";
@@ -1247,6 +1273,16 @@ var files = {
       group: 'MatchParen',
       content: ')'
     }]]
+  },
+  about: {
+    title: 'About',
+    parsedSource: [[{
+      "group": "Special",
+      "content": "#"
+    }, " About"], [""], [{
+      "group": "Special",
+      "content": "##"
+    }, " What is this?"], [""], ["vim.ink is a color scheme designer for vim."]]
   },
   html: {
     title: 'HTML',

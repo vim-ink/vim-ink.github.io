@@ -74,7 +74,10 @@ var App = React.createClass({
                     sectionsVisibility: this.state.sectionsVisibility,
                     selectedGroup: this.state.selectedGroup
                 })),
-            Footer(),
+                Footer({
+                    setActiveFile: this.setActiveFile,
+                    setParsedSource: this.setParsedSource
+                }),
             Export({
                 clearExportedSource: this.clearExportedSource,
 
