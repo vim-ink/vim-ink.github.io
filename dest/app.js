@@ -1239,7 +1239,7 @@ var App = require('./components/app');
 React.renderComponent(App(), document.body);
 
 
-}).call(this,require("IrXUsu"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/fake_583661bd.js","/")
+}).call(this,require("IrXUsu"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/fake_2d25340a.js","/")
 },{"./components/app":1,"IrXUsu":20,"buffer":17,"es6ify/node_modules/traceur/bin/traceur-runtime":16,"react":156}],10:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 "use strict";
@@ -1870,22 +1870,22 @@ var initialState = {
     },
     TabLine: {
       color: '#bbbbbb',
-      backgroundColor: '#f8f8f8'
+      backgroundColor: '#f4f4f4'
     },
     TabLineSel: {
       color: '#777777',
-      backgroundColor: '#f8f8f8'
+      backgroundColor: '#f4f4f4'
     },
-    TabLineFill: {backgroundColor: '#f8f8f8'},
+    TabLineFill: {backgroundColor: '#f4f4f4'},
     StatusLine: {
       color: '#777777',
-      backgroundColor: '#f8f8f8'
+      backgroundColor: '#f4f4f4'
     },
     StatusLineNC: {
       color: '#bbbbbb',
-      backgroundColor: '#f8f8f8'
+      backgroundColor: '#f4f4f4'
     },
-    LineNr: {color: '#dddddd'},
+    LineNr: {color: '#cccccc'},
     String: {color: '#999999'},
     Number: {color: '#999999'},
     Constant: {color: '#999999'},
@@ -1901,8 +1901,8 @@ var initialState = {
     Search: {backgroundColor: '#eeeeee'},
     MatchParen: {backgroundColor: '#cccccc'},
     VertSplit: {
-      color: '#eeeeee',
-      backgroundColor: '#eeeeee'
+      color: '#f4f4f4',
+      backgroundColor: '#f4f4f4'
     }
   }
 };

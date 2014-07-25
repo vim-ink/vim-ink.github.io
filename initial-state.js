@@ -118,25 +118,25 @@ var initialState = {
         },
         TabLine: {
             color: '#bbbbbb',
-            backgroundColor: '#f8f8f8'
+            backgroundColor: '#f4f4f4'
         },
         TabLineSel: {
             color: '#777777',
-            backgroundColor: '#f8f8f8'
+            backgroundColor: '#f4f4f4'
         },
         TabLineFill: {
-            backgroundColor: '#f8f8f8'
+            backgroundColor: '#f4f4f4'
         },
         StatusLine: {
             color: '#777777',
-            backgroundColor: '#f8f8f8'
+            backgroundColor: '#f4f4f4'
         },
         StatusLineNC: {
             color: '#bbbbbb',
-            backgroundColor: '#f8f8f8'
+            backgroundColor: '#f4f4f4'
         },
         LineNr: {
-            color: '#dddddd'
+            color: '#cccccc'
         },
         String: {
             color: '#999999'
@@ -181,8 +181,8 @@ var initialState = {
             backgroundColor: '#cccccc'
         },
         VertSplit: {
-            color: '#eeeeee',
-            backgroundColor: '#eeeeee'
+            color: '#f4f4f4',
+            backgroundColor: '#f4f4f4'
         }
     }
 };
