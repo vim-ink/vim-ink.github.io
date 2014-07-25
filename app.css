@@ -81,15 +81,15 @@ body.light h1 {
 
 article {
     float: left;
-    width: 83.5rem;
+    width: 84rem;
 }
 
 header .nav.files {
-    width: 80rem;
+    width: 84rem;
     float: left;
 }
 header .nav.panes {
-    width: 24rem;
+    width: 23.5rem;
     float: right;
 }
 
@@ -501,7 +501,7 @@ body.dark input[type="range"]::-moz-range-thumb {
 /* aside */
 
 aside {
-    width: 24rem;
+    width: 23.5rem;
     float: right;
 }
 

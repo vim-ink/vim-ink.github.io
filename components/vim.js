@@ -147,7 +147,7 @@ var StatusLine = React.createClass({
                 Segment(merge(args, {
                     segment: {
                         group: 'StatusLine',
-                        content: '~/path/to/file                                                      1,1         Top '
+                        content: '~/path/to/file                                                       1,1         Top'
                     }
                 }))
             ]);
@@ -188,13 +188,13 @@ var TabLine = React.createClass({
                 Segment(merge(args, {
                     segment: {
                         group: 'TabLineFill',
-                        content: '                                           '
+                        content: '                                            '
                     }
                 })),
                 Segment(merge(args, {
                     segment: {
                         group: 'TabLine',
-                        content: 'X '
+                        content: ' ' // Should be 'X ', but I decided to hide it
                     }
                 })),
                 '\n'
