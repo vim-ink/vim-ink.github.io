@@ -39,7 +39,7 @@ body.light {
 }
 
 body.dark {
-    background-color: #222;
+    background-color: #000000;
     color: #999;
 }
 
@@ -57,7 +57,7 @@ body.light header {
 }
 
 body.dark header {
-    border-bottom: 1px solid #333;
+    border-bottom: 1px solid #222;
 }
 
 /* h1 */
@@ -181,11 +181,11 @@ pre {
 }
 
 body.light pre {
-    box-shadow: 0.2rem 0.2rem 0.6rem #f2f2f2;
+    /* box-shadow: 0.2rem 0.2rem 0.6rem #f2f2f2; */
 }
 
 body.dark pre {
-    box-shadow: 0.2rem 0.2rem 0.6rem #202020;
+    /* box-shadow: 0.2rem 0.2rem 0.6rem #202020; */
 }
 
 /* textarea */
@@ -457,7 +457,7 @@ body.light input[type="range"]::-webkit-slider-runnable-track {
 }
 
 body.dark input[type="range"]::-webkit-slider-runnable-track {
-    background-color: #333;
+    background-color: #222;
 }
 
 input[type="range"]::-webkit-slider-thumb {
@@ -486,7 +486,7 @@ body.light input[type="range"]::-moz-range-track {
 }
 
 body.dark input[type="range"]::-moz-range-track {
-    background-color: #333;
+    background-color: #222;
 }
 
 input[type="range"]::-moz-range-thumb {
@@ -534,7 +534,7 @@ body.light aside section {
 }
 
 body.dark aside section {
-    border-top: 0.1rem solid #333;
+    border-top: 0.1rem solid #222;
 }
 
 body.light aside section h2 {
@@ -588,13 +588,13 @@ body.dark aside h2:active {
 body.light .export {
     background-color: #eee;
     color: #777;
-    box-shadow: 0.2rem 0.2rem 0.6rem #eee;
+    /* box-shadow: 0.2rem 0.2rem 0.6rem #eee; */
 }
 
 body.dark .export {
-    background-color: #333;
+    background-color: #222;
     color: #aaa;
-    box-shadow: 0.2rem 0.2rem 0.6rem #222;
+    /* box-shadow: 0.2rem 0.2rem 0.6rem #222; */
 }
 
 .export h2 {

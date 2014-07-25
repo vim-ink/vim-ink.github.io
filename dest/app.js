@@ -1239,7 +1239,7 @@ var App = require('./components/app');
 React.renderComponent(App(), document.body);
 
 
-}).call(this,require("IrXUsu"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/fake_60f26c07.js","/")
+}).call(this,require("IrXUsu"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/fake_e4c0387b.js","/")
 },{"./components/app":1,"IrXUsu":20,"buffer":17,"es6ify/node_modules/traceur/bin/traceur-runtime":16,"react":156}],10:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 "use strict";
@@ -1826,43 +1826,43 @@ var initialState = {
   dark: {
     Normal: {
       color: '#999999',
-      backgroundColor: '#222222'
+      backgroundColor: '#000000'
     },
     TabLine: {
       color: '#666666',
-      backgroundColor: '#282828'
+      backgroundColor: '#222222'
     },
     TabLineSel: {
       color: '#888888',
-      backgroundColor: '#282828'
+      backgroundColor: '#222222'
     },
-    TabLineFill: {backgroundColor: '#282828'},
+    TabLineFill: {backgroundColor: '#222222'},
     StatusLine: {
       color: '#888888',
-      backgroundColor: '#282828'
+      backgroundColor: '#222222'
     },
     StatusLineNC: {
       color: '#666666',
-      backgroundColor: '#282828'
+      backgroundColor: '#222222'
     },
-    LineNr: {color: '#666666'},
-    String: {color: '#888888'},
-    Number: {color: '#888888'},
-    Constant: {color: '#888888'},
-    Comment: {color: '#666666'},
-    NonText: {color: '#666666'},
+    NonText: {color: '#333333'},
+    LineNr: {color: '#444444'},
+    Comment: {color: '#555555'},
     StorageClass: {color: '#666666'},
     Conditional: {color: '#666666'},
     Special: {color: '#666666'},
     Type: {color: '#666666'},
+    String: {color: '#888888'},
+    Number: {color: '#888888'},
+    Constant: {color: '#888888'},
     Cursor: {highlight: 'reverse'},
     Visual: {backgroundColor: '#555555'},
     IncSearch: {backgroundColor: '#666666'},
     Search: {backgroundColor: '#666666'},
     MatchParen: {backgroundColor: '#666666'},
     VertSplit: {
-      color: '#282828',
-      backgroundColor: '#282828'
+      color: '#242424',
+      backgroundColor: '#242424'
     }
   },
   light: {
@@ -1887,12 +1887,12 @@ var initialState = {
       color: '#bbbbbb',
       backgroundColor: '#f4f4f4'
     },
+    NonText: {color: '#dddddd'},
     LineNr: {color: '#cccccc'},
+    Comment: {color: '#bbbbbb'},
     String: {color: '#999999'},
     Number: {color: '#999999'},
     Constant: {color: '#999999'},
-    Comment: {color: '#bbbbbb'},
-    NonText: {color: '#dddddd'},
     StorageClass: {color: '#777777'},
     Conditional: {color: '#777777'},
     Special: {color: '#777777'},

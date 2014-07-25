@@ -40,44 +40,35 @@ var initialState = {
     dark: {
         Normal: {
             color: '#999999',
-            backgroundColor: '#222222'
+            backgroundColor: '#000000'
         },
         TabLine: {
             color: '#666666',
-            backgroundColor: '#282828'
+            backgroundColor: '#222222'
         },
         TabLineSel: {
             color: '#888888',
-            backgroundColor: '#282828'
+            backgroundColor: '#222222'
         },
         TabLineFill: {
-            backgroundColor: '#282828'
+            backgroundColor: '#222222'
         },
         StatusLine: {
             color: '#888888',
-            backgroundColor: '#282828'
+            backgroundColor: '#222222'
         },
         StatusLineNC: {
             color: '#666666',
-            backgroundColor: '#282828'
-        },
-        LineNr: {
-            color: '#666666'
-        },
-        String: {
-            color: '#888888'
-        },
-        Number: {
-            color: '#888888'
-        },
-        Constant: {
-            color: '#888888'
-        },
-        Comment: {
-            color: '#666666'
+            backgroundColor: '#222222'
         },
         NonText: {
-            color: '#666666'
+            color: '#333333'
+        },
+        LineNr: {
+            color: '#444444'
+        },
+        Comment: {
+            color: '#555555'
         },
         StorageClass: {
             color: '#666666'
@@ -90,6 +81,15 @@ var initialState = {
         },
         Type: {
             color: '#666666'
+        },
+        String: {
+            color: '#888888'
+        },
+        Number: {
+            color: '#888888'
+        },
+        Constant: {
+            color: '#888888'
         },
         Cursor: {
             highlight: 'reverse'
@@ -107,8 +107,8 @@ var initialState = {
             backgroundColor: '#666666'
         },
         VertSplit: {
-            color: '#282828',
-            backgroundColor: '#282828'
+            color: '#242424',
+            backgroundColor: '#242424'
         }
     },
     light: {
@@ -135,8 +135,14 @@ var initialState = {
             color: '#bbbbbb',
             backgroundColor: '#f4f4f4'
         },
+        NonText: {
+            color: '#dddddd'
+        },
         LineNr: {
             color: '#cccccc'
+        },
+        Comment: {
+            color: '#bbbbbb'
         },
         String: {
             color: '#999999'
@@ -146,12 +152,6 @@ var initialState = {
         },
         Constant: {
             color: '#999999'
-        },
-        Comment: {
-            color: '#bbbbbb'
-        },
-        NonText: {
-            color: '#dddddd'
         },
         StorageClass: {
             color: '#777777'
