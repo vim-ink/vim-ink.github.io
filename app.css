@@ -4,7 +4,7 @@
     box-sizing: border-box;
 }
 
-h2, .nav {
+h2, .nav, pre {
     cursor: default;
 }
 
