@@ -63,6 +63,8 @@ var Vim = React.createClass({
                 .lighten(brightness)
                 .saturate(saturation)
                 .hexString();
+        } else {
+            style['color'] = undefined;
         }
 
         if (props.backgroundColor !== undefined) {
@@ -70,11 +72,41 @@ var Vim = React.createClass({
                 .lighten(brightness)
                 .saturate(saturation)
                 .hexString();
+        } else {
+            style['backgroundColor'] = undefined;
+        }
+
+        switch (props.highlight) {
+            case 'bold':
+                style['fontWeight'] = '600';
+                break;
+            case 'italic':
+                style['fontStyle'] = 'italic';
+                break;
+            case 'underline':
+                style['textDecoration'] = 'underline';
+                break;
+            case 'undercurl':
+                style['border-bottom'] = '1px dotted ' + ('color' in style ? style.color : '#888888');
+                break;
+            case 'reverse':
+                var tmp = style['color'];
+                style['color'] = style['backgroundColor'];
+                style['backgroundColor'] = tmp;
+                break;
+            case 'standout':
+                style['fontWeight'] = 'bold';
+                style['fontStyle'] = 'italic';
+                style['textDecoration'] = 'underline';
+                var tmp = style['color'];
+                style['color'] = style['backgroundColor'];
+                style['backgroundColor'] = tmp;
+                break;
         }
 
         return {
             style,
-            className: props.highlight === 'NONE' ? '' : props.highlight
+            className: '' // TODO: Remove!
         };
     }
 });

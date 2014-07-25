@@ -276,6 +276,9 @@ var Header = React.createClass({render: function() {
 var Files = React.createClass({render: function() {
     var ul = $traceurRuntime.assertObject(React.DOM).ul;
     return ul({className: 'nav files'}, FileLink(Object.assign({}, this.props, {
+      type: 'vim',
+      title: 'Vim'
+    })), FileLink(Object.assign({}, this.props, {
       type: 'html',
       title: 'HTML'
     })), FileLink(Object.assign({}, this.props, {
@@ -928,13 +931,44 @@ var Vim = React.createClass({
     var style = {};
     if (props.color !== undefined) {
       style['color'] = Color(props.color).lighten(brightness).saturate(saturation).hexString();
+    } else {
+      style['color'] = undefined;
     }
     if (props.backgroundColor !== undefined) {
       style['backgroundColor'] = Color(props.backgroundColor).lighten(brightness).saturate(saturation).hexString();
+    } else {
+      style['backgroundColor'] = undefined;
+    }
+    switch (props.highlight) {
+      case 'bold':
+        style['fontWeight'] = '600';
+        break;
+      case 'italic':
+        style['fontStyle'] = 'italic';
+        break;
+      case 'underline':
+        style['textDecoration'] = 'underline';
+        break;
+      case 'undercurl':
+        style['border-bottom'] = '1px dotted ' + ('color' in style ? style.color : '#888888');
+        break;
+      case 'reverse':
+        var tmp = style['color'];
+        style['color'] = style['backgroundColor'];
+        style['backgroundColor'] = tmp;
+        break;
+      case 'standout':
+        style['fontWeight'] = 'bold';
+        style['fontStyle'] = 'italic';
+        style['textDecoration'] = 'underline';
+        var tmp = style['color'];
+        style['color'] = style['backgroundColor'];
+        style['backgroundColor'] = tmp;
+        break;
     }
     return {
       style: style,
-      className: props.highlight === 'NONE' ? '' : props.highlight
+      className: ''
     };
   }
 });
@@ -1167,11 +1201,30 @@ var App = require('./components/app');
 React.renderComponent(App(), document.body);
 
 
-}).call(this,require("IrXUsu"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/fake_9df2fc72.js","/")
+}).call(this,require("IrXUsu"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/fake_765a4f4a.js","/")
 },{"./components/app":1,"IrXUsu":20,"buffer":17,"es6ify/node_modules/traceur/bin/traceur-runtime":16,"react":156}],10:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 "use strict";
 var files = {
+  vim: {
+    title: 'Vim',
+    parsedSource: [[{
+      group: 'Cursor',
+      content: ' '
+    }, 'is the cursor'], [{
+      group: 'Visual',
+      content: 'These words'
+    }, ' are selected'], ['Currently searching for ', {
+      group: 'IncSearch',
+      content: 'foo'
+    }, ', already found ', {
+      group: 'Search',
+      content: 'bar'
+    }], ['( has matching parenthesis ', {
+      group: 'MatchParen',
+      content: ')'
+    }]]
+  },
   html: {
     title: 'HTML',
     parsedSource: [[{

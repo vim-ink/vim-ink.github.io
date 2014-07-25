@@ -22,7 +22,7 @@ pre, textarea {
     font-family: 'Source Code Pro';
 }
 
-h1, h2, body, input, button, pre {
+h1, h2, body, input, button {
     font-weight: 300;
 }
 
@@ -57,7 +57,7 @@ body.light header {
 }
 
 body.dark header {
-    border-bottom: 1px solid #222;
+    border-bottom: 1px solid #333;
 }
 
 /* h1 */
@@ -170,35 +170,7 @@ pre {
     font-size: 1.6rem;
     margin: 2.5rem 0 0 0;
     overflow: hidden;
-}
-
-pre span.bold {
-    font-weight: 600;
-}
-
-pre span.italic {
-    font-style: italic;
-}
-
-pre span.underline {
-    border-bottom: 0.1rem solid #999;
-}
-
-pre span.undercurl {
-    border-bottom: 0.1rem dotted #999;
-}
-
-pre span.reverse {
-    filter: invert(100%);
-    -webkit-filter: invert(100%);
-}
-
-pre span.standout {
-    font-weight: 600;
-    font-style: italic;
-    border-bottom: 0.1rem solid #999;
-    filter: invert(100%);
-    -webkit-filter: invert(100%);
+    font-weight: 400;
 }
 
 /* textarea */
@@ -316,7 +288,7 @@ body.light .highlight-button.standout span {
 }
 
 body.dark .highlight-button.standout span {
-    border-bottom: 0.1rem solid #222;
+    border-bottom: 0.1rem solid #333;
 }
 
 body.light .highlight-button:hover {
@@ -373,26 +345,25 @@ body.dark .highlight-button.standout:active {
     height: 3rem;
     border-radius: 0.3rem;
     border: 0;
-    letter-spacing: 0.1rem;
 }
 
 body.light .small-button {
-    border: 1px solid #ddd;
+    border: 1px solid #ccc;
     color: #999;
 }
 
 body.dark .small-button {
-    border: 1px solid #333;
+    border: 1px solid #444;
     color: #999;
 }
 
 body.light .small-button:hover {
-    background-color: #ddd;
+    background-color: #ccc;
     color: #444;
 }
 
 body.dark .small-button:hover {
-    background-color: #333;
+    background-color: #444;
     color: #aaa;
 }
 
@@ -416,26 +387,25 @@ body.dark .small-button:active {
     font-size: 1.4rem;
     border-radius: 0.3rem;
     border: 0;
-    letter-spacing: 0.1rem;
 }
 
 body.light .button {
-    border: 1px solid #ddd;
+    border: 1px solid #ccc;
     color: #999;
 }
 
 body.dark .button {
-    border: 1px solid #333;
+    border: 1px solid #444;
     color: #999;
 }
 
 body.light .button:hover {
-    background-color: #ddd;
+    background-color: #ccc;
     color: #444;
 }
 
 body.dark .button:hover {
-    background-color: #333;
+    background-color: #444;
     color: #aaa;
 }
 
@@ -552,7 +522,7 @@ body.light aside section {
 }
 
 body.dark aside section {
-    border-top: 0.1rem solid #222;
+    border-top: 0.1rem solid #333;
 }
 
 body.light aside section h2 {
@@ -609,7 +579,7 @@ body.light .export {
 }
 
 body.dark .export {
-    background-color: #222;
+    background-color: #333;
     color: #aaa;
 }
 
@@ -760,7 +730,7 @@ body.light .text {
 }
 
 body.dark .text {
-    background-color: #222;
+    background-color: #333;
     color: #999;
 }
 
@@ -793,7 +763,7 @@ body.light .color-overlay.border {
 }
 
 body.dark .color-overlay.border {
-    border: 0.1rem solid #222;
+    border: 0.1rem solid #333;
 }
 
 body.light .color-overlay.none {
@@ -818,7 +788,7 @@ body.light .color-overlay.none {
 }
 
 body.dark .color-overlay.none {
-    background-color: #222 !important;
+    background-color: #333 !important;
     background-image:
         linear-gradient(
             45deg,

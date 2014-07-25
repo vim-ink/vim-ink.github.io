@@ -21,6 +21,10 @@ var Files = React.createClass({
 
         return ul({className: 'nav files'},
             FileLink(Object.assign({}, this.props, {
+                type: 'vim',
+                title: 'Vim'
+            })),
+            FileLink(Object.assign({}, this.props, {
                 type: 'html',
                 title: 'HTML'
             })),
