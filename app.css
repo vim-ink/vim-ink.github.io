@@ -238,11 +238,11 @@ body.dark .highlight-button {
 }
 
 body.light .highlight-button.none {
-    border: 0.1rem solid #bbb;
+    border: 0.1rem dashed #bbb;
 }
 
 body.dark .highlight-button.none {
-    border: 0.1rem solid #666;
+    border: 0.1rem dashed #666;
 }
 
 .highlight-button.none span {
@@ -275,7 +275,7 @@ body.dark .highlight-button.undercurl span {
 
 body.light .highlight-button.reverse {
     background-color: #bbb;
-    color: #fff;
+    color: #fafafa;
 }
 
 body.dark .highlight-button.reverse {
@@ -285,7 +285,7 @@ body.dark .highlight-button.reverse {
 
 body.light .highlight-button.standout {
     background-color: #bbb;
-    color: #fff;
+    color: #fafafa;
     font-style: italic;
 }
 
@@ -313,7 +313,7 @@ body.dark .highlight-button:hover {
 }
 
 body.light .highlight-button.none:active {
-    border: 0.1rem solid #999;
+    border: 0.1rem dashed #999;
 }
 
 body.dark .highlight-button.none:active {
