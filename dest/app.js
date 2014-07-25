@@ -1239,7 +1239,7 @@ var App = require('./components/app');
 React.renderComponent(App(), document.body);
 
 
-}).call(this,require("IrXUsu"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/fake_26f5bd51.js","/")
+}).call(this,require("IrXUsu"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/fake_7b3195d2.js","/")
 },{"./components/app":1,"IrXUsu":20,"buffer":17,"es6ify/node_modules/traceur/bin/traceur-runtime":16,"react":156}],10:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 "use strict";
@@ -1829,11 +1829,20 @@ var initialState = {
       backgroundColor: '#000000',
       highlight: 'NONE'
     },
-    TabLine: {color: '#666666'},
+    TabLine: {
+      color: '#666666',
+      backgroundColor: '#eeeeee'
+    },
     TabLineSel: {color: '#888888'},
-    TabLineFill: {},
-    StatusLine: {color: '#888888'},
-    StatusLineNC: {color: '#666666'},
+    TabLineFill: {backgroundColor: '#eeeeee'},
+    StatusLine: {
+      color: '#888888',
+      backgroundColor: '#eeeeee'
+    },
+    StatusLineNC: {
+      color: '#666666',
+      backgroundColor: '#eeeeee'
+    },
     LineNr: {color: '#666666'},
     String: {color: '#888888'},
     Number: {color: '#888888'},
@@ -1857,23 +1866,35 @@ var initialState = {
   light: {
     Normal: {
       color: '#000000',
-      backgroundColor: '#ffffff',
-      highlight: 'NONE'
+      backgroundColor: '#ffffff'
     },
-    TabLine: {color: '#aaaaaa'},
-    TabLineSel: {color: '#666666'},
-    StatusLine: {color: '#666666'},
-    StatusLineNC: {color: '#aaaaaa'},
-    LineNr: {color: '#bbbbbb'},
+    TabLine: {
+      color: '#bbbbbb',
+      backgroundColor: '#f4f4f4'
+    },
+    TabLineSel: {
+      color: '#777777',
+      backgroundColor: '#f4f4f4'
+    },
+    TabLineFill: {backgroundColor: '#f4f4f4'},
+    StatusLine: {
+      color: '#777777',
+      backgroundColor: '#f4f4f4'
+    },
+    StatusLineNC: {
+      color: '#bbbbbb',
+      backgroundColor: '#f4f4f4'
+    },
+    LineNr: {color: '#dddddd'},
     String: {color: '#999999'},
     Number: {color: '#999999'},
     Constant: {color: '#999999'},
     Comment: {color: '#bbbbbb'},
-    NonText: {color: '#bbbbbb'},
-    StorageClass: {color: '#666666'},
-    Conditional: {color: '#666666'},
-    Special: {color: '#666666'},
-    Type: {color: '#666666'},
+    NonText: {color: '#dddddd'},
+    StorageClass: {color: '#777777'},
+    Conditional: {color: '#777777'},
+    Special: {color: '#777777'},
+    Type: {color: '#777777'},
     Cursor: {highlight: 'reverse'},
     Visual: {backgroundColor: '#cccccc'},
     IncSearch: {backgroundColor: '#cccccc'},

@@ -44,18 +44,22 @@ var initialState = {
             highlight: 'NONE'
         },
         TabLine: {
-            color: '#666666'
+            color: '#666666',
+            backgroundColor: '#eeeeee'
         },
         TabLineSel: {
             color: '#888888'
         },
         TabLineFill: {
+            backgroundColor: '#eeeeee'
         },
         StatusLine: {
-            color: '#888888'
+            color: '#888888',
+            backgroundColor: '#eeeeee'
         },
         StatusLineNC: {
-            color: '#666666'
+            color: '#666666',
+            backgroundColor: '#eeeeee'
         },
         LineNr: {
             color: '#666666'
@@ -111,22 +115,28 @@ var initialState = {
         Normal: {
             color: '#000000',
             backgroundColor: '#ffffff',
-            highlight: 'NONE'
         },
         TabLine: {
-            color: '#aaaaaa'
+            color: '#bbbbbb',
+            backgroundColor: '#f4f4f4'
         },
         TabLineSel: {
-            color: '#666666'
+            color: '#777777',
+            backgroundColor: '#f4f4f4'
+        },
+        TabLineFill: {
+            backgroundColor: '#f4f4f4'
         },
         StatusLine: {
-            color: '#666666'
+            color: '#777777',
+            backgroundColor: '#f4f4f4'
         },
         StatusLineNC: {
-            color: '#aaaaaa'
+            color: '#bbbbbb',
+            backgroundColor: '#f4f4f4'
         },
         LineNr: {
-            color: '#bbbbbb'
+            color: '#dddddd'
         },
         String: {
             color: '#999999'
@@ -141,19 +151,19 @@ var initialState = {
             color: '#bbbbbb'
         },
         NonText: {
-            color: '#bbbbbb'
+            color: '#dddddd'
         },
         StorageClass: {
-            color: '#666666'
+            color: '#777777'
         },
         Conditional: {
-            color: '#666666'
+            color: '#777777'
         },
         Special: {
-            color: '#666666'
+            color: '#777777'
         },
         Type: {
-            color: '#666666'
+            color: '#777777'
         },
         Cursor: {
             highlight: 'reverse'

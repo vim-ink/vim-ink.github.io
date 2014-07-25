@@ -178,7 +178,7 @@ pre {
     font-size: 1.6rem;
     margin: 2.5rem 0 0 0;
     overflow: hidden;
-    box-shadow: 0.25rem 0.25rem 0.75rem #ddd;
+    box-shadow: 0.2rem 0.2rem 0.75rem #ddd;
 }
 
 /* textarea */
@@ -572,7 +572,7 @@ body.dark aside h2:active {
     margin-top: -30rem;
     padding: 2rem;
     text-align: right;
-    box-shadow: 0.25rem 0.25rem 0.75rem #bbb;
+    box-shadow: 0.2rem 0.2rem 0.75rem #bbb;
 }
 
 .export p {
@@ -732,7 +732,7 @@ body.dark .modified-groups-line.none {
 
 body.light .text {
     color: #999;
-    background-color: #eee;
+    background-color: #f4f4f4;
 }
 
 body.dark .text {
