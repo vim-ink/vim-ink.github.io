@@ -70,7 +70,7 @@ var Vim = React.createClass({
 
         switch (props.highlight) {
             case 'bold':
-                style['fontWeight'] = '600';
+                style['fontWeight'] = '400';
                 break;
             case 'italic':
                 style['fontStyle'] = 'italic';
