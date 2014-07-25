@@ -39,27 +39,27 @@ var initialState = {
     },
     dark: {
         Normal: {
-            color: '#aaaaaa',
-            backgroundColor: '#000000',
-            highlight: 'NONE'
+            color: '#a0a0a0',
+            backgroundColor: '#242424'
         },
         TabLine: {
             color: '#666666',
-            backgroundColor: '#eeeeee'
+            backgroundColor: '#282828'
         },
         TabLineSel: {
-            color: '#888888'
+            color: '#888888',
+            backgroundColor: '#282828'
         },
         TabLineFill: {
-            backgroundColor: '#eeeeee'
+            backgroundColor: '#282828'
         },
         StatusLine: {
             color: '#888888',
-            backgroundColor: '#eeeeee'
+            backgroundColor: '#282828'
         },
         StatusLineNC: {
             color: '#666666',
-            backgroundColor: '#eeeeee'
+            backgroundColor: '#282828'
         },
         LineNr: {
             color: '#666666'
@@ -107,13 +107,13 @@ var initialState = {
             backgroundColor: '#666666'
         },
         VertSplit: {
-            color: '#222222',
-            backgroundColor: '#222222'
+            color: '#282828',
+            backgroundColor: '#282828'
         }
     },
     light: {
         Normal: {
-            color: '#000000',
+            color: '#111111',
             backgroundColor: '#ffffff',
         },
         TabLine: {

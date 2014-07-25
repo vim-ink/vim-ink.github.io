@@ -34,12 +34,12 @@ body {
 }
 
 body.light {
-    background-color: #fcfcfc;
+    background-color: #ffffff;
     color: #999;
 }
 
 body.dark {
-    background-color: #222;
+    background-color: #242424;
     color: #999;
 }
 
@@ -178,7 +178,14 @@ pre {
     font-size: 1.6rem;
     margin: 2.5rem 0 0 0;
     overflow: hidden;
-    box-shadow: 0.2rem 0.2rem 0.6rem #ddd;
+}
+
+body.light pre {
+    box-shadow: 0.2rem 0.2rem 0.6rem #eee;
+}
+
+body.dark pre {
+    box-shadow: 0.2rem 0.2rem 0.6rem #202020;
 }
 
 /* textarea */
@@ -189,11 +196,11 @@ textarea {
 
 body.light textarea {
     background-color: #fff;
-    color: #000;
+    color: #111;
 }
 
 body.dark textarea {
-    background-color: #000;
+    background-color: #111;
     color: #ccc;
 }
 
@@ -275,7 +282,7 @@ body.light .highlight-button.reverse {
 
 body.dark .highlight-button.reverse {
     background-color: #666;
-    color: #000;
+    color: #111;
 }
 
 .highlight-button.standout {
@@ -289,7 +296,7 @@ body.light .highlight-button.standout {
 
 body.dark .highlight-button.standout {
     background-color: #666;
-    color: #000;
+    color: #111;
 }
 
 body.light .highlight-button:hover {
@@ -572,7 +579,6 @@ body.dark aside h2:active {
     margin-top: -30rem;
     padding: 2rem;
     text-align: right;
-    box-shadow: 0.2rem 0.2rem 0.6rem #ddd;
 }
 
 .export p {
@@ -582,11 +588,13 @@ body.dark aside h2:active {
 body.light .export {
     background-color: #eee;
     color: #777;
+    box-shadow: 0.2rem 0.2rem 0.6rem #eee;
 }
 
 body.dark .export {
     background-color: #333;
     color: #aaa;
+    box-shadow: 0.2rem 0.2rem 0.6rem #222;
 }
 
 .export h2 {
@@ -732,11 +740,11 @@ body.dark .modified-groups-line.none {
 
 body.light .text {
     color: #999;
-    background-color: #f4f4f4;
+    background-color: #eee;
 }
 
 body.dark .text {
-    background-color: #333;
+    background-color: #222;
     color: #999;
 }
 

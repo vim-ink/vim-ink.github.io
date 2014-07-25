@@ -1239,7 +1239,7 @@ var App = require('./components/app');
 React.renderComponent(App(), document.body);
 
 
-}).call(this,require("IrXUsu"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/fake_c46a16d1.js","/")
+}).call(this,require("IrXUsu"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/fake_c584a0c3.js","/")
 },{"./components/app":1,"IrXUsu":20,"buffer":17,"es6ify/node_modules/traceur/bin/traceur-runtime":16,"react":156}],10:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 "use strict";
@@ -1825,23 +1825,25 @@ var initialState = {
   },
   dark: {
     Normal: {
-      color: '#aaaaaa',
-      backgroundColor: '#000000',
-      highlight: 'NONE'
+      color: '#a0a0a0',
+      backgroundColor: '#242424'
     },
     TabLine: {
       color: '#666666',
-      backgroundColor: '#eeeeee'
+      backgroundColor: '#282828'
     },
-    TabLineSel: {color: '#888888'},
-    TabLineFill: {backgroundColor: '#eeeeee'},
+    TabLineSel: {
+      color: '#888888',
+      backgroundColor: '#282828'
+    },
+    TabLineFill: {backgroundColor: '#282828'},
     StatusLine: {
       color: '#888888',
-      backgroundColor: '#eeeeee'
+      backgroundColor: '#282828'
     },
     StatusLineNC: {
       color: '#666666',
-      backgroundColor: '#eeeeee'
+      backgroundColor: '#282828'
     },
     LineNr: {color: '#666666'},
     String: {color: '#888888'},
@@ -1859,13 +1861,13 @@ var initialState = {
     Search: {backgroundColor: '#666666'},
     MatchParen: {backgroundColor: '#666666'},
     VertSplit: {
-      color: '#222222',
-      backgroundColor: '#222222'
+      color: '#282828',
+      backgroundColor: '#282828'
     }
   },
   light: {
     Normal: {
-      color: '#000000',
+      color: '#111111',
       backgroundColor: '#ffffff'
     },
     TabLine: {
