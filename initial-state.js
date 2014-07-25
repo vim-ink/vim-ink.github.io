@@ -39,8 +39,8 @@ var initialState = {
     },
     dark: {
         Normal: {
-            color: '#a0a0a0',
-            backgroundColor: '#242424'
+            color: '#999999',
+            backgroundColor: '#222222'
         },
         TabLine: {
             color: '#666666',

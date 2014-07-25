@@ -39,7 +39,7 @@ body.light {
 }
 
 body.dark {
-    background-color: #242424;
+    background-color: #222;
     color: #999;
 }
 
@@ -181,7 +181,7 @@ pre {
 }
 
 body.light pre {
-    box-shadow: 0.2rem 0.2rem 0.6rem #eee;
+    box-shadow: 0.2rem 0.2rem 0.6rem #f2f2f2;
 }
 
 body.dark pre {
