@@ -216,9 +216,9 @@ var HighlightButton = React.createClass({
     },
     className(type) {
         var {getGroup, selectedGroup} = this.props;
-        var {selectedType} = this.props;
 
-        var selectedType = getGroup(selectedGroup).highlight;
+        var selectedType = getGroup(selectedGroup).highlight === undefined ?
+            'NONE' : getGroup(selectedGroup).highlight;
 
         return 'highlight-button ' + type.toLowerCase() +
             (type === selectedType ? ' active' : '');
