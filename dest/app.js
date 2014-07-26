@@ -1239,7 +1239,7 @@ var App = require('./components/app');
 React.renderComponent(App(), document.body);
 
 
-}).call(this,require("IrXUsu"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/fake_40dce152.js","/")
+}).call(this,require("IrXUsu"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/fake_263016a7.js","/")
 },{"./components/app":1,"IrXUsu":20,"buffer":17,"es6ify/node_modules/traceur/bin/traceur-runtime":16,"react":156}],10:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 "use strict";
@@ -1829,10 +1829,10 @@ var initialState = {
       backgroundColor: '#000000'
     },
     Cursor: {highlight: 'reverse'},
-    IncSearch: {backgroundColor: '#666666'},
-    MatchParen: {backgroundColor: '#666666'},
+    IncSearch: {backgroundColor: '#555555'},
+    MatchParen: {backgroundColor: '#555555'},
     Search: {backgroundColor: '#444444'},
-    Visual: {backgroundColor: '#666666'},
+    Visual: {backgroundColor: '#555555'},
     Conditional: {color: '#999999'},
     Special: {color: '#999999'},
     Statement: {color: '#999999'},
@@ -1872,10 +1872,10 @@ var initialState = {
       backgroundColor: '#ffffff'
     },
     Cursor: {highlight: 'reverse'},
-    IncSearch: {backgroundColor: '#bbbbbb'},
-    MatchParen: {backgroundColor: '#bbbbbb'},
+    IncSearch: {backgroundColor: '#cccccc'},
+    MatchParen: {backgroundColor: '#cccccc'},
     Search: {backgroundColor: '#dddddd'},
-    Visual: {backgroundColor: '#bbbbbb'},
+    Visual: {backgroundColor: '#cccccc'},
     Conditional: {color: '#777777'},
     Special: {color: '#777777'},
     Statement: {color: '#777777'},

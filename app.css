@@ -779,6 +779,14 @@ body.dark .color-overlay.none {
     border: 1px dashed #666;
 }
 
+body.light .color-overlay.border {
+    border: 1px solid #eee;
+}
+
+body.dark .color-overlay.border {
+    border: 1px solid #222;
+}
+
 /**
  * For modern browsers
  * 1. The space content is one way to avoid an Opera bug when the
