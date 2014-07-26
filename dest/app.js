@@ -1239,7 +1239,7 @@ var App = require('./components/app');
 React.renderComponent(App(), document.body);
 
 
-}).call(this,require("IrXUsu"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/fake_e4c0387b.js","/")
+}).call(this,require("IrXUsu"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/fake_2b70e67d.js","/")
 },{"./components/app":1,"IrXUsu":20,"buffer":17,"es6ify/node_modules/traceur/bin/traceur-runtime":16,"react":156}],10:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 "use strict";
@@ -1825,60 +1825,66 @@ var initialState = {
   },
   dark: {
     Normal: {
-      color: '#999999',
+      color: '#bbbbbb',
       backgroundColor: '#000000'
     },
-    TabLine: {
-      color: '#666666',
-      backgroundColor: '#222222'
-    },
-    TabLineSel: {
-      color: '#888888',
-      backgroundColor: '#222222'
-    },
-    TabLineFill: {backgroundColor: '#222222'},
+    Cursor: {highlight: 'reverse'},
+    IncSearch: {backgroundColor: '#555555'},
+    MatchParen: {backgroundColor: '#555555'},
+    Search: {backgroundColor: '#333333'},
+    Visual: {backgroundColor: '#555555'},
+    Conditional: {color: '#999999'},
+    StorageClass: {color: '#999999'},
+    Type: {color: '#999999'},
+    Special: {color: '#999999'},
+    Constant: {color: '#777777'},
+    Number: {color: '#777777'},
+    String: {color: '#777777'},
+    Comment: {color: '#555555'},
+    LineNr: {color: '#555555'},
+    NonText: {color: '#333333'},
     StatusLine: {
-      color: '#888888',
+      color: '#999999',
       backgroundColor: '#222222'
     },
     StatusLineNC: {
-      color: '#666666',
+      color: '#777777',
       backgroundColor: '#222222'
     },
-    NonText: {color: '#333333'},
-    LineNr: {color: '#444444'},
-    Comment: {color: '#555555'},
-    StorageClass: {color: '#666666'},
-    Conditional: {color: '#666666'},
-    Special: {color: '#666666'},
-    Type: {color: '#666666'},
-    String: {color: '#888888'},
-    Number: {color: '#888888'},
-    Constant: {color: '#888888'},
-    Cursor: {highlight: 'reverse'},
-    Visual: {backgroundColor: '#555555'},
-    IncSearch: {backgroundColor: '#666666'},
-    Search: {backgroundColor: '#666666'},
-    MatchParen: {backgroundColor: '#666666'},
+    TabLine: {
+      color: '#777777',
+      backgroundColor: '#222222'
+    },
+    TabLineFill: {backgroundColor: '#222222'},
+    TabLineSel: {
+      color: '#999999',
+      backgroundColor: '#222222'
+    },
     VertSplit: {
-      color: '#242424',
-      backgroundColor: '#242424'
+      color: '#222222',
+      backgroundColor: '#222222'
     }
   },
   light: {
     Normal: {
-      color: '#111111',
+      color: '#000000',
       backgroundColor: '#ffffff'
     },
-    TabLine: {
-      color: '#bbbbbb',
-      backgroundColor: '#f4f4f4'
-    },
-    TabLineSel: {
-      color: '#777777',
-      backgroundColor: '#f4f4f4'
-    },
-    TabLineFill: {backgroundColor: '#f4f4f4'},
+    Cursor: {highlight: 'reverse'},
+    IncSearch: {backgroundColor: '#bbbbbb'},
+    MatchParen: {backgroundColor: '#bbbbbb'},
+    Search: {backgroundColor: '#dddddd'},
+    Visual: {backgroundColor: '#bbbbbb'},
+    Conditional: {color: '#777777'},
+    StorageClass: {color: '#777777'},
+    Type: {color: '#777777'},
+    Special: {color: '#777777'},
+    Constant: {color: '#999999'},
+    Number: {color: '#999999'},
+    String: {color: '#999999'},
+    Comment: {color: '#bbbbbb'},
+    LineNr: {color: '#bbbbbb'},
+    NonText: {color: '#dddddd'},
     StatusLine: {
       color: '#777777',
       backgroundColor: '#f4f4f4'
@@ -1887,21 +1893,15 @@ var initialState = {
       color: '#bbbbbb',
       backgroundColor: '#f4f4f4'
     },
-    NonText: {color: '#dddddd'},
-    LineNr: {color: '#cccccc'},
-    Comment: {color: '#bbbbbb'},
-    String: {color: '#999999'},
-    Number: {color: '#999999'},
-    Constant: {color: '#999999'},
-    StorageClass: {color: '#777777'},
-    Conditional: {color: '#777777'},
-    Special: {color: '#777777'},
-    Type: {color: '#777777'},
-    Cursor: {highlight: 'reverse'},
-    Visual: {backgroundColor: '#cccccc'},
-    IncSearch: {backgroundColor: '#cccccc'},
-    Search: {backgroundColor: '#eeeeee'},
-    MatchParen: {backgroundColor: '#cccccc'},
+    TabLine: {
+      color: '#bbbbbb',
+      backgroundColor: '#f4f4f4'
+    },
+    TabLineFill: {backgroundColor: '#f4f4f4'},
+    TabLineSel: {
+      color: '#777777',
+      backgroundColor: '#f4f4f4'
+    },
     VertSplit: {
       color: '#f4f4f4',
       backgroundColor: '#f4f4f4'

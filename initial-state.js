@@ -38,152 +38,63 @@ var initialState = {
         dangerZone: 'hide'
     },
     dark: {
-        Normal: {
-            color: '#999999',
-            backgroundColor: '#000000'
-        },
-        TabLine: {
-            color: '#666666',
-            backgroundColor: '#222222'
-        },
-        TabLineSel: {
-            color: '#888888',
-            backgroundColor: '#222222'
-        },
-        TabLineFill: {
-            backgroundColor: '#222222'
-        },
-        StatusLine: {
-            color: '#888888',
-            backgroundColor: '#222222'
-        },
-        StatusLineNC: {
-            color: '#666666',
-            backgroundColor: '#222222'
-        },
-        NonText: {
-            color: '#333333'
-        },
-        LineNr: {
-            color: '#444444'
-        },
-        Comment: {
-            color: '#555555'
-        },
-        StorageClass: {
-            color: '#666666'
-        },
-        Conditional: {
-            color: '#666666'
-        },
-        Special: {
-            color: '#666666'
-        },
-        Type: {
-            color: '#666666'
-        },
-        String: {
-            color: '#888888'
-        },
-        Number: {
-            color: '#888888'
-        },
-        Constant: {
-            color: '#888888'
-        },
-        Cursor: {
-            highlight: 'reverse'
-        },
-        Visual: {
-            backgroundColor: '#555555'
-        },
-        IncSearch: {
-            backgroundColor: '#666666'
-        },
-        Search: {
-            backgroundColor: '#666666'
-        },
-        MatchParen: {
-            backgroundColor: '#666666'
-        },
-        VertSplit: {
-            color: '#242424',
-            backgroundColor: '#242424'
-        }
+        Normal: { color: '#bbbbbb', backgroundColor: '#000000' },
+
+        Cursor: { highlight: 'reverse' },
+        IncSearch: { backgroundColor: '#555555' },
+        MatchParen: { backgroundColor: '#555555' },
+        Search: { backgroundColor: '#333333' },
+        Visual: { backgroundColor: '#555555' },
+
+        Conditional: { color: '#999999' },
+        StorageClass: { color: '#999999' },
+        Type: { color: '#999999' },
+        Special: { color: '#999999' },
+
+        Constant: { color: '#777777' },
+        Number: { color: '#777777' },
+        String: { color: '#777777' },
+
+        Comment: { color: '#555555' },
+        LineNr: { color: '#555555' },
+        NonText: { color: '#333333' },
+
+        StatusLine: { color: '#999999', backgroundColor: '#222222' },
+        StatusLineNC: { color: '#777777', backgroundColor: '#222222' },
+        TabLine: { color: '#777777', backgroundColor: '#222222' },
+        TabLineFill: { backgroundColor: '#222222' },
+        TabLineSel: { color: '#999999', backgroundColor: '#222222' },
+        VertSplit: { color: '#222222', backgroundColor: '#222222' }
     },
     light: {
-        Normal: {
-            color: '#111111',
-            backgroundColor: '#ffffff',
-        },
-        TabLine: {
-            color: '#bbbbbb',
-            backgroundColor: '#f4f4f4'
-        },
-        TabLineSel: {
-            color: '#777777',
-            backgroundColor: '#f4f4f4'
-        },
-        TabLineFill: {
-            backgroundColor: '#f4f4f4'
-        },
-        StatusLine: {
-            color: '#777777',
-            backgroundColor: '#f4f4f4'
-        },
-        StatusLineNC: {
-            color: '#bbbbbb',
-            backgroundColor: '#f4f4f4'
-        },
-        NonText: {
-            color: '#dddddd'
-        },
-        LineNr: {
-            color: '#cccccc'
-        },
-        Comment: {
-            color: '#bbbbbb'
-        },
-        String: {
-            color: '#999999'
-        },
-        Number: {
-            color: '#999999'
-        },
-        Constant: {
-            color: '#999999'
-        },
-        StorageClass: {
-            color: '#777777'
-        },
-        Conditional: {
-            color: '#777777'
-        },
-        Special: {
-            color: '#777777'
-        },
-        Type: {
-            color: '#777777'
-        },
-        Cursor: {
-            highlight: 'reverse'
-        },
-        Visual: {
-            backgroundColor: '#cccccc'
-        },
-        IncSearch: {
-            backgroundColor: '#cccccc'
-        },
-        Search: {
-            backgroundColor: '#eeeeee'
-        },
-        MatchParen: {
-            backgroundColor: '#cccccc'
-        },
-        VertSplit: {
-            color: '#f4f4f4',
-            backgroundColor: '#f4f4f4'
-        }
+        Normal: { color: '#000000', backgroundColor: '#ffffff' },
+
+        Cursor: { highlight: 'reverse' },
+        IncSearch: { backgroundColor: '#bbbbbb' },
+        MatchParen: { backgroundColor: '#bbbbbb' },
+        Search: { backgroundColor: '#dddddd' },
+        Visual: { backgroundColor: '#bbbbbb' },
+
+        Conditional: { color: '#777777' },
+        StorageClass: { color: '#777777' },
+        Type: { color: '#777777' },
+        Special: { color: '#777777' },
+
+        Constant: { color: '#999999' },
+        Number: { color: '#999999' },
+        String: { color: '#999999' },
+
+        Comment: { color: '#bbbbbb' },
+        LineNr: { color: '#bbbbbb' },
+        NonText: { color: '#dddddd' },
+
+        StatusLine: { color: '#777777', backgroundColor: '#f4f4f4' },
+        StatusLineNC: { color: '#bbbbbb', backgroundColor: '#f4f4f4' },
+        TabLine: { color: '#bbbbbb', backgroundColor: '#f4f4f4' },
+        TabLineFill: { backgroundColor: '#f4f4f4' },
+        TabLineSel: { color: '#777777', backgroundColor: '#f4f4f4' },
+        VertSplit: { color: '#f4f4f4', backgroundColor: '#f4f4f4' },
+
     }
 };
 
