@@ -1239,7 +1239,7 @@ var App = require('./components/app');
 React.renderComponent(App(), document.body);
 
 
-}).call(this,require("IrXUsu"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/fake_f771860c.js","/")
+}).call(this,require("IrXUsu"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/fake_8016b47e.js","/")
 },{"./components/app":1,"IrXUsu":20,"buffer":17,"es6ify/node_modules/traceur/bin/traceur-runtime":16,"react":156}],10:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 "use strict";
@@ -1825,14 +1825,14 @@ var initialState = {
   },
   dark: {
     Normal: {
-      color: '#bbbbbb',
+      color: '#aaaaaa',
       backgroundColor: '#000000'
     },
     Cursor: {highlight: 'reverse'},
-    IncSearch: {backgroundColor: '#555555'},
-    MatchParen: {backgroundColor: '#555555'},
-    Search: {backgroundColor: '#333333'},
-    Visual: {backgroundColor: '#555555'},
+    IncSearch: {backgroundColor: '#666666'},
+    MatchParen: {backgroundColor: '#666666'},
+    Search: {backgroundColor: '#444444'},
+    Visual: {backgroundColor: '#666666'},
     Conditional: {color: '#999999'},
     Special: {color: '#999999'},
     Statement: {color: '#999999'},
@@ -1843,7 +1843,7 @@ var initialState = {
     String: {color: '#777777'},
     Comment: {color: '#555555'},
     LineNr: {color: '#555555'},
-    NonText: {color: '#333333'},
+    NonText: {color: '#555555'},
     StatusLine: {
       color: '#999999',
       backgroundColor: '#222222'
@@ -1884,9 +1884,9 @@ var initialState = {
     Constant: {color: '#999999'},
     Number: {color: '#999999'},
     String: {color: '#999999'},
-    Comment: {color: '#bbbbbb'},
-    LineNr: {color: '#bbbbbb'},
-    NonText: {color: '#dddddd'},
+    Comment: {color: '#cccccc'},
+    LineNr: {color: '#cccccc'},
+    NonText: {color: '#cccccc'},
     StatusLine: {
       color: '#777777',
       backgroundColor: '#eeeeee'

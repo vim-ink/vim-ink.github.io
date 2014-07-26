@@ -282,7 +282,7 @@ body.light .highlight-button.reverse {
 
 body.dark .highlight-button.reverse {
     background-color: #666;
-    color: #111;
+    color: #000;
 }
 
 .highlight-button.standout {
@@ -296,7 +296,7 @@ body.light .highlight-button.standout {
 
 body.dark .highlight-button.standout {
     background-color: #666;
-    color: #111;
+    color: #000;
 }
 
 body.light .highlight-button:hover {

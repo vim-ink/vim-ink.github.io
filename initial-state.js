@@ -38,13 +38,13 @@ var initialState = {
         dangerZone: 'hide'
     },
     dark: {
-        Normal: { color: '#bbbbbb', backgroundColor: '#000000' },
+        Normal: { color: '#aaaaaa', backgroundColor: '#000000' },
 
         Cursor: { highlight: 'reverse' },
-        IncSearch: { backgroundColor: '#555555' },
-        MatchParen: { backgroundColor: '#555555' },
-        Search: { backgroundColor: '#333333' },
-        Visual: { backgroundColor: '#555555' },
+        IncSearch: { backgroundColor: '#666666' },
+        MatchParen: { backgroundColor: '#666666' },
+        Search: { backgroundColor: '#444444' },
+        Visual: { backgroundColor: '#666666' },
 
         Conditional: { color: '#999999' },
         Special: { color: '#999999' },
@@ -58,7 +58,7 @@ var initialState = {
 
         Comment: { color: '#555555' },
         LineNr: { color: '#555555' },
-        NonText: { color: '#333333' },
+        NonText: { color: '#555555' },
 
         StatusLine: { color: '#999999', backgroundColor: '#222222' },
         StatusLineNC: { color: '#777777', backgroundColor: '#222222' },
@@ -86,9 +86,9 @@ var initialState = {
         Number: { color: '#999999' },
         String: { color: '#999999' },
 
-        Comment: { color: '#bbbbbb' },
-        LineNr: { color: '#bbbbbb' },
-        NonText: { color: '#dddddd' },
+        Comment: { color: '#cccccc' },
+        LineNr: { color: '#cccccc' },
+        NonText: { color: '#cccccc' },
 
         StatusLine: { color: '#777777', backgroundColor: '#eeeeee' },
         StatusLineNC: { color: '#bbbbbb', backgroundColor: '#eeeeee' },
