@@ -1239,7 +1239,7 @@ var App = require('./components/app');
 React.renderComponent(App(), document.body);
 
 
-}).call(this,require("IrXUsu"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/fake_2b70e67d.js","/")
+}).call(this,require("IrXUsu"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/fake_f771860c.js","/")
 },{"./components/app":1,"IrXUsu":20,"buffer":17,"es6ify/node_modules/traceur/bin/traceur-runtime":16,"react":156}],10:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 "use strict";
@@ -1834,9 +1834,10 @@ var initialState = {
     Search: {backgroundColor: '#333333'},
     Visual: {backgroundColor: '#555555'},
     Conditional: {color: '#999999'},
+    Special: {color: '#999999'},
+    Statement: {color: '#999999'},
     StorageClass: {color: '#999999'},
     Type: {color: '#999999'},
-    Special: {color: '#999999'},
     Constant: {color: '#777777'},
     Number: {color: '#777777'},
     String: {color: '#777777'},
@@ -1876,9 +1877,10 @@ var initialState = {
     Search: {backgroundColor: '#dddddd'},
     Visual: {backgroundColor: '#bbbbbb'},
     Conditional: {color: '#777777'},
+    Special: {color: '#777777'},
+    Statement: {color: '#777777'},
     StorageClass: {color: '#777777'},
     Type: {color: '#777777'},
-    Special: {color: '#777777'},
     Constant: {color: '#999999'},
     Number: {color: '#999999'},
     String: {color: '#999999'},
@@ -1887,24 +1889,24 @@ var initialState = {
     NonText: {color: '#dddddd'},
     StatusLine: {
       color: '#777777',
-      backgroundColor: '#f4f4f4'
+      backgroundColor: '#eeeeee'
     },
     StatusLineNC: {
       color: '#bbbbbb',
-      backgroundColor: '#f4f4f4'
+      backgroundColor: '#eeeeee'
     },
     TabLine: {
       color: '#bbbbbb',
-      backgroundColor: '#f4f4f4'
+      backgroundColor: '#eeeeee'
     },
-    TabLineFill: {backgroundColor: '#f4f4f4'},
+    TabLineFill: {backgroundColor: '#eeeeee'},
     TabLineSel: {
       color: '#777777',
-      backgroundColor: '#f4f4f4'
+      backgroundColor: '#eeeeee'
     },
     VertSplit: {
-      color: '#f4f4f4',
-      backgroundColor: '#f4f4f4'
+      color: '#eeeeee',
+      backgroundColor: '#eeeeee'
     }
   }
 };

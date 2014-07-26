@@ -47,9 +47,10 @@ var initialState = {
         Visual: { backgroundColor: '#555555' },
 
         Conditional: { color: '#999999' },
+        Special: { color: '#999999' },
+        Statement: { color: '#999999' },
         StorageClass: { color: '#999999' },
         Type: { color: '#999999' },
-        Special: { color: '#999999' },
 
         Constant: { color: '#777777' },
         Number: { color: '#777777' },
@@ -76,9 +77,10 @@ var initialState = {
         Visual: { backgroundColor: '#bbbbbb' },
 
         Conditional: { color: '#777777' },
+        Special: { color: '#777777' },
+        Statement: { color: '#777777' },
         StorageClass: { color: '#777777' },
         Type: { color: '#777777' },
-        Special: { color: '#777777' },
 
         Constant: { color: '#999999' },
         Number: { color: '#999999' },
@@ -88,12 +90,12 @@ var initialState = {
         LineNr: { color: '#bbbbbb' },
         NonText: { color: '#dddddd' },
 
-        StatusLine: { color: '#777777', backgroundColor: '#f4f4f4' },
-        StatusLineNC: { color: '#bbbbbb', backgroundColor: '#f4f4f4' },
-        TabLine: { color: '#bbbbbb', backgroundColor: '#f4f4f4' },
-        TabLineFill: { backgroundColor: '#f4f4f4' },
-        TabLineSel: { color: '#777777', backgroundColor: '#f4f4f4' },
-        VertSplit: { color: '#f4f4f4', backgroundColor: '#f4f4f4' },
+        StatusLine: { color: '#777777', backgroundColor: '#eeeeee' },
+        StatusLineNC: { color: '#bbbbbb', backgroundColor: '#eeeeee' },
+        TabLine: { color: '#bbbbbb', backgroundColor: '#eeeeee' },
+        TabLineFill: { backgroundColor: '#eeeeee' },
+        TabLineSel: { color: '#777777', backgroundColor: '#eeeeee' },
+        VertSplit: { color: '#eeeeee', backgroundColor: '#eeeeee' },
 
     }
 };
