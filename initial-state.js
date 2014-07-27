@@ -60,6 +60,7 @@ var initialState = {
         Comment: {color: '#555555'},
         LineNr: {color: '#555555'},
         NonText: {color: '#555555'},
+        SpecialKey: {color: '#555555'},
 
         StatusLine: {color: '#999999', backgroundColor: '#222222'},
         StatusLineNC: {color: '#777777', backgroundColor: '#222222'},
@@ -101,6 +102,7 @@ var initialState = {
         Comment: {color: '#cccccc'},
         LineNr: {color: '#cccccc'},
         NonText: {color: '#cccccc'},
+        SpecialKey: {color: '#cccccc'},
  
         StatusLine: {color: '#777777', backgroundColor: '#eeeeee'},
         StatusLineNC: {color: '#bbbbbb', backgroundColor: '#eeeeee'},

@@ -1239,7 +1239,7 @@ var App = require('./components/app');
 React.renderComponent(App(), document.body);
 
 
-}).call(this,require("IrXUsu"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/fake_23c15737.js","/")
+}).call(this,require("IrXUsu"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/fake_b4fad5da.js","/")
 },{"./components/app":1,"IrXUsu":20,"buffer":17,"es6ify/node_modules/traceur/bin/traceur-runtime":16,"react":156}],10:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 "use strict";
@@ -1845,6 +1845,7 @@ var initialState = {
     Comment: {color: '#555555'},
     LineNr: {color: '#555555'},
     NonText: {color: '#555555'},
+    SpecialKey: {color: '#555555'},
     StatusLine: {
       color: '#999999',
       backgroundColor: '#222222'
@@ -1898,6 +1899,7 @@ var initialState = {
     Comment: {color: '#cccccc'},
     LineNr: {color: '#cccccc'},
     NonText: {color: '#cccccc'},
+    SpecialKey: {color: '#cccccc'},
     StatusLine: {
       color: '#777777',
       backgroundColor: '#eeeeee'
