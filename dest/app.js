@@ -1239,7 +1239,7 @@ var App = require('./components/app');
 React.renderComponent(App(), document.body);
 
 
-}).call(this,require("IrXUsu"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/fake_59a66fe0.js","/")
+}).call(this,require("IrXUsu"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/fake_23c15737.js","/")
 },{"./components/app":1,"IrXUsu":20,"buffer":17,"es6ify/node_modules/traceur/bin/traceur-runtime":16,"react":156}],10:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 "use strict";
@@ -1838,6 +1838,7 @@ var initialState = {
     Statement: {color: '#999999'},
     StorageClass: {color: '#999999'},
     Type: {color: '#999999'},
+    Directory: {color: '#999999'},
     Constant: {color: '#777777'},
     Number: {color: '#777777'},
     String: {color: '#777777'},
@@ -1864,7 +1865,16 @@ var initialState = {
     VertSplit: {
       color: '#222222',
       backgroundColor: '#222222'
-    }
+    },
+    CursorLine: {backgroundColor: '#222222'},
+    CursorColumn: {backgroundColor: '#222222'},
+    ColorColumn: {backgroundColor: '#222222'},
+    Pmenu: {backgroundColor: '#444444'},
+    PmenuSel: {backgroundColor: '#555555'},
+    ErrorMsg: {color: '#cc3333'},
+    MoreMsg: {},
+    ModeMsg: {},
+    WarningMsg: {}
   },
   light: {
     Normal: {
@@ -1881,6 +1891,7 @@ var initialState = {
     Statement: {color: '#777777'},
     StorageClass: {color: '#777777'},
     Type: {color: '#777777'},
+    Directory: {color: '#777777'},
     Constant: {color: '#999999'},
     Number: {color: '#999999'},
     String: {color: '#999999'},
@@ -1907,7 +1918,16 @@ var initialState = {
     VertSplit: {
       color: '#eeeeee',
       backgroundColor: '#eeeeee'
-    }
+    },
+    CursorLine: {backgroundColor: '#eeeeee'},
+    CursorColumn: {backgroundColor: '#eeeeee'},
+    ColorColumn: {backgroundColor: '#eeeeee'},
+    Pmenu: {backgroundColor: '#eeeeee'},
+    PmenuSel: {backgroundColor: '#dddddd'},
+    ErrorMsg: {color: '#cc3333'},
+    MoreMsg: {},
+    ModeMsg: {},
+    WarningMsg: {}
   }
 };
 module.exports = initialState;
