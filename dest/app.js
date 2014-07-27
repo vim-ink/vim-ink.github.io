@@ -1239,7 +1239,7 @@ var App = require('./components/app');
 React.renderComponent(App(), document.body);
 
 
-}).call(this,require("IrXUsu"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/fake_cfa3e0e6.js","/")
+}).call(this,require("IrXUsu"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/fake_ccdd36ad.js","/")
 },{"./components/app":1,"IrXUsu":20,"buffer":17,"es6ify/node_modules/traceur/bin/traceur-runtime":16,"react":156}],10:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 "use strict";
@@ -1869,13 +1869,15 @@ var initialState = {
     },
     CursorLine: {backgroundColor: '#222222'},
     CursorColumn: {backgroundColor: '#222222'},
+    CursorLineNr: {color: '#777777'},
     ColorColumn: {backgroundColor: '#222222'},
     Pmenu: {backgroundColor: '#444444'},
     PmenuSel: {backgroundColor: '#555555'},
     ErrorMsg: {color: '#cc3333'},
     MoreMsg: {},
     ModeMsg: {},
-    WarningMsg: {}
+    WarningMsg: {},
+    Todo: {highlight: 'standout'}
   },
   light: {
     Normal: {
@@ -1923,13 +1925,15 @@ var initialState = {
     },
     CursorLine: {backgroundColor: '#eeeeee'},
     CursorColumn: {backgroundColor: '#eeeeee'},
+    CursorLineNr: {color: '#999999'},
     ColorColumn: {backgroundColor: '#eeeeee'},
     Pmenu: {backgroundColor: '#eeeeee'},
     PmenuSel: {backgroundColor: '#dddddd'},
     ErrorMsg: {color: '#cc3333'},
     MoreMsg: {},
     ModeMsg: {},
-    WarningMsg: {}
+    WarningMsg: {},
+    Todo: {highlight: 'standout'}
   }
 };
 module.exports = initialState;

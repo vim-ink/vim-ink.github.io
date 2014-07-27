@@ -70,6 +70,7 @@ var initialState = {
         VertSplit: {color: '#222222', backgroundColor: '#222222'},
         CursorLine: {backgroundColor: '#222222'},
         CursorColumn: {backgroundColor: '#222222'},
+        CursorLineNr: {color: '#777777'},
         ColorColumn: {backgroundColor: '#222222'},
         Pmenu: {backgroundColor: '#444444'},
         PmenuSel: {backgroundColor: '#555555'},
@@ -77,7 +78,9 @@ var initialState = {
         ErrorMsg: {color: '#cc3333'},
         MoreMsg: {},
         ModeMsg: {},
-        WarningMsg: {}
+        WarningMsg: {},
+
+        Todo: {highlight: 'standout'}
     },
     light: {
         Normal: {color: '#000000', backgroundColor: '#ffffff'},
@@ -112,6 +115,7 @@ var initialState = {
         VertSplit: {color: '#eeeeee', backgroundColor: '#eeeeee'},
         CursorLine: {backgroundColor: '#eeeeee'},
         CursorColumn: {backgroundColor: '#eeeeee'},
+        CursorLineNr: {color: '#999999'},
         ColorColumn: {backgroundColor: '#eeeeee'},
         Pmenu: {backgroundColor: '#eeeeee'},
         PmenuSel: {backgroundColor: '#dddddd'},
@@ -119,7 +123,9 @@ var initialState = {
         ErrorMsg: {color: '#cc3333'},
         MoreMsg: {},
         ModeMsg: {},
-        WarningMsg: {}
+        WarningMsg: {},
+
+        Todo: {highlight: 'standout'}
     }
 };
 
