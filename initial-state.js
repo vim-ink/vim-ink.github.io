@@ -103,7 +103,7 @@ var initialState = {
         LineNr: {color: '#cccccc'},
         NonText: {color: '#cccccc'},
         SpecialKey: {color: '#cccccc'},
- 
+
         StatusLine: {color: '#777777', backgroundColor: '#eeeeee'},
         StatusLineNC: {color: '#bbbbbb', backgroundColor: '#eeeeee'},
         TabLine: {color: '#bbbbbb', backgroundColor: '#eeeeee'},
