@@ -69,8 +69,8 @@ var d31 = '#f8f8f8';
 var d32 = '#ffffff';
 
 var lf0 = l32;
-var lf1 = l20;
-var lf2 = l16;
+var lf1 = l24;
+var lf2 = l18;
 var lf3 = l14;
 var lf4 = l12;
 var lf5 = l6;

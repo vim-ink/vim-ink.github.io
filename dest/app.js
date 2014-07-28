@@ -1235,7 +1235,7 @@ var App = require('./components/app');
 React.renderComponent(App(), document.body);
 
 
-}).call(this,require("IrXUsu"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/fake_97b3ae9a.js","/")
+}).call(this,require("IrXUsu"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/fake_e89a9484.js","/")
 },{"./components/app":1,"IrXUsu":20,"buffer":17,"es6ify/node_modules/traceur/bin/traceur-runtime":16,"react":156}],10:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 "use strict";
@@ -1849,8 +1849,8 @@ var d30 = '#f0f0f0';
 var d31 = '#f8f8f8';
 var d32 = '#ffffff';
 var lf0 = l32;
-var lf1 = l20;
-var lf2 = l16;
+var lf1 = l24;
+var lf2 = l18;
 var lf3 = l14;
 var lf4 = l12;
 var lf5 = l6;

@@ -1,0 +1,900 @@
+$l0: #ffffff;
+$l1: #f8f8f8;
+$l2: #f0f0f0;
+$l3: #e8e8e8;
+$l4: #e0e0e0;
+$l5: #d8d8d8;
+$l6: #d0d0d0;
+$l7: #c8c8c8;
+$l8: #c0c0c0;
+$l9: #b8b8b8;
+$l10: #b0b0b0;
+$l11: #a8a8a8;
+$l12: #a0a0a0;
+$l13: #989898;
+$l14: #909090;
+$l15: #888888;
+$l16: #808080;
+$l17: #787878;
+$l18: #707070;
+$l19: #686868;
+$l20: #606060;
+$l21: #585858;
+$l22: #505050;
+$l23: #484848;
+$l24: #404040;
+$l25: #383838;
+$l26: #303030;
+$l27: #282828;
+$l28: #202020;
+$l29: #181818;
+$l30: #101010;
+$l31: #080808;
+$l32: #000000;
+
+$d0: #000000;
+$d1: #080808;
+$d2: #101010;
+$d3: #181818;
+$d4: #202020;
+$d5: #282828;
+$d6: #303030;
+$d7: #383838;
+$d8: #404040;
+$d9: #484848;
+$d10: #505050;
+$d11: #585858;
+$d12: #606060;
+$d13: #686868;
+$d14: #707070;
+$d15: #787878;
+$d16: #808080;
+$d17: #888888;
+$d18: #909090;
+$d19: #989898;
+$d20: #a0a0a0;
+$d21: #a8a8a8;
+$d22: #b0b0b0;
+$d23: #b8b8b8;
+$d24: #c0c0c0;
+$d25: #c8c8c8;
+$d26: #d0d0d0;
+$d27: #d8d8d8;
+$d28: #e0e0e0;
+$d29: #e8e8e8;
+$d30: #f0f0f0;
+$d31: #f8f8f8;
+$d32: #ffffff;
+
+$lf0: $l32;
+$lf1: $l24;
+$lf2: $l18;
+$lf3: $l14;
+$lf4: $l12;
+$lf5: $l6;
+
+$lb0: $l0;
+$lb1: $l1;
+$lb2: $l2;
+$lb3: $l3;
+$lb4: $l4;
+$lb5: $l5;
+
+$df0: $d24;
+$df1: $d21;
+$df2: $d19;
+$df3: $d15;
+$df4: $d14;
+$df5: $d10;
+
+$db0: $d0;
+$db1: $d4;
+$db2: $d5;
+$db3: $d7;
+$db4: $d8;
+$db5: $d9;
+
+/* Reset */
+
+* {
+    box-sizing: border-box;
+}
+
+h2, .nav, pre {
+    cursor: default;
+}
+
+/* Typography */
+
+html {
+    font-size: 62.5%;
+}
+
+body, input, button {
+    font-family: 'Source Sans Pro';
+}
+
+pre, textarea {
+    font-family: 'Source Code Pro';
+}
+
+h1, h2, body, input, button, textarea {
+    font-weight: 300;
+}
+
+/* body */
+
+body {
+    font-size: 1.5em; /* Use em instead of rem because of Chrome bug */
+    margin: 0;
+}
+
+body.light {
+    background-color: $lb0;
+    color: $lf3;
+}
+
+body.dark {
+    background-color: $db0;
+    color: $df3;
+}
+
+/* .wrap */
+
+.wrap {
+    width: 110rem;
+    margin: 0 auto;
+}
+
+/* header */
+
+body.light header {
+    border-bottom: 1px solid $lb2;
+}
+
+body.dark header {
+    border-bottom: 1px solid $db2;
+}
+
+/* h1 */
+
+h1 {
+    text-align: left;
+    margin: 0;
+    font-size: 2rem;
+    margin: 3rem 0rem 1rem 0rem;
+}
+
+body.light h1 {
+    color: $lf4;
+}
+
+body.dark h1 {
+    color: $df4;
+}
+
+/* article */
+
+article {
+    float: left;
+    width: 84rem;
+}
+
+header .nav.files {
+    width: 84rem;
+    float: left;
+}
+header .nav.panes {
+    width: 23.5rem;
+    float: right;
+}
+
+/* .nav */
+
+ul.nav {
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    font-size: 1.4rem;
+    margin-bottom: -1px;
+}
+
+ul.nav a {
+    text-decoration: none;
+    cursor: default;
+}
+
+body.light ul.nav,
+body.light ul.nav a {
+    color: $lf4;
+}
+
+body.dark ul.nav,
+body.dark ul.nav a {
+    color: $df4;
+}
+
+ul.nav li {
+    display: inline-block;
+    padding: 1.5rem 0;
+    margin: 0 3rem 0 0;
+}
+
+ul.nav li:last-child {
+    margin-right: 0;
+}
+
+body.light ul.nav li:hover,
+body.light ul.nav li a:hover {
+    color: $lf3;
+}
+
+body.dark ul.nav li:hover,
+body.dark ul.nav li a:hover {
+    color: $df3;
+}
+
+body.light ul.nav li:active,
+body.light ul.nav li a:active {
+    color: $lf2;
+}
+
+body.dark ul.nav li:active,
+body.dark ul.nav li a:active {
+    color: $df2;
+}
+
+body.light ul.nav li.active,
+body.light ul.nav li.active a {
+    color: $lf2;
+    border-bottom: 1px solid $lb5;
+}
+
+body.dark ul.nav li.active,
+body.dark ul.nav li.active a {
+    color: $df2;
+    border-bottom: 1px solid $db5;
+}
+
+ul.nav li.right-link {
+    float: right;
+}
+
+/* footer */
+
+footer {
+    margin: 2rem 0 2rem 0;
+    overflow: hidden;
+    text-align: center;
+}
+
+/* pre */
+
+pre {
+    font-size: 1.6rem;
+    margin: 2.5rem 0 0 0;
+    overflow: hidden;
+}
+
+body.light pre {
+    /* box-shadow: 0.2rem 0.2rem 0.6rem #f2f2f2; */
+}
+
+body.dark pre {
+    /* box-shadow: 0.2rem 0.2rem 0.6rem #202020; */
+}
+
+/* textarea */
+
+textarea {
+    border: 0;
+}
+
+body.light textarea {
+    background-color: $lb0;
+    color: $lf0;
+}
+
+body.dark textarea {
+    background-color: $db0;
+    color: $df0;
+}
+
+/* .paste */
+
+.paste {
+    width: 100%;
+    height: 40rem;
+    float: left;
+    font-size: 1.6rem;
+    margin: 2.5rem 0 0 0;
+}
+
+/* .highlight-button */
+
+.highlight-button {
+    background-color: transparent;
+    font-size: 1.5rem;
+    width: 3.0rem;
+    height: 3.0rem;
+    margin-right: 1rem;
+    opacity: 0.5;
+    border: 0;
+    border-radius: 1.5rem;
+}
+
+body.light .highlight-button {
+    color: $lf3;
+}
+
+body.dark .highlight-button {
+    color: $df3;
+}
+
+.highlight-button.active {
+    opacity: 1;
+}
+
+body.light .highlight-button.none {
+    border: 0.1rem dashed $lf4;
+}
+
+body.dark .highlight-button.none {
+    border: 0.1rem dashed $df4;
+}
+
+.highlight-button.none span {
+    visibility: hidden;
+}
+
+.highlight-button.bold span {
+    font-weight: 400;
+}
+
+.highlight-button.italic span {
+    font-style: italic;
+}
+
+body.light .highlight-button.underline span {
+    border-bottom: 0.1rem solid $lf3;
+}
+
+body.dark .highlight-button.underline span {
+    border-bottom: 0.1rem solid $df3;
+}
+
+body.light .highlight-button.undercurl span {
+    border-bottom: 0.1rem dotted $lf3;
+}
+
+body.dark .highlight-button.undercurl span {
+    border-bottom: 0.1rem dotted $df3;
+}
+
+body.light .highlight-button.reverse {
+    background-color: $lf5;
+    color: $lb0;
+}
+
+body.dark .highlight-button.reverse {
+    background-color: $df5;
+    color: $db0;
+}
+
+.highlight-button.standout {
+    font-weight: 400;
+}
+
+body.light .highlight-button.standout {
+    background-color: $lf5;
+    color: $lb0;
+}
+
+body.dark .highlight-button.standout {
+    background-color: $df5;
+    color: $db0;
+}
+
+body.light .highlight-button:hover {
+    opacity: 1;
+}
+
+body.dark .highlight-button:hover {
+    opacity: 1;
+}
+
+body.light .highlight-button.none:active {
+    border: 0.1rem dashed $lf3;
+}
+
+body.dark .highlight-button.none:active {
+    border: 0.1rem dashed $df3;
+}
+
+body.light .highlight-button.bold:active,
+body.light .highlight-button.italic:active,
+body.light .highlight-button.underline:active,
+body.light .highlight-button.undercurl:active {
+    color: $lf2;
+}
+
+body.dark .highlight-button.bold:active,
+body.dark .highlight-button.italic:active,
+body.dark .highlight-button.underline:active,
+body.dark .highlight-button.undercurl:active {
+    color: $df2;
+}
+
+body.light .highlight-button.reverse:active,
+body.light .highlight-button.standout:active {
+    background-color: $lf4;
+}
+
+body.dark .highlight-button.reverse:active,
+body.dark .highlight-button.standout:active {
+    background-color: $df4;
+}
+
+.highlight-button:focus {
+    outline: 0;
+}
+
+/* .small-button */
+
+.small-button {
+    padding: 0 1rem;
+    background-color: transparent;
+    font-size: 1.4rem;
+    height: 3rem;
+    border-radius: 0.3rem;
+    border: 0;
+}
+
+body.light .small-button {
+    border: 1px solid $lb5;
+    color: $lf3;
+}
+
+body.dark .small-button {
+    border: 1px solid $db5;
+    color: $df3;
+}
+
+body.light .small-button:hover {
+    background-color: $lb5;
+    color: $lf2;
+}
+
+body.dark .small-button:hover {
+    background-color: $db5;
+    color: $df2;
+}
+
+body.light .small-button:active {
+    color: $lf1;
+}
+
+body.dark .small-button:active {
+    color: $df1;
+}
+
+.small-button:focus {
+    outline: 0;
+}
+
+/* .button */
+
+.button {
+    padding-left: 3rem;
+    padding-right: 3rem;
+    height: 4rem;
+    background-color: transparent;
+    font-size: 1.4rem;
+    border-radius: 0.3rem;
+    border: 0;
+}
+
+body.light .button {
+    border: 1px solid $lb5;
+    color: $lf3;
+}
+
+body.dark .button {
+    border: 1px solid $db5;
+    color: $df3;
+}
+
+body.light .button:hover {
+    background-color: $lb5;
+    color: $lf2;
+}
+
+body.dark .button:hover {
+    background-color: $db5;
+    color: $df2;
+}
+
+.button:active {
+    position: relative;
+    left: 0.1rem;
+    top: 0.1rem;
+}
+
+.button:focus {
+    outline: 0;
+}
+
+/* input[type="color"] */
+
+input[type="color"] {
+    width: 3rem;
+    height: 3rem;
+    opacity: 0;
+}
+
+/* input[type="range"] */
+
+input[type="range"] {
+    -webkit-appearance: none;
+    height: 0.1rem;
+    width: 100%;
+    outline: 0;
+}
+
+input[type="range"]::-webkit-slider-runnable-track {
+    height: 0.1rem;
+}
+
+body.light input[type="range"]::-webkit-slider-runnable-track {
+    border-bottom: 1px solid $lb3;
+}
+
+body.dark input[type="range"]::-webkit-slider-runnable-track {
+    border-bottom: 1px solid $db3;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 1.25rem;
+    height: 1.25rem;
+    margin-top: -0.5rem;
+    border-radius: 0.625rem;
+}
+
+body.light input[type="range"]::-webkit-slider-thumb {
+    background-color: $lf5;
+}
+
+body.dark input[type="range"]::-webkit-slider-thumb {
+    background-color: $df5;
+}
+
+input[type="range"]::-moz-range-track {
+    border: 0;
+    height: 0.1rem;
+}
+
+body.light input[type="range"]::-moz-range-track {
+    border-bottom: 1px solid $lb3;
+}
+
+body.dark input[type="range"]::-moz-range-track {
+    border-bottom: 1px solid $db3;
+}
+
+input[type="range"]::-moz-range-thumb {
+    border: 0;
+    width: 1.25rem;
+    height: 1.25rem;
+    margin-top: -0.5rem;
+    border-radius: 0.625rem;
+}
+
+body.light input[type="range"]::-moz-range-thumb {
+    background-color: $lf5;
+}
+
+body.dark input[type="range"]::-moz-range-thumb {
+    background-color: $df5;
+}
+
+/* aside */
+
+aside {
+    width: 23.5rem;
+    float: right;
+}
+
+/* aside h2 */
+
+aside h2 {
+    font-size: 1.4rem;
+    margin: 1.5rem 0;
+    text-align: right;
+}
+
+aside section.first {
+    margin-top: 2.5rem !important;
+    border-top: 0!important;
+}
+
+aside section {
+    margin: 1.5rem 0;
+}
+
+body.light aside section {
+    border-top: 1px solid $lb2;
+}
+
+body.dark aside section {
+    border-top: 1px solid $db2;
+}
+
+body.light aside section h2 {
+    color: $lf4;
+}
+
+body.dark aside section h2 {
+    color: $df4;
+}
+
+body.light aside h2:hover {
+    color: $lf3;
+}
+
+body.dark aside h2:hover {
+    color: $df3;
+}
+
+body.light aside h2:active {
+    color: $lf2;
+}
+
+body.dark aside h2:active {
+    color: $df2;
+}
+
+/* .hidden */
+
+.hidden {
+    display: none;
+}
+
+/* .export */
+
+.export {
+    position: fixed;
+    top: 50%; 
+    left: 50%;
+    width: 80rem;
+    height: 60rem;
+    margin-left: -40rem;
+    margin-top: -30rem;
+    padding: 2rem;
+    text-align: right;
+}
+
+.export p {
+    text-align: left;
+}
+
+body.light .export {
+    background-color: $lb1;
+    color: $lf2;
+    box-shadow: 0.25rem 0.25rem 0.75rem $lb5;
+}
+
+body.dark .export {
+    background-color: $db1;
+    color: $df2;
+    box-shadow: 0.25rem 0.25rem 0.75rem $db5;
+}
+
+.export h2 {
+    text-align: left;
+    font-size: 2.4rem;
+    margin: 0;
+}
+
+.export textarea {
+    width: 100%;
+    height: 41.5rem;
+    margin: 0 0 2rem 0;
+    padding: 0;
+    border: 0;
+    font-size: 1.4rem;
+}
+
+/* .line */
+
+.line {
+    overflow: hidden;
+    margin-bottom: 1rem;
+}
+
+/* .button-line */
+
+.button-line .left {
+    width: 64%;
+    float: left;
+    line-height: 3rem;
+}
+
+.button-line .right {
+    width: 36%;
+    float: left;
+    text-align: right;
+}
+
+/* .color-line */
+
+.color-line .left {
+    width: 20%;
+    float: left;
+}
+
+.color-line .right {
+    width: 80%;
+    float: left;
+    line-height: 3rem;
+}
+
+body.light .color-line .right {
+    color: $lf5;
+}
+
+body.dark .color-line .right {
+    color: $df5;
+}
+
+body.light .color-line .right.active {
+    color: $lf3;
+}
+
+body.dark .color-line .right.active {
+    color: $df3;
+}
+
+/* .post-process-line */
+
+.post-process-line .left {
+    width: 40%;
+    float: left;
+    line-height: 3rem;
+}
+
+.post-process-line .right {
+    width: 60%;
+    float: left;
+    margin-top: 0.1rem;
+}
+
+body.light .post-process-line .left.inactive {
+    color: $lf5;
+}
+
+body.dark .post-process-line .left.inactive {
+    color: $df5;
+}
+
+/* .export-line-input */
+
+.export-line-input .left {
+    width: 24%;
+    float: left;
+    line-height: 3rem;
+}
+
+.export-line-input .right {
+    width: 76%;
+    float: left;
+}
+
+.export-line-input .right input {
+    width: 100%;
+}
+
+/* .selected-group-line */
+
+.selected-group-line .right {
+    margin-left: 1rem;
+}
+
+body.light .selected-group-line .right {
+    color: $lf5;
+}
+
+body.dark .selected-group-line .right {
+    color: $df5;
+}
+
+/* .modified-groups-line */
+
+body.light .modified-groups-line.none {
+    color: $lf5;
+}
+
+body.dark .modified-groups-line.none {
+    color: $df5;
+}
+
+/* .text */
+
+.text {
+    line-height: 2rem;
+    border-radius: 0px;
+    margin: 0;
+    padding: 0;
+    font-size: 1.5rem;
+    padding: 0.5rem 0.75rem;
+    border: 0;
+    outline: 0;
+}
+
+body.light .text {
+    background-color: $lb1;
+    color: $lf3;
+}
+
+body.dark .text {
+    background-color: $db1;
+    color: $df3;
+}
+
+/* .export-line-button */
+
+.export-line-button {
+    text-align: right;
+}
+
+/* .export-line-button */
+
+.danger-zone-line {
+    text-align: right;
+}
+
+/* .color-overlay */
+
+.color-overlay {
+    width: 3rem;
+    height: 3rem;
+    opacity: 1;
+    pointer-events: none;
+    margin-top: -3rem;
+    border-radius: 1.5rem;
+}
+
+body.light .color-overlay.none {
+    border: 1px dashed $lf4;
+}
+
+body.dark .color-overlay.none {
+    border: 1px dashed $df4;
+}
+
+body.light .color-overlay.border {
+    border: 1px solid $lb2;
+}
+
+body.dark .color-overlay.border {
+    border: 1px solid $db2;
+}
+
+/**
+ * For modern browsers
+ * 1. The space content is one way to avoid an Opera bug when the
+ *    contenteditable attribute is included anywhere else in the document.
+ *    Otherwise it causes space to appear at the top and bottom of elements
+ *    that are clearfixed.
+ * 2. The use of `table` rather than `block` is only necessary if using
+ *    `:before` to contain the top-margins of child elements.
+ */
+.cf:before,
+.cf:after {
+    content: ' '; /* 1 */
+    display: table; /* 2 */
+}
+
+.cf:after {
+    clear: both;
+}

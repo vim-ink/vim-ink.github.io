@@ -1,18 +1,19 @@
 var gulp = require('gulp');
-var less = require('gulp-less');
+var sass = require('gulp-sass');
 var minifyCss = require('gulp-minify-css');
 var browserify = require('gulp-browserify');
 var uglify = require('gulp-uglify');
 var es6ify = require('es6ify');
 
 var paths = {
-    styles: ['app.css'],
+    styles: ['app.scss'],
     scripts: ['app.js'],
     scriptsWatch: ['*.js', 'components/*.js']
 };
 
 gulp.task('styles', function() {
     return gulp.src(paths.styles)
+        .pipe(sass())
         .pipe(minifyCss())
         .pipe(gulp.dest('dest'));
 });
