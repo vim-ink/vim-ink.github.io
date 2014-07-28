@@ -562,11 +562,11 @@ input[type="range"]::-webkit-slider-thumb {
 }
 
 body.light input[type="range"]::-webkit-slider-thumb {
-    background-color: $lf5;
+    background-color: $lf4;
 }
 
 body.dark input[type="range"]::-webkit-slider-thumb {
-    background-color: $df5;
+    background-color: $df4;
 }
 
 input[type="range"]::-moz-range-track {
@@ -591,11 +591,11 @@ input[type="range"]::-moz-range-thumb {
 }
 
 body.light input[type="range"]::-moz-range-thumb {
-    background-color: $lf5;
+    background-color: $lf4;
 }
 
 body.dark input[type="range"]::-moz-range-thumb {
-    background-color: $df5;
+    background-color: $df4;
 }
 
 /* aside */
@@ -811,11 +811,11 @@ body.dark .selected-group-line .right {
 /* .modified-groups-line */
 
 body.light .modified-groups-line.none {
-    color: $lf5;
+    color: $lf4;
 }
 
 body.dark .modified-groups-line.none {
-    color: $df5;
+    color: $df4;
 }
 
 /* .text */
@@ -873,11 +873,11 @@ body.dark .color-overlay.none {
 }
 
 body.light .color-overlay.border {
-    border: 1px solid $lb2;
+    border: 1px solid $lb1;
 }
 
 body.dark .color-overlay.border {
-    border: 1px solid $db2;
+    border: 1px solid $db1;
 }
 
 /**
