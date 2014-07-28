@@ -19,7 +19,7 @@ body, input, button {
 }
 
 pre, textarea {
-    font-family: 'Source Code Pro';
+    font-family: 'Courier New';
 }
 
 h1, h2, body, input, button, textarea {
@@ -57,7 +57,7 @@ body.light header {
 }
 
 body.dark header {
-    border-bottom: 1px solid #222;
+    border-bottom: 1px solid #282828;
 }
 
 /* h1 */
@@ -534,7 +534,7 @@ body.light aside section {
 }
 
 body.dark aside section {
-    border-top: 0.1rem solid #222;
+    border-top: 0.1rem solid #282828;
 }
 
 body.light aside section h2 {
@@ -784,7 +784,7 @@ body.light .color-overlay.border {
 }
 
 body.dark .color-overlay.border {
-    border: 1px solid #222;
+    border: 1px solid #333;
 }
 
 /**

@@ -13,11 +13,7 @@ var Footer = require('./footer');
 var Export = require('./export');
 var App = React.createClass({
   getInitialState: function() {
-    if (localStorage.getItem('state') !== null) {
-      return JSON.parse(localStorage.getItem('state'));
-    } else {
-      return _.cloneDeep(initialState);
-    }
+    return _.cloneDeep(initialState);
   },
   render: function() {
     var $__0 = $traceurRuntime.assertObject(React.DOM),
@@ -1239,7 +1235,7 @@ var App = require('./components/app');
 React.renderComponent(App(), document.body);
 
 
-}).call(this,require("IrXUsu"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/fake_3c2992b2.js","/")
+}).call(this,require("IrXUsu"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/fake_97b3ae9a.js","/")
 },{"./components/app":1,"IrXUsu":20,"buffer":17,"es6ify/node_modules/traceur/bin/traceur-runtime":16,"react":156}],10:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 "use strict";
@@ -1786,6 +1782,97 @@ module.exports = files;
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 "use strict";
 var files = require('./files');
+var l0 = '#ffffff';
+var l1 = '#f8f8f8';
+var l2 = '#f0f0f0';
+var l3 = '#e8e8e8';
+var l4 = '#e0e0e0';
+var l5 = '#d8d8d8';
+var l6 = '#d0d0d0';
+var l7 = '#c8c8c8';
+var l8 = '#c0c0c0';
+var l9 = '#b8b8b8';
+var l10 = '#b0b0b0';
+var l11 = '#a8a8a8';
+var l12 = '#a0a0a0';
+var l13 = '#989898';
+var l14 = '#909090';
+var l15 = '#888888';
+var l16 = '#808080';
+var l17 = '#787878';
+var l18 = '#707070';
+var l19 = '#686868';
+var l20 = '#606060';
+var l21 = '#585858';
+var l22 = '#505050';
+var l23 = '#484848';
+var l24 = '#404040';
+var l25 = '#383838';
+var l26 = '#303030';
+var l27 = '#282828';
+var l28 = '#202020';
+var l29 = '#181818';
+var l30 = '#101010';
+var l31 = '#080808';
+var l32 = '#000000';
+var d0 = '#000000';
+var d1 = '#080808';
+var d2 = '#101010';
+var d3 = '#181818';
+var d4 = '#202020';
+var d5 = '#282828';
+var d6 = '#303030';
+var d7 = '#383838';
+var d8 = '#404040';
+var d9 = '#484848';
+var d10 = '#505050';
+var d11 = '#585858';
+var d12 = '#606060';
+var d13 = '#686868';
+var d14 = '#707070';
+var d15 = '#787878';
+var d16 = '#808080';
+var d17 = '#888888';
+var d18 = '#909090';
+var d19 = '#989898';
+var d20 = '#a0a0a0';
+var d21 = '#a8a8a8';
+var d22 = '#b0b0b0';
+var d23 = '#b8b8b8';
+var d24 = '#c0c0c0';
+var d25 = '#c8c8c8';
+var d26 = '#d0d0d0';
+var d27 = '#d8d8d8';
+var d28 = '#e0e0e0';
+var d29 = '#e8e8e8';
+var d30 = '#f0f0f0';
+var d31 = '#f8f8f8';
+var d32 = '#ffffff';
+var lf0 = l32;
+var lf1 = l20;
+var lf2 = l16;
+var lf3 = l14;
+var lf4 = l12;
+var lf5 = l6;
+var lb0 = l0;
+var lb1 = l1;
+var lb2 = l2;
+var lb3 = l3;
+var lb4 = l4;
+var lb5 = l5;
+var df0 = d24;
+var df1 = d21;
+var df2 = d19;
+var df3 = d15;
+var df4 = d14;
+var df5 = d10;
+var db0 = d0;
+var db1 = d4;
+var db2 = d5;
+var db3 = d7;
+var db4 = d8;
+var db5 = d9;
+var lred = '#cc3333';
 var initialState = {
   _version: 0,
   parsedSource: files.html.parsedSource,
@@ -1824,153 +1911,153 @@ var initialState = {
     dangerZone: 'hide'
   },
   light: {
-    ColorColumn: {backgroundColor: '#eeeeee'},
-    Comment: {color: '#cccccc'},
-    Conceal: {color: '#777777'},
-    Conditional: {color: '#777777'},
-    Constant: {color: '#999999'},
+    ColorColumn: {backgroundColor: lb1},
+    Comment: {color: lf4},
+    Conceal: {color: lf1},
+    Conditional: {color: lf1},
+    Constant: {color: lf2},
     Cursor: {highlight: 'reverse'},
-    CursorColumn: {backgroundColor: '#eeeeee'},
-    CursorLine: {backgroundColor: '#eeeeee'},
-    CursorLineNr: {color: '#999999'},
+    CursorColumn: {backgroundColor: lb1},
+    CursorLine: {backgroundColor: lb1},
+    CursorLineNr: {color: lf4},
     DiffAdd: {},
     DiffChange: {},
-    DiffDelete: {color: '#cc3333'},
+    DiffDelete: {color: lred},
     DiffText: {},
-    Directory: {color: '#777777'},
+    Directory: {color: lf1},
     Error: {},
-    ErrorMsg: {color: '#cc3333'},
-    FoldColumn: {color: '#cccccc'},
-    Folded: {color: '#cccccc'},
+    ErrorMsg: {color: lred},
+    FoldColumn: {color: lf4},
+    Folded: {color: lf4},
     Ignore: {},
-    IncSearch: {backgroundColor: '#dddddd'},
-    LineNr: {color: '#cccccc'},
-    MatchParen: {backgroundColor: '#dddddd'},
+    IncSearch: {backgroundColor: lb3},
+    LineNr: {color: lf5},
+    MatchParen: {backgroundColor: lb3},
     ModeMsg: {},
     MoreMsg: {},
-    NonText: {color: '#cccccc'},
+    NonText: {color: lf5},
     Normal: {
-      color: '#000000',
-      backgroundColor: '#ffffff'
+      color: lf0,
+      backgroundColor: lb0
     },
-    Number: {color: '#999999'},
-    Pmenu: {backgroundColor: '#eeeeee'},
-    PmenuSbar: {},
-    PmenuSel: {backgroundColor: '#dddddd'},
-    PmenuThumb: {},
+    Number: {color: lf2},
+    Pmenu: {backgroundColor: lb1},
+    PmenuSbar: {backgroundColor: lb0},
+    PmenuSel: {backgroundColor: lb3},
+    PmenuThumb: {backgroundColor: lb1},
     Question: {},
-    Search: {backgroundColor: '#eeeeee'},
-    SignColumn: {color: '#cccccc'},
-    Special: {color: '#777777'},
-    SpecialKey: {color: '#cccccc'},
-    SpellBad: {color: '#cc3333'},
+    Search: {backgroundColor: lb2},
+    SignColumn: {color: lf5},
+    Special: {color: lf1},
+    SpecialKey: {color: lf5},
+    SpellBad: {color: lred},
     SpellCap: {},
     SpellLocal: {},
     SpellRare: {},
-    Statement: {color: '#777777'},
+    Statement: {color: lf1},
     StatusLine: {
-      color: '#777777',
-      backgroundColor: '#eeeeee'
+      color: lf1,
+      backgroundColor: lb2
     },
     StatusLineNC: {
-      color: '#bbbbbb',
-      backgroundColor: '#eeeeee'
+      color: lf3,
+      backgroundColor: lb2
     },
-    StorageClass: {color: '#777777'},
-    String: {color: '#999999'},
+    StorageClass: {color: lf1},
+    String: {color: lf2},
     TabLine: {
-      color: '#bbbbbb',
-      backgroundColor: '#eeeeee'
+      color: lf3,
+      backgroundColor: lb2
     },
-    TabLineFill: {backgroundColor: '#eeeeee'},
+    TabLineFill: {backgroundColor: lb2},
     TabLineSel: {
-      color: '#777777',
-      backgroundColor: '#eeeeee'
+      color: lf1,
+      backgroundColor: lb2
     },
     Title: {},
     Todo: {highlight: 'standout'},
-    Type: {color: '#777777'},
+    Type: {color: lf1},
     Underlined: {},
-    VertSplit: {color: '#eeeeee'},
-    Visual: {backgroundColor: '#dddddd'},
+    VertSplit: {color: lb3},
+    Visual: {backgroundColor: lb3},
     VisualNOS: {},
     WarningMsg: {},
-    WildMenu: {backgroundColor: '#dddddd'},
+    WildMenu: {backgroundColor: lb2},
     lCursor: {}
   },
   dark: {
-    ColorColumn: {backgroundColor: '#222222'},
-    Comment: {color: '#555555'},
-    Conceal: {color: '#999999'},
-    Conditional: {color: '#999999'},
-    Constant: {color: '#777777'},
+    ColorColumn: {backgroundColor: db1},
+    Comment: {color: df4},
+    Conceal: {color: df1},
+    Conditional: {color: df1},
+    Constant: {color: df2},
     Cursor: {highlight: 'reverse'},
-    CursorColumn: {backgroundColor: '#222222'},
-    CursorLine: {backgroundColor: '#222222'},
-    CursorLineNr: {color: '#777777'},
+    CursorColumn: {backgroundColor: db1},
+    CursorLine: {backgroundColor: db1},
+    CursorLineNr: {color: df4},
     DiffAdd: {},
     DiffChange: {},
-    DiffDelete: {color: '#cc3333'},
+    DiffDelete: {color: lred},
     DiffText: {},
-    Directory: {color: '#999999'},
+    Directory: {color: df1},
     Error: {},
-    ErrorMsg: {color: '#cc3333'},
-    FoldColumn: {color: '#555555'},
-    Folded: {color: '#555555'},
+    ErrorMsg: {color: lred},
+    FoldColumn: {color: df4},
+    Folded: {color: df4},
     Ignore: {},
-    IncSearch: {backgroundColor: '#555555'},
-    LineNr: {color: '#555555'},
-    MatchParen: {backgroundColor: '#555555'},
+    IncSearch: {backgroundColor: db3},
+    LineNr: {color: df5},
+    MatchParen: {backgroundColor: db3},
     ModeMsg: {},
     MoreMsg: {},
-    NonText: {color: '#555555'},
+    NonText: {color: df5},
     Normal: {
-      color: '#aaaaaa',
-      backgroundColor: '#000000'
+      color: df0,
+      backgroundColor: db0
     },
-    Number: {color: '#777777'},
-    Pmenu: {backgroundColor: '#222222'},
-    PmenuSbar: {},
-    PmenuSel: {backgroundColor: '#333333'},
-    PmenuThumb: {},
+    Number: {color: df2},
+    Pmenu: {backgroundColor: db1},
+    PmenuSbar: {backgroundColor: db0},
+    PmenuSel: {backgroundColor: db3},
+    PmenuThumb: {backgroundColor: db1},
     Question: {},
-    Search: {backgroundColor: '#333333'},
-    SignColumn: {color: '#555555'},
-    Special: {color: '#999999'},
-    SpecialKey: {color: '#555555'},
-    SpellBad: {color: '#cc3333'},
+    Search: {backgroundColor: db2},
+    SignColumn: {color: df5},
+    Special: {color: df1},
+    SpecialKey: {color: df5},
+    SpellBad: {color: lred},
     SpellCap: {},
     SpellLocal: {},
     SpellRare: {},
-    Statement: {color: '#999999'},
+    Statement: {color: df1},
     StatusLine: {
-      color: '#999999',
-      backgroundColor: '#222222'
+      color: df1,
+      backgroundColor: db2
     },
     StatusLineNC: {
-      color: '#777777',
-      backgroundColor: '#222222'
+      color: df3,
+      backgroundColor: db2
     },
-    StorageClass: {color: '#999999'},
-    String: {color: '#777777'},
+    StorageClass: {color: df1},
+    String: {color: df2},
     TabLine: {
-      color: '#777777',
-      backgroundColor: '#222222'
+      color: df3,
+      backgroundColor: db2
     },
-    TabLineFill: {backgroundColor: '#222222'},
+    TabLineFill: {backgroundColor: db2},
     TabLineSel: {
-      color: '#999999',
-      backgroundColor: '#222222'
+      color: df1,
+      backgroundColor: db2
     },
     Title: {},
     Todo: {highlight: 'standout'},
-    Type: {color: '#999999'},
+    Type: {color: df1},
     Underlined: {},
-    VertSplit: {color: '#333333'},
-    Visual: {backgroundColor: '#555555'},
+    VertSplit: {color: db3},
+    Visual: {backgroundColor: db3},
     VisualNOS: {},
     WarningMsg: {},
-    WildMenu: {backgroundColor: '#333333'},
+    WildMenu: {backgroundColor: db2},
     lCursor: {}
   }
 };
