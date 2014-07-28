@@ -1235,7 +1235,7 @@ var App = require('./components/app');
 React.renderComponent(App(), document.body);
 
 
-}).call(this,require("IrXUsu"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/fake_90a86235.js","/")
+}).call(this,require("IrXUsu"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/fake_71f02f11.js","/")
 },{"./components/app":1,"IrXUsu":20,"buffer":17,"es6ify/node_modules/traceur/bin/traceur-runtime":16,"react":156}],10:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 "use strict";
@@ -1853,19 +1853,19 @@ var lf1 = l27;
 var lf2 = l22;
 var lf3 = l17;
 var lf4 = l12;
-var lf5 = l7;
+var lf5 = l5;
 var lb0 = l0;
 var lb1 = l1;
 var lb2 = l2;
 var lb3 = l3;
 var lb4 = l4;
 var lb5 = l5;
-var df0 = d28;
-var df1 = d25;
-var df2 = d22;
-var df3 = d19;
-var df4 = d16;
-var df5 = d13;
+var df0 = d27;
+var df1 = d24;
+var df2 = d21;
+var df3 = d18;
+var df4 = d15;
+var df5 = d12;
 var db0 = d2;
 var db1 = d4;
 var db2 = d6;
@@ -1914,8 +1914,8 @@ var initialState = {
     ColorColumn: {backgroundColor: lb1},
     Comment: {color: lf4},
     Conceal: {color: lf1},
-    Conditional: {color: lf1},
-    Constant: {color: lf2},
+    Conditional: {color: lf2},
+    Constant: {color: lf3},
     Cursor: {highlight: 'reverse'},
     CursorColumn: {backgroundColor: lb1},
     CursorLine: {backgroundColor: lb1},
@@ -1924,7 +1924,7 @@ var initialState = {
     DiffChange: {},
     DiffDelete: {color: lred},
     DiffText: {},
-    Directory: {color: lf1},
+    Directory: {color: lf2},
     Error: {},
     ErrorMsg: {color: lred},
     FoldColumn: {color: lf4},
@@ -1940,7 +1940,7 @@ var initialState = {
       color: lf0,
       backgroundColor: lb0
     },
-    Number: {color: lf2},
+    Number: {color: lf3},
     Pmenu: {backgroundColor: lb1},
     PmenuSbar: {backgroundColor: lb0},
     PmenuSel: {backgroundColor: lb3},
@@ -1948,13 +1948,13 @@ var initialState = {
     Question: {},
     Search: {backgroundColor: lb2},
     SignColumn: {color: lf5},
-    Special: {color: lf1},
+    Special: {color: lf2},
     SpecialKey: {color: lf5},
     SpellBad: {color: lred},
     SpellCap: {},
     SpellLocal: {},
     SpellRare: {},
-    Statement: {color: lf1},
+    Statement: {color: lf2},
     StatusLine: {
       color: lf1,
       backgroundColor: lb2
@@ -1963,8 +1963,8 @@ var initialState = {
       color: lf3,
       backgroundColor: lb2
     },
-    StorageClass: {color: lf1},
-    String: {color: lf2},
+    StorageClass: {color: lf2},
+    String: {color: lf3},
     TabLine: {
       color: lf3,
       backgroundColor: lb2
@@ -1976,7 +1976,7 @@ var initialState = {
     },
     Title: {},
     Todo: {highlight: 'standout'},
-    Type: {color: lf1},
+    Type: {color: lf2},
     Underlined: {},
     VertSplit: {color: lb3},
     Visual: {backgroundColor: lb3},
@@ -1989,8 +1989,8 @@ var initialState = {
     ColorColumn: {backgroundColor: db1},
     Comment: {color: df4},
     Conceal: {color: df1},
-    Conditional: {color: df1},
-    Constant: {color: df2},
+    Conditional: {color: df2},
+    Constant: {color: df3},
     Cursor: {highlight: 'reverse'},
     CursorColumn: {backgroundColor: db1},
     CursorLine: {backgroundColor: db1},
@@ -1999,7 +1999,7 @@ var initialState = {
     DiffChange: {},
     DiffDelete: {color: lred},
     DiffText: {},
-    Directory: {color: df1},
+    Directory: {color: df2},
     Error: {},
     ErrorMsg: {color: lred},
     FoldColumn: {color: df4},
@@ -2015,7 +2015,7 @@ var initialState = {
       color: df0,
       backgroundColor: db0
     },
-    Number: {color: df2},
+    Number: {color: df3},
     Pmenu: {backgroundColor: db1},
     PmenuSbar: {backgroundColor: db0},
     PmenuSel: {backgroundColor: db3},
@@ -2023,13 +2023,13 @@ var initialState = {
     Question: {},
     Search: {backgroundColor: db2},
     SignColumn: {color: df5},
-    Special: {color: df1},
+    Special: {color: df2},
     SpecialKey: {color: df5},
     SpellBad: {color: lred},
     SpellCap: {},
     SpellLocal: {},
     SpellRare: {},
-    Statement: {color: df1},
+    Statement: {color: df2},
     StatusLine: {
       color: df1,
       backgroundColor: db2
@@ -2038,8 +2038,8 @@ var initialState = {
       color: df3,
       backgroundColor: db2
     },
-    StorageClass: {color: df1},
-    String: {color: df2},
+    StorageClass: {color: df2},
+    String: {color: df3},
     TabLine: {
       color: df3,
       backgroundColor: db2
@@ -2051,7 +2051,7 @@ var initialState = {
     },
     Title: {},
     Todo: {highlight: 'standout'},
-    Type: {color: df1},
+    Type: {color: df2},
     Underlined: {},
     VertSplit: {color: db3},
     Visual: {backgroundColor: db3},
