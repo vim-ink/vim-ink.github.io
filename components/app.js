@@ -13,11 +13,11 @@ var Export = require('./export');
 
 var App = React.createClass({
     getInitialState() {
-        // if (localStorage.getItem('state') !== null) {
-        //     return JSON.parse(localStorage.getItem('state'));
-        // } else {
+        if (localStorage.getItem('state') !== null) {
+            return JSON.parse(localStorage.getItem('state'));
+        } else {
             return _.cloneDeep(initialState);
-        // }
+        }
     },
     render() {
         var {span, main} = React.DOM;

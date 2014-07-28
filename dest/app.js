@@ -13,7 +13,11 @@ var Footer = require('./footer');
 var Export = require('./export');
 var App = React.createClass({
   getInitialState: function() {
-    return _.cloneDeep(initialState);
+    if (localStorage.getItem('state') !== null) {
+      return JSON.parse(localStorage.getItem('state'));
+    } else {
+      return _.cloneDeep(initialState);
+    }
   },
   render: function() {
     var $__0 = $traceurRuntime.assertObject(React.DOM),
@@ -1235,7 +1239,7 @@ var App = require('./components/app');
 React.renderComponent(App(), document.body);
 
 
-}).call(this,require("IrXUsu"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/fake_ca92cadd.js","/")
+}).call(this,require("IrXUsu"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/fake_11fd29d9.js","/")
 },{"./components/app":1,"IrXUsu":20,"buffer":17,"es6ify/node_modules/traceur/bin/traceur-runtime":16,"react":156}],10:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 "use strict";
@@ -1853,7 +1857,7 @@ var lf1 = l27;
 var lf2 = l22;
 var lf3 = l17;
 var lf4 = l12;
-var lf5 = l5;
+var lf5 = l7;
 var lb0 = l0;
 var lb1 = l1;
 var lb2 = l2;
