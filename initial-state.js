@@ -69,11 +69,11 @@ var d31 = '#f8f8f8';
 var d32 = '#ffffff';
 
 var lf0 = l32;
-var lf1 = l24;
-var lf2 = l18;
-var lf3 = l14;
+var lf1 = l27;
+var lf2 = l22;
+var lf3 = l17;
 var lf4 = l12;
-var lf5 = l6;
+var lf5 = l7;
 
 var lb0 = l0;
 var lb1 = l1;
@@ -82,19 +82,19 @@ var lb3 = l3;
 var lb4 = l4;
 var lb5 = l5;
 
-var df0 = d24;
-var df1 = d21;
-var df2 = d19;
-var df3 = d15;
-var df4 = d14;
-var df5 = d10;
+var df0 = d28;
+var df1 = d25;
+var df2 = d22;
+var df3 = d19;
+var df4 = d16;
+var df5 = d13;
 
-var db0 = d0;
+var db0 = d2;
 var db1 = d4;
-var db2 = d5;
-var db3 = d7;
-var db4 = d8;
-var db5 = d9;
+var db2 = d6;
+var db3 = d8;
+var db4 = d10;
+var db5 = d12;
 
 var lred = '#cc3333';
 
