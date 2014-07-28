@@ -82,19 +82,19 @@ var lb3 = l3;
 var lb4 = l4;
 var lb5 = l5;
 
-var df0 = d27;
-var df1 = d24;
-var df2 = d21;
-var df3 = d18;
-var df4 = d15;
+var df0 = d22;
+var df1 = d20;
+var df2 = d18;
+var df3 = d16;
+var df4 = d14;
 var df5 = d12;
 
-var db0 = d2;
-var db1 = d4;
-var db2 = d6;
-var db3 = d8;
-var db4 = d10;
-var db5 = d12;
+var db0 = d0;
+var db1 = d2;
+var db2 = d4;
+var db3 = d6;
+var db4 = d8;
+var db5 = d10;
 
 var lred = '#cc3333';
 
@@ -170,7 +170,7 @@ var initialState = {
         Question: {},
         Search: {backgroundColor: lb2},
         SignColumn: {color: lf5},
-        Special: {color: lf2},
+        Special: {color: lf3},
         SpecialKey: {color: lf5},
         SpellBad: {color: lred},
         SpellCap: {},
@@ -184,7 +184,7 @@ var initialState = {
         TabLine: {color: lf4, backgroundColor: lb2},
         TabLineFill: {backgroundColor: lb2},
         TabLineSel: {color: lf1, backgroundColor: lb2},
-        Title: {},
+        Title: {color: lf3},
         Todo: {highlight: 'standout'},
         Type: {color: lf2},
         Underlined: {},
@@ -230,7 +230,7 @@ var initialState = {
         Question: {},
         Search: {backgroundColor: db2},
         SignColumn: {color: df5},
-        Special: {color: df2},
+        Special: {color: df3},
         SpecialKey: {color: df5},
         SpellBad: {color: lred},
         SpellCap: {},
@@ -244,7 +244,7 @@ var initialState = {
         TabLine: {color: df4, backgroundColor: db2},
         TabLineFill: {backgroundColor: db2},
         TabLineSel: {color: df1, backgroundColor: db2},
-        Title: {},
+        Title: {color: df3},
         Todo: {highlight: 'standout'},
         Type: {color: df2},
         Underlined: {},

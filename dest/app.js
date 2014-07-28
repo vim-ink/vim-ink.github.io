@@ -1235,7 +1235,7 @@ var App = require('./components/app');
 React.renderComponent(App(), document.body);
 
 
-}).call(this,require("IrXUsu"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/fake_84929311.js","/")
+}).call(this,require("IrXUsu"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/fake_ca92cadd.js","/")
 },{"./components/app":1,"IrXUsu":20,"buffer":17,"es6ify/node_modules/traceur/bin/traceur-runtime":16,"react":156}],10:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 "use strict";
@@ -1860,18 +1860,18 @@ var lb2 = l2;
 var lb3 = l3;
 var lb4 = l4;
 var lb5 = l5;
-var df0 = d27;
-var df1 = d24;
-var df2 = d21;
-var df3 = d18;
-var df4 = d15;
+var df0 = d22;
+var df1 = d20;
+var df2 = d18;
+var df3 = d16;
+var df4 = d14;
 var df5 = d12;
-var db0 = d2;
-var db1 = d4;
-var db2 = d6;
-var db3 = d8;
-var db4 = d10;
-var db5 = d12;
+var db0 = d0;
+var db1 = d2;
+var db2 = d4;
+var db3 = d6;
+var db4 = d8;
+var db5 = d10;
 var lred = '#cc3333';
 var initialState = {
   _version: 0,
@@ -1948,7 +1948,7 @@ var initialState = {
     Question: {},
     Search: {backgroundColor: lb2},
     SignColumn: {color: lf5},
-    Special: {color: lf2},
+    Special: {color: lf3},
     SpecialKey: {color: lf5},
     SpellBad: {color: lred},
     SpellCap: {},
@@ -1974,7 +1974,7 @@ var initialState = {
       color: lf1,
       backgroundColor: lb2
     },
-    Title: {},
+    Title: {color: lf3},
     Todo: {highlight: 'standout'},
     Type: {color: lf2},
     Underlined: {},
@@ -2023,7 +2023,7 @@ var initialState = {
     Question: {},
     Search: {backgroundColor: db2},
     SignColumn: {color: df5},
-    Special: {color: df2},
+    Special: {color: df3},
     SpecialKey: {color: df5},
     SpellBad: {color: lred},
     SpellCap: {},
@@ -2049,7 +2049,7 @@ var initialState = {
       color: df1,
       backgroundColor: db2
     },
-    Title: {},
+    Title: {color: df3},
     Todo: {highlight: 'standout'},
     Type: {color: df2},
     Underlined: {},
