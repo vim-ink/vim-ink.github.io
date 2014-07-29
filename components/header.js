@@ -7,7 +7,7 @@ var Header = React.createClass({
     render() {
         var {header, h1, div} = React.DOM;
 
-        return header(null,
+        return header({key: 'header_'},
             div({className: 'wrap cf'},
             h1(null, 'vim.ink'),
             Files(this.props),
@@ -19,24 +19,28 @@ var Files = React.createClass({
     render() {
         var {ul} = React.DOM;
 
-        return ul({className: 'nav files'},
+        return ul({key: 'nav', className: 'nav files'},
             FileLink(merge(this.props, {
+                key: 'vim',
                 type: 'vim',
                 title: 'UI'
             })),
             FileLink(merge(this.props, {
+                key: 'html',
                 type: 'html',
                 title: 'HTML'
             })),
             FileLink(merge(this.props, {
+                key: 'css',
                 type: 'css',
                 title: 'CSS'
             })),
             FileLink(merge(this.props, {
+                key: 'javascript',
                 type: 'javascript',
                 title: 'JavaScript'
             })),
-            PasteLink(this.props));
+            PasteLink(merge(this.props, {key: 'pasteLink'})));
     }
 });
 
@@ -44,11 +48,11 @@ var FileLink = React.createClass({
     render() {
         var {li} = React.DOM;
         var {onClick} = this;
-        var {title, type, activeFile} = this.props;
+        var {key, title, type, activeFile} = this.props;
 
         var className = type === activeFile ? 'active' : '';
 
-        return li({className, onClick}, title);
+        return li({key, className, onClick}, title);
     },
     onClick(e) {
         var {setParsedSource, setActiveFile, type} = this.props;
@@ -61,11 +65,11 @@ var PasteLink = React.createClass({
     render() {
         var {li} = React.DOM;
         var {onClick} = this;
-        var {activeFile} = this.props;
+        var {key, activeFile} = this.props;
 
         var className = (activeFile === undefined ? ' active' : '');
 
-        return li({className, onClick}, 'Paste');
+        return li({key, className, onClick}, 'Paste');
     },
     onClick(e) {
         var {setParsedSource, setActiveFile} = this.props;
@@ -79,10 +83,10 @@ var Panes = React.createClass({
         var {ul, li} = React.DOM;
         var {activePane, setActivePane} = this.props;
 
-        return ul({className: 'nav panes'},
-            Pane(merge(this.props, {id: 'light'}), 'Light'),
-            Pane(merge(this.props, {id: 'dark'}), 'Dark'),
-            Pane(merge(this.props, {id: 'global', additionalClassName: 'right-link'}), 'Global'));
+        return ul({key: 'nav', className: 'nav panes'},
+            Pane(merge(this.props, {key: 'light', id: 'light'}), 'Light'),
+            Pane(merge(this.props, {key: 'dark', id: 'dark'}), 'Dark'),
+            Pane(merge(this.props, {key: 'global', id: 'global', additionalClassName: 'right-link'}), 'Global'));
     }
 });
 
@@ -95,7 +99,7 @@ var Pane = React.createClass({
         var className = (additionalClassName !== undefined ? additionalClassName : '') +
             (activePane ===  id ? ' active' : '');
 
-        return li({className, onClick}, children);
+        return li({key: 'li', className, onClick}, children);
     },
     onClick() {
         var {setActivePane, setActiveVariant, id} = this.props;

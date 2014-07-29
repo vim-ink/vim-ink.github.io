@@ -5,43 +5,42 @@ var merge = (...args) => Object.assign({}, ...args);
 
 var Vim = React.createClass({
     render() {
-        var {pre} = React.DOM;
-        var {onClick, onMouseOver, onMouseOut, attrs} = this;
-        var {componentsVisibility, parsedSource, getGroup, selectGroup, setHoverGroup} = this.props;
-        var args = {attrs, getGroup, selectGroup, setHoverGroup};
+        if (this.props.parsedSource === undefined)
+            return null;
 
-        var className = parsedSource === undefined ? 'hidden' : '';
-        var props = getGroup('Normal');
-        var {style} = attrs(props);
-        var source;
+        var show = component => this.props.componentsVisibility[component] === 'show';
 
-        var nonTextLinesCount = Math.max(0, 32 - parsedSource.length);
-
-        if (parsedSource !== undefined) {
-            source = parsedSource.map(
-                (line, index) => Line(merge(args, {
-                        componentsVisibility,
-                        line,
-                        lineNumber: {
-                            line: index,
-                            lineCount: parsedSource.length
-                        }
-                    })));
-        }
-
-        var output = [];
-
-        if (componentsVisibility['tabLine'] === 'show') {
-            output = output.concat(TabLine(args));
-        }
-
-        output = output.concat(source).concat(NonText(merge(args, {linesCount: nonTextLinesCount})));
-
-        if (componentsVisibility['statusLine'] === 'show') {
-            output = output.concat(StatusLine(args));
-        }
-
-        return pre({style, className, onClick, onMouseOver, onMouseOut}, output);
+        return React.DOM.pre({
+            key: 'pre',
+            style: this.style(this.props.getGroup('Normal')),
+            onMouseOver: this.onMouseOver,
+            onClick: this.onClick,
+            onMouseOut: this.onMouseOut},
+            []
+                .concat(show('tabLine') ?  TabLine(this.args()) : [])
+                .concat(this.source())
+                .concat(NonText(merge(this.args(), {parsedSource: this.props.parsedSource})))
+                .concat(show('statusLine') ?  StatusLine(this.args()) : []));
+    },
+    args() {
+        return {
+            style: this.style,
+            getGroup: this.props.getGroup,
+            selectGroup: this.props.selectGroup,
+            setHoverGroup: this.props.setHoverGroup
+        };
+    },
+    source() {
+        return this.props.parsedSource.map((line, index) =>
+           Line(merge(this.args(), {
+                key: index,
+                componentsVisibility: this.props.componentsVisibility,
+                line,
+                lineNumber: {
+                    line: index,
+                    lineCount: this.props.parsedSource.length
+                }
+            })));
     },
     onMouseOver() {
         this.props.setHoverGroup('Normal');
@@ -54,7 +53,7 @@ var Vim = React.createClass({
 
         selectGroup('Normal');
     },
-    attrs(props) {
+    style(props) {
         var {postProcess, activeVariant, getGroup} = this.props;
         var {brightness, saturation} = postProcess[activeVariant];
         var normal = getGroup('Normal');
@@ -114,32 +113,25 @@ var Vim = React.createClass({
             style['backgroundColor'] = undefined;
         }
 
-        return {
-            style,
-            className: '' // TODO: Remove!
-        };
+        return style;
     }
 });
 
 var NonText = React.createClass({
     render() {
-        var {attrs, getGroup, selectGroup, setHoverGroup, linesCount} = this.props;
-        var args = {attrs, getGroup, selectGroup, setHoverGroup};
+        var linesCount = Math.max(0, 32 - this.props.parsedSource.length);
+        var group = 'NonText';
+        var content = '~                                                                                   \n'.repeat(linesCount);
 
-        return Segment(merge(args, {
-            segment: {
-                group: 'NonText',
-                content: '~                                                                                   \n'.repeat(linesCount)
-            }
-        }));
+        return Segment(merge(this.props, {segment: {group, content}}));
     }
 });
 
 var StatusLine = React.createClass({
     render() {
         var {span} = React.DOM;
-        var {attrs, getGroup, selectGroup, setHoverGroup} = this.props;
-        var args = {attrs, getGroup, selectGroup, setHoverGroup};
+        var {style, getGroup, selectGroup, setHoverGroup} = this.props;
+        var args = {style, getGroup, selectGroup, setHoverGroup};
 
         return span(
             null,
@@ -157,8 +149,8 @@ var StatusLine = React.createClass({
 var TabLine = React.createClass({
     render() {
         var {span} = React.DOM;
-        var {attrs, getGroup, selectGroup, setHoverGroup} = this.props;
-        var args = {attrs, getGroup, selectGroup, setHoverGroup};
+        var {style, getGroup, selectGroup, setHoverGroup} = this.props;
+        var args = {style, getGroup, selectGroup, setHoverGroup};
 
         return span(
             null,
@@ -205,12 +197,35 @@ var TabLine = React.createClass({
 var Line = React.createClass({
     render() {
         var {span} = React.DOM;
-        var {setHoverGroup, componentsVisibility, attrs, getGroup, line, lineNumber, selectGroup} = this.props;
-        var lineNumber_ = [LineNumber({setHoverGroup, attrs, lineNumber, getGroup, selectGroup})]
-        var segments = line.map(segment => Segment({setHoverGroup, attrs, segment, getGroup, selectGroup}));
-        var output = componentsVisibility['lineNumbers'] === 'show' ? lineNumber_ : [];
+        var {componentsVisibility} = this.props;
 
-        return span(null, output.concat(segments.concat(span(null, '\n'))));
+        var children = []
+            .concat(componentsVisibility['lineNumbers'] === 'show' ? this.lineNumber() : [])
+            .concat(this.segments())
+            .concat(span({key: 'newLine'}, '\n'));
+
+        return span({key: 'line'}, children);
+    },
+    lineNumber() {
+        return LineNumber({
+            key: 'lineNumber',
+            style: this.props.style,
+            getGroup: this.props.getGroup,
+            lineNumber: this.props.lineNumber,
+            selectGroup: this.props.selectGroup,
+            setHoverGroup: this.props.setHoverGroup
+        });
+    },
+    segments() {
+        return this.props.line.map((segment, index) =>
+            Segment({
+                key: index,
+                segment,
+                style: this.props.style,
+                getGroup: this.props.getGroup,
+                selectGroup: this.props.selectGroup,
+                setHoverGroup: this.props.setHoverGroup
+            }));
     }
 });
 
@@ -218,25 +233,26 @@ var LineNumber = React.createClass({
     render() {
         var {span} = React.DOM;
         var {onClick, onMouseOver} = this;
-        var {attrs, getGroup, lineNumber} = this.props;
+        var {style, getGroup, lineNumber} = this.props;
         var {line, lineCount} = lineNumber;
 
         var props = getGroup('LineNr');
-        var {style, className} = attrs(props);
-        var spaces = 1 + (lineCount.toString().length - line.toString().length)
+        var spaceCount = 1 + (lineCount.toString().length - line.toString().length)
 
-        return span({style, className, onClick, onMouseOver}, ' '.repeat(spaces) + line + ' ');
+        var content = ' '.repeat(spaceCount) + line + ' ';
+
+        return span({
+            style: style(props),
+            onClick: this.onClick,
+            onMouseOver: this.onMouseOver},
+            content);
     },
     onMouseOver(e) {
-        var {setHoverGroup} = this.props;
-
-        setHoverGroup('LineNr');
+        this.props.setHoverGroup('LineNr');
         e.stopPropagation();
     },
     onClick(e) {
-        var {selectGroup} = this.props;
-
-        selectGroup('LineNr');
+        this.props.selectGroup('LineNr');
         e.stopPropagation();
     }
 });
@@ -245,24 +261,19 @@ var Segment = React.createClass({
     render() {
         var {span} = React.DOM;
         var {onClick, onMouseOver, style} = this;
-        var {segment, getGroup, attrs} = this.props;
+        var {segment, getGroup, style} = this.props;
 
         if (typeof(segment) === 'object') {
             var parentGroup = ('parentGroup' in segment ? segment.parentGroup : 'Normal');
             var props = getGroup(segment.group, parentGroup);
-            var {style, className} = attrs(props);
 
             return span({
-                style,
-                className,
+                style: style(props),
                 onClick,
                 onMouseOver},
                 segment.content);
         } else {
-            var props = getGroup('Normal');
-            var {className} = attrs(props)
-
-            return span({className}, segment);
+            return span(null, segment);
         }
     },
     onMouseOver(e) {

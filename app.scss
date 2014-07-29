@@ -122,6 +122,18 @@ h1, h2, body, input, button, textarea {
     font-weight: 300;
 }
 
+body,
+header,
+section,
+input,
+input[type="range"]::-webkit-slider-runnable-track {
+    transition: all .5s ease;
+}
+
+button, li {
+    transition: all .2s ease;
+}
+
 /* body */
 
 body {
@@ -603,6 +615,7 @@ body.dark input[type="range"]::-moz-range-thumb {
 aside {
     width: 23.5rem;
     float: right;
+    overflow: hidden;
 }
 
 /* aside h2 */
@@ -652,12 +665,6 @@ body.light aside h2:active {
 
 body.dark aside h2:active {
     color: $df2;
-}
-
-/* .hidden */
-
-.hidden {
-    display: none;
 }
 
 /* .export */
@@ -897,4 +904,22 @@ body.dark .color-overlay.border {
 
 .cf:after {
     clear: both;
+}
+
+.fast-enter {
+    opacity: 0.01;
+    transition: opacity .2s ease;
+}
+
+.fast-enter.fast-enter-active {
+    opacity: 1;
+}
+
+.fast-leave {
+    opacity: 1;
+    transition: opacity .2s ease;
+}
+
+.fast-leave.fast-leave-active {
+    opacity: 0.01;
 }

@@ -1,5 +1,8 @@
-var React = require('react');
+var React = require('react/addons');
 var _ = require('lodash');
+
+var transition = React.addons.CSSTransitionGroup;
+var transitionFast = children => transition({transitionName: 'fast'}, children);
 
 var initialState = require('../initial-state');
 var parse = require('../vim-tohtml-parser');
@@ -24,66 +27,70 @@ var App = React.createClass({
 
         return span(
             null,
-            Header({
-                setActiveFile: this.setActiveFile,
-                setActivePane: this.setActivePane,
-                setActiveVariant: this.setActiveVariant,
-                setParsedSource: this.setParsedSource,
-
-                activeFile: this.state.activeFile,
-                activePane: this.state.activePane // TODO: Remove these below.
-            }),
-            main({className: 'wrap cf'},
-                Left({
-                    getGroup: this.getGroup,
-                    parse: this.parse,
-                    selectGroup: this.selectGroup,
+            transitionFast([
+                Header({
+                    key: 'head',
                     setActiveFile: this.setActiveFile,
-                    setHoverGroup: this.setHoverGroup,
+                    setActivePane: this.setActivePane,
+                    setActiveVariant: this.setActiveVariant,
                     setParsedSource: this.setParsedSource,
 
                     activeFile: this.state.activeFile,
-                    activeVariant: this.state.activeVariant,
-                    componentsVisibility: this.state.componentsVisibility,
-                    parsedSource: this.state.parsedSource,
-                    postProcess: this.state.postProcess
+                    activePane: this.state.activePane // TODO: Remove these below.
                 }),
-                Right({
-                    deleteSelectedGroupProp: this.deleteSelectedGroupProp,
-                    exportColorScheme: this.exportColorScheme,
-                    getGroup: this.getGroup,
-                    getModifiedGroups: this.getModifiedGroups,
-                    resetGroup: this.resetGroup,
-                    resetSelectedGroupProp: this.resetSelectedGroupProp,
-                    resetState: this.resetState,
-                    setActiveColor: this.setActiveColor,
-                    setActivePane: this.setActivePane,
-                    setActiveVariant: this.setActiveVariant,
-                    setComponentVisibility: this.setComponentVisibility,
-                    setPostProcessProps: this.setPostProcessProps,
-                    setSectionVisibility: this.setSectionVisibility,
-                    setSelectedGroupProps: this.setSelectedGroupProps,
+                main({key: 'main', className: 'wrap cf'},
+                    Left({
+                        getGroup: this.getGroup,
+                        parse: this.parse,
+                        selectGroup: this.selectGroup,
+                        setActiveFile: this.setActiveFile,
+                        setHoverGroup: this.setHoverGroup,
+                        setParsedSource: this.setParsedSource,
 
-                    activeColor: this.state.activeColor,
-                    activePane: this.state.activePane,
-                    activeVariant: this.state.activeVariant,
-                    componentsVisibility: this.state.componentsVisibility,
+                        activeFile: this.state.activeFile,
+                        activeVariant: this.state.activeVariant,
+                        componentsVisibility: this.state.componentsVisibility,
+                        parsedSource: this.state.parsedSource,
+                        postProcess: this.state.postProcess
+                    }),
+                    Right({
+                        deleteSelectedGroupProp: this.deleteSelectedGroupProp,
+                        exportColorScheme: this.exportColorScheme,
+                        getGroup: this.getGroup,
+                        getModifiedGroups: this.getModifiedGroups,
+                        resetGroup: this.resetGroup,
+                        resetSelectedGroupProp: this.resetSelectedGroupProp,
+                        resetState: this.resetState,
+                        setActiveColor: this.setActiveColor,
+                        setActivePane: this.setActivePane,
+                        setActiveVariant: this.setActiveVariant,
+                        setComponentVisibility: this.setComponentVisibility,
+                        setExportName: this.setExportName,
+                        setPostProcessProps: this.setPostProcessProps,
+                        setSectionVisibility: this.setSectionVisibility,
+                        setSelectedGroupProps: this.setSelectedGroupProps,
+
+                        activeColor: this.state.activeColor,
+                        activePane: this.state.activePane,
+                        activeVariant: this.state.activeVariant,
+                        componentsVisibility: this.state.componentsVisibility,
+                        exportName: this.state.exportName,
+                        hoverGroup: this.state.hoverGroup,
+                        postProcess: this.state.postProcess,
+                        sectionsVisibility: this.state.sectionsVisibility,
+                        selectedGroup: this.state.selectedGroup
+                    })),
+                    Footer({
+                        setActiveFile: this.setActiveFile,
+                        setParsedSource: this.setParsedSource
+                    }),
+                Export({
+                    key: 'export',
+                    clearExportedSource: this.clearExportedSource,
+
                     exportName: this.state.exportName,
-                    hoverGroup: this.state.hoverGroup,
-                    postProcess: this.state.postProcess,
-                    sectionsVisibility: this.state.sectionsVisibility,
-                    selectedGroup: this.state.selectedGroup
-                })),
-                Footer({
-                    setActiveFile: this.setActiveFile,
-                    setParsedSource: this.setParsedSource
-                }),
-            Export({
-                clearExportedSource: this.clearExportedSource,
-
-                exportName: this.state.exportName,
-                exportedSource: this.state.exportedSource
-            }));
+                    exportedSource: this.state.exportedSource
+                })]));
     },
     componentDidMount() {
         this.setBodyClassName(this.state.activeVariant);
@@ -134,6 +141,9 @@ var App = React.createClass({
     },
     setHoverGroup(hoverGroup) {
         this.setState({hoverGroup});
+    },
+    setExportName(exportName) {
+        this.setState({exportName});
     },
     setSelectedGroupProps(props) {
         var {activeVariant, selectedGroup} = this.state;

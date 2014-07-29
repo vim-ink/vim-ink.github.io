@@ -1,4 +1,7 @@
-var React = require('react');
+var React = require('react/addons');
+
+var transition = React.addons.CSSTransitionGroup;
+var transitionFast = children => transition({transitionName: 'fast'}, children);
 
 var merge = (...args) => Object.assign({}, ...args);
 
@@ -8,18 +11,19 @@ var Right = React.createClass({
         var {activePane} = this.props;
 
         if (activePane === 'global') {
-            return aside(null,
-                Export(merge(this.props, {firstSection: true})),
-                Components(this.props),
-                DangerZone(this.props));
+            return aside({key: 'aside'},
+                    Export(merge({key: 0, firstSection: true}, this.props)),
+                    Components(merge({key: 1}, this.props)),
+                    DangerZone(merge({key: 2}, this.props)));
         }
         else {
-            return aside(null,
-                SelectedGroup(merge(this.props, {firstSection: true})),
-                Colors(this.props),
-                Highlight(this.props),
-                PostProcess(this.props),
-                ModifiedGroups(this.props));
+            return aside({key: 'aside'},
+                [
+                    SelectedGroup(merge({key: 0, firstSection: true}, this.props)),
+                    Colors(merge({key: 1}, this.props)),
+                    Highlight(merge({key: 2}, this.props)),
+                    PostProcess(merge({key: 3}, this.props)),
+                    ModifiedGroups(merge({key: 4}, this.props))]);
         }
     }
 });
@@ -32,8 +36,9 @@ var Section = React.createClass({
 
         var className = 'firstSection' in this.props && this.props.firstSection === true ? 'first' : null;
         var children_ = sectionsVisibility[id] === 'show' ? children : null;
+        var children__ = [h2({key: 'h2', onClick}, title)].concat(children_);
 
-        return section({className}, h2({onClick}, title), children_);
+        return section({key: id, className}, transitionFast(children__));
     },
     onClick() {
         var {setSectionVisibility, sectionsVisibility, id} = this.props;
@@ -56,9 +61,9 @@ var SelectedGroup = React.createClass({
         return Section(merge(this.props, {
             id: 'selectedGroup',
             title: 'Selected group'}),
-            div({className},
-                span({className: 'left'}, selectedGroup),
-                span({className: 'right'}, hoverGroupContent)));
+            div({key: 'selectedGroup', className},
+                span({key: 'left', className: 'left'}, selectedGroup),
+                span({key: 'right', className: 'right'}, hoverGroupContent)));
     }
 });
 
@@ -82,6 +87,7 @@ var Colors = React.createClass({
             id: 'color',
             title: 'Color'}),
             Color({
+                key: 'foregroundColor',
                 pageBackgroundColor: activeVariant === 'light' ? '#ffffff' : '#000000',
                 id: 'foregroundColor',
                 activeId: 'foreground',
@@ -96,6 +102,7 @@ var Colors = React.createClass({
                 setSelectedGroupProps
             }),
             Color({
+                key: 'backgroundColor',
                 pageBackgroundColor: activeVariant === 'light' ? '#ffffff' : '#000000',
                 id: 'backgroundColor',
                 activeId: 'background',
@@ -120,9 +127,10 @@ var Color = React.createClass({
 
         var rightClassName = (active === true ? ' active' : '');
 
-        return div({className: 'line color-line'},
-            div({className: 'left'},
+        return div({key: 'colorLine' + id, className: 'line color-line'},
+            div({key: 'left', className: 'left'},
                 input({
+                    key: id,
                     type: 'color',
                     id,
                     accessKey,
@@ -130,9 +138,9 @@ var Color = React.createClass({
                     onClick: onClick,
                     onChange: onChange
                 }),
-                ColorOverlay({value, pageBackgroundColor})),
-            div({className: 'right' + rightClassName},
-                label({htmlFor: id}, label_)));
+                ColorOverlay({key: 'overlay' + id, value, pageBackgroundColor})),
+            div({key: 'right', className: 'right' + rightClassName},
+                label({key: 'label', htmlFor: id}, label_)));
     },
     onChange(e) {
         var {prop} = this.props;
@@ -159,7 +167,7 @@ var ColorOverlay = React.createClass({
         var className = this.className();
         var style = this.style();
 
-        return div({className, style});
+        return div({key: 'overlay', className, style});
     },
     className() {
         var {value, pageBackgroundColor} = this.props;
@@ -192,15 +200,15 @@ var Highlight = React.createClass({
         return Section(merge(this.props, {
             id: 'highlight',
             title: 'Highlight'}),
-            div({className: 'line'},
-                button({type: 'NONE', content: 'n'}),
-                button({type: 'bold', content: 'b'}),
-                button({type: 'italic', content: 'i'}),
-                button({type: 'underline', content: 'u'}),
-                button({type: 'undercurl', content: 'u'})),
-            div({className: 'line'},
-                button({type: 'reverse', content: 'r'}),
-                button({type: 'standout', content: 's'})));
+            div({key: 'line', className: 'line'},
+                button({key: 'none', type: 'NONE', content: 'n'}),
+                button({key: 'bold', type: 'bold', content: 'b'}),
+                button({key: 'italic', type: 'italic', content: 'i'}),
+                button({key: 'underline', type: 'underline', content: 'u'}),
+                button({key: 'undercurl', type: 'undercurl', content: 'u'})),
+            div({key: 'highlightLine2', className: 'line'},
+                button({key: 'reverse', type: 'reverse', content: 'r'}),
+                button({key: 'standout', type: 'standout', content: 's'})));
     }
 });
 
@@ -212,7 +220,7 @@ var HighlightButton = React.createClass({
 
         var className = this.className(type);
 
-        return button({className, onClick}, span(null, content));
+        return button({key: 'button', className, onClick}, span({key: 'span'}, content));
     },
     className(type) {
         var {getGroup, selectedGroup} = this.props;
@@ -251,18 +259,20 @@ var PostProcess = React.createClass({
         return Section(merge(this.props, {
             id: 'postProcess',
             title: 'Post process'}),
-            div({className: 'line post-process-line'},
-                div({className: brightnessClassName}, 'Brightness'),
-                div({className: 'right', onClick: onBrightnessClick}, input({
+            div({key: 'brightness', className: 'line post-process-line'},
+                div({key: 'left', className: brightnessClassName}, 'Brightness'),
+                div({key: 'right', className: 'right', onClick: onBrightnessClick}, input({
+                    key: 'input',
                     type: 'range',
                     min: -0.25,
                     max: 0.25,
                     step: 0.025,
                     value: brightness,
                     onChange: onChangeBrightness}))),
-            div({className: 'line post-process-line'},
-                div({className: saturationClassName}, 'Saturation'),
-                div({className: 'right', onClick: onSaturationClick}, input({
+            div({key: 'saturation', className: 'line post-process-line'},
+                div({key: 'left', className: saturationClassName}, 'Saturation'),
+                div({key: 'right', className: 'right', onClick: onSaturationClick}, input({
+                    key: 'input',
                     type: 'range',
                     min: -1.0,
                     max: 1.0,
@@ -296,16 +306,19 @@ var Components = React.createClass({
             id: 'components',
             title: 'Components'}),
             Component({
+                key: 'tabLine',
                 setComponentVisibility,
                 label: 'Tab line',
                 component: 'tabLine',
                 visibility: componentsVisibility['tabLine']}),
             Component({
+                key: 'lineNumbers',
                 setComponentVisibility,
                 label: 'Line numbers',
                 component: 'lineNumbers',
                 visibility: componentsVisibility['lineNumbers']}),
             Component({
+                key: 'statusLine',
                 setComponentVisibility,
                 label: 'Status line',
                 component: 'statusLine',
@@ -321,10 +334,10 @@ var Component = React.createClass({
 
         var buttonText = visibility === 'show' ? 'Hide' : 'Show';
 
-        return div({className: 'line  button-line'},
-            div({className: 'left'}, label),
-            div({className: 'right'},
-                button({className: 'small-button', onClick},
+        return div({key: 'line', className: 'line  button-line'},
+            div({key: 'left', className: 'left'}, label),
+            div({key: 'right', className: 'right'},
+                button({key: 'button', className: 'small-button', onClick},
                 buttonText)));
     },
     onClick() {
@@ -339,13 +352,13 @@ var ModifiedGroups = React.createClass({
         var {getModifiedGroups, resetGroup} = this.props;
         var groups = getModifiedGroups();
 
-        var content = groups.length === 0 ? div({className: 'modified-groups-line none'}, 'None') :
-            groups.map(group => ModifiedGroup({group, resetGroup}));
+        var groups_ = groups.length === 0 ? ['none'] : groups;
+        var children = groups_.map((group, index) => ModifiedGroup({key: index, group, resetGroup}));
 
         return Section(merge(this.props, {
             id: 'modifiedGroups',
             title: 'Modified groups'}),
-            content);
+            children);
     }
 });
 
@@ -355,9 +368,14 @@ var ModifiedGroup = React.createClass({
         var {onClick} = this;
         var {group} = this.props;
 
-        return div({className: 'line button-line'},
-            div({className: 'left'}, group),
-            div({className: 'right'}, button({className: 'small-button', onClick}, 'Reset')));
+        var displayGroup = (group !== 'none' ? group : 'None');
+        var resetButton = (group !== 'none' ?
+            button({key: 'resetButton', className: 'small-button', onClick}, 'Reset') :
+            null);
+
+        return div({key: 'line', className: 'line button-line'},
+            div({key: 'left', className: 'left'}, displayGroup),
+            div({key: 'right', className: 'right'}, resetButton));
     },
     onClick() {
         this.props.resetGroup(this.props.group);
@@ -367,17 +385,22 @@ var ModifiedGroup = React.createClass({
 var Export = React.createClass({
     render() {
         var {div, label, input, button} = React.DOM;
-        var {onExportClick} = this;
+        var {onExportClick, onChange} = this;
         var {exportName} = this.props;
         
         return Section(merge(this.props, {
             id: 'export_',
             title: 'Export'}),
-            div({className: 'line export-line-input'},
-                div({className: 'left'}, label(null, 'Name')),
-                div({className: 'right'}, input({className: 'text', value: exportName}))),
-            div({className: 'line export-line-button'},
-                button({className: 'button', onClick: onExportClick}, 'Export')));
+            div({key: 'inputLine', className: 'line export-line-input'},
+                div({key: 'left', className: 'left'},
+                    label({key: 'name'}, 'Name')),
+                div({key: 'right', className: 'right'},
+                    input({key: 'text', className: 'text', value: exportName, onChange}))),
+            div({key: 'buttonLine', className: 'line export-line-button'},
+                button({key: 'button', className: 'button', onClick: onExportClick}, 'Export')));
+    },
+    onChange(e) {
+        this.props.setExportName(e.target.value);
     },
     onExportClick() {
         this.props.exportColorScheme();
@@ -392,8 +415,8 @@ var DangerZone = React.createClass({
         return Section(merge(this.props, {
             id: 'dangerZone',
             title: 'Danger zone'}),
-            div({className: 'line danger-zone-line'},
-                button({className: 'button', onClick: onResetClick}, 'Reset')));
+            div({key: 'line', className: 'line danger-zone-line'},
+                button({key: 'button', className: 'button', onClick: onResetClick}, 'Reset')));
     },
     onResetClick() {
         this.props.resetState();
