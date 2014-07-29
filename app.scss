@@ -129,15 +129,14 @@ body {
     margin: 0;
 }
 
-body.variant-transition,
-body.variant-transition header,
-body.variant-transition section,
-body.variant-transition input,
-body.variant-transition button,
-body.variant-transition li,
-body.variant-transition input[type="range"]::-webkit-slider-runnable-track {
+.variant-transition,
+.variant-transition header,
+.variant-transition section,
+.variant-transition input,
+.variant-transition button,
+.variant-transition li,
+.variant-transition input[type="range"]::-webkit-slider-runnable-track {
     transition: all 0.5s ease;
-    -moz-transition: all 0.5s ease;
 }
 
 .light {
@@ -160,11 +159,11 @@ body.variant-transition input[type="range"]::-webkit-slider-runnable-track {
 /* header */
 
 .light header {
-    border-bottom: 1px solid $lb2;
+    border-bottom: 1px solid $lb3;
 }
 
 .dark header {
-    border-bottom: 1px solid $db2;
+    border-bottom: 1px solid $db3;
 }
 
 /* h1 */
@@ -285,14 +284,6 @@ pre {
     font-size: 1.6rem;
     margin: 2.5rem 0 0 0;
     overflow: hidden;
-}
-
-.light pre {
-    /* box-shadow: 0.2rem 0.2rem 0.6rem #f2f2f2; */
-}
-
-.dark pre {
-    /* box-shadow: 0.2rem 0.2rem 0.6rem #202020; */
 }
 
 /* textarea */
@@ -557,11 +548,11 @@ input[type="range"]::-webkit-slider-runnable-track {
 }
 
 .light input[type="range"]::-webkit-slider-runnable-track {
-    border-bottom: 1px solid $lb3;
+    border-bottom: 1px solid $lb4;
 }
 
 .dark input[type="range"]::-webkit-slider-runnable-track {
-    border-bottom: 1px solid $db3;
+    border-bottom: 1px solid $db4;
 }
 
 input[type="range"]::-webkit-slider-thumb {
@@ -586,11 +577,11 @@ input[type="range"]::-moz-range-track {
 }
 
 .light input[type="range"]::-moz-range-track {
-    border-bottom: 1px solid $lb3;
+    border-bottom: 1px solid $lb4;
 }
 
 .dark input[type="range"]::-moz-range-track {
-    border-bottom: 1px solid $db3;
+    border-bottom: 1px solid $db4;
 }
 
 input[type="range"]::-moz-range-thumb {
@@ -629,11 +620,11 @@ aside section.first {
 }
 
 .light aside section {
-    border-top: 1px solid $lb2;
+    border-top: 1px solid $lb3;
 }
 
 .dark aside section {
-    border-top: 1px solid $db2;
+    border-top: 1px solid $db3;
 }
 
 /* aside section h2 */
@@ -687,15 +678,15 @@ aside section h2 {
 }
 
 .light .export {
-    background-color: $lb1;
+    background-color: $lb2;
     color: $lf2;
-    box-shadow: 0.25rem 0.25rem 0.75rem $lb5;
+    box-shadow: 0.5rem 0.5rem 0.75rem $lb3;
 }
 
 .dark .export {
-    background-color: $db1;
+    background-color: $db2;
     color: $df2;
-    box-shadow: 0.25rem 0.25rem 0.75rem $db5;
+    box-shadow: 0.5rem 0.5rem 0.75rem $db3;
 }
 
 .export h2 {
