@@ -680,13 +680,11 @@ aside section h2 {
 .light .export {
     background-color: $lb2;
     color: $lf2;
-    box-shadow: 0.5rem 0.5rem 0.75rem $lb3;
 }
 
 .dark .export {
     background-color: $db2;
     color: $df2;
-    box-shadow: 0.5rem 0.5rem 0.75rem $db3;
 }
 
 .export h2 {
@@ -831,12 +829,12 @@ aside section h2 {
 }
 
 .light .text {
-    background-color: $lb1;
+    background-color: $lb2;
     color: $lf3;
 }
 
 .dark .text {
-    background-color: $db1;
+    background-color: $db2;
     color: $df3;
 }
 
