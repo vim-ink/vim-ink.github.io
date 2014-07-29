@@ -38,13 +38,13 @@ var Left = React.createClass({
 
 var Paste = React.createClass({
     render() {
+        if (this.props.parsedSource !== undefined)
+            return null;
+
         var {textarea} = React.DOM;
         var {onChange} = this;
-        var {parsedSource} = this.props;
 
-        var className = (parsedSource !== undefined) ? 'hidden' : 'paste';
-
-        return textarea({onChange, className, placeholder: 'Paste output of `:TOhtml` here.', value: ''});
+        return textarea({onChange, className: 'paste', placeholder: 'Paste output of `:TOhtml` here.', value: ''});
     },
     onChange(e) {
         var {parse} = this.props;

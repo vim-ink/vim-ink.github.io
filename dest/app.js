@@ -5,7 +5,10 @@ var React = require('react/addons');
 var _ = require('lodash');
 var transition = React.addons.CSSTransitionGroup;
 var transitionFast = (function(children) {
-  return transition({transitionName: 'fast'}, children);
+  return transition({
+    transitionName: 'fast',
+    children: children
+  });
 });
 var initialState = require('../initial-state');
 var parse = require('../vim-tohtml-parser');
@@ -24,11 +27,11 @@ var App = React.createClass({
     }
   },
   render: function() {
-    var $__0 = $traceurRuntime.assertObject(React.DOM),
-        span = $__0.span,
-        main = $__0.main;
-    return span(null, transitionFast([Header({
-      key: 'head',
+    var $__1 = $traceurRuntime.assertObject(React.DOM),
+        span = $__1.span,
+        main = $__1.main;
+    var children = [Header({
+      key: 'header',
       setActiveFile: this.setActiveFile,
       setActivePane: this.setActivePane,
       setActiveVariant: this.setActiveVariant,
@@ -39,6 +42,7 @@ var App = React.createClass({
       key: 'main',
       className: 'wrap cf'
     }, Left({
+      key: 'left',
       getGroup: this.getGroup,
       parse: this.parse,
       selectGroup: this.selectGroup,
@@ -51,6 +55,7 @@ var App = React.createClass({
       parsedSource: this.state.parsedSource,
       postProcess: this.state.postProcess
     }), Right({
+      key: 'right',
       deleteSelectedGroupProp: this.deleteSelectedGroupProp,
       exportColorScheme: this.exportColorScheme,
       getGroup: this.getGroup,
@@ -76,24 +81,39 @@ var App = React.createClass({
       sectionsVisibility: this.state.sectionsVisibility,
       selectedGroup: this.state.selectedGroup
     })), Footer({
+      key: 'footer',
       setActiveFile: this.setActiveFile,
       setParsedSource: this.setParsedSource
-    }), Export({
+    })].concat((this.state.exportedSource === undefined ? [] : [Export({
       key: 'export',
       clearExportedSource: this.clearExportedSource,
       exportName: this.state.exportName,
       exportedSource: this.state.exportedSource
     })]));
+    return span({
+      key: 'span',
+      children: transitionFast(children)
+    });
   },
   componentDidMount: function() {
-    this.setBodyClassName(this.state.activeVariant);
+    this.updateBodyClass();
   },
-  setBodyClassName: function(variant) {
-    var body = document.getElementsByTagName('body')[0];
-    body.className = variant;
-  },
-  componentDidUpdate: function() {
+  componentDidUpdate: function(prevProps, prevState) {
+    var $__0 = this;
     localStorage.setItem('state', JSON.stringify(this.state));
+    if (this.state.activeVariant !== prevState.activeVariant) {
+      setTimeout((function() {
+        return $__0.updateBodyClass();
+      }), 0);
+    }
+  },
+  updateBodyClass: function() {
+    var $__0 = this;
+    var body = document.getElementsByTagName('body')[0];
+    body.className = this.state.activeVariant + ' variant-transition';
+    setTimeout((function() {
+      return body.className = $__0.state.activeVariant;
+    }), 500);
   },
   getGroup: function(group) {
     var groups = this.state[this.state.activeVariant];
@@ -134,9 +154,9 @@ var App = React.createClass({
     this.setState({exportName: exportName});
   },
   setSelectedGroupProps: function(props) {
-    var $__0 = $traceurRuntime.assertObject(this.state),
-        activeVariant = $__0.activeVariant,
-        selectedGroup = $__0.selectedGroup;
+    var $__1 = $traceurRuntime.assertObject(this.state),
+        activeVariant = $__1.activeVariant,
+        selectedGroup = $__1.selectedGroup;
     var state = {};
     state[activeVariant] = _.cloneDeep(this.state[activeVariant]);
     if (!(selectedGroup in state[activeVariant])) {
@@ -156,9 +176,9 @@ var App = React.createClass({
     }
   },
   resetSelectedGroupProp: function(prop) {
-    var $__0 = $traceurRuntime.assertObject(this.state),
-        activeVariant = $__0.activeVariant,
-        selectedGroup = $__0.selectedGroup;
+    var $__1 = $traceurRuntime.assertObject(this.state),
+        activeVariant = $__1.activeVariant,
+        selectedGroup = $__1.selectedGroup;
     var props = {};
     if (selectedGroup in initialState[activeVariant] && prop in initialState[activeVariant][selectedGroup]) {
       props[prop] = initialState[activeVariant][selectedGroup][prop];
@@ -180,16 +200,14 @@ var App = React.createClass({
     this.setState(state);
   },
   setPostProcessProps: function(props) {
-    var $__0 = $traceurRuntime.assertObject(this.state),
-        activeVariant = $__0.activeVariant,
-        postProcess = $__0.postProcess;
+    var $__1 = $traceurRuntime.assertObject(this.state),
+        activeVariant = $__1.activeVariant,
+        postProcess = $__1.postProcess;
     var state = {postProcess: _.cloneDeep(postProcess)};
     Object.assign(state.postProcess[activeVariant], props);
     this.setState(state);
   },
   setActiveVariant: function(activeVariant) {
-    var body = document.getElementsByTagName('body')[0];
-    body.className = activeVariant;
     this.setState({activeVariant: activeVariant});
   },
   selectGroup: function(selectedGroup) {
@@ -211,7 +229,6 @@ var App = React.createClass({
   resetState: function() {
     var state = _.cloneDeep(initialState);
     this.setState(state);
-    this.setBodyClassName(initialState.activeVariant);
   }
 });
 module.exports = App;
@@ -224,8 +241,6 @@ module.exports = App;
 var React = require('react');
 var Export = React.createClass({
   render: function() {
-    if (this.props.exportedSource === undefined)
-      return null;
     var $__0 = $traceurRuntime.assertObject(React.DOM),
         div = $__0.div,
         button = $__0.button,
@@ -233,24 +248,22 @@ var Export = React.createClass({
         h2 = $__0.h2,
         textarea = $__0.textarea;
     var onClick = this.onClick;
-    var $__0 = $traceurRuntime.assertObject(this.props),
-        exportedSource = $__0.exportedSource,
-        exportName = $__0.exportName;
-    return div({className: 'export dialog'}, h2(null, 'Export'), p(null, 'Copy text into a new vim buffer, then `:w ~/.vim/colors/' + exportName + '.vim` and `:colorscheme ' + exportName + '`.'), textarea({
+    return div({
+      key: 'exportDialog',
+      className: 'export dialog'
+    }, h2({key: 'h2'}, 'Export'), p({key: 'p'}, 'Copy text into a new vim buffer, then `:w ~/.vim/colors/' + this.props.exportName + '.vim` and `:colorscheme ' + this.props.exportName + '`.'), textarea({
+      key: 'textarea',
       ref: 'exportedSource',
-      value: exportedSource,
+      value: this.props.exportedSource,
       readOnly: true
     }), button({
+      key: 'button',
       className: 'button',
       onClick: onClick
     }, 'Close'));
   },
-  componentDidUpdate: function() {
-    if (this.refs.exportedSource === undefined) {
-      return;
-    } else {
-      this.refs.exportedSource.getDOMNode().select();
-    }
+  componentDidMount: function() {
+    this.refs.exportedSource.getDOMNode().select();
   },
   onClick: function() {
     this.props.clearExportedSource();
@@ -306,7 +319,10 @@ var Header = React.createClass({render: function() {
         header = $__1.header,
         h1 = $__1.h1,
         div = $__1.div;
-    return header({key: 'header_'}, div({className: 'wrap cf'}, h1(null, 'vim.ink'), Files(this.props), Panes(this.props)));
+    return header({key: 'header'}, div({
+      key: 'wrap',
+      className: 'wrap cf'
+    }, h1({key: 'h1'}, 'vim.ink'), Files(merge(this.props, {key: 'files'})), Panes(merge(this.props, {key: 'panes'}))));
   }});
 var Files = React.createClass({render: function() {
     var ul = $traceurRuntime.assertObject(React.DOM).ul;
@@ -342,7 +358,7 @@ var FileLink = React.createClass({
         activeFile = $__1.activeFile;
     var className = type === activeFile ? 'active' : '';
     return li({
-      key: key,
+      key: 'li',
       className: className,
       onClick: onClick
     }, title);
@@ -467,13 +483,13 @@ var Left = React.createClass({render: function() {
   }});
 var Paste = React.createClass({
   render: function() {
+    if (this.props.parsedSource !== undefined)
+      return null;
     var textarea = $traceurRuntime.assertObject(React.DOM).textarea;
     var onChange = this.onChange;
-    var parsedSource = $traceurRuntime.assertObject(this.props).parsedSource;
-    var className = (parsedSource !== undefined) ? 'hidden' : 'paste';
     return textarea({
       onChange: onChange,
-      className: className,
+      className: 'paste',
       placeholder: 'Paste output of `:TOhtml` here.',
       value: ''
     });
@@ -504,40 +520,38 @@ var merge = (function() {
 });
 var Right = React.createClass({render: function() {
     var aside = $traceurRuntime.assertObject(React.DOM).aside;
-    var activePane = $traceurRuntime.assertObject(this.props).activePane;
-    if (activePane === 'global') {
-      return aside({key: 'aside'}, Export(merge({
+    var children = [];
+    if (this.props.activePane === 'global') {
+      children = [Export(merge(this.props, {
         key: 0,
         firstSection: true
-      }, this.props)), Components(merge({key: 1}, this.props)), DangerZone(merge({key: 2}, this.props)));
+      })), Components(merge(this.props, {key: 1})), DangerZone(merge(this.props, {key: 2}))];
     } else {
-      return aside({key: 'aside'}, [SelectedGroup(merge({
+      children = [SelectedGroup(merge(this.props, {
         key: 0,
         firstSection: true
-      }, this.props)), Colors(merge({key: 1}, this.props)), Highlight(merge({key: 2}, this.props)), PostProcess(merge({key: 3}, this.props)), ModifiedGroups(merge({key: 4}, this.props))]);
+      })), Colors(merge(this.props, {key: 1})), Highlight(merge(this.props, {key: 2})), PostProcess(merge(this.props, {key: 3})), ModifiedGroups(merge(this.props, {key: 4}))];
     }
+    return aside({
+      key: 'aside',
+      children: children
+    });
   }});
 var Section = React.createClass({
   render: function() {
     var $__2 = $traceurRuntime.assertObject(React.DOM),
         section = $__2.section,
         h2 = $__2.h2;
-    var onClick = this.onClick;
-    var $__2 = $traceurRuntime.assertObject(this.props),
-        children = $__2.children,
-        title = $__2.title,
-        sectionsVisibility = $__2.sectionsVisibility,
-        id = $__2.id;
     var className = 'firstSection' in this.props && this.props.firstSection === true ? 'first' : null;
-    var children_ = sectionsVisibility[id] === 'show' ? children : null;
-    var children__ = [h2({
+    var children = transitionFast([].concat([h2({
       key: 'h2',
-      onClick: onClick
-    }, title)].concat(children_);
+      onClick: this.onClick
+    }, this.props.title)]).concat((this.props.sectionsVisibility[this.props.id] === 'show' ? this.props.children : [])));
     return section({
-      key: id,
-      className: className
-    }, transitionFast(children__));
+      key: this.props.id,
+      className: className,
+      children: children
+    });
   },
   onClick: function() {
     var $__2 = $traceurRuntime.assertObject(this.props),
@@ -1368,7 +1382,7 @@ var App = require('./components/app');
 React.renderComponent(App(), document.body);
 
 
-}).call(this,require("IrXUsu"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/fake_ca06c878.js","/")
+}).call(this,require("IrXUsu"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/fake_36594cc.js","/")
 },{"./components/app":1,"IrXUsu":20,"buffer":17,"es6ify/node_modules/traceur/bin/traceur-runtime":16,"react/addons":22}],10:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 "use strict";

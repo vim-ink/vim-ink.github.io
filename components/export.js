@@ -2,25 +2,17 @@ var React = require('react');
 
 var Export = React.createClass({
     render() {
-        if (this.props.exportedSource === undefined)
-            return null;
-
         var {div, button, p, h2, textarea} = React.DOM;
         var {onClick} = this;
-        var {exportedSource, exportName} = this.props;
 
-        return div({className: 'export dialog'},
-            h2(null, 'Export'),
-            p(null, 'Copy text into a new vim buffer, then `:w ~/.vim/colors/' + exportName + '.vim` and `:colorscheme ' + exportName + '`.'),
-            textarea({ref: 'exportedSource', value: exportedSource, readOnly: true}),
-            button({className: 'button', onClick}, 'Close'));
+        return div({key: 'exportDialog', className: 'export dialog'},
+            h2({key: 'h2'}, 'Export'),
+            p({key: 'p'}, 'Copy text into a new vim buffer, then `:w ~/.vim/colors/' + this.props.exportName + '.vim` and `:colorscheme ' + this.props.exportName + '`.'),
+            textarea({key: 'textarea', ref: 'exportedSource', value: this.props.exportedSource, readOnly: true}),
+            button({key: 'button', className: 'button', onClick}, 'Close'));
     },
-    componentDidUpdate() {
-        if (this.refs.exportedSource === undefined) {
-            return;
-        } else {
-            this.refs.exportedSource.getDOMNode().select();
-        }
+    componentDidMount() {
+        this.refs.exportedSource.getDOMNode().select();
     },
     onClick() {
         this.props.clearExportedSource();

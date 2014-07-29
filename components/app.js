@@ -2,7 +2,7 @@ var React = require('react/addons');
 var _ = require('lodash');
 
 var transition = React.addons.CSSTransitionGroup;
-var transitionFast = children => transition({transitionName: 'fast'}, children);
+var transitionFast = children => transition({transitionName: 'fast', children});
 
 var initialState = require('../initial-state');
 var parse = require('../vim-tohtml-parser');
@@ -25,83 +25,99 @@ var App = React.createClass({
     render() {
         var {span, main} = React.DOM;
 
-        return span(
-            null,
-            transitionFast([
-                Header({
-                    key: 'head',
+        var children = [
+            Header({
+                key: 'header',
+                setActiveFile: this.setActiveFile,
+                setActivePane: this.setActivePane,
+                setActiveVariant: this.setActiveVariant,
+                setParsedSource: this.setParsedSource,
+
+                activeFile: this.state.activeFile,
+                activePane: this.state.activePane // TODO: Remove these below.
+            }),
+            main({
+                    key: 'main',
+                    className: 'wrap cf'
+                },
+                Left({
+                    key: 'left',
+                    getGroup: this.getGroup,
+                    parse: this.parse,
+                    selectGroup: this.selectGroup,
                     setActiveFile: this.setActiveFile,
-                    setActivePane: this.setActivePane,
-                    setActiveVariant: this.setActiveVariant,
+                    setHoverGroup: this.setHoverGroup,
                     setParsedSource: this.setParsedSource,
 
                     activeFile: this.state.activeFile,
-                    activePane: this.state.activePane // TODO: Remove these below.
+                    activeVariant: this.state.activeVariant,
+                    componentsVisibility: this.state.componentsVisibility,
+                    parsedSource: this.state.parsedSource,
+                    postProcess: this.state.postProcess
                 }),
-                main({key: 'main', className: 'wrap cf'},
-                    Left({
-                        getGroup: this.getGroup,
-                        parse: this.parse,
-                        selectGroup: this.selectGroup,
-                        setActiveFile: this.setActiveFile,
-                        setHoverGroup: this.setHoverGroup,
-                        setParsedSource: this.setParsedSource,
+                Right({
+                    key: 'right',
+                    deleteSelectedGroupProp: this.deleteSelectedGroupProp,
+                    exportColorScheme: this.exportColorScheme,
+                    getGroup: this.getGroup,
+                    getModifiedGroups: this.getModifiedGroups,
+                    resetGroup: this.resetGroup,
+                    resetSelectedGroupProp: this.resetSelectedGroupProp,
+                    resetState: this.resetState,
+                    setActiveColor: this.setActiveColor,
+                    setActivePane: this.setActivePane,
+                    setActiveVariant: this.setActiveVariant,
+                    setComponentVisibility: this.setComponentVisibility,
+                    setExportName: this.setExportName,
+                    setPostProcessProps: this.setPostProcessProps,
+                    setSectionVisibility: this.setSectionVisibility,
+                    setSelectedGroupProps: this.setSelectedGroupProps,
 
-                        activeFile: this.state.activeFile,
-                        activeVariant: this.state.activeVariant,
-                        componentsVisibility: this.state.componentsVisibility,
-                        parsedSource: this.state.parsedSource,
-                        postProcess: this.state.postProcess
-                    }),
-                    Right({
-                        deleteSelectedGroupProp: this.deleteSelectedGroupProp,
-                        exportColorScheme: this.exportColorScheme,
-                        getGroup: this.getGroup,
-                        getModifiedGroups: this.getModifiedGroups,
-                        resetGroup: this.resetGroup,
-                        resetSelectedGroupProp: this.resetSelectedGroupProp,
-                        resetState: this.resetState,
-                        setActiveColor: this.setActiveColor,
-                        setActivePane: this.setActivePane,
-                        setActiveVariant: this.setActiveVariant,
-                        setComponentVisibility: this.setComponentVisibility,
-                        setExportName: this.setExportName,
-                        setPostProcessProps: this.setPostProcessProps,
-                        setSectionVisibility: this.setSectionVisibility,
-                        setSelectedGroupProps: this.setSelectedGroupProps,
-
-                        activeColor: this.state.activeColor,
-                        activePane: this.state.activePane,
-                        activeVariant: this.state.activeVariant,
-                        componentsVisibility: this.state.componentsVisibility,
-                        exportName: this.state.exportName,
-                        hoverGroup: this.state.hoverGroup,
-                        postProcess: this.state.postProcess,
-                        sectionsVisibility: this.state.sectionsVisibility,
-                        selectedGroup: this.state.selectedGroup
-                    })),
-                    Footer({
-                        setActiveFile: this.setActiveFile,
-                        setParsedSource: this.setParsedSource
-                    }),
-                Export({
-                    key: 'export',
-                    clearExportedSource: this.clearExportedSource,
-
+                    activeColor: this.state.activeColor,
+                    activePane: this.state.activePane,
+                    activeVariant: this.state.activeVariant,
+                    componentsVisibility: this.state.componentsVisibility,
                     exportName: this.state.exportName,
-                    exportedSource: this.state.exportedSource
-                })]));
+                    hoverGroup: this.state.hoverGroup,
+                    postProcess: this.state.postProcess,
+                    sectionsVisibility: this.state.sectionsVisibility,
+                    selectedGroup: this.state.selectedGroup
+                })),
+            Footer({
+                key: 'footer',
+                setActiveFile: this.setActiveFile,
+                setParsedSource: this.setParsedSource
+            })]
+            .concat(
+                (this.state.exportedSource === undefined ?
+                    [] :
+                    [Export({
+                        key: 'export',
+                        clearExportedSource: this.clearExportedSource,
+                        exportName: this.state.exportName,
+                        exportedSource: this.state.exportedSource
+                    })]));
+
+
+        return span({
+            key: 'span',
+            children: transitionFast(children)
+        });
     },
     componentDidMount() {
-        this.setBodyClassName(this.state.activeVariant);
+        this.updateBodyClass();
     },
-    setBodyClassName(variant) {
-        var body = document.getElementsByTagName('body')[0];
-
-        body.className = variant;
-    },
-    componentDidUpdate() {
+    componentDidUpdate(prevProps, prevState) {
         localStorage.setItem('state', JSON.stringify(this.state));
+
+        if (this.state.activeVariant !== prevState.activeVariant) {
+            setTimeout(() => this.updateBodyClass(), 0);
+        }
+    },
+    updateBodyClass() {
+        var body = document.getElementsByTagName('body')[0];
+        body.className = this.state.activeVariant + ' variant-transition';
+        setTimeout(() => body.className = this.state.activeVariant, 500);
     },
     getGroup(group) {
         var groups =  this.state[this.state.activeVariant];
@@ -202,9 +218,6 @@ var App = React.createClass({
         this.setState(state);
     },
     setActiveVariant(activeVariant) {
-        var body = document.getElementsByTagName('body')[0];
-
-        body.className = activeVariant;
         this.setState({activeVariant});
     },
     selectGroup(selectedGroup) {
@@ -230,7 +243,6 @@ var App = React.createClass({
         var state = _.cloneDeep(initialState);
 
         this.setState(state);
-        this.setBodyClassName(initialState.activeVariant);
     }
 });
 

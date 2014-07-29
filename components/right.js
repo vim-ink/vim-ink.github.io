@@ -8,37 +8,40 @@ var merge = (...args) => Object.assign({}, ...args);
 var Right = React.createClass({
     render() {
         var {aside} = React.DOM;
-        var {activePane} = this.props;
 
-        if (activePane === 'global') {
-            return aside({key: 'aside'},
-                    Export(merge({key: 0, firstSection: true}, this.props)),
-                    Components(merge({key: 1}, this.props)),
-                    DangerZone(merge({key: 2}, this.props)));
+        var children = [];
+
+        if (this.props.activePane === 'global') {
+            children = [
+                Export(merge(this.props, {key: 0, firstSection: true})),
+                Components(merge(this.props, {key: 1})),
+                DangerZone(merge(this.props, {key: 2}))];
+        } else {
+            children = [
+                SelectedGroup(merge(this.props, {key: 0, firstSection: true})),
+                Colors(merge(this.props, {key: 1})),
+                Highlight(merge(this.props, {key: 2})),
+                PostProcess(merge(this.props, {key: 3})),
+                ModifiedGroups(merge(this.props, {key: 4}))];
         }
-        else {
-            return aside({key: 'aside'},
-                [
-                    SelectedGroup(merge({key: 0, firstSection: true}, this.props)),
-                    Colors(merge({key: 1}, this.props)),
-                    Highlight(merge({key: 2}, this.props)),
-                    PostProcess(merge({key: 3}, this.props)),
-                    ModifiedGroups(merge({key: 4}, this.props))]);
-        }
+
+        return aside({key: 'aside', children});
     }
 });
 
 var Section = React.createClass({
     render() {
         var {section, h2} = React.DOM;
-        var {onClick} = this;
-        var {children, title, sectionsVisibility, id} = this.props;
 
-        var className = 'firstSection' in this.props && this.props.firstSection === true ? 'first' : null;
-        var children_ = sectionsVisibility[id] === 'show' ? children : null;
-        var children__ = [h2({key: 'h2', onClick}, title)].concat(children_);
+        var className = 'firstSection' in this.props && this.props.firstSection === true ?
+            'first' :
+            null;
 
-        return section({key: id, className}, transitionFast(children__));
+        var children = transitionFast([]
+            .concat([h2({key: 'h2', onClick: this.onClick}, this.props.title)])
+            .concat((this.props.sectionsVisibility[this.props.id] === 'show' ? this.props.children : [])));
+
+        return section({key: this.props.id, className, children});
     },
     onClick() {
         var {setSectionVisibility, sectionsVisibility, id} = this.props;

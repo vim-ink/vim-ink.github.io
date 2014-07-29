@@ -17,10 +17,14 @@ var Vim = React.createClass({
             onClick: this.onClick,
             onMouseOut: this.onMouseOut},
             []
-                .concat(show('tabLine') ?  TabLine(this.args()) : [])
+                .concat(show('tabLine') ?
+                        TabLine(this.args()) :
+                        [])
                 .concat(this.source())
                 .concat(NonText(merge(this.args(), {parsedSource: this.props.parsedSource})))
-                .concat(show('statusLine') ?  StatusLine(this.args()) : []));
+                .concat(show('statusLine') ?
+                        StatusLine(this.args()) :
+                        []));
     },
     args() {
         return {

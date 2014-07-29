@@ -7,11 +7,11 @@ var Header = React.createClass({
     render() {
         var {header, h1, div} = React.DOM;
 
-        return header({key: 'header_'},
-            div({className: 'wrap cf'},
-            h1(null, 'vim.ink'),
-            Files(this.props),
-            Panes(this.props)));
+        return header({key: 'header'},
+            div({key: 'wrap', className: 'wrap cf'},
+                h1({key: 'h1'}, 'vim.ink'),
+                Files(merge(this.props, {key: 'files'})),
+                Panes(merge(this.props, {key: 'panes'}))));
     }
 });
 
@@ -52,7 +52,7 @@ var FileLink = React.createClass({
 
         var className = type === activeFile ? 'active' : '';
 
-        return li({key, className, onClick}, title);
+        return li({key: 'li', className, onClick}, title);
     },
     onClick(e) {
         var {setParsedSource, setActiveFile, type} = this.props;

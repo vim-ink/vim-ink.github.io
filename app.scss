@@ -122,18 +122,6 @@ h1, h2, body, input, button, textarea {
     font-weight: 300;
 }
 
-body,
-header,
-section,
-input,
-input[type="range"]::-webkit-slider-runnable-track {
-    transition: all .5s ease;
-}
-
-button, li {
-    transition: all .2s ease;
-}
-
 /* body */
 
 body {
@@ -141,12 +129,23 @@ body {
     margin: 0;
 }
 
-body.light {
+body.variant-transition,
+body.variant-transition header,
+body.variant-transition section,
+body.variant-transition input,
+body.variant-transition button,
+body.variant-transition li,
+body.variant-transition input[type="range"]::-webkit-slider-runnable-track {
+    transition: all 0.5s ease;
+    -moz-transition: all 0.5s ease;
+}
+
+.light {
     background-color: $lb0;
     color: $lf3;
 }
 
-body.dark {
+.dark {
     background-color: $db0;
     color: $df3;
 }
@@ -160,11 +159,11 @@ body.dark {
 
 /* header */
 
-body.light header {
+.light header {
     border-bottom: 1px solid $lb2;
 }
 
-body.dark header {
+.dark header {
     border-bottom: 1px solid $db2;
 }
 
@@ -177,11 +176,11 @@ h1 {
     margin: 3rem 0rem 1rem 0rem;
 }
 
-body.light h1 {
+.light h1 {
     color: $lf4;
 }
 
-body.dark h1 {
+.dark h1 {
     color: $df4;
 }
 
@@ -216,13 +215,13 @@ ul.nav a {
     cursor: default;
 }
 
-body.light ul.nav,
-body.light ul.nav a {
+.light ul.nav,
+.light ul.nav a {
     color: $lf4;
 }
 
-body.dark ul.nav,
-body.dark ul.nav a {
+.dark ul.nav,
+.dark ul.nav a {
     color: $df4;
 }
 
@@ -236,34 +235,34 @@ ul.nav li:last-child {
     margin-right: 0;
 }
 
-body.light ul.nav li:hover,
-body.light ul.nav li a:hover {
+.light ul.nav li:hover,
+.light ul.nav li a:hover {
     color: $lf3;
 }
 
-body.dark ul.nav li:hover,
-body.dark ul.nav li a:hover {
+.dark ul.nav li:hover,
+.dark ul.nav li a:hover {
     color: $df3;
 }
 
-body.light ul.nav li:active,
-body.light ul.nav li a:active {
+.light ul.nav li:active,
+.light ul.nav li a:active {
     color: $lf2;
 }
 
-body.dark ul.nav li:active,
-body.dark ul.nav li a:active {
+.dark ul.nav li:active,
+.dark ul.nav li a:active {
     color: $df2;
 }
 
-body.light ul.nav li.active,
-body.light ul.nav li.active a {
+.light ul.nav li.active,
+.light ul.nav li.active a {
     color: $lf2;
     border-bottom: 1px solid $lb5;
 }
 
-body.dark ul.nav li.active,
-body.dark ul.nav li.active a {
+.dark ul.nav li.active,
+.dark ul.nav li.active a {
     color: $df2;
     border-bottom: 1px solid $db5;
 }
@@ -288,11 +287,11 @@ pre {
     overflow: hidden;
 }
 
-body.light pre {
+.light pre {
     /* box-shadow: 0.2rem 0.2rem 0.6rem #f2f2f2; */
 }
 
-body.dark pre {
+.dark pre {
     /* box-shadow: 0.2rem 0.2rem 0.6rem #202020; */
 }
 
@@ -302,12 +301,12 @@ textarea {
     border: 0;
 }
 
-body.light textarea {
+.light textarea {
     background-color: $lb0;
     color: $lf0;
 }
 
-body.dark textarea {
+.dark textarea {
     background-color: $db0;
     color: $df0;
 }
@@ -335,11 +334,11 @@ body.dark textarea {
     border-radius: 1.5rem;
 }
 
-body.light .highlight-button {
+.light .highlight-button {
     color: $lf3;
 }
 
-body.dark .highlight-button {
+.dark .highlight-button {
     color: $df3;
 }
 
@@ -347,11 +346,11 @@ body.dark .highlight-button {
     opacity: 1;
 }
 
-body.light .highlight-button.none {
+.light .highlight-button.none {
     border: 0.1rem dashed $lf4;
 }
 
-body.dark .highlight-button.none {
+.dark .highlight-button.none {
     border: 0.1rem dashed $df4;
 }
 
@@ -367,28 +366,28 @@ body.dark .highlight-button.none {
     font-style: italic;
 }
 
-body.light .highlight-button.underline span {
+.light .highlight-button.underline span {
     border-bottom: 0.1rem solid $lf3;
 }
 
-body.dark .highlight-button.underline span {
+.dark .highlight-button.underline span {
     border-bottom: 0.1rem solid $df3;
 }
 
-body.light .highlight-button.undercurl span {
+.light .highlight-button.undercurl span {
     border-bottom: 0.1rem dotted $lf3;
 }
 
-body.dark .highlight-button.undercurl span {
+.dark .highlight-button.undercurl span {
     border-bottom: 0.1rem dotted $df3;
 }
 
-body.light .highlight-button.reverse {
+.light .highlight-button.reverse {
     background-color: $lf5;
     color: $lb0;
 }
 
-body.dark .highlight-button.reverse {
+.dark .highlight-button.reverse {
     background-color: $df5;
     color: $db0;
 }
@@ -397,53 +396,53 @@ body.dark .highlight-button.reverse {
     font-weight: 400;
 }
 
-body.light .highlight-button.standout {
+.light .highlight-button.standout {
     background-color: $lf5;
     color: $lb0;
 }
 
-body.dark .highlight-button.standout {
+.dark .highlight-button.standout {
     background-color: $df5;
     color: $db0;
 }
 
-body.light .highlight-button:hover {
+.light .highlight-button:hover {
     opacity: 1;
 }
 
-body.dark .highlight-button:hover {
+.dark .highlight-button:hover {
     opacity: 1;
 }
 
-body.light .highlight-button.none:active {
+.light .highlight-button.none:active {
     border: 0.1rem dashed $lf3;
 }
 
-body.dark .highlight-button.none:active {
+.dark .highlight-button.none:active {
     border: 0.1rem dashed $df3;
 }
 
-body.light .highlight-button.bold:active,
-body.light .highlight-button.italic:active,
-body.light .highlight-button.underline:active,
-body.light .highlight-button.undercurl:active {
+.light .highlight-button.bold:active,
+.light .highlight-button.italic:active,
+.light .highlight-button.underline:active,
+.light .highlight-button.undercurl:active {
     color: $lf2;
 }
 
-body.dark .highlight-button.bold:active,
-body.dark .highlight-button.italic:active,
-body.dark .highlight-button.underline:active,
-body.dark .highlight-button.undercurl:active {
+.dark .highlight-button.bold:active,
+.dark .highlight-button.italic:active,
+.dark .highlight-button.underline:active,
+.dark .highlight-button.undercurl:active {
     color: $df2;
 }
 
-body.light .highlight-button.reverse:active,
-body.light .highlight-button.standout:active {
+.light .highlight-button.reverse:active,
+.light .highlight-button.standout:active {
     background-color: $lf4;
 }
 
-body.dark .highlight-button.reverse:active,
-body.dark .highlight-button.standout:active {
+.dark .highlight-button.reverse:active,
+.dark .highlight-button.standout:active {
     background-color: $df4;
 }
 
@@ -462,31 +461,31 @@ body.dark .highlight-button.standout:active {
     border: 0;
 }
 
-body.light .small-button {
+.light .small-button {
     border: 1px solid $lb5;
     color: $lf3;
 }
 
-body.dark .small-button {
+.dark .small-button {
     border: 1px solid $db5;
     color: $df3;
 }
 
-body.light .small-button:hover {
+.light .small-button:hover {
     background-color: $lb5;
     color: $lf2;
 }
 
-body.dark .small-button:hover {
+.dark .small-button:hover {
     background-color: $db5;
     color: $df2;
 }
 
-body.light .small-button:active {
+.light .small-button:active {
     color: $lf1;
 }
 
-body.dark .small-button:active {
+.dark .small-button:active {
     color: $df1;
 }
 
@@ -506,22 +505,22 @@ body.dark .small-button:active {
     border: 0;
 }
 
-body.light .button {
+.light .button {
     border: 1px solid $lb5;
     color: $lf3;
 }
 
-body.dark .button {
+.dark .button {
     border: 1px solid $db5;
     color: $df3;
 }
 
-body.light .button:hover {
+.light .button:hover {
     background-color: $lb5;
     color: $lf2;
 }
 
-body.dark .button:hover {
+.dark .button:hover {
     background-color: $db5;
     color: $df2;
 }
@@ -557,11 +556,11 @@ input[type="range"]::-webkit-slider-runnable-track {
     height: 0.1rem;
 }
 
-body.light input[type="range"]::-webkit-slider-runnable-track {
+.light input[type="range"]::-webkit-slider-runnable-track {
     border-bottom: 1px solid $lb3;
 }
 
-body.dark input[type="range"]::-webkit-slider-runnable-track {
+.dark input[type="range"]::-webkit-slider-runnable-track {
     border-bottom: 1px solid $db3;
 }
 
@@ -573,11 +572,11 @@ input[type="range"]::-webkit-slider-thumb {
     border-radius: 0.625rem;
 }
 
-body.light input[type="range"]::-webkit-slider-thumb {
+.light input[type="range"]::-webkit-slider-thumb {
     background-color: $lf4;
 }
 
-body.dark input[type="range"]::-webkit-slider-thumb {
+.dark input[type="range"]::-webkit-slider-thumb {
     background-color: $df4;
 }
 
@@ -586,11 +585,11 @@ input[type="range"]::-moz-range-track {
     height: 0.1rem;
 }
 
-body.light input[type="range"]::-moz-range-track {
+.light input[type="range"]::-moz-range-track {
     border-bottom: 1px solid $lb3;
 }
 
-body.dark input[type="range"]::-moz-range-track {
+.dark input[type="range"]::-moz-range-track {
     border-bottom: 1px solid $db3;
 }
 
@@ -602,11 +601,11 @@ input[type="range"]::-moz-range-thumb {
     border-radius: 0.625rem;
 }
 
-body.light input[type="range"]::-moz-range-thumb {
+.light input[type="range"]::-moz-range-thumb {
     background-color: $lf4;
 }
 
-body.dark input[type="range"]::-moz-range-thumb {
+.dark input[type="range"]::-moz-range-thumb {
     background-color: $df4;
 }
 
@@ -618,12 +617,10 @@ aside {
     overflow: hidden;
 }
 
-/* aside h2 */
+/* aside section */
 
-aside h2 {
-    font-size: 1.4rem;
+aside section {
     margin: 1.5rem 0;
-    text-align: right;
 }
 
 aside section.first {
@@ -631,39 +628,43 @@ aside section.first {
     border-top: 0!important;
 }
 
-aside section {
-    margin: 1.5rem 0;
-}
-
-body.light aside section {
+.light aside section {
     border-top: 1px solid $lb2;
 }
 
-body.dark aside section {
+.dark aside section {
     border-top: 1px solid $db2;
 }
 
-body.light aside section h2 {
+/* aside section h2 */
+
+aside section h2 {
+    font-size: 1.4rem;
+    margin: 1.5rem 0;
+    text-align: right;
+}
+
+.light aside section h2 {
     color: $lf4;
 }
 
-body.dark aside section h2 {
+.dark aside section h2 {
     color: $df4;
 }
 
-body.light aside h2:hover {
+.light aside h2:hover {
     color: $lf3;
 }
 
-body.dark aside h2:hover {
+.dark aside h2:hover {
     color: $df3;
 }
 
-body.light aside h2:active {
+.light aside h2:active {
     color: $lf2;
 }
 
-body.dark aside h2:active {
+.dark aside h2:active {
     color: $df2;
 }
 
@@ -685,13 +686,13 @@ body.dark aside h2:active {
     text-align: left;
 }
 
-body.light .export {
+.light .export {
     background-color: $lb1;
     color: $lf2;
     box-shadow: 0.25rem 0.25rem 0.75rem $lb5;
 }
 
-body.dark .export {
+.dark .export {
     background-color: $db1;
     color: $df2;
     box-shadow: 0.25rem 0.25rem 0.75rem $db5;
@@ -746,19 +747,19 @@ body.dark .export {
     line-height: 3rem;
 }
 
-body.light .color-line .right {
+.light .color-line .right {
     color: $lf4;
 }
 
-body.dark .color-line .right {
+.dark .color-line .right {
     color: $df4;
 }
 
-body.light .color-line .right.active {
+.light .color-line .right.active {
     color: $lf3;
 }
 
-body.dark .color-line .right.active {
+.dark .color-line .right.active {
     color: $df3;
 }
 
@@ -776,11 +777,11 @@ body.dark .color-line .right.active {
     margin-top: 0.1rem;
 }
 
-body.light .post-process-line .left.inactive {
+.light .post-process-line .left.inactive {
     color: $lf4;
 }
 
-body.dark .post-process-line .left.inactive {
+.dark .post-process-line .left.inactive {
     color: $df4;
 }
 
@@ -807,21 +808,21 @@ body.dark .post-process-line .left.inactive {
     margin-left: 1rem;
 }
 
-body.light .selected-group-line .right {
+.light .selected-group-line .right {
     color: $lf5;
 }
 
-body.dark .selected-group-line .right {
+.dark .selected-group-line .right {
     color: $df5;
 }
 
 /* .modified-groups-line */
 
-body.light .modified-groups-line.none {
+.light .modified-groups-line.none {
     color: $lf4;
 }
 
-body.dark .modified-groups-line.none {
+.dark .modified-groups-line.none {
     color: $df4;
 }
 
@@ -838,12 +839,12 @@ body.dark .modified-groups-line.none {
     outline: 0;
 }
 
-body.light .text {
+.light .text {
     background-color: $lb1;
     color: $lf3;
 }
 
-body.dark .text {
+.dark .text {
     background-color: $db1;
     color: $df3;
 }
@@ -871,55 +872,50 @@ body.dark .text {
     border-radius: 1.5rem;
 }
 
-body.light .color-overlay.none {
+.light .color-overlay.none {
     border: 1px dashed $lf4;
 }
 
-body.dark .color-overlay.none {
+.dark .color-overlay.none {
     border: 1px dashed $df4;
 }
 
-body.light .color-overlay.border {
+.light .color-overlay.border {
     border: 1px solid $lb1;
 }
 
-body.dark .color-overlay.border {
+.dark .color-overlay.border {
     border: 1px solid $db1;
 }
 
-/**
- * For modern browsers
- * 1. The space content is one way to avoid an Opera bug when the
- *    contenteditable attribute is included anywhere else in the document.
- *    Otherwise it causes space to appear at the top and bottom of elements
- *    that are clearfixed.
- * 2. The use of `table` rather than `block` is only necessary if using
- *    `:before` to contain the top-margins of child elements.
- */
+/* .cf */
+
 .cf:before,
 .cf:after {
-    content: ' '; /* 1 */
-    display: table; /* 2 */
+    content: ' ';
+    display: table;
 }
 
 .cf:after {
     clear: both;
 }
 
+/* .fast */
+
 .fast-enter {
     opacity: 0.01;
-    transition: opacity .2s ease;
 }
 
 .fast-enter.fast-enter-active {
     opacity: 1;
+    transition: opacity 0.25s ease;
 }
 
 .fast-leave {
     opacity: 1;
-    transition: opacity .2s ease;
 }
 
 .fast-leave.fast-leave-active {
     opacity: 0.01;
+    transition: opacity 0.25s ease;
 }
