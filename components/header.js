@@ -21,14 +21,9 @@ var Files = React.createClass({
 
         return ul({key: 'nav', className: 'nav files'},
             FileLink(merge(this.props, {
-                key: 'vim',
-                type: 'vim',
-                title: 'UI'
-            })),
-            FileLink(merge(this.props, {
-                key: 'html',
-                type: 'html',
-                title: 'HTML'
+                key: 'javascript',
+                type: 'javascript',
+                title: 'JavaScript'
             })),
             FileLink(merge(this.props, {
                 key: 'css',
@@ -36,9 +31,14 @@ var Files = React.createClass({
                 title: 'CSS'
             })),
             FileLink(merge(this.props, {
-                key: 'javascript',
-                type: 'javascript',
-                title: 'JavaScript'
+                key: 'html',
+                type: 'html',
+                title: 'HTML'
+            })),
+            FileLink(merge(this.props, {
+                key: 'vim',
+                type: 'vim',
+                title: 'UI'
             })),
             PasteLink(merge(this.props, {key: 'pasteLink'})));
     }
