@@ -129,16 +129,6 @@ body {
     margin: 0;
 }
 
-.variant-transition,
-.variant-transition header,
-.variant-transition section,
-.variant-transition input,
-.variant-transition button,
-.variant-transition li,
-.variant-transition input[type="range"]::-webkit-slider-runnable-track {
-    transition: all 0.5s ease;
-}
-
 .light {
     background-color: $lb0;
     color: $lf3;
@@ -323,6 +313,7 @@ textarea {
     opacity: 0.5;
     border: 0;
     border-radius: 1.5rem;
+    transition: opacity 0.1s ease;
 }
 
 .light .highlight-button {
@@ -450,6 +441,7 @@ textarea {
     height: 3rem;
     border-radius: 0.3rem;
     border: 0;
+    transition: background-color 0.1s ease;
 }
 
 .light .small-button {
@@ -494,6 +486,7 @@ textarea {
     font-size: 1.4rem;
     border-radius: 0.3rem;
     border: 0;
+    transition: background-color 0.1s ease;
 }
 
 .light .button {
@@ -887,6 +880,20 @@ aside section h2 {
 
 .cf:after {
     clear: both;
+}
+
+/* Transitions */
+
+/* .variant-transition */
+
+.variant-transition,
+.variant-transition header,
+.variant-transition section,
+.variant-transition input,
+.variant-transition button,
+.variant-transition li,
+.variant-transition input[type="range"]::-webkit-slider-runnable-track {
+    transition: all 0.5s ease;
 }
 
 /* .fast */
