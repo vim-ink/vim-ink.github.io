@@ -243,26 +243,37 @@ var Export = React.createClass({
         p = $__0.p,
         h2 = $__0.h2,
         textarea = $__0.textarea;
-    var onClick = this.onClick;
+    var $__0 = this,
+        onClick = $__0.onClick,
+        onKeyDown = $__0.onKeyDown;
     return div({
       key: 'exportDialog',
       className: 'export dialog'
     }, h2({key: 'h2'}, 'Export'), p({key: 'p'}, 'Copy text into a new vim buffer, then `:w ~/.vim/colors/' + this.props.exportName + '.vim` and `:colorscheme ' + this.props.exportName + '`.'), textarea({
       key: 'textarea',
+      onKeyDown: onKeyDown,
       ref: 'exportedSource',
       value: this.props.exportedSource,
       readOnly: true
     }), button({
       key: 'button',
+      type: 'submit',
       className: 'button',
       onClick: onClick
     }, 'Close'));
   },
   componentDidMount: function() {
-    this.refs.exportedSource.getDOMNode().select();
+    var textarea = this.refs.exportedSource.getDOMNode();
+    textarea.select();
+    textarea.focus();
   },
   onClick: function() {
     this.props.clearExportedSource();
+  },
+  onKeyDown: function(e) {
+    if (e.keyCode === 27 || e.keyCode === 13) {
+      this.props.clearExportedSource();
+    }
   }
 });
 module.exports = Export;
@@ -1093,19 +1104,16 @@ var Vim = React.createClass({
       setHoverGroup: this.props.setHoverGroup
     };
   },
-  cursor: function() {
-    return this.props.activeFile === 'vim' ? 2 : null;
-  },
   source: function() {
     var $__0 = this;
     return this.props.parsedSource.map((function(line, index) {
       return Line(merge($__0.args(), {
         key: index,
         componentsVisibility: $__0.props.componentsVisibility,
+        showLineNumber: $__0.props.componentsVisibility['lineNumbers'] === 'show' && $__0.props.activeFile !== 'vim',
         line: line,
         lineNumber: {
-          cursor: $__0.cursor(),
-          line: index,
+          line: index + 1,
           lineCount: $__0.props.parsedSource.length
         }
       }));
@@ -1231,8 +1239,8 @@ var TabLine = React.createClass({render: function() {
 var Line = React.createClass({
   render: function() {
     var span = $traceurRuntime.assertObject(React.DOM).span;
-    var componentsVisibility = $traceurRuntime.assertObject(this.props).componentsVisibility;
-    var children = [].concat(componentsVisibility['lineNumbers'] === 'show' ? this.lineNumber() : []).concat(this.segments()).concat(span({key: 'newLine'}, '\n'));
+    var showLineNumber = $traceurRuntime.assertObject(this.props).showLineNumber;
+    var children = [].concat(showLineNumber === true ? this.lineNumber() : []).concat(this.segments()).concat(span({key: 'newLine'}, '\n'));
     return span({key: 'line'}, children);
   },
   lineNumber: function() {
@@ -1272,7 +1280,7 @@ var LineNumber = React.createClass({
     var $__2 = $traceurRuntime.assertObject(lineNumber),
         line = $__2.line,
         lineCount = $__2.lineCount;
-    var props = getGroup(this.group());
+    var props = getGroup('LineNr');
     var spaceCount = 1 + (lineCount.toString().length - line.toString().length);
     var content = ' '.repeat(spaceCount) + line + ' ';
     return span({
@@ -1281,16 +1289,13 @@ var LineNumber = React.createClass({
       onMouseOver: this.onMouseOver
     }, content);
   },
-  group: function() {
-    return this.props.lineNumber.cursor === this.props.lineNumber.line ? 'CursorLineNr' : 'LineNr';
-  },
   onMouseOver: function(e) {
     var lineNumber = $traceurRuntime.assertObject(this.props).lineNumber;
-    this.props.setHoverGroup(this.group());
+    this.props.setHoverGroup('LineNr');
     e.stopPropagation();
   },
   onClick: function(e) {
-    this.props.selectGroup(this.group());
+    this.props.selectGroup('LineNr');
     e.stopPropagation();
   }
 });
@@ -1387,11 +1392,11 @@ var App = require('./components/app');
 React.renderComponent(App(), document.body);
 
 
-}).call(this,require("IrXUsu"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/fake_cb8a05e8.js","/")
+}).call(this,require("IrXUsu"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/fake_62efa9d6.js","/")
 },{"./components/app":1,"IrXUsu":20,"buffer":17,"es6ify/node_modules/traceur/bin/traceur-runtime":16,"react/addons":22}],10:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 "use strict";
-var s = (function(n) {
+var spaces = (function(n) {
   return ' '.repeat(n);
 });
 var g = (function(group, content) {
@@ -1400,10 +1405,20 @@ var g = (function(group, content) {
     content: content
   };
 });
+var line = (function(s) {
+  var group = arguments[1] !== (void 0) ? arguments[1] : 'LineNr';
+  return g(group, s);
+});
+var sign = (function(s) {
+  return g('SignColumn', s);
+});
+var fill = (function(str, chr, totalWidth) {
+  return str + chr.repeat(totalWidth - str.length);
+});
 var files = {
   vim: {
     title: 'Vim',
-    parsedSource: [[s(2), g('CursorColumn', ' ')], [s(2), g('CursorColumn', ' ')], [g('CursorLine', s(2)), g('Cursor', 'T'), g('CursorLine', 'he cursor' + s(73))], [s(78), g('ColorColumn', ' ')], [g('Visual', 'These words'), ' are selected' + s(54), g('ColorColumn', ' ')], ['Currently searching for ', g('IncSearch', 'foo'), ', already found ', g('Search', 'bar'), g('ColorColumn', ' ')], [g('Cursor', '('), 'matching parens', g('MatchParen', ')')], [g('Conceal', 'ƒ'), ' is the conceal character for `function`'], [g('DiffDelete', 'This line was deleted' + s(62))], [g('DiffText', 'These words'), g('DiffChange', ' on this line was changed' + s(47))], [g('DiffAdd', 'This line was added' + s(64))]]
+    parsedSource: [[sign('  '), line('  1 '), spaces(2), g('CursorColumn', ' ')], [sign('  '), line('  2 '), spaces(2), g('CursorColumn', ' ')], [sign('  '), line('  3 ', 'CursorLineNr'), g('CursorLine', spaces(2)), g('Cursor', 'T'), g('CursorLine', 'he cursor' + spaces(73))], [sign('  '), line('  4 '), spaces(78), g('ColorColumn', ' ')], [sign('  '), line('  5 '), g('Visual', 'These words'), ' are selected' + spaces(54), g('ColorColumn', ' ')], [sign('  '), line('  6 '), 'Currently searching for ', g('IncSearch', 'foo'), ', already found ', g('Search', 'bar')], [sign('  '), line('  7 '), g('Cursor', '('), 'matching parens', g('MatchParen', ')')], [sign('  '), line('  8 '), 'foo(bar({baz, [qux', g('Error', '}))'), ' ', g('Comment', '// '), g('Todo', 'TODO'), g('Comment', ': Fix error')], [sign('  '), line('  9 '), g('Conceal', 'ƒ'), ' is a conceal character for `function`'], [sign('  '), line(' 10 ')], [sign('--'), line(' 11 '), g('DiffDelete', 'This line was deleted' + spaces(62))], [sign('  '), line(' 12 '), g('DiffText', 'These words'), g('DiffChange', ' on this line was changed' + spaces(47))], [sign('++'), line(' 13 '), g('DiffAdd', 'This line was added' + spaces(64))], [sign('  '), line(' 14 ')], [sign('  '), line(' 15 '), g('Pmenu', 'Popup menu item' + spaces(18)), g('PmenuSbar', ' ')], [sign('  '), line(' 16 '), g('PmenuSel', 'Popup menu selected item' + spaces(9)), g('PmenuSbar', ' ')], [sign('  '), line(' 17 '), g('Pmenu', 'Popup menu item' + spaces(18)), g('PmenuThumb', ' ')], [sign('  '), line(' 18 '), g('Pmenu', 'Popup menu item' + spaces(18)), g('PmenuSbar', ' ')], [sign('  '), line(' 19 ')], [fill('one line', ' ', 42), g('VertSplit', '│'), fill('one line', ' ', 41)], [fill('another line', ' ', 42), g('VertSplit', '│'), fill('another line', ' ', 41)], [fill('a third line', ' ', 42), g('VertSplit', '│'), fill('a third line', ' ', 41)], [g('StatusLineNC', fill('inactive window status', ' ', 43)), g('StatusLine', fill('active window status', ' ', 42))], [], [g('ErrorMsg', 'E37: No write since last change (add ! to override)')], [g('WarningMsg', 'W10: Warning: Changing a readonly file')], [g('ModeMsg', '-- INSERT --')], [g('MoreMsg', '-- More --')], [], [fill('one-file', ' ', 22), fill('another-file', ' ', 22), fill('a-third-file', ' ', 22)], [g('Directory', 'one-directory'), fill('/', ' ', 9), g('Directory', 'another-directory'), fill('/', ' ', 5)], [g('StatusLine', 'one-file  another-file  '), g('WildMenu', 'a-third-file'), g('StatusLine', spaces(51))]]
   },
   about: {
     title: 'About',
@@ -2015,13 +2030,13 @@ var db2 = d4;
 var db3 = d6;
 var db4 = d8;
 var db5 = d10;
-var lfred = '#780000';
+var lfred = lf0;
 var lbred = '#fff0f0';
-var lfgreen = '#007800';
+var lfgreen = lf0;
 var lbgreen = '#f0fff0';
-var dfred = '#800000';
+var dfred = df0;
 var dbred = '#200000';
-var dfgreen = '#008000';
+var dfgreen = df0;
 var dbgreen = '#002000';
 var initialState = {
   _version: 0,
@@ -2061,6 +2076,7 @@ var initialState = {
     dangerZone: 'hide'
   },
   light: {
+    Boolean: {color: lf3},
     ColorColumn: {backgroundColor: lb1},
     Comment: {color: lf4},
     Conceal: {color: lf3},
@@ -2070,22 +2086,13 @@ var initialState = {
     CursorColumn: {backgroundColor: lb1},
     CursorLine: {backgroundColor: lb1},
     CursorLineNr: {color: lf4},
-    DiffAdd: {
-      backgroundColor: lbgreen,
-      color: lfgreen
-    },
+    DiffAdd: {backgroundColor: lbgreen},
     DiffChange: {backgroundColor: lb1},
-    DiffDelete: {
-      backgroundColor: lbred,
-      color: lfred
-    },
+    DiffDelete: {backgroundColor: lbred},
     DiffText: {backgroundColor: lb3},
     Directory: {color: lf2},
-    Error: {},
-    ErrorMsg: {
-      backgroundColor: lbred,
-      color: lfred
-    },
+    Error: {backgroundColor: lbred},
+    ErrorMsg: {backgroundColor: lbred},
     FoldColumn: {color: lf4},
     Folded: {color: lf4},
     Ignore: {},
@@ -2101,9 +2108,9 @@ var initialState = {
     },
     Number: {color: lf3},
     Pmenu: {backgroundColor: lb1},
-    PmenuSbar: {backgroundColor: lb0},
+    PmenuSbar: {backgroundColor: lb2},
     PmenuSel: {backgroundColor: lb3},
-    PmenuThumb: {backgroundColor: lb1},
+    PmenuThumb: {backgroundColor: lb4},
     Question: {},
     Search: {backgroundColor: lb2},
     SignColumn: {color: lf5},
@@ -2140,11 +2147,12 @@ var initialState = {
     VertSplit: {color: lb3},
     Visual: {backgroundColor: lb3},
     VisualNOS: {},
-    WarningMsg: {},
-    WildMenu: {backgroundColor: lb2},
+    WarningMsg: {backgroundColor: lbred},
+    WildMenu: {backgroundColor: lb5},
     lCursor: {}
   },
   dark: {
+    Boolean: {color: df3},
     ColorColumn: {backgroundColor: db1},
     Comment: {color: df4},
     Conceal: {color: df3},
@@ -2154,22 +2162,13 @@ var initialState = {
     CursorColumn: {backgroundColor: db1},
     CursorLine: {backgroundColor: db1},
     CursorLineNr: {color: df4},
-    DiffAdd: {
-      backgroundColor: dbgreen,
-      color: dfgreen
-    },
+    DiffAdd: {backgroundColor: dbgreen},
     DiffChange: {backgroundColor: db1},
-    DiffDelete: {
-      backgroundColor: dbred,
-      color: dfred
-    },
+    DiffDelete: {backgroundColor: dbred},
     DiffText: {backgroundColor: db3},
     Directory: {color: df2},
-    Error: {},
-    ErrorMsg: {
-      color: dfred,
-      backgroundColor: dbred
-    },
+    Error: {backgroundColor: dbred},
+    ErrorMsg: {backgroundColor: dbred},
     FoldColumn: {color: df4},
     Folded: {color: df4},
     Ignore: {},
@@ -2185,9 +2184,9 @@ var initialState = {
     },
     Number: {color: df3},
     Pmenu: {backgroundColor: db1},
-    PmenuSbar: {backgroundColor: db0},
+    PmenuSbar: {backgroundColor: db2},
     PmenuSel: {backgroundColor: db3},
-    PmenuThumb: {backgroundColor: db1},
+    PmenuThumb: {backgroundColor: db4},
     Question: {},
     Search: {backgroundColor: db2},
     SignColumn: {color: df5},
@@ -2224,8 +2223,8 @@ var initialState = {
     VertSplit: {color: db3},
     Visual: {backgroundColor: db3},
     VisualNOS: {},
-    WarningMsg: {},
-    WildMenu: {backgroundColor: db2},
+    WarningMsg: {backgroundColor: dbred},
+    WildMenu: {backgroundColor: db5},
     lCursor: {}
   }
 };

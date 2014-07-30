@@ -34,18 +34,16 @@ var Vim = React.createClass({
             setHoverGroup: this.props.setHoverGroup
         };
     },
-    cursor() {
-        return this.props.activeFile === 'vim' ? 2 : null;
-    },
     source() {
         return this.props.parsedSource.map((line, index) =>
            Line(merge(this.args(), {
                 key: index,
                 componentsVisibility: this.props.componentsVisibility,
+                showLineNumber: this.props.componentsVisibility['lineNumbers'] === 'show' &&
+                    this.props.activeFile !== 'vim',
                 line,
                 lineNumber: {
-                    cursor: this.cursor(),
-                    line: index,
+                    line: index + 1,
                     lineCount: this.props.parsedSource.length
                 }
             })));
@@ -205,10 +203,10 @@ var TabLine = React.createClass({
 var Line = React.createClass({
     render() {
         var {span} = React.DOM;
-        var {componentsVisibility} = this.props;
+        var {showLineNumber} = this.props;
 
         var children = []
-            .concat(componentsVisibility['lineNumbers'] === 'show' ? this.lineNumber() : [])
+            .concat(showLineNumber === true ? this.lineNumber() : [])
             .concat(this.segments())
             .concat(span({key: 'newLine'}, '\n'));
 
@@ -244,7 +242,7 @@ var LineNumber = React.createClass({
         var {style, getGroup, lineNumber} = this.props;
         var {line, lineCount} = lineNumber;
 
-        var props = getGroup(this.group());
+        var props = getGroup('LineNr');
         var spaceCount = 1 + (lineCount.toString().length - line.toString().length)
 
         var content = ' '.repeat(spaceCount) + line + ' ';
@@ -255,16 +253,13 @@ var LineNumber = React.createClass({
             onMouseOver: this.onMouseOver},
             content);
     },
-    group() {
-        return this.props.lineNumber.cursor === this.props.lineNumber.line ? 'CursorLineNr' : 'LineNr';
-    },
     onMouseOver(e) {
         var {lineNumber} = this.props;
-        this.props.setHoverGroup(this.group());
+        this.props.setHoverGroup('LineNr');
         e.stopPropagation();
     },
     onClick(e) {
-        this.props.selectGroup(this.group());
+        this.props.selectGroup('LineNr');
         e.stopPropagation();
     }
 });

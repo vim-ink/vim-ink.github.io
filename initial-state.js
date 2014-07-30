@@ -96,16 +96,16 @@ var db3 = d6;
 var db4 = d8;
 var db5 = d10;
 
-var lfred = '#780000';
+var lfred = lf0;
 var lbred = '#fff0f0';
 
-var lfgreen = '#007800';
+var lfgreen = lf0;
 var lbgreen = '#f0fff0';
 
-var dfred = '#800000';
+var dfred = df0;
 var dbred = '#200000';
 
-var dfgreen = '#008000';
+var dfgreen = df0;
 var dbgreen = '#002000';
 
 var initialState = {
@@ -146,6 +146,7 @@ var initialState = {
         dangerZone: 'hide'
     },
     light: {
+        Boolean: {color: lf3},
         ColorColumn: {backgroundColor: lb1},
         Comment: {color: lf4},
         Conceal: {color: lf3},
@@ -155,13 +156,13 @@ var initialState = {
         CursorColumn: {backgroundColor: lb1},
         CursorLine: {backgroundColor: lb1},
         CursorLineNr: {color: lf4},
-        DiffAdd: {backgroundColor: lbgreen, color: lfgreen},
+        DiffAdd: {backgroundColor: lbgreen},
         DiffChange: {backgroundColor: lb1},
-        DiffDelete: {backgroundColor: lbred, color: lfred},
+        DiffDelete: {backgroundColor: lbred},
         DiffText: {backgroundColor: lb3},
         Directory: {color: lf2},
-        Error: {},
-        ErrorMsg: {backgroundColor: lbred, color: lfred},
+        Error: {backgroundColor: lbred},
+        ErrorMsg: {backgroundColor: lbred},
         FoldColumn: {color: lf4},
         Folded: {color: lf4},
         Ignore: {},
@@ -174,9 +175,9 @@ var initialState = {
         Normal: {color: lf0, backgroundColor: lb0},
         Number: {color: lf3},
         Pmenu: {backgroundColor: lb1},
-        PmenuSbar: {backgroundColor: lb0},
+        PmenuSbar: {backgroundColor: lb2},
         PmenuSel: {backgroundColor: lb3},
-        PmenuThumb: {backgroundColor: lb1},
+        PmenuThumb: {backgroundColor: lb4},
         Question: {},
         Search: {backgroundColor: lb2},
         SignColumn: {color: lf5},
@@ -201,11 +202,12 @@ var initialState = {
         VertSplit: {color: lb3},
         Visual: {backgroundColor: lb3},
         VisualNOS: {},
-        WarningMsg: {},
-        WildMenu: {backgroundColor: lb2},
+        WarningMsg: {backgroundColor: lbred},
+        WildMenu: {backgroundColor: lb5},
         lCursor: {}
     },
     dark: {
+        Boolean: {color: df3},
         ColorColumn: {backgroundColor: db1},
         Comment: {color: df4},
         Conceal: {color: df3},
@@ -215,13 +217,13 @@ var initialState = {
         CursorColumn: {backgroundColor: db1},
         CursorLine: {backgroundColor: db1},
         CursorLineNr: {color: df4},
-        DiffAdd: {backgroundColor: dbgreen, color: dfgreen},
+        DiffAdd: {backgroundColor: dbgreen},
         DiffChange: {backgroundColor: db1},
-        DiffDelete: {backgroundColor: dbred, color: dfred},
+        DiffDelete: {backgroundColor: dbred},
         DiffText: {backgroundColor: db3},
         Directory: {color: df2},
-        Error: {},
-        ErrorMsg: {color: dfred, backgroundColor: dbred},
+        Error: {backgroundColor: dbred},
+        ErrorMsg: {backgroundColor: dbred},
         FoldColumn: {color: df4},
         Folded: {color: df4},
         Ignore: {},
@@ -234,9 +236,9 @@ var initialState = {
         Normal: {color: df0, backgroundColor: db0},
         Number: {color: df3},
         Pmenu: {backgroundColor: db1},
-        PmenuSbar: {backgroundColor: db0},
+        PmenuSbar: {backgroundColor: db2},
         PmenuSel: {backgroundColor: db3},
-        PmenuThumb: {backgroundColor: db1},
+        PmenuThumb: {backgroundColor: db4},
         Question: {},
         Search: {backgroundColor: db2},
         SignColumn: {color: df5},
@@ -261,8 +263,8 @@ var initialState = {
         VertSplit: {color: db3},
         Visual: {backgroundColor: db3},
         VisualNOS: {},
-        WarningMsg: {},
-        WildMenu: {backgroundColor: db2},
+        WarningMsg: {backgroundColor: dbred},
+        WildMenu: {backgroundColor: db5},
         lCursor: {}
     }
 };

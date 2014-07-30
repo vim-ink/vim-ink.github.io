@@ -1,23 +1,50 @@
-var s = n => ' '.repeat(n);
+var spaces = n => ' '.repeat(n);
 var g = (group, content) => {
     return {group, content};
 };
+var line = (s, group = 'LineNr') => g(group, s);
+var sign = (s) => g('SignColumn', s);
+var fill = (str, chr, totalWidth) => {
+    return str + chr.repeat(totalWidth - str.length);
+}
 
 var files = {
     vim: {
         title: 'Vim',
         parsedSource: [
-            [s(2), g('CursorColumn', ' ')],
-            [s(2), g('CursorColumn', ' ')],
-            [g('CursorLine', s(2)), g('Cursor', 'T'), g('CursorLine', 'he cursor' + s(73))],
-            [s(78), g('ColorColumn', ' ')],
-            [g('Visual', 'These words'), ' are selected' + s(54), g('ColorColumn', ' ')],
-            ['Currently searching for ', g('IncSearch', 'foo'), ', already found ', g('Search', 'bar'), g('ColorColumn', ' ')],
-            [g('Cursor', '('), 'matching parens', g('MatchParen', ')')],
-            [g('Conceal', 'ƒ'), ' is the conceal character for `function`'],
-            [g('DiffDelete', 'This line was deleted' + s(62))],
-            [g('DiffText', 'These words'), g('DiffChange', ' on this line was changed' + s(47))],
-            [g('DiffAdd', 'This line was added' + s(64))],
+            [sign('  '), line('  1 '), spaces(2), g('CursorColumn', ' ')],
+            [sign('  '), line('  2 '), spaces(2), g('CursorColumn', ' ')],
+            [sign('  '), line('  3 ', 'CursorLineNr'), g('CursorLine', spaces(2)), g('Cursor', 'T'), g('CursorLine', 'he cursor' + spaces(73))],
+            [sign('  '), line('  4 '), spaces(78), g('ColorColumn', ' ')],
+            [sign('  '), line('  5 '), g('Visual', 'These words'), ' are selected' + spaces(54), g('ColorColumn', ' ')],
+            [sign('  '), line('  6 '), 'Currently searching for ', g('IncSearch', 'foo'), ', already found ', g('Search', 'bar')],
+            [sign('  '), line('  7 '), g('Cursor', '('), 'matching parens', g('MatchParen', ')')],
+            [sign('  '), line('  8 '), 'foo(bar({baz, [qux', g('Error', '}))'), ' ', g('Comment', '// '), g('Todo', 'TODO'), g('Comment', ': Fix error')],
+            [sign('  '), line('  9 '), g('Conceal', 'ƒ'), ' is a conceal character for `function`'],
+            [sign('  '), line(' 10 ')],
+            [sign('--'), line(' 11 '), g('DiffDelete', 'This line was deleted' + spaces(62))],
+            [sign('  '), line(' 12 '), g('DiffText', 'These words'), g('DiffChange', ' on this line was changed' + spaces(47))],
+            [sign('++'), line(' 13 '), g('DiffAdd', 'This line was added' + spaces(64))],
+            [sign('  '), line(' 14 ')],
+            [sign('  '), line(' 15 '), g('Pmenu', 'Popup menu item' + spaces(18)), g('PmenuSbar', ' ')],
+            [sign('  '), line(' 16 '), g('PmenuSel', 'Popup menu selected item' + spaces(9)), g('PmenuSbar', ' ')],
+            [sign('  '), line(' 17 '), g('Pmenu', 'Popup menu item' + spaces(18)), g('PmenuThumb', ' ')],
+            [sign('  '), line(' 18 '), g('Pmenu', 'Popup menu item' + spaces(18)), g('PmenuSbar', ' ')],
+            [sign('  '), line(' 19 ')],
+            [fill('one line', ' ', 42), g('VertSplit', '│'), fill('one line', ' ', 41)],
+            [fill('another line', ' ', 42), g('VertSplit', '│'), fill('another line', ' ', 41)],
+            [fill('a third line', ' ', 42), g('VertSplit', '│'), fill('a third line', ' ', 41)],
+            [g('StatusLineNC', fill('inactive window status', ' ', 43)), g('StatusLine', fill('active window status', ' ', 42))],
+            [],
+            [g('ErrorMsg', 'E37: No write since last change (add ! to override)')],
+            [g('WarningMsg', 'W10: Warning: Changing a readonly file')],
+            [g('ModeMsg', '-- INSERT --')],
+            [g('MoreMsg', '-- More --')],
+            [],
+            [fill('one-file', ' ', 22), fill('another-file', ' ', 22), fill('a-third-file', ' ', 22)],
+            [g('Directory', 'one-directory'), fill('/', ' ', 9), g('Directory', 'another-directory'), fill('/', ' ', 5)],
+
+            [g('StatusLine', 'one-file  another-file  '), g('WildMenu', 'a-third-file'), g('StatusLine', spaces(51))],
         ]
     },
     about: {
