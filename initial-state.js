@@ -96,19 +96,29 @@ var db3 = d6;
 var db4 = d8;
 var db5 = d10;
 
-var lred = '#cc3333';
+var lfred = '#780000';
+var lbred = '#fff0f0';
+
+var lfgreen = '#007800';
+var lbgreen = '#f0fff0';
+
+var dfred = '#800000';
+var dbred = '#200000';
+
+var dfgreen = '#008000';
+var dbgreen = '#002000';
 
 var initialState = {
     _version: 0,
-    parsedSource: files.html.parsedSource,
+    parsedSource: files.vim.parsedSource,
     activeVariant: 'light',
     selectedGroup: 'Normal',
     hoverGroup: undefined,
     activeColor: 'foreground',
-    activeFile: 'html',
+    activeFile: 'vim',
     activePane: 'light',
     exportName: 'my-default',
-    ExportedSource: undefined,
+    exportedSource: undefined,
     postProcess: {
         dark: {
             brightness: 0,
@@ -138,20 +148,20 @@ var initialState = {
     light: {
         ColorColumn: {backgroundColor: lb1},
         Comment: {color: lf4},
-        Conceal: {color: lf1},
+        Conceal: {color: lf3},
         Conditional: {color: lf2},
         Constant: {color: lf3},
         Cursor: {highlight: 'reverse'},
         CursorColumn: {backgroundColor: lb1},
         CursorLine: {backgroundColor: lb1},
         CursorLineNr: {color: lf4},
-        DiffAdd: {},
-        DiffChange: {},
-        DiffDelete: {color: lred},
-        DiffText: {},
+        DiffAdd: {backgroundColor: lbgreen, color: lfgreen},
+        DiffChange: {backgroundColor: lb1},
+        DiffDelete: {backgroundColor: lbred, color: lfred},
+        DiffText: {backgroundColor: lb3},
         Directory: {color: lf2},
         Error: {},
-        ErrorMsg: {color: lred},
+        ErrorMsg: {backgroundColor: lbred, color: lfred},
         FoldColumn: {color: lf4},
         Folded: {color: lf4},
         Ignore: {},
@@ -172,7 +182,7 @@ var initialState = {
         SignColumn: {color: lf5},
         Special: {color: lf3},
         SpecialKey: {color: lf5},
-        SpellBad: {color: lred},
+        SpellBad: {color: lfred},
         SpellCap: {},
         SpellLocal: {},
         SpellRare: {},
@@ -198,20 +208,20 @@ var initialState = {
     dark: {
         ColorColumn: {backgroundColor: db1},
         Comment: {color: df4},
-        Conceal: {color: df1},
+        Conceal: {color: df3},
         Conditional: {color: df2},
         Constant: {color: df3},
         Cursor: {highlight: 'reverse'},
         CursorColumn: {backgroundColor: db1},
         CursorLine: {backgroundColor: db1},
         CursorLineNr: {color: df4},
-        DiffAdd: {},
-        DiffChange: {},
-        DiffDelete: {color: lred},
-        DiffText: {},
+        DiffAdd: {backgroundColor: dbgreen, color: dfgreen},
+        DiffChange: {backgroundColor: db1},
+        DiffDelete: {backgroundColor: dbred, color: dfred},
+        DiffText: {backgroundColor: db3},
         Directory: {color: df2},
         Error: {},
-        ErrorMsg: {color: lred},
+        ErrorMsg: {color: dfred, backgroundColor: dbred},
         FoldColumn: {color: df4},
         Folded: {color: df4},
         Ignore: {},
@@ -232,7 +242,7 @@ var initialState = {
         SignColumn: {color: df5},
         Special: {color: df3},
         SpecialKey: {color: df5},
-        SpellBad: {color: lred},
+        SpellBad: {color: dfred},
         SpellCap: {},
         SpellLocal: {},
         SpellRare: {},

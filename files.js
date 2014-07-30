@@ -1,11 +1,23 @@
+var s = n => ' '.repeat(n);
+var g = (group, content) => {
+    return {group, content};
+};
+
 var files = {
     vim: {
         title: 'Vim',
         parsedSource: [
-            [{group: 'Cursor', content: ' '}, ' is the cursor'],
-            [{group: 'Visual', content: 'These words'}, ' are selected'],
-            ['Currently searching for ', {group: 'IncSearch', content: 'foo'}, ', already found ', {group: 'Search', content: 'bar'}],
-            [{group: 'Cursor', content: '('}, 'matching_parenthesis', {group: 'MatchParen', content: ')'}]
+            [s(2), g('CursorColumn', ' ')],
+            [s(2), g('CursorColumn', ' ')],
+            [g('CursorLine', s(2)), g('Cursor', 'T'), g('CursorLine', 'he cursor' + s(73))],
+            [s(78), g('ColorColumn', ' ')],
+            [g('Visual', 'These words'), ' are selected' + s(54), g('ColorColumn', ' ')],
+            ['Currently searching for ', g('IncSearch', 'foo'), ', already found ', g('Search', 'bar'), g('ColorColumn', ' ')],
+            [g('Cursor', '('), 'matching parens', g('MatchParen', ')')],
+            [g('Conceal', 'ƒ'), ' is the conceal character for `function`'],
+            [g('DiffDelete', 'This line was deleted' + s(62))],
+            [g('DiffText', 'These words'), g('DiffChange', ' on this line was changed' + s(47))],
+            [g('DiffAdd', 'This line was added' + s(64))],
         ]
     },
     about: {

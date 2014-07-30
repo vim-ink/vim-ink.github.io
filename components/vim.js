@@ -34,6 +34,9 @@ var Vim = React.createClass({
             setHoverGroup: this.props.setHoverGroup
         };
     },
+    cursor() {
+        return this.props.activeFile === 'vim' ? 2 : null;
+    },
     source() {
         return this.props.parsedSource.map((line, index) =>
            Line(merge(this.args(), {
@@ -41,6 +44,7 @@ var Vim = React.createClass({
                 componentsVisibility: this.props.componentsVisibility,
                 line,
                 lineNumber: {
+                    cursor: this.cursor(),
                     line: index,
                     lineCount: this.props.parsedSource.length
                 }
@@ -240,7 +244,7 @@ var LineNumber = React.createClass({
         var {style, getGroup, lineNumber} = this.props;
         var {line, lineCount} = lineNumber;
 
-        var props = getGroup('LineNr');
+        var props = getGroup(this.group());
         var spaceCount = 1 + (lineCount.toString().length - line.toString().length)
 
         var content = ' '.repeat(spaceCount) + line + ' ';
@@ -251,12 +255,16 @@ var LineNumber = React.createClass({
             onMouseOver: this.onMouseOver},
             content);
     },
+    group() {
+        return this.props.lineNumber.cursor === this.props.lineNumber.line ? 'CursorLineNr' : 'LineNr';
+    },
     onMouseOver(e) {
-        this.props.setHoverGroup('LineNr');
+        var {lineNumber} = this.props;
+        this.props.setHoverGroup(this.group());
         e.stopPropagation();
     },
     onClick(e) {
-        this.props.selectGroup('LineNr');
+        this.props.selectGroup(this.group());
         e.stopPropagation();
     }
 });

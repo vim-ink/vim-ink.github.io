@@ -20,11 +20,7 @@ var Footer = require('./footer');
 var Export = require('./export');
 var App = React.createClass({
   getInitialState: function() {
-    if (localStorage.getItem('state') !== null) {
-      return JSON.parse(localStorage.getItem('state'));
-    } else {
-      return _.cloneDeep(initialState);
-    }
+    return _.cloneDeep(initialState);
   },
   render: function() {
     var $__1 = $traceurRuntime.assertObject(React.DOM),
@@ -469,6 +465,7 @@ var Left = React.createClass({render: function() {
         setHoverGroup = $__0.setHoverGroup,
         setParsedSource = $__0.setParsedSource;
     return article(null, Vim({
+      activeFile: activeFile,
       activeVariant: activeVariant,
       componentsVisibility: componentsVisibility,
       getGroup: getGroup,
@@ -1096,6 +1093,9 @@ var Vim = React.createClass({
       setHoverGroup: this.props.setHoverGroup
     };
   },
+  cursor: function() {
+    return this.props.activeFile === 'vim' ? 2 : null;
+  },
   source: function() {
     var $__0 = this;
     return this.props.parsedSource.map((function(line, index) {
@@ -1104,6 +1104,7 @@ var Vim = React.createClass({
         componentsVisibility: $__0.props.componentsVisibility,
         line: line,
         lineNumber: {
+          cursor: $__0.cursor(),
           line: index,
           lineCount: $__0.props.parsedSource.length
         }
@@ -1271,7 +1272,7 @@ var LineNumber = React.createClass({
     var $__2 = $traceurRuntime.assertObject(lineNumber),
         line = $__2.line,
         lineCount = $__2.lineCount;
-    var props = getGroup('LineNr');
+    var props = getGroup(this.group());
     var spaceCount = 1 + (lineCount.toString().length - line.toString().length);
     var content = ' '.repeat(spaceCount) + line + ' ';
     return span({
@@ -1280,12 +1281,16 @@ var LineNumber = React.createClass({
       onMouseOver: this.onMouseOver
     }, content);
   },
+  group: function() {
+    return this.props.lineNumber.cursor === this.props.lineNumber.line ? 'CursorLineNr' : 'LineNr';
+  },
   onMouseOver: function(e) {
-    this.props.setHoverGroup('LineNr');
+    var lineNumber = $traceurRuntime.assertObject(this.props).lineNumber;
+    this.props.setHoverGroup(this.group());
     e.stopPropagation();
   },
   onClick: function(e) {
-    this.props.selectGroup('LineNr');
+    this.props.selectGroup(this.group());
     e.stopPropagation();
   }
 });
@@ -1382,32 +1387,23 @@ var App = require('./components/app');
 React.renderComponent(App(), document.body);
 
 
-}).call(this,require("IrXUsu"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/fake_445ad7f.js","/")
+}).call(this,require("IrXUsu"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/fake_fd436605.js","/")
 },{"./components/app":1,"IrXUsu":20,"buffer":17,"es6ify/node_modules/traceur/bin/traceur-runtime":16,"react/addons":22}],10:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 "use strict";
+var s = (function(n) {
+  return ' '.repeat(n);
+});
+var g = (function(group, content) {
+  return {
+    group: group,
+    content: content
+  };
+});
 var files = {
   vim: {
     title: 'Vim',
-    parsedSource: [[{
-      group: 'Cursor',
-      content: ' '
-    }, ' is the cursor'], [{
-      group: 'Visual',
-      content: 'These words'
-    }, ' are selected'], ['Currently searching for ', {
-      group: 'IncSearch',
-      content: 'foo'
-    }, ', already found ', {
-      group: 'Search',
-      content: 'bar'
-    }], [{
-      group: 'Cursor',
-      content: '('
-    }, 'matching_parenthesis', {
-      group: 'MatchParen',
-      content: ')'
-    }]]
+    parsedSource: [[s(2), g('CursorColumn', ' ')], [s(2), g('CursorColumn', ' ')], [g('CursorLine', s(2)), g('Cursor', 'T'), g('CursorLine', 'he cursor' + s(73))], [s(78), g('ColorColumn', ' ')], [g('Visual', 'These words'), ' are selected' + s(54), g('ColorColumn', ' ')], ['Currently searching for ', g('IncSearch', 'foo'), ', already found ', g('Search', 'bar'), g('ColorColumn', ' ')], [g('Cursor', '('), 'matching parens', g('MatchParen', ')')], [g('Conceal', 'ƒ'), ' is the conceal character for `function`'], [g('DiffDelete', 'This line was deleted' + s(62))], [g('DiffText', 'These words'), g('DiffChange', ' on this line was changed' + s(47))], [g('DiffAdd', 'This line was added' + s(64))]]
   },
   about: {
     title: 'About',
@@ -2019,18 +2015,25 @@ var db2 = d4;
 var db3 = d6;
 var db4 = d8;
 var db5 = d10;
-var lred = '#cc3333';
+var lfred = '#780000';
+var lbred = '#fff0f0';
+var lfgreen = '#007800';
+var lbgreen = '#f0fff0';
+var dfred = '#800000';
+var dbred = '#200000';
+var dfgreen = '#008000';
+var dbgreen = '#002000';
 var initialState = {
   _version: 0,
-  parsedSource: files.html.parsedSource,
+  parsedSource: files.vim.parsedSource,
   activeVariant: 'light',
   selectedGroup: 'Normal',
   hoverGroup: undefined,
   activeColor: 'foreground',
-  activeFile: 'html',
+  activeFile: 'vim',
   activePane: 'light',
   exportName: 'my-default',
-  ExportedSource: undefined,
+  exportedSource: undefined,
   postProcess: {
     dark: {
       brightness: 0,
@@ -2060,20 +2063,29 @@ var initialState = {
   light: {
     ColorColumn: {backgroundColor: lb1},
     Comment: {color: lf4},
-    Conceal: {color: lf1},
+    Conceal: {color: lf3},
     Conditional: {color: lf2},
     Constant: {color: lf3},
     Cursor: {highlight: 'reverse'},
     CursorColumn: {backgroundColor: lb1},
     CursorLine: {backgroundColor: lb1},
     CursorLineNr: {color: lf4},
-    DiffAdd: {},
-    DiffChange: {},
-    DiffDelete: {color: lred},
-    DiffText: {},
+    DiffAdd: {
+      backgroundColor: lbgreen,
+      color: lfgreen
+    },
+    DiffChange: {backgroundColor: lb1},
+    DiffDelete: {
+      backgroundColor: lbred,
+      color: lfred
+    },
+    DiffText: {backgroundColor: lb3},
     Directory: {color: lf2},
     Error: {},
-    ErrorMsg: {color: lred},
+    ErrorMsg: {
+      backgroundColor: lbred,
+      color: lfred
+    },
     FoldColumn: {color: lf4},
     Folded: {color: lf4},
     Ignore: {},
@@ -2097,7 +2109,7 @@ var initialState = {
     SignColumn: {color: lf5},
     Special: {color: lf3},
     SpecialKey: {color: lf5},
-    SpellBad: {color: lred},
+    SpellBad: {color: lfred},
     SpellCap: {},
     SpellLocal: {},
     SpellRare: {},
@@ -2135,20 +2147,29 @@ var initialState = {
   dark: {
     ColorColumn: {backgroundColor: db1},
     Comment: {color: df4},
-    Conceal: {color: df1},
+    Conceal: {color: df3},
     Conditional: {color: df2},
     Constant: {color: df3},
     Cursor: {highlight: 'reverse'},
     CursorColumn: {backgroundColor: db1},
     CursorLine: {backgroundColor: db1},
     CursorLineNr: {color: df4},
-    DiffAdd: {},
-    DiffChange: {},
-    DiffDelete: {color: lred},
-    DiffText: {},
+    DiffAdd: {
+      backgroundColor: dbgreen,
+      color: dfgreen
+    },
+    DiffChange: {backgroundColor: db1},
+    DiffDelete: {
+      backgroundColor: dbred,
+      color: dfred
+    },
+    DiffText: {backgroundColor: db3},
     Directory: {color: df2},
     Error: {},
-    ErrorMsg: {color: lred},
+    ErrorMsg: {
+      color: dfred,
+      backgroundColor: dbred
+    },
     FoldColumn: {color: df4},
     Folded: {color: df4},
     Ignore: {},
@@ -2172,7 +2193,7 @@ var initialState = {
     SignColumn: {color: df5},
     Special: {color: df3},
     SpecialKey: {color: df5},
-    SpellBad: {color: lred},
+    SpellBad: {color: dfred},
     SpellCap: {},
     SpellLocal: {},
     SpellRare: {},

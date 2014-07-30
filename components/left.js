@@ -24,6 +24,7 @@ var Left = React.createClass({
         return article(null,
             // Files({setParsedSource, setActiveFile, activeFile}),
             Vim({
+                activeFile,
                 activeVariant,
                 componentsVisibility,
                 getGroup,
