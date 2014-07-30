@@ -125,7 +125,7 @@ var NonText = React.createClass({
     render() {
         var linesCount = Math.max(0, 32 - this.props.parsedSource.length);
         var group = 'NonText';
-        var content = '~                                                                                   \n'.repeat(linesCount);
+        var content = '~                                                                                       \n'.repeat(linesCount);
 
         return Segment(merge(this.props, {segment: {group, content}}));
     }
@@ -143,7 +143,7 @@ var StatusLine = React.createClass({
                 Segment(merge(args, {
                     segment: {
                         group: 'StatusLine',
-                        content: '~/path/to/file                                                       1,1         Top'
+                        content: '~/path/to/file                                                       1,1         Top    '
                     }
                 }))
             ]);
@@ -190,7 +190,7 @@ var TabLine = React.createClass({
                 Segment(merge(args, {
                     segment: {
                         group: 'TabLine',
-                        content: ' ' // Should be 'X ', but I decided to hide it
+                        content: '     ' // Should be 'X ', but I decided to hide it
                     }
                 })),
                 '\n'

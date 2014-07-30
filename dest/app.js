@@ -1173,7 +1173,7 @@ var Vim = React.createClass({
 var NonText = React.createClass({render: function() {
     var linesCount = Math.max(0, 32 - this.props.parsedSource.length);
     var group = 'NonText';
-    var content = '~                                                                                   \n'.repeat(linesCount);
+    var content = '~                                                                                       \n'.repeat(linesCount);
     return Segment(merge(this.props, {segment: {
         group: group,
         content: content
@@ -1194,7 +1194,7 @@ var StatusLine = React.createClass({render: function() {
     };
     return span(null, [Segment(merge(args, {segment: {
         group: 'StatusLine',
-        content: '~/path/to/file                                                       1,1         Top'
+        content: '~/path/to/file                                                       1,1         Top    '
       }}))]);
   }});
 var TabLine = React.createClass({render: function() {
@@ -1224,7 +1224,7 @@ var TabLine = React.createClass({render: function() {
         content: '                                            '
       }})), Segment(merge(args, {segment: {
         group: 'TabLine',
-        content: ' '
+        content: '     '
       }})), '\n']);
   }});
 var Line = React.createClass({
@@ -1382,7 +1382,7 @@ var App = require('./components/app');
 React.renderComponent(App(), document.body);
 
 
-}).call(this,require("IrXUsu"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/fake_36594cc.js","/")
+}).call(this,require("IrXUsu"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/fake_445ad7f.js","/")
 },{"./components/app":1,"IrXUsu":20,"buffer":17,"es6ify/node_modules/traceur/bin/traceur-runtime":16,"react/addons":22}],10:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 "use strict";
