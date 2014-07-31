@@ -15,6 +15,11 @@ function exportGroup(name, props, postProcess) {
 
     str.push('gui=' + ('highlight' in props && props.highlight !== undefined ?
        props.highlight : 'NONE'));
+
+    if ('highlight' in props && props.highlight === 'undercurl') {
+        str.push('guisp=NONE');
+    }
+
     str.push('guifg=' + ('color' in props && props.color !== undefined ?
         postProcessColor(props.color, postProcess) : 'NONE'));
     str.push('guibg=' + ('backgroundColor' in props && props.backgroundColor !== undefined ?

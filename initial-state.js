@@ -96,26 +96,19 @@ var db3 = d6;
 var db4 = d8;
 var db5 = d10;
 
-var lfred = lf0;
 var lbred = '#fff0f0';
-
-var lfgreen = lf0;
 var lbgreen = '#f0fff0';
-
-var dfred = df0;
 var dbred = '#200000';
-
-var dfgreen = df0;
 var dbgreen = '#002000';
 
 var initialState = {
     _version: 0,
-    parsedSource: files.vimUI.parsedSource,
+    parsedSource: files.vimEditor.parsedSource,
     activeVariant: 'light',
     selectedGroup: 'Normal',
     hoverGroup: undefined,
     activeColor: 'foreground',
-    activeFile: 'vimUI',
+    activeFile: 'vimEditor',
     activePane: 'light',
     exportName: 'my-default',
     exportedSource: undefined,
@@ -183,10 +176,10 @@ var initialState = {
         SignColumn: {color: lf5},
         Special: {color: lf3},
         SpecialKey: {color: lf5},
-        SpellBad: {color: lfred},
-        SpellCap: {},
-        SpellLocal: {},
-        SpellRare: {},
+        SpellBad: {backgroundColor: lbred, highlight: 'undercurl'},
+        SpellCap: {highlight: 'undercurl'},
+        SpellLocal: {backgroundColor: lbgreen, highlight: 'undercurl'},
+        SpellRare: {backgroundColor: lb2, highlight: 'undercurl'},
         Statement: {color: lf2},
         StatusLine: {color: lf1, backgroundColor: lb2},
         StatusLineNC: {color: lf4, backgroundColor: lb2},
@@ -244,10 +237,10 @@ var initialState = {
         SignColumn: {color: df5},
         Special: {color: df3},
         SpecialKey: {color: df5},
-        SpellBad: {color: dfred},
-        SpellCap: {},
-        SpellLocal: {},
-        SpellRare: {},
+        SpellBad: {backgroundColor: dbred, highlight: 'undercurl'},
+        SpellCap: {highlight: 'undercurl'},
+        SpellLocal: {backgroundColor: dbgreen, highlight: 'undercurl'},
+        SpellRare: {backgroundColor: db2, highlight: 'undercurl'},
         Statement: {color: df2},
         StatusLine: {color: df1, backgroundColor: db2},
         StatusLineNC: {color: df4, backgroundColor: db2},

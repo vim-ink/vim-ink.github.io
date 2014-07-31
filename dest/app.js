@@ -1361,6 +1361,9 @@ function postProcessColor(color, postProcess) {
 function exportGroup(name, props, postProcess) {
   var str = ['hi', name];
   str.push('gui=' + ('highlight' in props && props.highlight !== undefined ? props.highlight : 'NONE'));
+  if ('highlight' in props && props.highlight === 'undercurl') {
+    str.push('guisp=NONE');
+  }
   str.push('guifg=' + ('color' in props && props.color !== undefined ? postProcessColor(props.color, postProcess) : 'NONE'));
   str.push('guibg=' + ('backgroundColor' in props && props.backgroundColor !== undefined ? postProcessColor(props.backgroundColor, postProcess) : 'NONE'));
   return str.join(' ');
@@ -1399,7 +1402,7 @@ var App = require('./components/app');
 React.renderComponent(App(), document.body);
 
 
-}).call(this,require("IrXUsu"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/fake_ca41d338.js","/")
+}).call(this,require("IrXUsu"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/fake_5e05b084.js","/")
 },{"./components/app":1,"IrXUsu":20,"buffer":17,"es6ify/node_modules/traceur/bin/traceur-runtime":16,"react/addons":22}],10:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 "use strict";
@@ -1425,11 +1428,11 @@ var fill = (function(str, chr, totalWidth) {
 var files = {
   vimEditor: {
     title: 'vim',
-    parsedSource: [[sign('  '), line('  1 '), spaces(2), g('CursorColumn', ' ')], [sign('  '), line('  2 '), spaces(2), g('CursorColumn', ' ')], [sign('  '), line('  3 ', 'CursorLineNr'), g('CursorLine', spaces(2)), g('Cursor', 'T'), g('CursorLine', 'he cursor' + spaces(73))], [sign('  '), line('  4 '), spaces(78), g('ColorColumn', ' ')], [sign('  '), line('  5 '), g('Visual', 'These words'), ' are selected' + spaces(54), g('ColorColumn', ' ')], [sign('  '), line('  6 '), 'Currently searching for ', g('IncSearch', 'foo'), ', already found ', g('Search', 'bar')], [sign('  '), line('  7 '), g('Cursor', '('), 'matching parens', g('MatchParen', ')')], [sign('  '), line('  8 '), 'foo(bar({baz, [qux', g('Error', '}))'), ' ', g('Comment', '// '), g('Todo', 'TODO'), g('Comment', ': Fix error')], [sign('  '), line('  9 '), g('Conceal', 'ƒ'), ' is a conceal character for `function`'], [sign('  '), line(' 10 ')], [sign('--'), line(' 11 '), g('DiffDelete', 'This line was deleted' + spaces(62))], [sign('  '), line(' 12 '), g('DiffText', 'These words'), g('DiffChange', ' on this line was changed' + spaces(47))], [sign('++'), line(' 13 '), g('DiffAdd', 'This line was added' + spaces(64))], [], [g('FoldColumn', '    '), g('Title', '# Heading 1')], [g('FoldColumn', '-   '), 'This is a paragraph'], [g('FoldColumn', '|   '), ''], [g('FoldColumn', '|   '), g('Title', '## Heading 1.1')], [g('FoldColumn', '|-  '), 'This is another paragraph'], [g('FoldColumn', '||  '), ''], [g('FoldColumn', '||  '), g('Title', '### Heading 1.1.1')], [g('FoldColumn', '||+ '), g('Folded', '+----  2 lines: This is a folded paragraph')], [g('FoldColumn', '||  '), g('Title', '### Heading 1.1.2')], [g('FoldColumn', '||+ '), g('Folded', '+----  2 lines: This is another folded paragraph')]]
+    parsedSource: [[sign('  '), line('  1 '), spaces(2), g('CursorColumn', ' ')], [sign('  '), line('  2 '), spaces(2), g('CursorColumn', ' ')], [sign('  '), line('  3 ', 'CursorLineNr'), g('CursorLine', spaces(2)), g('Cursor', 'T'), g('CursorLine', 'he cursor' + spaces(73))], [sign('  '), line('  4 '), spaces(75), g('ColorColumn', ' ')], [sign('  '), line('  5 '), g('Visual', 'These words'), ' are selected' + spaces(51), g('ColorColumn', ' ')], [sign('  '), line('  6 '), 'Currently searching for ', g('IncSearch', 'foo'), ', already found ', g('Search', 'bar')], [sign('  '), line('  7 '), g('Cursor', '('), 'matching parens', g('MatchParen', ')')], [sign('  '), line('  8 '), 'foo(bar({baz, [qux', g('Error', '}))'), ' ', g('Comment', '// '), g('Todo', 'TODO'), g('Comment', ': Fix error')], [sign('  '), line('  9 '), g('Conceal', 'ƒ'), ' is a conceal character for `function`'], [sign('  '), line(' 10 ')], [sign('--'), line(' 11 '), g('DiffDelete', 'This line was deleted' + spaces(62))], [sign('  '), line(' 12 '), g('DiffText', 'These words'), g('DiffChange', ' on this line was changed' + spaces(47))], [sign('++'), line(' 13 '), g('DiffAdd', 'This line was added' + spaces(64))], [sign('  '), line(' 14 ')], [sign('  '), line(' 15 '), 'A ', g('SpellBad', 'mispelled'), ' word'], [sign('  '), line(' 16 '), g('SpellCap', 'line'), ' starting without capital letter'], [sign('  '), line(' 17 '), 'For some reason ', g('SpellLocal', 'okay'), ' is a local word'], [sign('  '), line(' 18 '), g('SpellRare', 'vim'), ' seems to be a rare word'], [], [g('FoldColumn', '    '), g('Title', '# Heading 1')], [g('FoldColumn', '-   '), 'This is a paragraph'], [g('FoldColumn', '|   '), ''], [g('FoldColumn', '|   '), g('Title', '## Heading 1.1')], [g('FoldColumn', '|-  '), 'This is another paragraph'], [g('FoldColumn', '||  '), ''], [g('FoldColumn', '||  '), g('Title', '### Heading 1.1.1')], [g('FoldColumn', '||+ '), g('Folded', '+----  2 lines: This is a folded paragraph')], [g('FoldColumn', '||  '), g('Title', '### Heading 1.1.2')], [g('FoldColumn', '||+ '), g('Folded', '+----  2 lines: This is another folded paragraph')]]
   },
   vimUI: {
     title: 'vim',
-    parsedSource: [[fill('one line', ' ', 22), g('VertSplit', '│'), fill('', ' ', 61)], [fill('another line', ' ', 22), g('VertSplit', '│'), '  f', fill('', ' ', 61)], [fill('a third line', ' ', 22), g('VertSplit', '│'), '  ', g('Pmenu', 'foo' + spaces(18)), g('PmenuSbar', ' ')], [fill('', ' ', 22), g('VertSplit', '│'), '  ', g('PmenuSel', 'foobar' + spaces(15)), g('PmenuSbar', ' '), fill('', ' ', 61)], [fill('', ' ', 22), g('VertSplit', '│'), '  ', g('Pmenu', 'function' + spaces(13)), g('PmenuThumb', ' '), fill('', ' ', 61)], [fill('', ' ', 22), g('VertSplit', '│'), '  ', g('Pmenu', 'fun' + spaces(18)), g('PmenuSbar', ' '), fill('', ' ', 61)], [fill('', ' ', 22), g('VertSplit', '│'), fill('', ' ', 61)], [fill('', ' ', 22), g('VertSplit', '│'), fill('', ' ', 61)], [fill('', ' ', 22), g('VertSplit', '│'), fill('', ' ', 61)], [fill('', ' ', 22), g('VertSplit', '│'), fill('', ' ', 61)], [fill('', ' ', 22), g('VertSplit', '│'), fill('', ' ', 61)], [fill('', ' ', 22), g('VertSplit', '│'), fill('', ' ', 61)], [fill('', ' ', 22), g('VertSplit', '│'), fill('', ' ', 61)], [fill('', ' ', 22), g('VertSplit', '│'), fill('', ' ', 61)], [g('StatusLineNC', fill('inactive status', ' ', 23)), g('StatusLine', fill('active status', ' ', 62))], [g('ErrorMsg', 'E37: No write since last change (add ! to override)')], [g('WarningMsg', 'W10: Warning: Changing a readonly file')], [g('ModeMsg', '-- INSERT --')], [g('MoreMsg', '-- More --')], [], [fill('one-file', ' ', 22), fill('another-file', ' ', 22), fill('a-third-file', ' ', 22)], [g('Directory', 'one-directory'), fill('/', ' ', 9), g('Directory', 'another-directory'), fill('/', ' ', 5)], [g('StatusLine', 'one-file  another-file  '), g('WildMenu', 'a-third-file'), g('StatusLine', spaces(51))]]
+    parsedSource: [[fill('one line', ' ', 22), g('VertSplit', '│'), fill('', ' ', 61)], [fill('another line', ' ', 22), g('VertSplit', '│'), '  f', fill('', ' ', 61)], [fill('a third line', ' ', 22), g('VertSplit', '│'), '  ', g('Pmenu', 'foo' + spaces(18)), g('PmenuSbar', ' ')], [fill('', ' ', 22), g('VertSplit', '│'), '  ', g('PmenuSel', 'foobar' + spaces(15)), g('PmenuSbar', ' '), fill('', ' ', 61)], [fill('', ' ', 22), g('VertSplit', '│'), '  ', g('Pmenu', 'function' + spaces(13)), g('PmenuThumb', ' '), fill('', ' ', 61)], [fill('', ' ', 22), g('VertSplit', '│'), '  ', g('Pmenu', 'fun' + spaces(18)), g('PmenuSbar', ' '), fill('', ' ', 61)], [fill('', ' ', 22), g('VertSplit', '│'), fill('', ' ', 61)], [fill('', ' ', 22), g('VertSplit', '│'), fill('', ' ', 61)], [fill('', ' ', 22), g('VertSplit', '│'), fill('', ' ', 61)], [fill('', ' ', 22), g('VertSplit', '│'), fill('', ' ', 61)], [fill('', ' ', 22), g('VertSplit', '│'), fill('', ' ', 61)], [fill('', ' ', 22), g('VertSplit', '│'), fill('', ' ', 61)], [fill('', ' ', 22), g('VertSplit', '│'), fill('', ' ', 61)], [fill('', ' ', 22), g('VertSplit', '│'), fill('', ' ', 61)], [g('StatusLineNC', fill('inactive status', ' ', 23)), g('StatusLine', fill('active status', ' ', 62))], [g('WarningMsg', 'W10: Warning: Changing a readonly file')], [g('ErrorMsg', 'E37: No write since last change (add ! to override)')], [g('ModeMsg', '-- INSERT --')], [g('MoreMsg', '-- More --')], [], [fill('one-file', ' ', 22), fill('another-file', ' ', 22), fill('a-third-file', ' ', 22)], [g('Directory', 'one-directory'), fill('/', ' ', 9), g('Directory', 'another-directory'), fill('/', ' ', 5)], [g('StatusLine', 'one-file  another-file  '), g('WildMenu', 'a-third-file'), g('StatusLine', spaces(51))]]
   },
   about: {
     title: 'About',
@@ -2041,22 +2044,18 @@ var db2 = d4;
 var db3 = d6;
 var db4 = d8;
 var db5 = d10;
-var lfred = lf0;
 var lbred = '#fff0f0';
-var lfgreen = lf0;
 var lbgreen = '#f0fff0';
-var dfred = df0;
 var dbred = '#200000';
-var dfgreen = df0;
 var dbgreen = '#002000';
 var initialState = {
   _version: 0,
-  parsedSource: files.vimUI.parsedSource,
+  parsedSource: files.vimEditor.parsedSource,
   activeVariant: 'light',
   selectedGroup: 'Normal',
   hoverGroup: undefined,
   activeColor: 'foreground',
-  activeFile: 'vimUI',
+  activeFile: 'vimEditor',
   activePane: 'light',
   exportName: 'my-default',
   exportedSource: undefined,
@@ -2127,10 +2126,19 @@ var initialState = {
     SignColumn: {color: lf5},
     Special: {color: lf3},
     SpecialKey: {color: lf5},
-    SpellBad: {color: lfred},
-    SpellCap: {},
-    SpellLocal: {},
-    SpellRare: {},
+    SpellBad: {
+      backgroundColor: lbred,
+      highlight: 'undercurl'
+    },
+    SpellCap: {highlight: 'undercurl'},
+    SpellLocal: {
+      backgroundColor: lbgreen,
+      highlight: 'undercurl'
+    },
+    SpellRare: {
+      backgroundColor: lb2,
+      highlight: 'undercurl'
+    },
     Statement: {color: lf2},
     StatusLine: {
       color: lf1,
@@ -2203,10 +2211,19 @@ var initialState = {
     SignColumn: {color: df5},
     Special: {color: df3},
     SpecialKey: {color: df5},
-    SpellBad: {color: dfred},
-    SpellCap: {},
-    SpellLocal: {},
-    SpellRare: {},
+    SpellBad: {
+      backgroundColor: dbred,
+      highlight: 'undercurl'
+    },
+    SpellCap: {highlight: 'undercurl'},
+    SpellLocal: {
+      backgroundColor: dbgreen,
+      highlight: 'undercurl'
+    },
+    SpellRare: {
+      backgroundColor: db2,
+      highlight: 'undercurl'
+    },
     Statement: {color: df2},
     StatusLine: {
       color: df1,
