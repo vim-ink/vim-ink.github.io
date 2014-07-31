@@ -1,6 +1,6 @@
 var React = require('react');
 var Vim = require('./vim');
-var {merge} = require('../utils');
+var {merge} = require('../actions/utils');
 
 var Left = React.createClass({
     render() {

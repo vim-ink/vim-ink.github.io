@@ -6,9 +6,9 @@ var uglify = require('gulp-uglify');
 var es6ify = require('es6ify');
 
 var paths = {
-    styles: ['app.scss'],
-    scripts: ['app.js'],
-    scriptsWatch: ['*.js', 'components/*.js']
+    styles: ['scss/app.scss'],
+    scripts: ['js/app.js'],
+    scriptsWatch: ['*.js', 'js/**/*.js']
 };
 
 gulp.task('styles', function() {

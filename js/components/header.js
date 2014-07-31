@@ -1,5 +1,5 @@
 var React = require('react');
-var files = require('../files');
+var files = require('../constants/files');
 
 var merge = (...args) => Object.assign({}, ...args);
 

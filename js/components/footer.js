@@ -1,5 +1,5 @@
 var React = require('react');
-var files = require('../files');
+var files = require('../constants/files');
 
 var Footer = React.createClass({
     render() {

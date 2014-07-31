@@ -1,6 +1,6 @@
 var React = require('react');
 
-var {spaces, fill, merge} = require('../utils');
+var {spaces, fill, merge} = require('../actions/utils');
 
 var Vim = React.createClass({
     render() {

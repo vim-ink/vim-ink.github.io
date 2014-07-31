@@ -2,9 +2,11 @@ var _ = require('lodash');
 var React = require('react/addons');
 var Color = require('color');
 
-var initialState = require('../initial-state');
-var parse = require('../parser');
-var exporter = require('../exporter');
+var initialState = require('../constants/initial-state');
+
+var parse = require('../actions/parser');
+var exporter = require('../actions/exporter');
+var {merge} = require('../actions/utils');
 
 var Header = require('./header');
 var Left = require('./left');
@@ -12,7 +14,6 @@ var Right = require('./right');
 var Footer = require('./footer');
 var Export = require('./export');
 
-var {merge} = require('../utils');
 var transition = React.addons.CSSTransitionGroup;
 var transitionFast = children => transition({transitionName: 'fast', children});
 
