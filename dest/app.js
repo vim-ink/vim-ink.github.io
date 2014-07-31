@@ -349,8 +349,12 @@ var Files = React.createClass({render: function() {
       type: 'html',
       title: 'HTML'
     })), FileLink(merge(this.props, {
-      key: 'vim',
-      type: 'vim',
+      key: 'vimEditor',
+      type: 'vimEditor',
+      title: 'Editor'
+    })), FileLink(merge(this.props, {
+      key: 'vimUI',
+      type: 'vimUI',
       title: 'UI'
     })), PasteLink(merge(this.props, {key: 'pasteLink'})));
   }});
@@ -1094,7 +1098,10 @@ var Vim = React.createClass({
       onMouseOver: this.onMouseOver,
       onClick: this.onClick,
       onMouseOut: this.onMouseOut
-    }, [].concat(show('tabLine') ? TabLine(this.args()) : []).concat(this.source()).concat(NonText(merge(this.args(), {parsedSource: this.props.parsedSource}))).concat(show('statusLine') ? StatusLine(this.args()) : []));
+    }, [].concat(show('tabLine') ? TabLine(this.args()) : []).concat(this.source()).concat(this.props.activeFile !== 'vimUI' ? NonText(merge(this.args(), {parsedSource: this.props.parsedSource})) : []).concat(show('statusLine') && this.props.activeFile !== 'vimUI' ? StatusLine(this.args()) : []));
+  },
+  isVimFile: function() {
+    return this.props.activeFile === 'vimEditor' || this.props.activeFile === 'vimUI';
   },
   args: function() {
     return {
@@ -1110,7 +1117,7 @@ var Vim = React.createClass({
       return Line(merge($__0.args(), {
         key: index,
         componentsVisibility: $__0.props.componentsVisibility,
-        showLineNumber: $__0.props.componentsVisibility['lineNumbers'] === 'show' && $__0.props.activeFile !== 'vim',
+        showLineNumber: $__0.props.componentsVisibility['lineNumbers'] === 'show' && !$__0.isVimFile(),
         line: line,
         lineNumber: {
           line: index + 1,
@@ -1392,7 +1399,7 @@ var App = require('./components/app');
 React.renderComponent(App(), document.body);
 
 
-}).call(this,require("IrXUsu"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/fake_62efa9d6.js","/")
+}).call(this,require("IrXUsu"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/fake_ca41d338.js","/")
 },{"./components/app":1,"IrXUsu":20,"buffer":17,"es6ify/node_modules/traceur/bin/traceur-runtime":16,"react/addons":22}],10:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 "use strict";
@@ -1416,9 +1423,13 @@ var fill = (function(str, chr, totalWidth) {
   return str + chr.repeat(totalWidth - str.length);
 });
 var files = {
-  vim: {
-    title: 'Vim',
-    parsedSource: [[sign('  '), line('  1 '), spaces(2), g('CursorColumn', ' ')], [sign('  '), line('  2 '), spaces(2), g('CursorColumn', ' ')], [sign('  '), line('  3 ', 'CursorLineNr'), g('CursorLine', spaces(2)), g('Cursor', 'T'), g('CursorLine', 'he cursor' + spaces(73))], [sign('  '), line('  4 '), spaces(78), g('ColorColumn', ' ')], [sign('  '), line('  5 '), g('Visual', 'These words'), ' are selected' + spaces(54), g('ColorColumn', ' ')], [sign('  '), line('  6 '), 'Currently searching for ', g('IncSearch', 'foo'), ', already found ', g('Search', 'bar')], [sign('  '), line('  7 '), g('Cursor', '('), 'matching parens', g('MatchParen', ')')], [sign('  '), line('  8 '), 'foo(bar({baz, [qux', g('Error', '}))'), ' ', g('Comment', '// '), g('Todo', 'TODO'), g('Comment', ': Fix error')], [sign('  '), line('  9 '), g('Conceal', 'ƒ'), ' is a conceal character for `function`'], [sign('  '), line(' 10 ')], [sign('--'), line(' 11 '), g('DiffDelete', 'This line was deleted' + spaces(62))], [sign('  '), line(' 12 '), g('DiffText', 'These words'), g('DiffChange', ' on this line was changed' + spaces(47))], [sign('++'), line(' 13 '), g('DiffAdd', 'This line was added' + spaces(64))], [sign('  '), line(' 14 ')], [sign('  '), line(' 15 '), g('Pmenu', 'Popup menu item' + spaces(18)), g('PmenuSbar', ' ')], [sign('  '), line(' 16 '), g('PmenuSel', 'Popup menu selected item' + spaces(9)), g('PmenuSbar', ' ')], [sign('  '), line(' 17 '), g('Pmenu', 'Popup menu item' + spaces(18)), g('PmenuThumb', ' ')], [sign('  '), line(' 18 '), g('Pmenu', 'Popup menu item' + spaces(18)), g('PmenuSbar', ' ')], [sign('  '), line(' 19 ')], [fill('one line', ' ', 42), g('VertSplit', '│'), fill('one line', ' ', 41)], [fill('another line', ' ', 42), g('VertSplit', '│'), fill('another line', ' ', 41)], [fill('a third line', ' ', 42), g('VertSplit', '│'), fill('a third line', ' ', 41)], [g('StatusLineNC', fill('inactive window status', ' ', 43)), g('StatusLine', fill('active window status', ' ', 42))], [], [g('ErrorMsg', 'E37: No write since last change (add ! to override)')], [g('WarningMsg', 'W10: Warning: Changing a readonly file')], [g('ModeMsg', '-- INSERT --')], [g('MoreMsg', '-- More --')], [], [fill('one-file', ' ', 22), fill('another-file', ' ', 22), fill('a-third-file', ' ', 22)], [g('Directory', 'one-directory'), fill('/', ' ', 9), g('Directory', 'another-directory'), fill('/', ' ', 5)], [g('StatusLine', 'one-file  another-file  '), g('WildMenu', 'a-third-file'), g('StatusLine', spaces(51))]]
+  vimEditor: {
+    title: 'vim',
+    parsedSource: [[sign('  '), line('  1 '), spaces(2), g('CursorColumn', ' ')], [sign('  '), line('  2 '), spaces(2), g('CursorColumn', ' ')], [sign('  '), line('  3 ', 'CursorLineNr'), g('CursorLine', spaces(2)), g('Cursor', 'T'), g('CursorLine', 'he cursor' + spaces(73))], [sign('  '), line('  4 '), spaces(78), g('ColorColumn', ' ')], [sign('  '), line('  5 '), g('Visual', 'These words'), ' are selected' + spaces(54), g('ColorColumn', ' ')], [sign('  '), line('  6 '), 'Currently searching for ', g('IncSearch', 'foo'), ', already found ', g('Search', 'bar')], [sign('  '), line('  7 '), g('Cursor', '('), 'matching parens', g('MatchParen', ')')], [sign('  '), line('  8 '), 'foo(bar({baz, [qux', g('Error', '}))'), ' ', g('Comment', '// '), g('Todo', 'TODO'), g('Comment', ': Fix error')], [sign('  '), line('  9 '), g('Conceal', 'ƒ'), ' is a conceal character for `function`'], [sign('  '), line(' 10 ')], [sign('--'), line(' 11 '), g('DiffDelete', 'This line was deleted' + spaces(62))], [sign('  '), line(' 12 '), g('DiffText', 'These words'), g('DiffChange', ' on this line was changed' + spaces(47))], [sign('++'), line(' 13 '), g('DiffAdd', 'This line was added' + spaces(64))], [], [g('FoldColumn', '    '), g('Title', '# Heading 1')], [g('FoldColumn', '-   '), 'This is a paragraph'], [g('FoldColumn', '|   '), ''], [g('FoldColumn', '|   '), g('Title', '## Heading 1.1')], [g('FoldColumn', '|-  '), 'This is another paragraph'], [g('FoldColumn', '||  '), ''], [g('FoldColumn', '||  '), g('Title', '### Heading 1.1.1')], [g('FoldColumn', '||+ '), g('Folded', '+----  2 lines: This is a folded paragraph')], [g('FoldColumn', '||  '), g('Title', '### Heading 1.1.2')], [g('FoldColumn', '||+ '), g('Folded', '+----  2 lines: This is another folded paragraph')]]
+  },
+  vimUI: {
+    title: 'vim',
+    parsedSource: [[fill('one line', ' ', 22), g('VertSplit', '│'), fill('', ' ', 61)], [fill('another line', ' ', 22), g('VertSplit', '│'), '  f', fill('', ' ', 61)], [fill('a third line', ' ', 22), g('VertSplit', '│'), '  ', g('Pmenu', 'foo' + spaces(18)), g('PmenuSbar', ' ')], [fill('', ' ', 22), g('VertSplit', '│'), '  ', g('PmenuSel', 'foobar' + spaces(15)), g('PmenuSbar', ' '), fill('', ' ', 61)], [fill('', ' ', 22), g('VertSplit', '│'), '  ', g('Pmenu', 'function' + spaces(13)), g('PmenuThumb', ' '), fill('', ' ', 61)], [fill('', ' ', 22), g('VertSplit', '│'), '  ', g('Pmenu', 'fun' + spaces(18)), g('PmenuSbar', ' '), fill('', ' ', 61)], [fill('', ' ', 22), g('VertSplit', '│'), fill('', ' ', 61)], [fill('', ' ', 22), g('VertSplit', '│'), fill('', ' ', 61)], [fill('', ' ', 22), g('VertSplit', '│'), fill('', ' ', 61)], [fill('', ' ', 22), g('VertSplit', '│'), fill('', ' ', 61)], [fill('', ' ', 22), g('VertSplit', '│'), fill('', ' ', 61)], [fill('', ' ', 22), g('VertSplit', '│'), fill('', ' ', 61)], [fill('', ' ', 22), g('VertSplit', '│'), fill('', ' ', 61)], [fill('', ' ', 22), g('VertSplit', '│'), fill('', ' ', 61)], [g('StatusLineNC', fill('inactive status', ' ', 23)), g('StatusLine', fill('active status', ' ', 62))], [g('ErrorMsg', 'E37: No write since last change (add ! to override)')], [g('WarningMsg', 'W10: Warning: Changing a readonly file')], [g('ModeMsg', '-- INSERT --')], [g('MoreMsg', '-- More --')], [], [fill('one-file', ' ', 22), fill('another-file', ' ', 22), fill('a-third-file', ' ', 22)], [g('Directory', 'one-directory'), fill('/', ' ', 9), g('Directory', 'another-directory'), fill('/', ' ', 5)], [g('StatusLine', 'one-file  another-file  '), g('WildMenu', 'a-third-file'), g('StatusLine', spaces(51))]]
   },
   about: {
     title: 'About',
@@ -2040,12 +2051,12 @@ var dfgreen = df0;
 var dbgreen = '#002000';
 var initialState = {
   _version: 0,
-  parsedSource: files.vim.parsedSource,
+  parsedSource: files.vimUI.parsedSource,
   activeVariant: 'light',
   selectedGroup: 'Normal',
   hoverGroup: undefined,
   activeColor: 'foreground',
-  activeFile: 'vim',
+  activeFile: 'vimUI',
   activePane: 'light',
   exportName: 'my-default',
   exportedSource: undefined,
@@ -2093,7 +2104,7 @@ var initialState = {
     Directory: {color: lf2},
     Error: {backgroundColor: lbred},
     ErrorMsg: {backgroundColor: lbred},
-    FoldColumn: {color: lf4},
+    FoldColumn: {color: lf5},
     Folded: {color: lf4},
     Ignore: {},
     IncSearch: {backgroundColor: lb3},
@@ -2169,7 +2180,7 @@ var initialState = {
     Directory: {color: df2},
     Error: {backgroundColor: dbred},
     ErrorMsg: {backgroundColor: dbred},
-    FoldColumn: {color: df4},
+    FoldColumn: {color: df5},
     Folded: {color: df4},
     Ignore: {},
     IncSearch: {backgroundColor: db3},

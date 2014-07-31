@@ -9,8 +9,8 @@ var fill = (str, chr, totalWidth) => {
 }
 
 var files = {
-    vim: {
-        title: 'Vim',
+    vimEditor: {
+        title: 'vim',
         parsedSource: [
             [sign('  '), line('  1 '), spaces(2), g('CursorColumn', ' ')],
             [sign('  '), line('  2 '), spaces(2), g('CursorColumn', ' ')],
@@ -25,17 +25,37 @@ var files = {
             [sign('--'), line(' 11 '), g('DiffDelete', 'This line was deleted' + spaces(62))],
             [sign('  '), line(' 12 '), g('DiffText', 'These words'), g('DiffChange', ' on this line was changed' + spaces(47))],
             [sign('++'), line(' 13 '), g('DiffAdd', 'This line was added' + spaces(64))],
-            [sign('  '), line(' 14 ')],
-            [sign('  '), line(' 15 '), g('Pmenu', 'Popup menu item' + spaces(18)), g('PmenuSbar', ' ')],
-            [sign('  '), line(' 16 '), g('PmenuSel', 'Popup menu selected item' + spaces(9)), g('PmenuSbar', ' ')],
-            [sign('  '), line(' 17 '), g('Pmenu', 'Popup menu item' + spaces(18)), g('PmenuThumb', ' ')],
-            [sign('  '), line(' 18 '), g('Pmenu', 'Popup menu item' + spaces(18)), g('PmenuSbar', ' ')],
-            [sign('  '), line(' 19 ')],
-            [fill('one line', ' ', 42), g('VertSplit', '│'), fill('one line', ' ', 41)],
-            [fill('another line', ' ', 42), g('VertSplit', '│'), fill('another line', ' ', 41)],
-            [fill('a third line', ' ', 42), g('VertSplit', '│'), fill('a third line', ' ', 41)],
-            [g('StatusLineNC', fill('inactive window status', ' ', 43)), g('StatusLine', fill('active window status', ' ', 42))],
             [],
+            [g('FoldColumn', '    '), g('Title', '# Heading 1')],
+            [g('FoldColumn', '-   '), 'This is a paragraph'],
+            [g('FoldColumn', '|   '), ''],
+            [g('FoldColumn', '|   '), g('Title', '## Heading 1.1')],
+            [g('FoldColumn', '|-  '), 'This is another paragraph'],
+            [g('FoldColumn', '||  '), ''],
+            [g('FoldColumn', '||  '), g('Title', '### Heading 1.1.1')],
+            [g('FoldColumn', '||+ '), g('Folded', '+----  2 lines: This is a folded paragraph')],
+            [g('FoldColumn', '||  '), g('Title', '### Heading 1.1.2')],
+            [g('FoldColumn', '||+ '), g('Folded', '+----  2 lines: This is another folded paragraph')],
+        ]
+    },
+    vimUI: {
+        title: 'vim',
+        parsedSource: [
+            [fill('one line', ' ', 22), g('VertSplit', '│'), fill('', ' ', 61)],
+            [fill('another line', ' ', 22), g('VertSplit', '│'), '  f', fill('', ' ', 61)],
+            [fill('a third line', ' ', 22), g('VertSplit', '│'), '  ', g('Pmenu', 'foo' + spaces(18)), g('PmenuSbar', ' ')],
+            [fill('', ' ', 22), g('VertSplit', '│'), '  ', g('PmenuSel', 'foobar' + spaces(15)), g('PmenuSbar', ' '), fill('', ' ', 61)],
+            [fill('', ' ', 22), g('VertSplit', '│'), '  ', g('Pmenu', 'function' + spaces(13)), g('PmenuThumb', ' '), fill('', ' ', 61)],
+            [fill('', ' ', 22), g('VertSplit', '│'), '  ', g('Pmenu', 'fun' + spaces(18)), g('PmenuSbar', ' '), fill('', ' ', 61)],
+            [fill('', ' ', 22), g('VertSplit', '│'), fill('', ' ', 61)],
+            [fill('', ' ', 22), g('VertSplit', '│'), fill('', ' ', 61)],
+            [fill('', ' ', 22), g('VertSplit', '│'), fill('', ' ', 61)],
+            [fill('', ' ', 22), g('VertSplit', '│'), fill('', ' ', 61)],
+            [fill('', ' ', 22), g('VertSplit', '│'), fill('', ' ', 61)],
+            [fill('', ' ', 22), g('VertSplit', '│'), fill('', ' ', 61)],
+            [fill('', ' ', 22), g('VertSplit', '│'), fill('', ' ', 61)],
+            [fill('', ' ', 22), g('VertSplit', '│'), fill('', ' ', 61)],
+            [g('StatusLineNC', fill('inactive status', ' ', 23)), g('StatusLine', fill('active status', ' ', 62))],
             [g('ErrorMsg', 'E37: No write since last change (add ! to override)')],
             [g('WarningMsg', 'W10: Warning: Changing a readonly file')],
             [g('ModeMsg', '-- INSERT --')],

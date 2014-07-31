@@ -21,10 +21,15 @@ var Vim = React.createClass({
                         TabLine(this.args()) :
                         [])
                 .concat(this.source())
-                .concat(NonText(merge(this.args(), {parsedSource: this.props.parsedSource})))
-                .concat(show('statusLine') ?
+                .concat(this.props.activeFile !== 'vimUI' ?
+                        NonText(merge(this.args(), {parsedSource: this.props.parsedSource})) :
+                        [])
+                .concat(show('statusLine') && this.props.activeFile !== 'vimUI' ?
                         StatusLine(this.args()) :
                         []));
+    },
+    isVimFile() {
+        return this.props.activeFile === 'vimEditor' || this.props.activeFile === 'vimUI';
     },
     args() {
         return {
@@ -39,8 +44,7 @@ var Vim = React.createClass({
            Line(merge(this.args(), {
                 key: index,
                 componentsVisibility: this.props.componentsVisibility,
-                showLineNumber: this.props.componentsVisibility['lineNumbers'] === 'show' &&
-                    this.props.activeFile !== 'vim',
+                showLineNumber: this.props.componentsVisibility['lineNumbers'] === 'show' && !this.isVimFile(),
                 line,
                 lineNumber: {
                     line: index + 1,

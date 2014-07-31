@@ -36,8 +36,13 @@ var Files = React.createClass({
                 title: 'HTML'
             })),
             FileLink(merge(this.props, {
-                key: 'vim',
-                type: 'vim',
+                key: 'vimEditor',
+                type: 'vimEditor',
+                title: 'Editor'
+            })),
+            FileLink(merge(this.props, {
+                key: 'vimUI',
+                type: 'vimUI',
                 title: 'UI'
             })),
             PasteLink(merge(this.props, {key: 'pasteLink'})));
