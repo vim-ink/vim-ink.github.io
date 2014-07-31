@@ -103,15 +103,15 @@ var dbgreen = '#082808';
 
 var initialState = {
     _version: 0,
-    parsedSource: files.editor.parsedSource,
-    activeVariant: 'light',
-    selectedGroup: 'Normal',
-    hoverGroup: undefined,
     activeColor: 'foreground',
-    activeFile: 'editor',
+    activeFile: 'javascript',
     activePane: 'light',
+    activeVariant: 'light',
     exportName: 'my-default',
     exportedSource: undefined,
+    hoverGroup: undefined,
+    parsedSource: files.javascript.parsedSource,
+    selectedGroup: 'Normal',
     postProcess: {
         dark: {
             brightness: 0,
