@@ -171,9 +171,7 @@ var App = React.createClass({
         this.setState(state);
     },
     deleteSelectedGroupProp(prop) {
-        var {selectedGroup} = this.state;
-
-        if (selectedGroup === 'Normal') {
+        if (this.state.selectedGroup === 'Normal') {
             this.resetSelectedGroupProp(prop);
         } else {
             var props = {};
@@ -216,23 +214,20 @@ var App = React.createClass({
         this.setState({exportName});
     },
     setSectionVisibility(section, visibility) {
-        var {sectionsVisibility} = this.state;
-        var state = {sectionsVisibility: _.cloneDeep(sectionsVisibility)};
+        var state = {sectionsVisibility: _.cloneDeep(this.state.sectionsVisibility)};
         state.sectionsVisibility[section] = visibility;
         this.setState(state);
     },
     setComponentVisibility(component, visibility) {
-        var {componentsVisibility} = this.state;
-        var state = {componentsVisibility: _.cloneDeep(componentsVisibility)};
+        var state = {componentsVisibility: _.cloneDeep(this.state.componentsVisibility)};
         state.componentsVisibility[component] = visibility;
         this.setState(state);
     },
     setPostProcessProps(props) {
-        var {activeVariant, postProcess} = this.state;
         var state = {
-            postProcess: _.cloneDeep(postProcess)
+            postProcess: _.cloneDeep(this.state.postProcess)
         };
-        Object.assign(state.postProcess[activeVariant], props);
+        Object.assign(state.postProcess[this.state.activeVariant], props);
         this.setState(state);
     },
     setActiveVariant(activeVariant) {
@@ -245,8 +240,6 @@ var App = React.createClass({
         this.setState({parsedSource: parse(source)});
     },
     exportColorScheme() {
-        var {exportName} = this.state;
-
         this.setState({
             exportedSource: exporter(_.cloneDeep(this.state))
         });
@@ -255,9 +248,7 @@ var App = React.createClass({
         this.setState({exportedSource: undefined});
     },
     resetState() {
-        var state = _.cloneDeep(initialState);
-
-        this.setState(state);
+        this.setState(_.cloneDeep(initialState));
     }
 });
 
