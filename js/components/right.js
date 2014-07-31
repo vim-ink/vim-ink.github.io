@@ -7,8 +7,6 @@ var merge = (...args) => Object.assign({}, ...args);
 
 var Right = React.createClass({
     render() {
-        var {aside} = React.DOM;
-
         var children = [];
 
         if (this.props.activePane === 'global') {
@@ -25,7 +23,7 @@ var Right = React.createClass({
                 ModifiedGroups(merge(this.props, {key: 4}))];
         }
 
-        return aside({key: 'aside', children});
+        return React.DOM.aside({key: 'aside', children});
     }
 });
 
