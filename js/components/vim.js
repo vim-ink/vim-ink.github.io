@@ -33,12 +33,12 @@ var Vim = React.createClass({
 
 var Part = React.createClass({
     render() {
-        var attributes = this.props.group === undefined ? null : {
+        var attributes = (this.props.group === undefined ? null : {
             key: 'part',
             style: this.props.getStyle(this.props.group),
             onClick: this.onClick,
             onMouseOver: this.onMouseOver,
-        }
+        });
 
         return React.DOM.span(attributes, this.props.content);
     },
@@ -103,7 +103,7 @@ var Line = React.createClass({
     render() {
         var children = [LineNumber(merge(this.props, {key: 'lineNumber'}))]
             .concat(this.lineParts())
-            .concat(React.DOM.span({key: 'newLine'}, '\n'));
+            .concat([React.DOM.span({key: 'newLine'}, '\n')]);
 
         return React.DOM.span({key: 'line', children});
     },
@@ -137,8 +137,9 @@ var LineNumber = React.createClass({
 
 var NonText = React.createClass({
     render() {
-        if (this.props.activeFile === 'ui')
+        if (this.props.activeFile === 'ui') {
             return null;
+        }
 
         var lineCount = Math.max(0, 32 - this.props.parsedSource.length);
         var group = 'NonText';
@@ -150,8 +151,10 @@ var NonText = React.createClass({
 
 var StatusLine = React.createClass({
     render() {
-        if (this.props.componentsVisibility['statusLine'] !== 'show' || this.props.activeFile === 'ui')
+        if (this.props.componentsVisibility['statusLine'] !== 'show' ||
+            this.props.activeFile === 'ui') {
             return null;
+        }
 
         return Part(
             merge(this.props, {

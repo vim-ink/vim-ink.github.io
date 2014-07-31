@@ -29,17 +29,20 @@ var Right = React.createClass({
 
 var Section = React.createClass({
     render() {
-        var {section, h2} = React.DOM;
-
         var className = 'firstSection' in this.props && this.props.firstSection === true ?
-            'first' :
-            null;
+            'first' : null;
 
-        var children = transitionFast([]
-            .concat([h2({key: 'h2', onClick: this.onClick}, this.props.title)])
+        var children = transitionFast(
+            [React.DOM.h2({
+                key: 'h2',
+                onClick: this.onClick},
+            this.props.title)]
             .concat((this.props.sectionsVisibility[this.props.id] === 'show' ? this.props.children : [])));
 
-        return section({key: this.props.id, className, children});
+        return React.DOM.section({
+            key: 'section',
+            className,
+            children});
     },
     onClick() {
         var {setSectionVisibility, sectionsVisibility, id} = this.props;
