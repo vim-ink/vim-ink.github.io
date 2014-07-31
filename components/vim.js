@@ -1,56 +1,24 @@
 var React = require('react');
-var Color = require('color');
 
-var merge = (...args) => Object.assign({}, ...args);
+var {spaces, fill, merge} = require('../utils');
 
 var Vim = React.createClass({
     render() {
         if (this.props.parsedSource === undefined)
             return null;
 
-        var show = component => this.props.componentsVisibility[component] === 'show';
-
         return React.DOM.pre({
             key: 'pre',
-            style: this.style(this.props.getGroup('Normal')),
+            style: this.props.getStyle('Normal'),
             onMouseOver: this.onMouseOver,
             onClick: this.onClick,
-            onMouseOut: this.onMouseOut},
-            []
-                .concat(show('tabLine') ?
-                        TabLine(this.args()) :
-                        [])
-                .concat(this.source())
-                .concat(this.props.activeFile !== 'vimUI' ?
-                        NonText(merge(this.args(), {parsedSource: this.props.parsedSource})) :
-                        [])
-                .concat(show('statusLine') && this.props.activeFile !== 'vimUI' ?
-                        StatusLine(this.args()) :
-                        []));
-    },
-    isVimFile() {
-        return this.props.activeFile === 'vimEditor' || this.props.activeFile === 'vimUI';
-    },
-    args() {
-        return {
-            style: this.style,
-            getGroup: this.props.getGroup,
-            selectGroup: this.props.selectGroup,
-            setHoverGroup: this.props.setHoverGroup
-        };
-    },
-    source() {
-        return this.props.parsedSource.map((line, index) =>
-           Line(merge(this.args(), {
-                key: index,
-                componentsVisibility: this.props.componentsVisibility,
-                showLineNumber: this.props.componentsVisibility['lineNumbers'] === 'show' && !this.isVimFile(),
-                line,
-                lineNumber: {
-                    line: index + 1,
-                    lineCount: this.props.parsedSource.length
-                }
-            })));
+            onMouseOut: this.onMouseOut,
+            children: [
+                TabLine(merge(this.props, {key: 'tabLine'})),
+                Source(merge(this.props, {key: 'source'})),
+                NonText(merge(this.props, {key: 'nonText'})),
+                StatusLine(merge(this.props, {key: 'statusLine'}))
+            ]});
     },
     onMouseOver() {
         this.props.setHoverGroup('Normal');
@@ -59,245 +27,137 @@ var Vim = React.createClass({
         this.props.setHoverGroup(undefined);
     },
     onClick() {
-        var {selectGroup} = this.props;
+        this.props.selectGroup('Normal');
+    }
+});
 
-        selectGroup('Normal');
+var Part = React.createClass({
+    render() {
+        var attributes = this.props.group === undefined ? null : {
+            key: 'part',
+            style: this.props.getStyle(this.props.group),
+            onClick: this.onClick,
+            onMouseOver: this.onMouseOver,
+        }
+
+        return React.DOM.span(attributes, this.props.content);
     },
-    style(props) {
-        var {postProcess, activeVariant, getGroup} = this.props;
-        var {brightness, saturation} = postProcess[activeVariant];
-        var normal = getGroup('Normal');
-
-        var color = ('color' in props ?
-            props.color :
-            undefined);
-        var backgroundColor = ('backgroundColor' in props ?
-            props.backgroundColor :
-            undefined);
-
-        var style = {};
-
-        switch (props.highlight) {
-            case 'bold':
-                style['fontWeight'] = '400';
-                break;
-            case 'italic':
-                style['fontStyle'] = 'italic';
-                break;
-            case 'underline':
-                style['textDecoration'] = 'underline';
-                break;
-            case 'undercurl':
-                style['border-bottom'] = '1px dotted #888888';
-                break;
-            case 'reverse':
-                var color_ = color;
-
-                color = backgroundColor !== undefined ? backgroundColor : normal.backgroundColor;
-                backgroundColor = color_ !== undefined ? color_ : normal.color;
-                break;
-            case 'standout':
-                style['fontWeight'] = 600;
-                var color_ = color;
-
-                color = backgroundColor !== undefined ? backgroundColor : normal.backgroundColor;
-                backgroundColor = color_ !== undefined ? color_ : normal.color;
-                break;
-        }
-
-        if (color !== undefined) {
-            style['color'] = Color(color)
-                .lighten(brightness)
-                .saturate(saturation)
-                .hexString();
-        } else {
-            style['color'] = undefined;
-        }
-
-        if (backgroundColor !== undefined) {
-            style['backgroundColor'] = Color(backgroundColor)
-                .lighten(brightness)
-                .saturate(saturation)
-                .hexString();
-        } else {
-            style['backgroundColor'] = undefined;
-        }
-
-        return style;
-    }
-});
-
-var NonText = React.createClass({
-    render() {
-        var linesCount = Math.max(0, 32 - this.props.parsedSource.length);
-        var group = 'NonText';
-        var content = '~                                                                                       \n'.repeat(linesCount);
-
-        return Segment(merge(this.props, {segment: {group, content}}));
-    }
-});
-
-var StatusLine = React.createClass({
-    render() {
-        var {span} = React.DOM;
-        var {style, getGroup, selectGroup, setHoverGroup} = this.props;
-        var args = {style, getGroup, selectGroup, setHoverGroup};
-
-        return span(
-            null,
-            [
-                Segment(merge(args, {
-                    segment: {
-                        group: 'StatusLine',
-                        content: '~/path/to/file                                                       1,1         Top    '
-                    }
-                }))
-            ]);
+    onMouseOver(e) {
+        this.props.setHoverGroup(this.props.group);
+        e.stopPropagation();
+    },
+    onClick(e) {
+        this.props.selectGroup(this.props.group);
+        e.stopPropagation();
     }
 });
 
 var TabLine = React.createClass({
     render() {
-        var {span} = React.DOM;
-        var {style, getGroup, selectGroup, setHoverGroup} = this.props;
-        var args = {style, getGroup, selectGroup, setHoverGroup};
+        if (this.props.componentsVisibility['tabLine'] === 'hide')
+            return null;
 
-        return span(
+        return React.DOM.span(
             null,
             [
-                Segment(merge(args, {
-                    segment: {
-                        group: 'TabLine',
-                        content: [
-                            ' one-file '
-                        ]
-                    }
+                Part(merge(this.props, {
+                    key: 'oneFile',
+                    group: 'TabLine',
+                    content: ' one-file '
                 })),
-                Segment(merge(args, {
-                    segment: {
-                        group: 'TabLine',
-                        content: [
-                            ' another-file '
-                        ]
-                    }
+                Part(merge(this.props, {
+                    key: 'anotherFile',
+                    group: 'TabLine',
+                    content: ' another-file '
                 })),
-                Segment(merge(args, {
-                    segment: {
-                        group: 'TabLineSel',
-                        content: ' selected-file '
-                    }
+                Part(merge(this.props, {
+                    key: 'selectedFile',
+                    group: 'TabLineSel',
+                    content: ' selected-file '
                 })),
-                Segment(merge(args, {
-                    segment: {
-                        group: 'TabLineFill',
-                        content: '                                            '
-                    }
+                Part(merge(this.props, {
+                    key: 'tabLineFill',
+                    group: 'TabLineFill',
+                    content: spaces(44),
                 })),
-                Segment(merge(args, {
-                    segment: {
-                        group: 'TabLine',
-                        content: '     ' // Should be 'X ', but I decided to hide it
-                    }
+                Part(merge(this.props, {
+                    key: 'x',
+                    group: 'TabLine',
+                    content: spaces(1 + 4)
                 })),
                 '\n'
             ]);
     }
 });
 
+var Source = React.createClass({
+    render() {
+        return React.DOM.span(
+            null,
+            this.props.parsedSource.map((lineParts, index) =>
+                Line(merge(this.props, {key: index, lineParts, index}))));
+    }
+});
+
 var Line = React.createClass({
     render() {
-        var {span} = React.DOM;
-        var {showLineNumber} = this.props;
+        var children = [LineNumber(merge(this.props, {key: 'lineNumber'}))]
+            .concat(this.lineParts())
+            .concat(React.DOM.span({key: 'newLine'}, '\n'));
 
-        var children = []
-            .concat(showLineNumber === true ? this.lineNumber() : [])
-            .concat(this.segments())
-            .concat(span({key: 'newLine'}, '\n'));
-
-        return span({key: 'line'}, children);
+        return React.DOM.span({key: 'line', children});
     },
-    lineNumber() {
-        return LineNumber({
-            key: 'lineNumber',
-            style: this.props.style,
-            getGroup: this.props.getGroup,
-            lineNumber: this.props.lineNumber,
-            selectGroup: this.props.selectGroup,
-            setHoverGroup: this.props.setHoverGroup
-        });
-    },
-    segments() {
-        return this.props.line.map((segment, index) =>
-            Segment({
-                key: index,
-                segment,
-                style: this.props.style,
-                getGroup: this.props.getGroup,
-                selectGroup: this.props.selectGroup,
-                setHoverGroup: this.props.setHoverGroup
-            }));
+    lineParts() {
+        return this.props.lineParts.map((linePart, index) =>
+            Part(merge(
+                 this.props,
+                 {key: index, group: linePart.group, content: linePart.content})));
     }
 });
 
 var LineNumber = React.createClass({
     render() {
-        var {span} = React.DOM;
-        var {onClick, onMouseOver} = this;
-        var {style, getGroup, lineNumber} = this.props;
-        var {line, lineCount} = lineNumber;
+        if (this.props.componentsVisibility['lineNumbers'] === 'hide' ||
+            (this.props.activeFile === 'ui' || this.props.activeFile === 'editor')) {
+            return null;
+        }
 
-        var props = getGroup('LineNr');
-        var spaceCount = 1 + (lineCount.toString().length - line.toString().length)
-
-        var content = ' '.repeat(spaceCount) + line + ' ';
-
-        return span({
-            style: style(props),
-            onClick: this.onClick,
-            onMouseOver: this.onMouseOver},
-            content);
+        return Part(merge(
+            this.props,
+            {key: 'lineNr', group: 'LineNr', content: this.getContent()}
+        ));
     },
-    onMouseOver(e) {
-        var {lineNumber} = this.props;
-        this.props.setHoverGroup('LineNr');
-        e.stopPropagation();
-    },
-    onClick(e) {
-        this.props.selectGroup('LineNr');
-        e.stopPropagation();
+    getContent() {
+        var line = this.props.index + 1;
+        var lineCount = this.props.parsedSource.length;
+        var fillCount = 1 + (lineCount.toString().length - line.toString().length);
+        return ' '.repeat(fillCount) + line + ' ';
     }
 });
 
-var Segment = React.createClass({
+var NonText = React.createClass({
     render() {
-        var {span} = React.DOM;
-        var {onClick, onMouseOver, style} = this;
-        var {segment, getGroup, style} = this.props;
+        if (this.props.activeFile === 'ui')
+            return null;
 
-        if (typeof(segment) === 'object') {
-            var parentGroup = ('parentGroup' in segment ? segment.parentGroup : 'Normal');
-            var props = getGroup(segment.group, parentGroup);
+        var lineCount = Math.max(0, 32 - this.props.parsedSource.length);
+        var group = 'NonText';
+        var content = (fill('~') + '\n').repeat(lineCount);
 
-            return span({
-                style: style(props),
-                onClick,
-                onMouseOver},
-                segment.content);
-        } else {
-            return span(null, segment);
-        }
-    },
-    onMouseOver(e) {
-        var {setHoverGroup, segment} = this.props;
+        return Part(merge(this.props, {group, content}));
+    }
+});
 
-        setHoverGroup(segment.group);
-        e.stopPropagation();
-    },
-    onClick(e) {
-        var {selectGroup, segment} = this.props;
+var StatusLine = React.createClass({
+    render() {
+        if (this.props.componentsVisibility['statusLine'] !== 'show' || this.props.activeFile === 'ui')
+            return null;
 
-        selectGroup(segment.group);
-        e.stopPropagation();
+        return Part(
+            merge(this.props, {
+                group: 'StatusLine',
+                content: '~/path/to/file' + spaces(55) + '1,1         Top' + spaces(4)
+            }));
     }
 });
 

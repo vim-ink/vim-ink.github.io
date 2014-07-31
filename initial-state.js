@@ -82,33 +82,33 @@ var lb3 = l3;
 var lb4 = l4;
 var lb5 = l5;
 
-var df0 = d22;
-var df1 = d20;
-var df2 = d18;
-var df3 = d16;
-var df4 = d14;
-var df5 = d12;
+var df0 = d23;
+var df1 = d21;
+var df2 = d19;
+var df3 = d17;
+var df4 = d15;
+var df5 = d13;
 
-var db0 = d0;
-var db1 = d2;
-var db2 = d4;
-var db3 = d6;
-var db4 = d8;
-var db5 = d10;
+var db0 = d1;
+var db1 = d3;
+var db2 = d5;
+var db3 = d7;
+var db4 = d9;
+var db5 = d11;
 
 var lbred = '#fff0f0';
 var lbgreen = '#f0fff0';
-var dbred = '#200000';
-var dbgreen = '#002000';
+var dbred = '#280808';
+var dbgreen = '#082808';
 
 var initialState = {
     _version: 0,
-    parsedSource: files.vimEditor.parsedSource,
+    parsedSource: files.editor.parsedSource,
     activeVariant: 'light',
     selectedGroup: 'Normal',
     hoverGroup: undefined,
     activeColor: 'foreground',
-    activeFile: 'vimEditor',
+    activeFile: 'editor',
     activePane: 'light',
     exportName: 'my-default',
     exportedSource: undefined,

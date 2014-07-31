@@ -1,8 +1,18 @@
 (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);throw new Error("Cannot find module '"+o+"'")}var f=n[o]={exports:{}};t[o][0].call(f.exports,function(e){var n=t[o][1][e];return s(n?n:e)},f,f.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 "use strict";
-var React = require('react/addons');
 var _ = require('lodash');
+var React = require('react/addons');
+var Color = require('color');
+var initialState = require('../initial-state');
+var parse = require('../parser');
+var exporter = require('../exporter');
+var Header = require('./header');
+var Left = require('./left');
+var Right = require('./right');
+var Footer = require('./footer');
+var Export = require('./export');
+var merge = $traceurRuntime.assertObject(require('../utils')).merge;
 var transition = React.addons.CSSTransitionGroup;
 var transitionFast = (function(children) {
   return transition({
@@ -10,47 +20,67 @@ var transitionFast = (function(children) {
     children: children
   });
 });
-var initialState = require('../initial-state');
-var parse = require('../vim-tohtml-parser');
-var exporter = require('../exporter');
-var Header = require('./header');
-var Left = require('./left');
-var Right = require('./right');
-var Footer = require('./footer');
-var Export = require('./export');
 var App = React.createClass({
   getInitialState: function() {
-    return _.cloneDeep(initialState);
+    if (localStorage.getItem('state') !== null) {
+      return JSON.parse(localStorage.getItem('state'));
+    } else {
+      return _.cloneDeep(initialState);
+    }
   },
   render: function() {
-    var $__1 = $traceurRuntime.assertObject(React.DOM),
-        span = $__1.span,
-        main = $__1.main;
-    var children = [Header({
+    return React.DOM.span({
+      key: 'span',
+      children: transitionFast([this.getHeader(), this.getMain(), this.getFooter(), this.getExport()])
+    });
+  },
+  getHeader: function() {
+    return Header(merge(this.state, {
       key: 'header',
       setActiveFile: this.setActiveFile,
       setActivePane: this.setActivePane,
       setActiveVariant: this.setActiveVariant,
-      setParsedSource: this.setParsedSource,
-      activeFile: this.state.activeFile,
-      activePane: this.state.activePane
-    }), main({
+      setParsedSource: this.setParsedSource
+    }));
+  },
+  getMain: function() {
+    return React.DOM.main({
       key: 'main',
-      className: 'wrap cf'
-    }, Left({
+      className: 'wrap clear-fix',
+      children: [this.getLeft(), this.getRight()]
+    });
+  },
+  getFooter: function() {
+    return Footer({
+      key: 'footer',
+      setActiveFile: this.setActiveFile,
+      setParsedSource: this.setParsedSource
+    });
+  },
+  getExport: function() {
+    if (this.state.exportedSource === undefined) {
+      return [];
+    } else {
+      return Export(merge(this.state, {
+        key: 'export',
+        clearExportedSource: this.clearExportedSource,
+        exportName: this.state.exportName,
+        exportedSource: this.state.exportedSource
+      }));
+    }
+  },
+  getLeft: function() {
+    return Left(merge(this.state, {
       key: 'left',
       getGroup: this.getGroup,
-      parse: this.parse,
+      getStyle: this.getStyle,
       selectGroup: this.selectGroup,
-      setActiveFile: this.setActiveFile,
       setHoverGroup: this.setHoverGroup,
-      setParsedSource: this.setParsedSource,
-      activeFile: this.state.activeFile,
-      activeVariant: this.state.activeVariant,
-      componentsVisibility: this.state.componentsVisibility,
-      parsedSource: this.state.parsedSource,
-      postProcess: this.state.postProcess
-    }), Right({
+      setParsedSource: this.setParsedSource
+    }));
+  },
+  getRight: function() {
+    return Right(merge(this.state, {
       key: 'right',
       deleteSelectedGroupProp: this.deleteSelectedGroupProp,
       exportColorScheme: this.exportColorScheme,
@@ -66,30 +96,8 @@ var App = React.createClass({
       setExportName: this.setExportName,
       setPostProcessProps: this.setPostProcessProps,
       setSectionVisibility: this.setSectionVisibility,
-      setSelectedGroupProps: this.setSelectedGroupProps,
-      activeColor: this.state.activeColor,
-      activePane: this.state.activePane,
-      activeVariant: this.state.activeVariant,
-      componentsVisibility: this.state.componentsVisibility,
-      exportName: this.state.exportName,
-      hoverGroup: this.state.hoverGroup,
-      postProcess: this.state.postProcess,
-      sectionsVisibility: this.state.sectionsVisibility,
-      selectedGroup: this.state.selectedGroup
-    })), Footer({
-      key: 'footer',
-      setActiveFile: this.setActiveFile,
-      setParsedSource: this.setParsedSource
-    })].concat((this.state.exportedSource === undefined ? [] : [Export({
-      key: 'export',
-      clearExportedSource: this.clearExportedSource,
-      exportName: this.state.exportName,
-      exportedSource: this.state.exportedSource
-    })]));
-    return span({
-      key: 'span',
-      children: transitionFast(children)
-    });
+      setSelectedGroupProps: this.setSelectedGroupProps
+    }));
   },
   componentDidMount: function() {
     this.updateBodyClass();
@@ -104,21 +112,66 @@ var App = React.createClass({
     }
   },
   updateBodyClass: function() {
-    var $__0 = this;
     var body = document.getElementsByTagName('body')[0];
-    body.className = this.state.activeVariant + ' variant-transition';
+    var activeVariant = $traceurRuntime.assertObject(this.state).activeVariant;
+    body.className = activeVariant + ' variant-transition';
     setTimeout((function() {
-      return body.className = $__0.state.activeVariant;
+      return body.className = activeVariant;
     }), 500);
   },
   getGroup: function(group) {
     var groups = this.state[this.state.activeVariant];
     return (group in groups ? groups[group] : {});
   },
+  getStyle: function(group) {
+    var $__1 = $traceurRuntime.assertObject(this.state.postProcess[this.state.activeVariant]),
+        brightness = $__1.brightness,
+        saturation = $__1.saturation;
+    var normal = this.getGroup('Normal');
+    var group_ = this.getGroup(group);
+    var color = ('color' in group_ ? group_.color : undefined);
+    var backgroundColor = ('backgroundColor' in group_ ? group_.backgroundColor : undefined);
+    var style = {};
+    switch (group_.highlight) {
+      case 'bold':
+        style['fontWeight'] = '400';
+        break;
+      case 'italic':
+        style['fontStyle'] = 'italic';
+        break;
+      case 'underline':
+        style['textDecoration'] = 'underline';
+        break;
+      case 'undercurl':
+        style['border-bottom'] = '1px dotted #888888';
+        break;
+      case 'reverse':
+        var color_ = color;
+        color = backgroundColor !== undefined ? backgroundColor : normal.backgroundColor;
+        backgroundColor = color_ !== undefined ? color_ : normal.color;
+        break;
+      case 'standout':
+        style['fontWeight'] = 600;
+        var color_ = color;
+        color = backgroundColor !== undefined ? backgroundColor : normal.backgroundColor;
+        backgroundColor = color_ !== undefined ? color_ : normal.color;
+        break;
+    }
+    if (color !== undefined) {
+      style['color'] = Color(color).lighten(brightness).saturate(saturation).hexString();
+    } else {
+      style['color'] = undefined;
+    }
+    if (backgroundColor !== undefined) {
+      style['backgroundColor'] = Color(backgroundColor).lighten(brightness).saturate(saturation).hexString();
+    } else {
+      style['backgroundColor'] = undefined;
+    }
+    return style;
+  },
   getModifiedGroups: function() {
-    var activeVariant = $traceurRuntime.assertObject(this.state).activeVariant;
-    var initialGroups = initialState[activeVariant];
-    var groups = this.state[activeVariant];
+    var initialGroups = initialState[this.state.activeVariant];
+    var groups = this.state[this.state.activeVariant];
     return Object.keys(groups).filter((function(group) {
       return !(group in initialGroups && _.isEqual(initialGroups[group], groups[group]));
     }));
@@ -231,7 +284,7 @@ module.exports = App;
 
 
 }).call(this,require("IrXUsu"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/components/app.js","/components")
-},{"../exporter":8,"../initial-state":11,"../vim-tohtml-parser":182,"./export":2,"./footer":3,"./header":4,"./left":5,"./right":6,"IrXUsu":20,"buffer":17,"lodash":21,"react/addons":22}],2:[function(require,module,exports){
+},{"../exporter":8,"../initial-state":11,"../parser":182,"../utils":183,"./export":2,"./footer":3,"./header":4,"./left":5,"./right":6,"IrXUsu":20,"buffer":17,"color":12,"lodash":21,"react/addons":22}],2:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 "use strict";
 var React = require('react');
@@ -322,14 +375,10 @@ var merge = (function() {
   return ($__2 = Object).assign.apply($__2, $traceurRuntime.spread([{}], args));
 });
 var Header = React.createClass({render: function() {
-    var $__1 = $traceurRuntime.assertObject(React.DOM),
-        header = $__1.header,
-        h1 = $__1.h1,
-        div = $__1.div;
-    return header({key: 'header'}, div({
+    return React.DOM.header({key: 'header'}, React.DOM.div({
       key: 'wrap',
-      className: 'wrap cf'
-    }, h1({key: 'h1'}, 'vim.ink'), Files(merge(this.props, {key: 'files'})), Panes(merge(this.props, {key: 'panes'}))));
+      className: 'wrap clear-fix'
+    }, React.DOM.h1({key: 'h1'}, 'vim.ink'), Files(merge(this.props, {key: 'files'})), Panes(merge(this.props, {key: 'panes'}))));
   }});
 var Files = React.createClass({render: function() {
     var ul = $traceurRuntime.assertObject(React.DOM).ul;
@@ -349,12 +398,12 @@ var Files = React.createClass({render: function() {
       type: 'html',
       title: 'HTML'
     })), FileLink(merge(this.props, {
-      key: 'vimEditor',
-      type: 'vimEditor',
+      key: 'editor',
+      type: 'editor',
       title: 'Editor'
     })), FileLink(merge(this.props, {
-      key: 'vimUI',
-      type: 'vimUI',
+      key: 'ui',
+      type: 'ui',
       title: 'UI'
     })), PasteLink(merge(this.props, {key: 'pasteLink'})));
   }});
@@ -462,60 +511,31 @@ module.exports = Header;
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 "use strict";
 var React = require('react');
-var files = require('../files');
-var _ = require('lodash');
 var Vim = require('./vim');
+var merge = $traceurRuntime.assertObject(require('../utils')).merge;
 var Left = React.createClass({render: function() {
-    var article = $traceurRuntime.assertObject(React.DOM).article;
-    var $__0 = $traceurRuntime.assertObject(this.props),
-        activeFile = $__0.activeFile,
-        activeVariant = $__0.activeVariant,
-        componentsVisibility = $__0.componentsVisibility,
-        getGroup = $__0.getGroup,
-        parse = $__0.parse,
-        parsedSource = $__0.parsedSource,
-        postProcess = $__0.postProcess,
-        selectGroup = $__0.selectGroup,
-        setActiveFile = $__0.setActiveFile,
-        setHoverGroup = $__0.setHoverGroup,
-        setParsedSource = $__0.setParsedSource;
-    return article(null, Vim({
-      activeFile: activeFile,
-      activeVariant: activeVariant,
-      componentsVisibility: componentsVisibility,
-      getGroup: getGroup,
-      parsedSource: parsedSource,
-      postProcess: postProcess,
-      selectGroup: selectGroup,
-      setHoverGroup: setHoverGroup
-    }), Paste({
-      parsedSource: parsedSource,
-      parse: parse
-    }));
+    return React.DOM.article({children: [Vim(merge(this.props, {key: 'vim'})), Paste(merge(this.props, {key: 'paste'}))]});
   }});
 var Paste = React.createClass({
   render: function() {
     if (this.props.parsedSource !== undefined)
       return null;
-    var textarea = $traceurRuntime.assertObject(React.DOM).textarea;
-    var onChange = this.onChange;
-    return textarea({
-      onChange: onChange,
+    return React.DOM.textarea({
+      onChange: this.onChange,
       className: 'paste',
       placeholder: 'Paste output of `:TOhtml` here.',
       value: ''
     });
   },
   onChange: function(e) {
-    var parse = $traceurRuntime.assertObject(this.props).parse;
-    parse(e.target.value);
+    this.props.parse(e.target.value);
   }
 });
 module.exports = Left;
 
 
 }).call(this,require("IrXUsu"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/components/left.js","/components")
-},{"../files":10,"./vim":7,"IrXUsu":20,"buffer":17,"lodash":21,"react":181}],6:[function(require,module,exports){
+},{"../utils":183,"./vim":7,"IrXUsu":20,"buffer":17,"react":181}],6:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 "use strict";
 var React = require('react/addons');
@@ -1076,55 +1096,22 @@ module.exports = Right;
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 "use strict";
 var React = require('react');
-var Color = require('color');
-var merge = (function() {
-  var $__3;
-  for (var args = [],
-      $__1 = 0; $__1 < arguments.length; $__1++)
-    args[$__1] = arguments[$__1];
-  return ($__3 = Object).assign.apply($__3, $traceurRuntime.spread([{}], args));
-});
+var $__1 = $traceurRuntime.assertObject(require('../utils')),
+    spaces = $__1.spaces,
+    fill = $__1.fill,
+    merge = $__1.merge;
 var Vim = React.createClass({
   render: function() {
-    var $__0 = this;
     if (this.props.parsedSource === undefined)
       return null;
-    var show = (function(component) {
-      return $__0.props.componentsVisibility[component] === 'show';
-    });
     return React.DOM.pre({
       key: 'pre',
-      style: this.style(this.props.getGroup('Normal')),
+      style: this.props.getStyle('Normal'),
       onMouseOver: this.onMouseOver,
       onClick: this.onClick,
-      onMouseOut: this.onMouseOut
-    }, [].concat(show('tabLine') ? TabLine(this.args()) : []).concat(this.source()).concat(this.props.activeFile !== 'vimUI' ? NonText(merge(this.args(), {parsedSource: this.props.parsedSource})) : []).concat(show('statusLine') && this.props.activeFile !== 'vimUI' ? StatusLine(this.args()) : []));
-  },
-  isVimFile: function() {
-    return this.props.activeFile === 'vimEditor' || this.props.activeFile === 'vimUI';
-  },
-  args: function() {
-    return {
-      style: this.style,
-      getGroup: this.props.getGroup,
-      selectGroup: this.props.selectGroup,
-      setHoverGroup: this.props.setHoverGroup
-    };
-  },
-  source: function() {
-    var $__0 = this;
-    return this.props.parsedSource.map((function(line, index) {
-      return Line(merge($__0.args(), {
-        key: index,
-        componentsVisibility: $__0.props.componentsVisibility,
-        showLineNumber: $__0.props.componentsVisibility['lineNumbers'] === 'show' && !$__0.isVimFile(),
-        line: line,
-        lineNumber: {
-          line: index + 1,
-          lineCount: $__0.props.parsedSource.length
-        }
-      }));
-    }));
+      onMouseOut: this.onMouseOut,
+      children: [TabLine(merge(this.props, {key: 'tabLine'})), Source(merge(this.props, {key: 'source'})), NonText(merge(this.props, {key: 'nonText'})), StatusLine(merge(this.props, {key: 'statusLine'}))]
+    });
   },
   onMouseOver: function() {
     this.props.setHoverGroup('Normal');
@@ -1133,222 +1120,124 @@ var Vim = React.createClass({
     this.props.setHoverGroup(undefined);
   },
   onClick: function() {
-    var selectGroup = $traceurRuntime.assertObject(this.props).selectGroup;
-    selectGroup('Normal');
-  },
-  style: function(props) {
-    var $__2 = $traceurRuntime.assertObject(this.props),
-        postProcess = $__2.postProcess,
-        activeVariant = $__2.activeVariant,
-        getGroup = $__2.getGroup;
-    var $__2 = $traceurRuntime.assertObject(postProcess[activeVariant]),
-        brightness = $__2.brightness,
-        saturation = $__2.saturation;
-    var normal = getGroup('Normal');
-    var color = ('color' in props ? props.color : undefined);
-    var backgroundColor = ('backgroundColor' in props ? props.backgroundColor : undefined);
-    var style = {};
-    switch (props.highlight) {
-      case 'bold':
-        style['fontWeight'] = '400';
-        break;
-      case 'italic':
-        style['fontStyle'] = 'italic';
-        break;
-      case 'underline':
-        style['textDecoration'] = 'underline';
-        break;
-      case 'undercurl':
-        style['border-bottom'] = '1px dotted #888888';
-        break;
-      case 'reverse':
-        var color_ = color;
-        color = backgroundColor !== undefined ? backgroundColor : normal.backgroundColor;
-        backgroundColor = color_ !== undefined ? color_ : normal.color;
-        break;
-      case 'standout':
-        style['fontWeight'] = 600;
-        var color_ = color;
-        color = backgroundColor !== undefined ? backgroundColor : normal.backgroundColor;
-        backgroundColor = color_ !== undefined ? color_ : normal.color;
-        break;
-    }
-    if (color !== undefined) {
-      style['color'] = Color(color).lighten(brightness).saturate(saturation).hexString();
-    } else {
-      style['color'] = undefined;
-    }
-    if (backgroundColor !== undefined) {
-      style['backgroundColor'] = Color(backgroundColor).lighten(brightness).saturate(saturation).hexString();
-    } else {
-      style['backgroundColor'] = undefined;
-    }
-    return style;
+    this.props.selectGroup('Normal');
   }
 });
-var NonText = React.createClass({render: function() {
-    var linesCount = Math.max(0, 32 - this.props.parsedSource.length);
-    var group = 'NonText';
-    var content = '~                                                                                       \n'.repeat(linesCount);
-    return Segment(merge(this.props, {segment: {
-        group: group,
-        content: content
-      }}));
-  }});
-var StatusLine = React.createClass({render: function() {
-    var span = $traceurRuntime.assertObject(React.DOM).span;
-    var $__2 = $traceurRuntime.assertObject(this.props),
-        style = $__2.style,
-        getGroup = $__2.getGroup,
-        selectGroup = $__2.selectGroup,
-        setHoverGroup = $__2.setHoverGroup;
-    var args = {
-      style: style,
-      getGroup: getGroup,
-      selectGroup: selectGroup,
-      setHoverGroup: setHoverGroup
+var Part = React.createClass({
+  render: function() {
+    var attributes = this.props.group === undefined ? null : {
+      key: 'part',
+      style: this.props.getStyle(this.props.group),
+      onClick: this.onClick,
+      onMouseOver: this.onMouseOver
     };
-    return span(null, [Segment(merge(args, {segment: {
-        group: 'StatusLine',
-        content: '~/path/to/file                                                       1,1         Top    '
-      }}))]);
-  }});
+    return React.DOM.span(attributes, this.props.content);
+  },
+  onMouseOver: function(e) {
+    this.props.setHoverGroup(this.props.group);
+    e.stopPropagation();
+  },
+  onClick: function(e) {
+    this.props.selectGroup(this.props.group);
+    e.stopPropagation();
+  }
+});
 var TabLine = React.createClass({render: function() {
-    var span = $traceurRuntime.assertObject(React.DOM).span;
-    var $__2 = $traceurRuntime.assertObject(this.props),
-        style = $__2.style,
-        getGroup = $__2.getGroup,
-        selectGroup = $__2.selectGroup,
-        setHoverGroup = $__2.setHoverGroup;
-    var args = {
-      style: style,
-      getGroup: getGroup,
-      selectGroup: selectGroup,
-      setHoverGroup: setHoverGroup
-    };
-    return span(null, [Segment(merge(args, {segment: {
-        group: 'TabLine',
-        content: [' one-file ']
-      }})), Segment(merge(args, {segment: {
-        group: 'TabLine',
-        content: [' another-file ']
-      }})), Segment(merge(args, {segment: {
-        group: 'TabLineSel',
-        content: ' selected-file '
-      }})), Segment(merge(args, {segment: {
-        group: 'TabLineFill',
-        content: '                                            '
-      }})), Segment(merge(args, {segment: {
-        group: 'TabLine',
-        content: '     '
-      }})), '\n']);
+    if (this.props.componentsVisibility['tabLine'] === 'hide')
+      return null;
+    return React.DOM.span(null, [Part(merge(this.props, {
+      key: 'oneFile',
+      group: 'TabLine',
+      content: ' one-file '
+    })), Part(merge(this.props, {
+      key: 'anotherFile',
+      group: 'TabLine',
+      content: ' another-file '
+    })), Part(merge(this.props, {
+      key: 'selectedFile',
+      group: 'TabLineSel',
+      content: ' selected-file '
+    })), Part(merge(this.props, {
+      key: 'tabLineFill',
+      group: 'TabLineFill',
+      content: spaces(44)
+    })), Part(merge(this.props, {
+      key: 'x',
+      group: 'TabLine',
+      content: spaces(1 + 4)
+    })), '\n']);
+  }});
+var Source = React.createClass({render: function() {
+    var $__0 = this;
+    return React.DOM.span(null, this.props.parsedSource.map((function(lineParts, index) {
+      return Line(merge($__0.props, {
+        key: index,
+        lineParts: lineParts,
+        index: index
+      }));
+    })));
   }});
 var Line = React.createClass({
   render: function() {
-    var span = $traceurRuntime.assertObject(React.DOM).span;
-    var showLineNumber = $traceurRuntime.assertObject(this.props).showLineNumber;
-    var children = [].concat(showLineNumber === true ? this.lineNumber() : []).concat(this.segments()).concat(span({key: 'newLine'}, '\n'));
-    return span({key: 'line'}, children);
-  },
-  lineNumber: function() {
-    return LineNumber({
-      key: 'lineNumber',
-      style: this.props.style,
-      getGroup: this.props.getGroup,
-      lineNumber: this.props.lineNumber,
-      selectGroup: this.props.selectGroup,
-      setHoverGroup: this.props.setHoverGroup
+    var children = [LineNumber(merge(this.props, {key: 'lineNumber'}))].concat(this.lineParts()).concat(React.DOM.span({key: 'newLine'}, '\n'));
+    return React.DOM.span({
+      key: 'line',
+      children: children
     });
   },
-  segments: function() {
+  lineParts: function() {
     var $__0 = this;
-    return this.props.line.map((function(segment, index) {
-      return Segment({
+    return this.props.lineParts.map((function(linePart, index) {
+      return Part(merge($__0.props, {
         key: index,
-        segment: segment,
-        style: $__0.props.style,
-        getGroup: $__0.props.getGroup,
-        selectGroup: $__0.props.selectGroup,
-        setHoverGroup: $__0.props.setHoverGroup
-      });
+        group: linePart.group,
+        content: linePart.content
+      }));
     }));
   }
 });
 var LineNumber = React.createClass({
   render: function() {
-    var span = $traceurRuntime.assertObject(React.DOM).span;
-    var $__2 = this,
-        onClick = $__2.onClick,
-        onMouseOver = $__2.onMouseOver;
-    var $__2 = $traceurRuntime.assertObject(this.props),
-        style = $__2.style,
-        getGroup = $__2.getGroup,
-        lineNumber = $__2.lineNumber;
-    var $__2 = $traceurRuntime.assertObject(lineNumber),
-        line = $__2.line,
-        lineCount = $__2.lineCount;
-    var props = getGroup('LineNr');
-    var spaceCount = 1 + (lineCount.toString().length - line.toString().length);
-    var content = ' '.repeat(spaceCount) + line + ' ';
-    return span({
-      style: style(props),
-      onClick: this.onClick,
-      onMouseOver: this.onMouseOver
-    }, content);
-  },
-  onMouseOver: function(e) {
-    var lineNumber = $traceurRuntime.assertObject(this.props).lineNumber;
-    this.props.setHoverGroup('LineNr');
-    e.stopPropagation();
-  },
-  onClick: function(e) {
-    this.props.selectGroup('LineNr');
-    e.stopPropagation();
-  }
-});
-var Segment = React.createClass({
-  render: function() {
-    var span = $traceurRuntime.assertObject(React.DOM).span;
-    var $__2 = this,
-        onClick = $__2.onClick,
-        onMouseOver = $__2.onMouseOver,
-        style = $__2.style;
-    var $__2 = $traceurRuntime.assertObject(this.props),
-        segment = $__2.segment,
-        getGroup = $__2.getGroup,
-        style = $__2.style;
-    if (typeof(segment) === 'object') {
-      var parentGroup = ('parentGroup' in segment ? segment.parentGroup : 'Normal');
-      var props = getGroup(segment.group, parentGroup);
-      return span({
-        style: style(props),
-        onClick: onClick,
-        onMouseOver: onMouseOver
-      }, segment.content);
-    } else {
-      return span(null, segment);
+    if (this.props.componentsVisibility['lineNumbers'] === 'hide' || (this.props.activeFile === 'ui' || this.props.activeFile === 'editor')) {
+      return null;
     }
+    return Part(merge(this.props, {
+      key: 'lineNr',
+      group: 'LineNr',
+      content: this.getContent()
+    }));
   },
-  onMouseOver: function(e) {
-    var $__2 = $traceurRuntime.assertObject(this.props),
-        setHoverGroup = $__2.setHoverGroup,
-        segment = $__2.segment;
-    setHoverGroup(segment.group);
-    e.stopPropagation();
-  },
-  onClick: function(e) {
-    var $__2 = $traceurRuntime.assertObject(this.props),
-        selectGroup = $__2.selectGroup,
-        segment = $__2.segment;
-    selectGroup(segment.group);
-    e.stopPropagation();
+  getContent: function() {
+    var line = this.props.index + 1;
+    var lineCount = this.props.parsedSource.length;
+    var fillCount = 1 + (lineCount.toString().length - line.toString().length);
+    return ' '.repeat(fillCount) + line + ' ';
   }
 });
+var NonText = React.createClass({render: function() {
+    if (this.props.activeFile === 'ui')
+      return null;
+    var lineCount = Math.max(0, 32 - this.props.parsedSource.length);
+    var group = 'NonText';
+    var content = (fill('~') + '\n').repeat(lineCount);
+    return Part(merge(this.props, {
+      group: group,
+      content: content
+    }));
+  }});
+var StatusLine = React.createClass({render: function() {
+    if (this.props.componentsVisibility['statusLine'] !== 'show' || this.props.activeFile === 'ui')
+      return null;
+    return Part(merge(this.props, {
+      group: 'StatusLine',
+      content: '~/path/to/file' + spaces(55) + '1,1         Top' + spaces(4)
+    }));
+  }});
 module.exports = Vim;
 
 
 }).call(this,require("IrXUsu"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/components/vim.js","/components")
-},{"IrXUsu":20,"buffer":17,"color":12,"react":181}],8:[function(require,module,exports){
+},{"../utils":183,"IrXUsu":20,"buffer":17,"react":181}],8:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 "use strict";
 var Color = require('color');
@@ -1402,51 +1291,41 @@ var App = require('./components/app');
 React.renderComponent(App(), document.body);
 
 
-}).call(this,require("IrXUsu"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/fake_5e05b084.js","/")
+}).call(this,require("IrXUsu"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/fake_722e9031.js","/")
 },{"./components/app":1,"IrXUsu":20,"buffer":17,"es6ify/node_modules/traceur/bin/traceur-runtime":16,"react/addons":22}],10:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 "use strict";
-var spaces = (function(n) {
-  return ' '.repeat(n);
-});
-var g = (function(group, content) {
+var group = (function(group, content) {
   return {
     group: group,
     content: content
   };
 });
-var line = (function(s) {
-  var group = arguments[1] !== (void 0) ? arguments[1] : 'LineNr';
-  return g(group, s);
+var sign = (function() {
+  var s = arguments[0] !== (void 0) ? arguments[0] : '  ';
+  return group('SignColumn', s);
 });
-var sign = (function(s) {
-  return g('SignColumn', s);
+var line = (function(s) {
+  var group_ = arguments[1] !== (void 0) ? arguments[1] : 'LineNr';
+  return group(group_, s);
+});
+var spaces = (function(n) {
+  return ' '.repeat(n);
 });
 var fill = (function(str, chr, totalWidth) {
   return str + chr.repeat(totalWidth - str.length);
 });
 var files = {
-  vimEditor: {
-    title: 'vim',
-    parsedSource: [[sign('  '), line('  1 '), spaces(2), g('CursorColumn', ' ')], [sign('  '), line('  2 '), spaces(2), g('CursorColumn', ' ')], [sign('  '), line('  3 ', 'CursorLineNr'), g('CursorLine', spaces(2)), g('Cursor', 'T'), g('CursorLine', 'he cursor' + spaces(73))], [sign('  '), line('  4 '), spaces(75), g('ColorColumn', ' ')], [sign('  '), line('  5 '), g('Visual', 'These words'), ' are selected' + spaces(51), g('ColorColumn', ' ')], [sign('  '), line('  6 '), 'Currently searching for ', g('IncSearch', 'foo'), ', already found ', g('Search', 'bar')], [sign('  '), line('  7 '), g('Cursor', '('), 'matching parens', g('MatchParen', ')')], [sign('  '), line('  8 '), 'foo(bar({baz, [qux', g('Error', '}))'), ' ', g('Comment', '// '), g('Todo', 'TODO'), g('Comment', ': Fix error')], [sign('  '), line('  9 '), g('Conceal', 'ƒ'), ' is a conceal character for `function`'], [sign('  '), line(' 10 ')], [sign('--'), line(' 11 '), g('DiffDelete', 'This line was deleted' + spaces(62))], [sign('  '), line(' 12 '), g('DiffText', 'These words'), g('DiffChange', ' on this line was changed' + spaces(47))], [sign('++'), line(' 13 '), g('DiffAdd', 'This line was added' + spaces(64))], [sign('  '), line(' 14 ')], [sign('  '), line(' 15 '), 'A ', g('SpellBad', 'mispelled'), ' word'], [sign('  '), line(' 16 '), g('SpellCap', 'line'), ' starting without capital letter'], [sign('  '), line(' 17 '), 'For some reason ', g('SpellLocal', 'okay'), ' is a local word'], [sign('  '), line(' 18 '), g('SpellRare', 'vim'), ' seems to be a rare word'], [], [g('FoldColumn', '    '), g('Title', '# Heading 1')], [g('FoldColumn', '-   '), 'This is a paragraph'], [g('FoldColumn', '|   '), ''], [g('FoldColumn', '|   '), g('Title', '## Heading 1.1')], [g('FoldColumn', '|-  '), 'This is another paragraph'], [g('FoldColumn', '||  '), ''], [g('FoldColumn', '||  '), g('Title', '### Heading 1.1.1')], [g('FoldColumn', '||+ '), g('Folded', '+----  2 lines: This is a folded paragraph')], [g('FoldColumn', '||  '), g('Title', '### Heading 1.1.2')], [g('FoldColumn', '||+ '), g('Folded', '+----  2 lines: This is another folded paragraph')]]
-  },
-  vimUI: {
-    title: 'vim',
-    parsedSource: [[fill('one line', ' ', 22), g('VertSplit', '│'), fill('', ' ', 61)], [fill('another line', ' ', 22), g('VertSplit', '│'), '  f', fill('', ' ', 61)], [fill('a third line', ' ', 22), g('VertSplit', '│'), '  ', g('Pmenu', 'foo' + spaces(18)), g('PmenuSbar', ' ')], [fill('', ' ', 22), g('VertSplit', '│'), '  ', g('PmenuSel', 'foobar' + spaces(15)), g('PmenuSbar', ' '), fill('', ' ', 61)], [fill('', ' ', 22), g('VertSplit', '│'), '  ', g('Pmenu', 'function' + spaces(13)), g('PmenuThumb', ' '), fill('', ' ', 61)], [fill('', ' ', 22), g('VertSplit', '│'), '  ', g('Pmenu', 'fun' + spaces(18)), g('PmenuSbar', ' '), fill('', ' ', 61)], [fill('', ' ', 22), g('VertSplit', '│'), fill('', ' ', 61)], [fill('', ' ', 22), g('VertSplit', '│'), fill('', ' ', 61)], [fill('', ' ', 22), g('VertSplit', '│'), fill('', ' ', 61)], [fill('', ' ', 22), g('VertSplit', '│'), fill('', ' ', 61)], [fill('', ' ', 22), g('VertSplit', '│'), fill('', ' ', 61)], [fill('', ' ', 22), g('VertSplit', '│'), fill('', ' ', 61)], [fill('', ' ', 22), g('VertSplit', '│'), fill('', ' ', 61)], [fill('', ' ', 22), g('VertSplit', '│'), fill('', ' ', 61)], [g('StatusLineNC', fill('inactive status', ' ', 23)), g('StatusLine', fill('active status', ' ', 62))], [g('WarningMsg', 'W10: Warning: Changing a readonly file')], [g('ErrorMsg', 'E37: No write since last change (add ! to override)')], [g('ModeMsg', '-- INSERT --')], [g('MoreMsg', '-- More --')], [], [fill('one-file', ' ', 22), fill('another-file', ' ', 22), fill('a-third-file', ' ', 22)], [g('Directory', 'one-directory'), fill('/', ' ', 9), g('Directory', 'another-directory'), fill('/', ' ', 5)], [g('StatusLine', 'one-file  another-file  '), g('WildMenu', 'a-third-file'), g('StatusLine', spaces(51))]]
-  },
-  about: {
-    title: 'About',
-    parsedSource: [[{
+  editor: {parsedSource: [[sign(), line('  1 '), spaces(2), group('CursorColumn', ' ')], [sign(), line('  2 '), spaces(2), group('CursorColumn', ' ')], [sign(), line('  3 ', 'CursorLineNr'), group('CursorLine', spaces(2)), group('Cursor', 'T'), group('CursorLine', 'he cursor' + spaces(73))], [sign(), line('  4 '), spaces(75), group('ColorColumn', ' ')], [sign(), line('  5 '), group('Visual', 'These words'), ' are selected' + spaces(51), group('ColorColumn', ' ')], [sign(), line('  6 '), 'Currently searching for ', group('IncSearch', 'foo'), ', already found ', group('Search', 'bar')], [sign(), line('  7 '), group('Cursor', '('), 'matching parens', group('MatchParen', ')')], [sign(), line('  8 '), 'foo(bar({baz, [qux', group('Error', '}))'), ' ', group('Comment', '// '), group('Todo', 'TODO'), group('Comment', ': Fix error')], [sign(), line('  9 '), group('Conceal', 'ƒ'), ' is a conceal character for `function`'], [sign(), line(' 10 ')], [sign('--'), line(' 11 '), group('DiffDelete', 'This line was deleted' + spaces(62))], [sign(), line(' 12 '), group('DiffText', 'These words'), group('DiffChange', ' on this line was changed' + spaces(47))], [sign('++'), line(' 13 '), group('DiffAdd', 'This line was added' + spaces(64))], [sign(), line(' 14 ')], [sign(), line(' 15 '), 'A ', group('SpellBad', 'mispelled'), ' word'], [sign(), line(' 16 '), group('SpellCap', 'line'), ' starting without capital letter'], [sign(), line(' 17 '), 'For some reason ', group('SpellLocal', 'okay'), ' is a local word'], [sign(), line(' 18 '), group('SpellRare', 'vim'), ' seems to be a rare word'], [], [group('FoldColumn', '    '), group('Title', '# Heading 1')], [group('FoldColumn', '-   '), 'This is a paragraph'], [group('FoldColumn', '|   '), ''], [group('FoldColumn', '|   '), group('Title', '## Heading 1.1')], [group('FoldColumn', '|-  '), 'This is another paragraph'], [group('FoldColumn', '||  '), ''], [group('FoldColumn', '||  '), group('Title', '### Heading 1.1.1')], [group('FoldColumn', '||+ '), group('Folded', '+----  2 lines: This is a folded paragraph')], [group('FoldColumn', '||  '), group('Title', '### Heading 1.1.2')], [group('FoldColumn', '||+ '), group('Folded', '+----  2 lines: This is another folded paragraph')]]},
+  ui: {parsedSource: [[fill('one line', ' ', 22), group('VertSplit', '│'), fill('', ' ', 61)], [fill('another line', ' ', 22), group('VertSplit', '│'), '  f', fill('', ' ', 61)], [fill('a third line', ' ', 22), group('VertSplit', '│'), '  ', group('Pmenu', 'foo' + spaces(18)), group('PmenuSbar', ' ')], [fill('', ' ', 22), group('VertSplit', '│'), '  ', group('PmenuSel', 'foobar' + spaces(15)), group('PmenuSbar', ' '), fill('', ' ', 61)], [fill('', ' ', 22), group('VertSplit', '│'), '  ', group('Pmenu', 'function' + spaces(13)), group('PmenuThumb', ' '), fill('', ' ', 61)], [fill('', ' ', 22), group('VertSplit', '│'), '  ', group('Pmenu', 'fun' + spaces(18)), group('PmenuSbar', ' '), fill('', ' ', 61)], [fill('', ' ', 22), group('VertSplit', '│'), fill('', ' ', 61)], [fill('', ' ', 22), group('VertSplit', '│'), fill('', ' ', 61)], [fill('', ' ', 22), group('VertSplit', '│'), fill('', ' ', 61)], [fill('', ' ', 22), group('VertSplit', '│'), fill('', ' ', 61)], [fill('', ' ', 22), group('VertSplit', '│'), fill('', ' ', 61)], [fill('', ' ', 22), group('VertSplit', '│'), fill('', ' ', 61)], [fill('', ' ', 22), group('VertSplit', '│'), fill('', ' ', 61)], [fill('', ' ', 22), group('VertSplit', '│'), fill('', ' ', 61)], [group('StatusLineNC', fill('inactive status', ' ', 23)), group('StatusLine', fill('active status', ' ', 62))], [group('WarningMsg', 'W10: Warning: Changing a readonly file')], [group('ErrorMsg', 'E37: No write since last change (add ! to override)')], [group('ModeMsg', '-- INSERT --')], [group('MoreMsg', '-- More --')], [], [fill('one-file', ' ', 22), fill('another-file', ' ', 22), fill('a-third-file', ' ', 22)], [group('Directory', 'one-directory'), fill('/', ' ', 9), group('Directory', 'another-directory'), fill('/', ' ', 5)], [group('StatusLine', 'one-file  another-file  '), group('WildMenu', 'a-third-file'), group('StatusLine', spaces(51))]]},
+  about: {parsedSource: [[{
       "group": "Special",
       "content": "#"
     }, " About"], [""], [{
       "group": "Special",
       "content": "##"
-    }, " What is this?"], [""], ["vim.ink is a color scheme designer for vim."]]
-  },
-  html: {
-    title: 'HTML',
-    parsedSource: [[{
+    }, " What is this?"], [""], ["vim.ink is a color scheme designer for vim."]]},
+  html: {parsedSource: [[{
       "group": "Comment",
       "content": "<!DOCTYPE html>"
     }], [{
@@ -1632,11 +1511,8 @@ var files = {
     }, {
       "group": "htmlEndTag",
       "content": ">"
-    }], [""]]
-  },
-  css: {
-    title: 'CSS',
-    parsedSource: [[{
+    }], [""]]},
+  css: {parsedSource: [[{
       "group": "Comment",
       "content": "/* Reset */"
     }], [""], [{
@@ -1810,11 +1686,8 @@ var files = {
     }, ";"], [{
       "group": "cssBraces",
       "content": "}"
-    }], [""]]
-  },
-  javascript: {
-    title: 'JavaScript',
-    parsedSource: [[{
+    }], [""]]},
+  javascript: {parsedSource: [[{
       "group": "StorageClass",
       "content": "var"
     }, " React ", {
@@ -1919,32 +1792,13 @@ var files = {
     }, " {"], ["            ", {
       "group": "Statement",
       "content": "return"
-    }, " _.cloneDeep(initialState);"], ["        }"], ["    },"], [""]]
-  },
-  python: {
-    title: 'Python',
-    parsedSource: undefined
-  },
-  ruby: {
-    title: 'Ruby',
-    parsedSource: undefined
-  },
-  go: {
-    title: 'Go',
-    parsedSource: undefined
-  },
-  rust: {
-    title: 'Rust',
-    parsedSource: undefined
-  },
-  haskell: {
-    title: 'Haskell',
-    parsedSource: undefined
-  },
-  markdown: {
-    title: 'Markdown',
-    parsedSource: undefined
-  }
+    }, " _.cloneDeep(initialState);"], ["        }"], ["    },"], [""]]},
+  python: {parsedSource: undefined},
+  ruby: {parsedSource: undefined},
+  go: {parsedSource: undefined},
+  rust: {parsedSource: undefined},
+  haskell: {parsedSource: undefined},
+  markdown: {parsedSource: undefined}
 };
 module.exports = files;
 
@@ -2032,30 +1886,30 @@ var lb2 = l2;
 var lb3 = l3;
 var lb4 = l4;
 var lb5 = l5;
-var df0 = d22;
-var df1 = d20;
-var df2 = d18;
-var df3 = d16;
-var df4 = d14;
-var df5 = d12;
-var db0 = d0;
-var db1 = d2;
-var db2 = d4;
-var db3 = d6;
-var db4 = d8;
-var db5 = d10;
+var df0 = d23;
+var df1 = d21;
+var df2 = d19;
+var df3 = d17;
+var df4 = d15;
+var df5 = d13;
+var db0 = d1;
+var db1 = d3;
+var db2 = d5;
+var db3 = d7;
+var db4 = d9;
+var db5 = d11;
 var lbred = '#fff0f0';
 var lbgreen = '#f0fff0';
-var dbred = '#200000';
-var dbgreen = '#002000';
+var dbred = '#280808';
+var dbgreen = '#082808';
 var initialState = {
   _version: 0,
-  parsedSource: files.vimEditor.parsedSource,
+  parsedSource: files.editor.parsedSource,
   activeVariant: 'light',
   selectedGroup: 'Normal',
   hoverGroup: undefined,
   activeColor: 'foreground',
-  activeFile: 'vimEditor',
+  activeFile: 'editor',
   activePane: 'light',
   exportName: 'my-default',
   exportedSource: undefined,
@@ -33934,10 +33788,16 @@ function parse(input) {
     } else {
       var nextA = rest.search('<');
       if (nextA === -1) {
-        parsedLines.push(rest);
+        parsedLines.push({
+          group: undefined,
+          content: rest
+        });
         return parsedLines;
       } else {
-        parsedLines.push(rest.substring(0, nextA));
+        parsedLines.push({
+          group: undefined,
+          content: rest.substring(0, nextA)
+        });
         return parseLine(parsedLines, rest.substring(nextA));
       }
     }
@@ -33949,5 +33809,33 @@ function parse(input) {
 module.exports = parse;
 
 
-}).call(this,require("IrXUsu"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/vim-tohtml-parser.js","/")
-},{"IrXUsu":20,"buffer":17,"lodash":21}]},{},[9])
+}).call(this,require("IrXUsu"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/parser.js","/")
+},{"IrXUsu":20,"buffer":17,"lodash":21}],183:[function(require,module,exports){
+(function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
+"use strict";
+var cols = 84 + 4;
+var spaces = (function(n) {
+  return ' '.repeat(n);
+});
+var fill = (function(str) {
+  var totalWidth = arguments[1] !== (void 0) ? arguments[1] : cols;
+  var chr = arguments[2] !== (void 0) ? arguments[2] : ' ';
+  return str + chr.repeat(totalWidth - str.length);
+});
+var merge = (function() {
+  var $__1;
+  for (var args = [],
+      $__0 = 0; $__0 < arguments.length; $__0++)
+    args[$__0] = arguments[$__0];
+  return ($__1 = Object).assign.apply($__1, $traceurRuntime.spread([{}], args));
+});
+module.exports = {
+  cols: cols,
+  spaces: spaces,
+  fill: fill,
+  merge: merge
+};
+
+
+}).call(this,require("IrXUsu"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/utils.js","/")
+},{"IrXUsu":20,"buffer":17}]},{},[9])

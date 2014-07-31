@@ -1,11 +1,9 @@
-var React = require('react/addons');
 var _ = require('lodash');
-
-var transition = React.addons.CSSTransitionGroup;
-var transitionFast = children => transition({transitionName: 'fast', children});
+var React = require('react/addons');
+var Color = require('color');
 
 var initialState = require('../initial-state');
-var parse = require('../vim-tohtml-parser');
+var parse = require('../parser');
 var exporter = require('../exporter');
 
 var Header = require('./header');
@@ -14,95 +12,96 @@ var Right = require('./right');
 var Footer = require('./footer');
 var Export = require('./export');
 
+var {merge} = require('../utils');
+var transition = React.addons.CSSTransitionGroup;
+var transitionFast = children => transition({transitionName: 'fast', children});
+
 var App = React.createClass({
     getInitialState() {
-        // if (localStorage.getItem('state') !== null) {
-        //     return JSON.parse(localStorage.getItem('state'));
-        // } else {
+        if (localStorage.getItem('state') !== null) {
+            return JSON.parse(localStorage.getItem('state'));
+        } else {
             return _.cloneDeep(initialState);
-        // }
+        }
     },
     render() {
-        var {span, main} = React.DOM;
-
-        var children = [
-            Header({
-                key: 'header',
-                setActiveFile: this.setActiveFile,
-                setActivePane: this.setActivePane,
-                setActiveVariant: this.setActiveVariant,
-                setParsedSource: this.setParsedSource,
-
-                activeFile: this.state.activeFile,
-                activePane: this.state.activePane // TODO: Remove these below.
-            }),
-            main({
-                    key: 'main',
-                    className: 'wrap cf'
-                },
-                Left({
-                    key: 'left',
-                    getGroup: this.getGroup,
-                    parse: this.parse,
-                    selectGroup: this.selectGroup,
-                    setActiveFile: this.setActiveFile,
-                    setHoverGroup: this.setHoverGroup,
-                    setParsedSource: this.setParsedSource,
-
-                    activeFile: this.state.activeFile,
-                    activeVariant: this.state.activeVariant,
-                    componentsVisibility: this.state.componentsVisibility,
-                    parsedSource: this.state.parsedSource,
-                    postProcess: this.state.postProcess
-                }),
-                Right({
-                    key: 'right',
-                    deleteSelectedGroupProp: this.deleteSelectedGroupProp,
-                    exportColorScheme: this.exportColorScheme,
-                    getGroup: this.getGroup,
-                    getModifiedGroups: this.getModifiedGroups,
-                    resetGroup: this.resetGroup,
-                    resetSelectedGroupProp: this.resetSelectedGroupProp,
-                    resetState: this.resetState,
-                    setActiveColor: this.setActiveColor,
-                    setActivePane: this.setActivePane,
-                    setActiveVariant: this.setActiveVariant,
-                    setComponentVisibility: this.setComponentVisibility,
-                    setExportName: this.setExportName,
-                    setPostProcessProps: this.setPostProcessProps,
-                    setSectionVisibility: this.setSectionVisibility,
-                    setSelectedGroupProps: this.setSelectedGroupProps,
-
-                    activeColor: this.state.activeColor,
-                    activePane: this.state.activePane,
-                    activeVariant: this.state.activeVariant,
-                    componentsVisibility: this.state.componentsVisibility,
-                    exportName: this.state.exportName,
-                    hoverGroup: this.state.hoverGroup,
-                    postProcess: this.state.postProcess,
-                    sectionsVisibility: this.state.sectionsVisibility,
-                    selectedGroup: this.state.selectedGroup
-                })),
-            Footer({
-                key: 'footer',
-                setActiveFile: this.setActiveFile,
-                setParsedSource: this.setParsedSource
-            })]
-            .concat(
-                (this.state.exportedSource === undefined ?
-                    [] :
-                    [Export({
-                        key: 'export',
-                        clearExportedSource: this.clearExportedSource,
-                        exportName: this.state.exportName,
-                        exportedSource: this.state.exportedSource
-                    })]));
-
-
-        return span({
+        return React.DOM.span({
             key: 'span',
-            children: transitionFast(children)
+            children: transitionFast([ // Only really used for `Export`
+                this.getHeader(),
+                this.getMain(),
+                this.getFooter(),
+                this.getExport()
+            ])
         });
+    },
+    getHeader() {
+        return Header(merge(this.state, {
+            key: 'header',
+            setActiveFile: this.setActiveFile,
+            setActivePane: this.setActivePane,
+            setActiveVariant: this.setActiveVariant,
+            setParsedSource: this.setParsedSource
+        }));
+    },
+    getMain() {
+        return React.DOM.main({
+                key: 'main',
+                className: 'wrap clear-fix',
+                children: [
+                    this.getLeft(),
+                    this.getRight()
+                ]
+        });
+    },
+    getFooter() {
+        return Footer({
+            key: 'footer',
+            setActiveFile: this.setActiveFile,
+            setParsedSource: this.setParsedSource
+        });
+    },
+    getExport() {
+        if (this.state.exportedSource === undefined) {
+            return [];
+        } else {
+            return Export(merge(this.state, {
+                key: 'export',
+                clearExportedSource: this.clearExportedSource,
+                exportName: this.state.exportName,
+                exportedSource: this.state.exportedSource
+            }));
+        }
+    },
+    getLeft() {
+        return Left(merge(this.state, {
+            key: 'left',
+            getGroup: this.getGroup,
+            getStyle: this.getStyle,
+            selectGroup: this.selectGroup,
+            setHoverGroup: this.setHoverGroup,
+            setParsedSource: this.setParsedSource,
+        }));
+    },
+    getRight() {
+        return Right(merge(this.state, {
+            key: 'right',
+            deleteSelectedGroupProp: this.deleteSelectedGroupProp,
+            exportColorScheme: this.exportColorScheme,
+            getGroup: this.getGroup,
+            getModifiedGroups: this.getModifiedGroups,
+            resetGroup: this.resetGroup,
+            resetSelectedGroupProp: this.resetSelectedGroupProp,
+            resetState: this.resetState,
+            setActiveColor: this.setActiveColor,
+            setActivePane: this.setActivePane,
+            setActiveVariant: this.setActiveVariant,
+            setComponentVisibility: this.setComponentVisibility,
+            setExportName: this.setExportName,
+            setPostProcessProps: this.setPostProcessProps,
+            setSectionVisibility: this.setSectionVisibility,
+            setSelectedGroupProps: this.setSelectedGroupProps
+        }));
     },
     componentDidMount() {
         this.updateBodyClass();
@@ -116,18 +115,78 @@ var App = React.createClass({
     },
     updateBodyClass() {
         var body = document.getElementsByTagName('body')[0];
-        body.className = this.state.activeVariant + ' variant-transition';
-        setTimeout(() => body.className = this.state.activeVariant, 500);
+        var {activeVariant} = this.state;
+
+        body.className = activeVariant + ' variant-transition';
+        setTimeout(() => body.className = activeVariant, 500);
     },
     getGroup(group) {
         var groups =  this.state[this.state.activeVariant];
+
         return (group in groups ? groups[group] : {});
+    },
+    getStyle(group) {
+        var {brightness, saturation} = this.state.postProcess[this.state.activeVariant];
+        var normal = this.getGroup('Normal');
+        var group_ = this.getGroup(group);
+
+        var color = ('color' in group_ ?  group_.color : undefined);
+        var backgroundColor = ('backgroundColor' in group_ ?  group_.backgroundColor : undefined);
+
+        var style = {};
+
+        switch (group_.highlight) {
+            case 'bold':
+                style['fontWeight'] = '400';
+                break;
+            case 'italic':
+                style['fontStyle'] = 'italic';
+                break;
+            case 'underline':
+                style['textDecoration'] = 'underline';
+                break;
+            case 'undercurl':
+                style['border-bottom'] = '1px dotted #888888';
+                break;
+            case 'reverse':
+                var color_ = color;
+
+                color = backgroundColor !== undefined ? backgroundColor : normal.backgroundColor;
+                backgroundColor = color_ !== undefined ? color_ : normal.color;
+                break;
+            case 'standout':
+                style['fontWeight'] = 600;
+                var color_ = color;
+
+                color = backgroundColor !== undefined ? backgroundColor : normal.backgroundColor;
+                backgroundColor = color_ !== undefined ? color_ : normal.color;
+                break;
+        }
+
+        if (color !== undefined) {
+            style['color'] = Color(color)
+                .lighten(brightness)
+                .saturate(saturation)
+                .hexString();
+        } else {
+            style['color'] = undefined;
+        }
+
+        if (backgroundColor !== undefined) {
+            style['backgroundColor'] = Color(backgroundColor)
+                .lighten(brightness)
+                .saturate(saturation)
+                .hexString();
+        } else {
+            style['backgroundColor'] = undefined;
+        }
+
+        return style;
     },
     getModifiedGroups() {
         // console.log(JSON.stringify(this.state.parsedSource));
-        var {activeVariant} = this.state;
-        var initialGroups = initialState[activeVariant];
-        var groups = this.state[activeVariant];
+        var initialGroups = initialState[this.state.activeVariant];
+        var groups = this.state[this.state.activeVariant];
 
         return Object.keys(groups).filter(group => {
             return !(group in initialGroups && _.isEqual(initialGroups[group], groups[group]));

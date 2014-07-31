@@ -5,11 +5,9 @@ var merge = (...args) => Object.assign({}, ...args);
 
 var Header = React.createClass({
     render() {
-        var {header, h1, div} = React.DOM;
-
-        return header({key: 'header'},
-            div({key: 'wrap', className: 'wrap cf'},
-                h1({key: 'h1'}, 'vim.ink'),
+        return React.DOM.header({key: 'header'},
+            React.DOM.div({key: 'wrap', className: 'wrap clear-fix'},
+                React.DOM.h1({key: 'h1'}, 'vim.ink'),
                 Files(merge(this.props, {key: 'files'})),
                 Panes(merge(this.props, {key: 'panes'}))));
     }
@@ -36,13 +34,13 @@ var Files = React.createClass({
                 title: 'HTML'
             })),
             FileLink(merge(this.props, {
-                key: 'vimEditor',
-                type: 'vimEditor',
+                key: 'editor',
+                type: 'editor',
                 title: 'Editor'
             })),
             FileLink(merge(this.props, {
-                key: 'vimUI',
-                type: 'vimUI',
+                key: 'ui',
+                type: 'ui',
                 title: 'UI'
             })),
             PasteLink(merge(this.props, {key: 'pasteLink'})));

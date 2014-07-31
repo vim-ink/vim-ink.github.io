@@ -80,19 +80,19 @@ $lb3: $l3;
 $lb4: $l4;
 $lb5: $l5;
 
-$df0: $d22;
-$df1: $d20;
-$df2: $d18;
-$df3: $d16;
-$df4: $d14;
-$df5: $d12;
+$df0: $d23;
+$df1: $d21;
+$df2: $d19;
+$df3: $d17;
+$df4: $d15;
+$df5: $d13;
 
-$db0: $d0;
-$db1: $d2;
-$db2: $d4;
-$db3: $d6;
-$db4: $d8;
-$db5: $d10;
+$db0: $d1;
+$db1: $d3;
+$db2: $d5;
+$db3: $d7;
+$db4: $d9;
+$db5: $d11;
 
 /* Reset */
 
@@ -870,15 +870,15 @@ aside section h2 {
     border: 1px solid $db1;
 }
 
-/* .cf */
+/* .clear-fix */
 
-.cf:before,
-.cf:after {
+.clear-fix:before,
+.clear-fix:after {
     content: ' ';
     display: table;
 }
 
-.cf:after {
+.clear-fix:after {
     clear: both;
 }
 
