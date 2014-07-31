@@ -6,7 +6,7 @@ var initialState = require('../constants/initial-state');
 
 var parse = require('../actions/parser');
 var exporter = require('../actions/exporter');
-var {merge} = require('../actions/utils');
+var {merge, getGroupStyle} = require('../actions/utils');
 
 var Header = require('./header');
 var Left = require('./left');
@@ -127,64 +127,6 @@ var App = React.createClass({
 
         return (group in groups ? groups[group] : {});
     },
-    getStyle(group) {
-        var {brightness, saturation} = this.state.postProcess[this.state.activeVariant];
-        var normal = this.getGroup('Normal');
-        var group_ = this.getGroup(group);
-
-        var color = ('color' in group_ ?  group_.color : undefined);
-        var backgroundColor = ('backgroundColor' in group_ ?  group_.backgroundColor : undefined);
-
-        var style = {};
-
-        switch (group_.highlight) {
-            case 'bold':
-                style['fontWeight'] = '400';
-                break;
-            case 'italic':
-                style['fontStyle'] = 'italic';
-                break;
-            case 'underline':
-                style['textDecoration'] = 'underline';
-                break;
-            case 'undercurl':
-                style['border-bottom'] = '1px dotted #888888';
-                break;
-            case 'reverse':
-                var color_ = color;
-
-                color = backgroundColor !== undefined ? backgroundColor : normal.backgroundColor;
-                backgroundColor = color_ !== undefined ? color_ : normal.color;
-                break;
-            case 'standout':
-                style['fontWeight'] = 600;
-                var color_ = color;
-
-                color = backgroundColor !== undefined ? backgroundColor : normal.backgroundColor;
-                backgroundColor = color_ !== undefined ? color_ : normal.color;
-                break;
-        }
-
-        if (color !== undefined) {
-            style['color'] = Color(color)
-                .lighten(brightness)
-                .saturate(saturation)
-                .hexString();
-        } else {
-            style['color'] = undefined;
-        }
-
-        if (backgroundColor !== undefined) {
-            style['backgroundColor'] = Color(backgroundColor)
-                .lighten(brightness)
-                .saturate(saturation)
-                .hexString();
-        } else {
-            style['backgroundColor'] = undefined;
-        }
-
-        return style;
-    },
     getModifiedGroups() {
         // console.log(JSON.stringify(this.state.parsedSource));
         var initialGroups = initialState[this.state.activeVariant];
@@ -193,6 +135,12 @@ var App = React.createClass({
         return Object.keys(groups).filter(group => {
             return !(group in initialGroups && _.isEqual(initialGroups[group], groups[group]));
         });
+    },
+    getStyle(group) {
+        return getGroupStyle(
+            this.getGroup('Normal'),
+            this.getGroup(group),
+            this.state.postProcess[this.state.activeVariant])
     },
     resetGroup(group) {
         var {activeVariant} = this.state;
@@ -207,20 +155,8 @@ var App = React.createClass({
 
         this.setState(state);
     },
-    setParsedSource(parsedSource) {
-        this.setState({parsedSource});
-    },
-    setActiveFile(activeFile) {
-        this.setState({activeFile});
-    },
-    setActivePane(activePane) {
-        this.setState({activePane});
-    },
     setHoverGroup(hoverGroup) {
         this.setState({hoverGroup});
-    },
-    setExportName(exportName) {
-        this.setState({exportName});
     },
     setSelectedGroupProps(props) {
         var {activeVariant, selectedGroup} = this.state;
@@ -258,6 +194,27 @@ var App = React.createClass({
 
         this.setSelectedGroupProps(props);
     },
+    selectGroup(selectedGroup) {
+        var newState = {selectedGroup};
+
+        if (this.state.activePane === 'global') {
+            newState.activePane = this.state.activeVariant;
+        }
+
+        this.setState(newState);
+    },
+    setParsedSource(parsedSource) {
+        this.setState({parsedSource});
+    },
+    setActiveFile(activeFile) {
+        this.setState({activeFile});
+    },
+    setActivePane(activePane) {
+        this.setState({activePane});
+    },
+    setExportName(exportName) {
+        this.setState({exportName});
+    },
     setSectionVisibility(section, visibility) {
         var {sectionsVisibility} = this.state;
         var state = {sectionsVisibility: _.cloneDeep(sectionsVisibility)};
@@ -280,15 +237,6 @@ var App = React.createClass({
     },
     setActiveVariant(activeVariant) {
         this.setState({activeVariant});
-    },
-    selectGroup(selectedGroup) {
-        var newState = {selectedGroup};
-
-        if (this.state.activePane === 'global') {
-            newState.activePane = this.state.activeVariant;
-        }
-
-        this.setState(newState);
     },
     setActiveColor(activeColor) {
         this.setState({activeColor});
