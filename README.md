@@ -1,3 +1,3 @@
-# vim-colorscheme-designer
+# vim.ink
 
-Design good looking color schemes for vim
+vim.ink is color scheme designer for vim built with React.
