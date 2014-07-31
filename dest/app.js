@@ -199,6 +199,7 @@ var App = React.createClass({
       key: 'left',
       getGroup: this.getGroup,
       getStyle: this.getStyle,
+      parseSource: this.parseSource,
       selectGroup: this.selectGroup,
       setHoverGroup: this.setHoverGroup,
       setParsedSource: this.setParsedSource
@@ -390,8 +391,8 @@ var App = React.createClass({
   setActiveColor: function(activeColor) {
     this.setState({activeColor: activeColor});
   },
-  parse: function(unparsedSource) {
-    this.setState({parsedSource: parse(unparsedSource)});
+  parseSource: function(source) {
+    this.setState({parsedSource: parse(source)});
   },
   exportColorScheme: function() {
     var exportName = $traceurRuntime.assertObject(this.state).exportName;
@@ -415,29 +416,20 @@ module.exports = App;
 var React = require('react');
 var Export = React.createClass({
   render: function() {
-    var $__0 = $traceurRuntime.assertObject(React.DOM),
-        div = $__0.div,
-        button = $__0.button,
-        p = $__0.p,
-        h2 = $__0.h2,
-        textarea = $__0.textarea;
-    var $__0 = this,
-        onClick = $__0.onClick,
-        onKeyDown = $__0.onKeyDown;
-    return div({
-      key: 'exportDialog',
-      className: 'export dialog'
-    }, h2({key: 'h2'}, 'Export'), p({key: 'p'}, 'Copy text into a new vim buffer, then `:w ~/.vim/colors/' + this.props.exportName + '.vim` and `:colorscheme ' + this.props.exportName + '`.'), textarea({
+    return React.DOM.div({
+      key: 'export',
+      className: 'export'
+    }, React.DOM.h2({key: 'h2'}, 'Export'), React.DOM.p({key: 'p'}, 'Copy text into a new vim buffer, then `:w ~/.vim/colors/' + this.props.exportName + '.vim` and `:colorscheme ' + this.props.exportName + '`.'), React.DOM.textarea({
       key: 'textarea',
-      onKeyDown: onKeyDown,
+      onKeyDown: this.onKeyDown,
       ref: 'exportedSource',
       value: this.props.exportedSource,
       readOnly: true
-    }), button({
+    }), React.DOM.button({
       key: 'button',
       type: 'submit',
       className: 'button',
-      onClick: onClick
+      onClick: this.onClick
     }, 'Close'));
   },
   componentDidMount: function() {
@@ -646,14 +638,21 @@ var Paste = React.createClass({
     if (this.props.parsedSource !== undefined)
       return null;
     return React.DOM.textarea({
-      onChange: this.onChange,
+      ref: 'pastedSource',
+      onChange: this.onPaste,
       className: 'paste',
       placeholder: 'Paste output of `:TOhtml` here.',
       value: ''
     });
   },
-  onChange: function(e) {
-    this.props.parse(e.target.value);
+  componentDidUpdate: function() {
+    if (this.props.parsedSource !== undefined)
+      return;
+    var el = this.refs.pastedSource.getDOMNode();
+    el.focus();
+  },
+  onPaste: function(e) {
+    this.props.parseSource(e.target.value);
   }
 });
 module.exports = Left;
@@ -2193,7 +2192,7 @@ var App = require('./components/app');
 React.renderComponent(App(), document.body);
 
 
-}).call(this,require("1YiZ5S"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/fake_4d569586.js","/")
+}).call(this,require("1YiZ5S"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/fake_598def18.js","/")
 },{"./components/app":4,"1YiZ5S":22,"buffer":19,"es6ify/node_modules/traceur/bin/traceur-runtime":18,"react/addons":24}],14:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 /* MIT license */

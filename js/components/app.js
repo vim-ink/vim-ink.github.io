@@ -79,9 +79,10 @@ var App = React.createClass({
             key: 'left',
             getGroup: this.getGroup,
             getStyle: this.getStyle,
+            parseSource: this.parseSource,
             selectGroup: this.selectGroup,
             setHoverGroup: this.setHoverGroup,
-            setParsedSource: this.setParsedSource,
+            setParsedSource: this.setParsedSource
         }));
     },
     getRight() {
@@ -286,8 +287,8 @@ var App = React.createClass({
     setActiveColor(activeColor) {
         this.setState({activeColor});
     },
-    parse(unparsedSource) {
-        this.setState({parsedSource: parse(unparsedSource)});
+    parseSource(source) {
+        this.setState({parsedSource: parse(source)});
     },
     exportColorScheme() {
         var {exportName} = this.state;

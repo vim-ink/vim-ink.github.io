@@ -8,7 +8,13 @@ var es6ify = require('es6ify');
 var paths = {
     styles: ['scss/app.scss'],
     scripts: ['js/app.js'],
-    scriptsWatch: ['*.js', 'js/**/*.js']
+    scriptsWatch: [
+        '*.js',
+        'js/app.js',
+        'js/actions/*.js',
+        'js/components/*.js',
+        'js/constants/*.js'
+    ]
 };
 
 gulp.task('styles', function() {

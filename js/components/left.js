@@ -17,13 +17,21 @@ var Paste = React.createClass({
             return null;
 
         return React.DOM.textarea({
-            onChange: this.onChange,
+            ref: 'pastedSource',
+            onChange: this.onPaste,
             className: 'paste',
             placeholder: 'Paste output of `:TOhtml` here.',
             value: ''});
     },
-    onChange(e) {
-        this.props.parse(e.target.value);
+    componentDidUpdate() {
+        if (this.props.parsedSource !== undefined)
+            return;
+
+        var el = this.refs.pastedSource.getDOMNode();
+        el.focus();
+    },
+    onPaste(e) {
+        this.props.parseSource(e.target.value);
     }
 });
 
