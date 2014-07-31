@@ -386,7 +386,11 @@ var App = React.createClass({
     this.setState({activeVariant: activeVariant});
   },
   selectGroup: function(selectedGroup) {
-    this.setState({selectedGroup: selectedGroup});
+    var newState = {selectedGroup: selectedGroup};
+    if (this.state.activePane === 'global') {
+      newState.activePane = this.state.activeVariant;
+    }
+    this.setState(newState);
   },
   setActiveColor: function(activeColor) {
     this.setState({activeColor: activeColor});
@@ -2192,7 +2196,7 @@ var App = require('./components/app');
 React.renderComponent(App(), document.body);
 
 
-}).call(this,require("1YiZ5S"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/fake_598def18.js","/")
+}).call(this,require("1YiZ5S"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {},require("buffer").Buffer,arguments[3],arguments[4],arguments[5],arguments[6],"/fake_60359604.js","/")
 },{"./components/app":4,"1YiZ5S":22,"buffer":19,"es6ify/node_modules/traceur/bin/traceur-runtime":18,"react/addons":24}],14:[function(require,module,exports){
 (function (process,global,Buffer,__argument0,__argument1,__argument2,__argument3,__filename,__dirname){
 /* MIT license */

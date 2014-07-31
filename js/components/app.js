@@ -282,7 +282,13 @@ var App = React.createClass({
         this.setState({activeVariant});
     },
     selectGroup(selectedGroup) {
-        this.setState({selectedGroup});
+        var newState = {selectedGroup};
+
+        if (this.state.activePane === 'global') {
+            newState.activePane = this.state.activeVariant;
+        }
+
+        this.setState(newState);
     },
     setActiveColor(activeColor) {
         this.setState({activeColor});
