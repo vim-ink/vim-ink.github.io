@@ -121,7 +121,7 @@ var App = React.createClass({
         return (group in groups ? groups[group] : {});
     },
     getModifiedGroups() {
-        // console.log(JSON.stringify(this.state.parsedSource));
+        console.log(JSON.stringify(this.state.parsedSource));
         var initialGroups = initialState[this.state.activeVariant];
         var groups = this.state[this.state.activeVariant];
 

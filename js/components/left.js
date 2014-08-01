@@ -4,10 +4,11 @@ var {merge} = require('../actions/utils');
 
 var Left = React.createClass({
     render() {
-        return React.DOM.article(
-            {children: [
+        return React.DOM.article({
+            children: [
                 Vim(merge(this.props, {key: 'vim'})),
-                Paste(merge(this.props, {key: 'paste'}))]});
+                Paste(merge(this.props, {key: 'paste'}))
+            ]});
     }
 });
 

@@ -10,6 +10,9 @@ function parse(input) {
 
     var lines = html.split('\n');
 
+    if (lines[lines.length - 1] === '') // Seems like this is always the case when pasting
+        lines.pop();
+
     function parseLine(parsedLines, rest) {
         if (rest[0] === '<') {
             var groupA = rest.search('"') + 1;
