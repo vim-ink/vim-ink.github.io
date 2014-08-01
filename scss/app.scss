@@ -158,10 +158,10 @@ pre {
 
 // .paste
 
-.paste {
+textarea.paste {
     float: left;
-    font-size: 1.6rem;
-    height: 40rem;
+    font-size: 1.5rem;
+    height: 64rem;
     margin: 2.5rem 0 0 0;
     width: 100%;
 }
@@ -394,9 +394,7 @@ footer {
 }
 
 .export textarea {
-    font-size: 1.4rem;
     height: 41.5rem;
     margin: 0 0 2rem 0;
-    padding: 0;
     width: 100%;
 }

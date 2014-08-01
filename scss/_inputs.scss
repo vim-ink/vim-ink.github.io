@@ -2,6 +2,12 @@
 
 textarea {
     border: 0;
+    font-size: 1.4rem;
+    padding: 0;
+}
+
+textarea:focus {
+    outline: 0;
 }
 
 .light textarea {

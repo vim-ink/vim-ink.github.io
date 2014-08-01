@@ -20,7 +20,7 @@ var Paste = React.createClass({
             ref: 'pastedSource',
             onChange: this.onPaste,
             className: 'paste',
-            placeholder: 'Paste output of `:TOhtml` here.',
+            placeholder: 'Paste `:TOhtml` output here.',
             value: ''});
     },
     componentDidUpdate() {

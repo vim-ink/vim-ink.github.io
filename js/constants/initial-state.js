@@ -38,13 +38,13 @@ var dbgreen = '#082808';
 var initialState = {
     _version: 0,
     activeColor: 'foreground',
-    activeFile: 'javascript',
+    activeFile: 'html',
     activePane: 'light',
     activeVariant: 'light',
     exportName: 'my-default',
     exportedSource: undefined,
     hoverGroup: undefined,
-    parsedSource: files.javascript.parsedSource,
+    parsedSource: files.html.parsedSource,
     selectedGroup: 'Normal',
     postProcess: {
         light: {
