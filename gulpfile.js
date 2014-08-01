@@ -7,7 +7,7 @@ var es6ify = require('es6ify');
 
 var paths = {
     styles: ['scss/app.scss'],
-    stylesWatch: ['scss/*.js'],
+    stylesWatch: ['scss/*.scss'],
     scripts: ['js/app.js'],
     scriptsWatch: [
         '*.js',

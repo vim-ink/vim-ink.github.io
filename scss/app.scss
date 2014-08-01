@@ -196,6 +196,7 @@ aside section.first {
 // aside section h2
 
 aside section h2 {
+    cursor: default;
     font-size: 1.4rem;
     margin: 1.5rem 0;
     text-align: right;
@@ -203,7 +204,6 @@ aside section h2 {
 
 .light aside section h2 {
     color: $lf4;
-    cursor: default;
 }
 
 .dark aside section h2 {

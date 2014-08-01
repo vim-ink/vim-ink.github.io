@@ -1,5 +1,5 @@
 var _ = require('lodash');
-var React = require('react/addons');
+var React = require('react');
 
 var Header = require('./header');
 var Left = require('./left');
@@ -104,21 +104,16 @@ var App = React.createClass({
         }));
     },
     componentDidMount() {
-        this.updateBodyClass();
+        var body = document.getElementsByTagName('body')[0];
+        body.className = this.state.activeVariant;
     },
     componentDidUpdate(prevProps, prevState) {
         localStorage.setItem('state', JSON.stringify(this.state));
-
-        if (this.state.activeVariant !== prevState.activeVariant) {
-            setTimeout(() => this.updateBodyClass(), 0);
-        }
     },
-    updateBodyClass() {
+    startAppTransition(variant, transition = 'variant-transition', duration = 500) {
         var body = document.getElementsByTagName('body')[0];
-        var {activeVariant} = this.state;
-
-        body.className = activeVariant + ' variant-transition';
-        setTimeout(() => body.className = activeVariant, 500);
+        body.className = variant + ' ' + transition;
+        setTimeout(() => body.className = variant, duration);
     },
     getGroup(group) {
         var groups =  this.state[this.state.activeVariant];
@@ -230,6 +225,7 @@ var App = React.createClass({
     },
     setActiveVariant(activeVariant) {
         this.setState({activeVariant});
+        this.startAppTransition(activeVariant);
     },
     setActiveColor(activeColor) {
         this.setState({activeColor});
@@ -247,6 +243,7 @@ var App = React.createClass({
     },
     resetState() {
         this.setState(_.cloneDeep(initialState));
+        this.startAppTransition(initialState.activeVariant, 'reset-transition', 750);
     }
 });
 
