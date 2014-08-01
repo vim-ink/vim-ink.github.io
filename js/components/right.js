@@ -29,14 +29,11 @@ var Right = React.createClass({
 
 var Section = React.createClass({
     render() {
-        var className = 'firstSection' in this.props && this.props.firstSection === true ?
-            'first' : null;
+        var className = ('firstSection' in this.props && this.props.firstSection === true ?
+            'first' : null);
 
-        var children = transitionFast(
-            [React.DOM.h2({
-                key: 'h2',
-                onClick: this.onClick},
-            this.props.title)]
+        var children = transitionFast([
+            React.DOM.h2({key: 'h2', onClick: this.onClick}, this.props.title)]
             .concat((this.props.sectionsVisibility[this.props.id] === 'show' ? this.props.children : [])));
 
         return React.DOM.section({
@@ -45,16 +42,15 @@ var Section = React.createClass({
             children});
     },
     onClick() {
-        var {setSectionVisibility, sectionsVisibility, id} = this.props;
-        var toggledVisibility = sectionsVisibility[id] === 'show' ? 'hide' : 'show';
+        var toggledVisibility = (this.props.sectionsVisibility[this.props.id] === 'show' ?
+            'hide' : 'show');
 
-        setSectionVisibility(id, toggledVisibility);
+        this.props.setSectionVisibility(this.props.id, toggledVisibility);
     }
 });
 
 var SelectedGroup = React.createClass({
     render() {
-        var {div, span} = React.DOM;
         var {selectedGroup, hoverGroup, sectionsVisibility} = this.props;
 
         var className = 'line selected-group-line';
@@ -65,86 +61,76 @@ var SelectedGroup = React.createClass({
         return Section(merge(this.props, {
             id: 'selectedGroup',
             title: 'Selected group'}),
-            div({key: 'selectedGroup', className},
-                span({key: 'left', className: 'left'}, selectedGroup),
-                span({key: 'right', className: 'right'}, hoverGroupContent)));
+            React.DOM.div({key: 'selectedGroup', className},
+                React.DOM.span({key: 'left', className: 'left'}, selectedGroup),
+                React.DOM.span({key: 'right', className: 'right'}, hoverGroupContent)));
     }
 });
 
 var Colors = React.createClass({
     render() {
-        var {div, input, label} = React.DOM;
-        var {
-            activeColor,
-            activeVariant,
-            deleteSelectedGroupProp,
-            getGroup,
-            resetSelectedGroupProp,
-            selectedGroup,
-            setActiveColor,
-            setSelectedGroupProps
-        } = this.props;
-
-        var group = getGroup(selectedGroup);
+        var group = this.props.getGroup(this.props.selectedGroup);
+        var normal = this.props.getGroup('Normal');
 
         return Section(merge(this.props, {
             id: 'color',
             title: 'Color'}),
             Color({
                 key: 'foregroundColor',
-                pageBackgroundColor: activeVariant === 'light' ? '#ffffff' : '#000000',
+                pageBackgroundColor: this.props.activeVariant === 'light' ? '#ffffff' : '#000000',
                 id: 'foregroundColor',
                 activeId: 'foreground',
-                active: activeColor === 'foreground',
+                active: this.props.activeColor === 'foreground',
                 prop: 'color',
                 accessKey: 'f',
-                value: group.color,
+                value: group.color !== undefined ? group.color : normal.color,
+                color: group.color,
                 label_: 'Foreground',
-                deleteSelectedGroupProp,
-                resetSelectedGroupProp,
-                setActiveColor,
-                setSelectedGroupProps
+                deleteSelectedGroupProp: this.props.deleteSelectedGroupProp,
+                resetSelectedGroupProp: this.props.resetSelectedGroupProp,
+                setActiveColor: this.props.setActiveColor,
+                setSelectedGroupProps: this.props.setSelectedGroupProps
             }),
             Color({
                 key: 'backgroundColor',
-                pageBackgroundColor: activeVariant === 'light' ? '#ffffff' : '#000000',
+                pageBackgroundColor: this.props.activeVariant === 'light' ? '#ffffff' : '#000000',
                 id: 'backgroundColor',
                 activeId: 'background',
-                active: activeColor === 'background',
+                active: this.props.activeColor === 'background',
                 prop: 'backgroundColor',
                 accessKey: 'b',
-                value: group.backgroundColor,
+                value: group.backgroundColor !== undefined ? group.backgroundColor : normal.backgroundColor,
+                color: group.backgroundColor,
                 label_: 'Background',
-                deleteSelectedGroupProp,
-                resetSelectedGroupProp,
-                setActiveColor,
-                setSelectedGroupProps
+                deleteSelectedGroupProp: this.props.deleteSelectedGroupProp,
+                resetSelectedGroupProp: this.props.resetSelectedGroupProp,
+                setActiveColor: this.props.setActiveColor,
+                setSelectedGroupProps: this.props.setSelectedGroupProps
             }));
     }
 });
 
 var Color = React.createClass({
     render() {
-        var {div, input, label} = React.DOM;
-        var {id, accessKey, value, label_, active, pageBackgroundColor} = this.props;
-        var {onChange, onClick} = this;
+        var rightClassName = (this.props.active === true ? ' active' : '');
 
-        var rightClassName = (active === true ? ' active' : '');
-
-        return div({key: 'colorLine' + id, className: 'line color-line'},
-            div({key: 'left', className: 'left'},
-                input({
-                    key: id,
+        return React.DOM.div({key: 'colorLine', className: 'line color-line'},
+            React.DOM.div({key: 'left', className: 'left'},
+                React.DOM.input({
+                    key: this.props.id,
                     type: 'color',
-                    id,
-                    accessKey,
-                    value: value,
-                    onClick: onClick,
-                    onChange: onChange
+                    id: this.props.id,
+                    accessKey: this.props.accessKey,
+                    value: this.props.value,
+                    onClick: this.onClick,
+                    onChange: this.onChange
                 }),
-                ColorOverlay({key: 'overlay' + id, value, pageBackgroundColor})),
-            div({key: 'right', className: 'right' + rightClassName},
-                label({key: 'label', htmlFor: id}, label_)));
+                ColorOverlay({
+                    key: 'overlay',
+                    value: this.props.color,
+                    pageBackgroundColor: this.props.pageBackgroundColor})),
+            React.DOM.div({key: 'right', className: 'right' + rightClassName},
+                React.DOM.label({key: 'label', htmlFor: this.props.id}, this.props.label_)));
     },
     onChange(e) {
         var {prop} = this.props;
