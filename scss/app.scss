@@ -163,7 +163,7 @@ body {
 h1 {
     text-align: left;
     margin: 0;
-    font-size: 2rem;
+    font-size: 1.8rem;
     margin: 3rem 0rem 1rem 0rem;
 }
 
@@ -273,7 +273,6 @@ footer {
 /* pre */
 
 pre {
-    font-size: 1.6rem;
     margin: 2.5rem 0 0 0;
     overflow: hidden;
 }
@@ -308,7 +307,7 @@ textarea {
 
 .highlight-button {
     background-color: transparent;
-    font-size: 1.5rem;
+    font-size: 1.4rem;
     width: 3.0rem;
     height: 3.0rem;
     margin-right: 1rem;
@@ -615,11 +614,11 @@ aside section.first {
 }
 
 .light aside section {
-    border-top: 1px solid $lb3;
+    border-top: 1px solid $lb2;
 }
 
 .dark aside section {
-    border-top: 1px solid $db3;
+    border-top: 1px solid $db2;
 }
 
 /* aside section h2 */
@@ -817,7 +816,7 @@ aside section h2 {
     border-radius: 0px;
     margin: 0;
     padding: 0;
-    font-size: 1.5rem;
+    font-size: 1.4rem;
     padding: 0.5rem 0.75rem;
     border: 0;
     outline: 0;

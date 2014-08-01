@@ -1,6 +1,6 @@
 var Color = require('color');
 
-var cols = 84 + 4; // Firefox and Safari needs four additional characters in order to fill the 84rem width
+var cols = 94;
 
 // spaces(4) returns '    '
 var spaces = n => ' '.repeat(n);
