@@ -1,7 +1,6 @@
 var React = require('react');
 var files = require('../constants/files');
-
-var merge = (...args) => Object.assign({}, ...args);
+var {merge} = require('../actions/utils');
 
 var Header = React.createClass({
     render() {
@@ -15,9 +14,9 @@ var Header = React.createClass({
 
 var Files = React.createClass({
     render() {
-        var {ul} = React.DOM;
-
-        return ul({key: 'nav', className: 'nav files'},
+        return React.DOM.ul({
+            key: 'nav',
+            className: 'nav files'},
             FileLink(merge(this.props, {
                 key: 'javascript',
                 type: 'javascript',
@@ -43,74 +42,63 @@ var Files = React.createClass({
                 type: 'ui',
                 title: 'UI'
             })),
-            PasteLink(merge(this.props, {key: 'pasteLink'})));
+            PasteLink(merge(this.props, {
+                key: 'pasteLink'
+            })));
     }
 });
 
 var FileLink = React.createClass({
     render() {
-        var {li} = React.DOM;
-        var {onClick} = this;
-        var {key, title, type, activeFile} = this.props;
-
-        var className = type === activeFile ? 'active' : '';
-
-        return li({key: 'li', className, onClick}, title);
+        return React.DOM.li({
+            key: 'li',
+            className: (this.props.type === this.props.activeFile ? 'active' : ''),
+            onClick: this.onClick}, this.props.title);
     },
     onClick(e) {
-        var {setParsedSource, setActiveFile, type} = this.props;
-        setParsedSource(files[type].parsedSource);
-        setActiveFile(type);
+        this.props.setParsedSource(files[this.props.type].parsedSource);
+        this.props.setActiveFile(this.props.type);
     }
 });
 
 var PasteLink = React.createClass({
     render() {
-        var {li} = React.DOM;
-        var {onClick} = this;
-        var {key, activeFile} = this.props;
-
-        var className = (activeFile === undefined ? ' active' : '');
-
-        return li({key, className, onClick}, 'Paste');
+        return React.DOM.li({
+            key: 'li',
+            className: (this.props.activeFile === undefined ? ' active' : ''),
+            onClick: this.onClick}, 'Paste');
     },
     onClick(e) {
-        var {setParsedSource, setActiveFile} = this.props;
-        setParsedSource(undefined);
-        setActiveFile(undefined);
+        this.props.setParsedSource(undefined);
+        this.props.setActiveFile(undefined);
     }
 });
 
 var Panes = React.createClass({
     render() {
-        var {ul, li} = React.DOM;
-        var {activePane, setActivePane} = this.props;
-
-        return ul({key: 'nav', className: 'nav panes'},
+        return React.DOM.ul({key: 'nav', className: 'nav panes'},
             Pane(merge(this.props, {key: 'light', id: 'light'}), 'Light'),
             Pane(merge(this.props, {key: 'dark', id: 'dark'}), 'Dark'),
-            Pane(merge(this.props, {key: 'global', id: 'global', additionalClassName: 'right-link'}), 'Global'));
+            Pane(merge(this.props, {key: 'global', id: 'global', additionalClass: 'right-link'}), 'Global'));
     }
 });
 
 var Pane = React.createClass({
     render() {
-        var {li} = React.DOM;
-        var {onClick} = this;
-        var {children, additionalClassName, activePane, id} = this.props;
+        var className = (this.props.additionalClass !== undefined ? this.props.additionalClass : '') +
+            (this.props.activePane ===  this.props.id ? ' active' : '');
 
-        var className = (additionalClassName !== undefined ? additionalClassName : '') +
-            (activePane ===  id ? ' active' : '');
-
-        return li({key: 'li', className, onClick}, children);
+        return React.DOM.li({
+            key: 'li',
+            className,
+            onClick: this.onClick,
+            children: this.props.children});
     },
     onClick() {
-        var {setActivePane, setActiveVariant, id} = this.props;
+        this.props.setActivePane(this.props.id);
 
-        setActivePane(id);
-
-        if (id !== 'global') {
-            setActiveVariant(id);
+        if (this.props.id !== 'global') {
+            this.props.setActiveVariant(this.props.id);
         }
     }
 });

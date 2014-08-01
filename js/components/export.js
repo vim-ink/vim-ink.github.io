@@ -5,11 +5,11 @@ var Export = React.createClass({
         return React.DOM.div({key: 'export', className: 'export'},
             React.DOM.h2({key: 'h2'}, 'Export'),
             React.DOM.p({key: 'p'},
-                        'Copy text into a new vim buffer, then `:w ~/.vim/colors/' +
-                            this.props.exportName +
-                            '.vim` and `:colorscheme ' +
-                            this.props.exportName
-                        + '`.'),
+                'Copy text into a new vim buffer, then `:w ~/.vim/colors/' +
+                this.props.exportName +
+                '.vim` and `:colorscheme ' +
+                this.props.exportName +
+                '`.'),
             React.DOM.textarea({
                 key: 'textarea',
                 onKeyDown: this.onKeyDown,
@@ -24,9 +24,9 @@ var Export = React.createClass({
                 'Close'));
     },
     componentDidMount() {
-        var textarea = this.refs.exportedSource.getDOMNode();
-        textarea.select();
-        textarea.focus();
+        var el = this.refs.exportedSource.getDOMNode();
+        el.select();
+        el.focus();
     },
     onClick() {
         this.props.clearExportedSource();
