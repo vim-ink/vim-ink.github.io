@@ -163,7 +163,7 @@ var StatusLine = React.createClass({
         return Part(
             merge(this.props, {
                 group: 'StatusLine',
-                content: '~/path/to/file' + spaces(64) + '1,1         Top '
+                content: '/path/to/selected-file' + spaces(56) + '1,1         Top '
             }));
     }
 });
