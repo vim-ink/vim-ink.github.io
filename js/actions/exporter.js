@@ -1,11 +1,9 @@
 var Color = require('color');
 
 function postProcessColor(color, postProcess) {
-    var {brightness, saturation} = postProcess;
-
     return Color(color)
-        .lighten(brightness)
-        .saturate(saturation)
+        .lighten(postProcess.brightness)
+        .saturate(postProcess.saturation)
         .hexString()
         .toLowerCase();
 }
@@ -31,7 +29,6 @@ function exportGroup(name, props, postProcess) {
 function exportVariant(variant, postProcess) {
     var reset = ['SpecialKey', 'NonText', 'Directory', 'ErrorMsg', 'IncSearch', 'Search', 'MoreMsg', 'ModeMsg', 'LineNr', 'CursorLineNr', 'Question', 'StatusLine', 'StatusLineNC', 'VertSplit', 'Title', 'Visual', 'VisualNOS', 'WarningMsg', 'WildMenu', 'Folded', 'FoldColumn', 'DiffAdd', 'DiffChange', 'DiffDelete', 'DiffText', 'SignColumn', 'Conceal', 'SpellBad', 'SpellCap', 'SpellRare', 'SpellLocal', 'Pmenu', 'PmenuSel', 'PmenuSbar', 'PmenuThumb', 'TabLine', 'TabLineSel', 'TabLineFill', 'CursorColumn', 'CursorLine', 'ColorColumn', 'Cursor', 'lCursor', 'MatchParen', 'Normal', 'Error', 'Comment', 'Constant', 'Special', 'Identifier', 'Statement', 'PreProc', 'Type', 'Underlined', 'Ignore', 'Todo', 'String', 'Boolean'];
     var str = [];
-
     var groups = variant;
 
     reset.forEach(resetGroup => {
@@ -48,16 +45,14 @@ function exportVariant(variant, postProcess) {
 }
 
 function exportColorScheme(state) {
-    var {exportName, postProcess} = state;
-
     var str = [].concat(
         ['hi clear',
         'syntax reset',
-        'let g:colors_name = "' + exportName + '"',
+        'let g:colors_name = "' + state.exportName + '"',
         'if &background == "light"'],
-        exportVariant(state.light, postProcess.light),
+        exportVariant(state.light, state.postProcess.light),
         ['elseif &background == "dark"'],
-        exportVariant(state.dark, postProcess.dark),
+        exportVariant(state.dark, state.postProcess.dark),
         ['endif']);
 
     return str.join('\n');

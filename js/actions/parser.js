@@ -26,18 +26,17 @@ function parse(input) {
 
             if (nextA < rest.length) {
                 return parseLine(parsedLines, rest.substring(nextA));
-            }
-            else {
+            } else {
                 return parsedLines;
             }
         }
         else {
             var nextA = rest.search('<');
+
             if (nextA === -1) {
                 parsedLines.push({group: undefined, content: rest});
                 return parsedLines;
-            }
-            else {
+            } else {
                 parsedLines.push({group: undefined, content: rest.substring(0, nextA)});
                 return parseLine(parsedLines, rest.substring(nextA));
             }

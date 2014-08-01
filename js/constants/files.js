@@ -1,12 +1,9 @@
+var {spaces, fill} = require('../actions/utils');
+
 var gc = (group, content) => { return {group, content}; };
 var c = (content) => gc(undefined, content);
 var s = (sign = '  ') => gc('SignColumn', sign);
 var l = (line, group = 'LineNr') => gc(group, line);
-
-var spaces = n => ' '.repeat(n);
-var fill = (str, chr, totalWidth) => {
-    return str + chr.repeat(totalWidth - str.length);
-}
 
 var files = {
     editor: {
@@ -44,28 +41,28 @@ var files = {
     },
     ui: {
         parsedSource: [
-            [c(fill('one line', ' ', 22)), gc('VertSplit', '│')],
-            [c(fill('another line', ' ', 22)), gc('VertSplit', '│'), c('  f')],
-            [c(fill('a third line', ' ', 22)), gc('VertSplit', '│'), c('  '), gc('Pmenu', 'foo' + spaces(18)), gc('PmenuSbar', ' ')],
-            [c(fill('', ' ', 22)), gc('VertSplit', '│'), c('  '), gc('PmenuSel', 'foobar' + spaces(15)), gc('PmenuSbar', ' ')],
-            [c(fill('', ' ', 22)), gc('VertSplit', '│'), c('  '), gc('Pmenu', 'function' + spaces(13)), gc('PmenuThumb', ' ')],
-            [c(fill('', ' ', 22)), gc('VertSplit', '│'), c('  '), gc('Pmenu', 'fun' + spaces(18)), gc('PmenuSbar', ' ')],
-            [c(fill('', ' ', 22)), gc('VertSplit', '│')],
-            [c(fill('', ' ', 22)), gc('VertSplit', '│')],
-            [c(fill('', ' ', 22)), gc('VertSplit', '│')],
-            [c(fill('', ' ', 22)), gc('VertSplit', '│')],
-            [c(fill('', ' ', 22)), gc('VertSplit', '│')],
-            [c(fill('', ' ', 22)), gc('VertSplit', '│')],
-            [c(fill('', ' ', 22)), gc('VertSplit', '│')],
-            [c(fill('', ' ', 22)), gc('VertSplit', '│')],
-            [gc('StatusLineNC', fill('inactive status', ' ', 23)), gc('StatusLine', fill('active status', ' ', 71))],
+            [c(fill('one line', 22, ' ')), gc('VertSplit', '│')],
+            [c(fill('another line', 22, ' ')), gc('VertSplit', '│'), c('  f')],
+            [c(fill('a third line', 22, ' ')), gc('VertSplit', '│'), c('  '), gc('Pmenu', 'foo' + spaces(18)), gc('PmenuSbar', ' ')],
+            [c(fill('', 22, ' ')), gc('VertSplit', '│'), c('  '), gc('PmenuSel', 'foobar' + spaces(15)), gc('PmenuSbar', ' ')],
+            [c(fill('', 22, ' ')), gc('VertSplit', '│'), c('  '), gc('Pmenu', 'function' + spaces(13)), gc('PmenuThumb', ' ')],
+            [c(fill('', 22, ' ')), gc('VertSplit', '│'), c('  '), gc('Pmenu', 'fun' + spaces(18)), gc('PmenuSbar', ' ')],
+            [c(fill('', 22, ' ')), gc('VertSplit', '│')],
+            [c(fill('', 22, ' ')), gc('VertSplit', '│')],
+            [c(fill('', 22, ' ')), gc('VertSplit', '│')],
+            [c(fill('', 22, ' ')), gc('VertSplit', '│')],
+            [c(fill('', 22, ' ')), gc('VertSplit', '│')],
+            [c(fill('', 22, ' ')), gc('VertSplit', '│')],
+            [c(fill('', 22, ' ')), gc('VertSplit', '│')],
+            [c(fill('', 22, ' ')), gc('VertSplit', '│')],
+            [gc('StatusLineNC', fill('inactive status', 23, ' ')), gc('StatusLine', fill('active status', 71, ' '))],
             [gc('WarningMsg', 'W10: Warning: Changing a readonly file')],
             [gc('ErrorMsg', 'E37: No write since last change (add ! to override)')],
             [gc('ModeMsg', '-- INSERT --')],
             [gc('MoreMsg', '-- More --')],
             [],
-            [c(fill('one-file', ' ', 22) + fill('another-file', ' ', 22) + fill('a-third-file', ' ', 22))],
-            [gc('Directory', 'one-directory'), c(fill('/', ' ', 9)), gc('Directory', 'another-directory'), c(fill('/', ' ', 5))],
+            [c(fill('one-file', 22, ' ') + fill('another-file', 22, ' ') + fill('a-third-file', 22, ' '))],
+            [gc('Directory', 'one-directory'), c(fill('/', 9, ' ')), gc('Directory', 'another-directory'), c(fill('/', 5, ' '))],
             [gc('StatusLine', 'one-file  another-file  '), gc('WildMenu', 'a-third-file'), gc('StatusLine', spaces(58))],
         ]
     },
