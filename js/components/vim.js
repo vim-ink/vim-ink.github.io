@@ -83,7 +83,7 @@ var TabLine = React.createClass({
                 Part(merge(this.props, {
                     key: 'x',
                     group: 'TabLine',
-                    content: 'X'
+                    content: 'X '
                 })),
                 '\n'
             ]);
@@ -159,7 +159,7 @@ var StatusLine = React.createClass({
         return Part(
             merge(this.props, {
                 group: 'StatusLine',
-                content: '~/path/to/file' + spaces(76) + '1,1         Top'
+                content: '~/path/to/file' + spaces(64) + '1,1         Top '
             }));
     }
 });

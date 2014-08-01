@@ -307,14 +307,18 @@ textarea {
 
 .highlight-button {
     background-color: transparent;
+    border-radius: 1.5rem;
+    border: 0;
     font-size: 1.5rem;
-    width: 3.0rem;
     height: 3.0rem;
     margin-right: 1rem;
     opacity: 0.5;
-    border: 0;
-    border-radius: 1.5rem;
     transition: opacity 0.1s ease;
+    width: 3.0rem;
+}
+
+.highlight-button:focus {
+    outline: 0;
 }
 
 .light .highlight-button {
@@ -323,86 +327,6 @@ textarea {
 
 .dark .highlight-button {
     color: $df3;
-}
-
-.highlight-button.active {
-    opacity: 1;
-}
-
-.light .highlight-button.none {
-    border: 0.1rem dashed $lf4;
-}
-
-.dark .highlight-button.none {
-    border: 0.1rem dashed $df4;
-}
-
-.highlight-button.none span {
-    visibility: hidden;
-}
-
-.highlight-button.bold span {
-    font-weight: 400;
-}
-
-.highlight-button.italic span {
-    font-style: italic;
-}
-
-.light .highlight-button.underline span {
-    border-bottom: 0.1rem solid $lf3;
-}
-
-.dark .highlight-button.underline span {
-    border-bottom: 0.1rem solid $df3;
-}
-
-.light .highlight-button.undercurl span {
-    border-bottom: 0.1rem dotted $lf3;
-}
-
-.dark .highlight-button.undercurl span {
-    border-bottom: 0.1rem dotted $df3;
-}
-
-.light .highlight-button.reverse {
-    background-color: $lf5;
-    color: $lb0;
-}
-
-.dark .highlight-button.reverse {
-    background-color: $df5;
-    color: $db0;
-}
-
-.highlight-button.standout {
-    font-weight: 400;
-}
-
-.light .highlight-button.standout {
-    background-color: $lf5;
-    color: $lb0;
-}
-
-.dark .highlight-button.standout {
-    background-color: $df5;
-    color: $db0;
-}
-
-.light .highlight-button:hover {
-    opacity: 1;
-}
-
-.dark .highlight-button:hover {
-    opacity: 1;
-}
-
-.light .highlight-button.none:active {
-    border: 0.1rem dashed $lf3;
-}
-
-.dark .highlight-button.none:active {
-    border: 0.1rem dashed $df3;
 }
 
 .light .highlight-button.bold:active,
@@ -419,6 +343,96 @@ textarea {
     color: $df2;
 }
 
+.highlight-button:hover {
+    opacity: 1;
+}
+
+.highlight-button.active {
+    opacity: 1;
+}
+
+/* .highlight-button.none */
+
+.highlight-button.none span {
+    visibility: hidden;
+}
+
+.light .highlight-button.none {
+    border: 0.1rem dashed $lf4;
+}
+
+.dark .highlight-button.none {
+    border: 0.1rem dashed $df4;
+}
+
+.light .highlight-button.none:active {
+    border: 0.1rem dashed $lf3;
+}
+
+.dark .highlight-button.none:active {
+    border: 0.1rem dashed $df3;
+}
+
+/* .highlight-button.bold */
+
+.highlight-button.bold span {
+    font-weight: 400;
+}
+
+/* .highlight-button.italic */
+
+.highlight-button.italic span {
+    font-style: italic;
+}
+
+/* .highlight-button.underline */
+
+.light .highlight-button.underline span {
+    border-bottom: 0.1rem solid $lf3;
+}
+
+.dark .highlight-button.underline span {
+    border-bottom: 0.1rem solid $df3;
+}
+
+/* .highlight-button.undercurl */
+
+.light .highlight-button.undercurl span {
+    border-bottom: 0.1rem dotted $lf3;
+}
+
+.dark .highlight-button.undercurl span {
+    border-bottom: 0.1rem dotted $df3;
+}
+
+/* .highlight-button.reverse, .highlight-button.standout */
+
+.highlight-button.standout {
+    font-weight: 400;
+}
+
+.light .highlight-button.reverse,
+.light .highlight-button.standout {
+    background-color: $lf5;
+    color: $lb0;
+}
+
+.dark .highlight-button.reverse,
+.dark .highlight-button.standout {
+    background-color: $df5;
+    color: $db0;
+}
+
+.light .highlight-button.reverse.active,
+.light .highlight-button.standout.active {
+    background-color: $lf5;
+}
+
+.dark .highlight-button.reverse.active,
+.dark .highlight-button.standout.active {
+    background-color: $df5;
+}
+
 .light .highlight-button.reverse:active,
 .light .highlight-button.standout:active {
     background-color: $lf4;
@@ -427,10 +441,6 @@ textarea {
 .dark .highlight-button.reverse:active,
 .dark .highlight-button.standout:active {
     background-color: $df4;
-}
-
-.highlight-button:focus {
-    outline: 0;
 }
 
 /* .small-button */
