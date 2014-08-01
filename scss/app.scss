@@ -1,135 +1,11 @@
-/* Colors */
+@import 'base';
+@import 'reset';
+@import 'colors';
+@import 'typography';
+@import 'transitions';
 
-$l0: #ffffff;
-$l1: #f8f8f8;
-$l2: #f0f0f0;
-$l3: #e8e8e8;
-$l4: #e0e0e0;
-$l5: #d8d8d8;
-$l6: #d0d0d0;
-$l7: #c8c8c8;
-$l8: #c0c0c0;
-$l9: #b8b8b8;
-$l10: #b0b0b0;
-$l11: #a8a8a8;
-$l12: #a0a0a0;
-$l13: #989898;
-$l14: #909090;
-$l15: #888888;
-$l16: #808080;
-$l17: #787878;
-$l18: #707070;
-$l19: #686868;
-$l20: #606060;
-$l21: #585858;
-$l22: #505050;
-$l23: #484848;
-$l24: #404040;
-$l25: #383838;
-$l26: #303030;
-$l27: #282828;
-$l28: #202020;
-$l29: #181818;
-$l30: #101010;
-$l31: #080808;
-$l32: #000000;
-
-$d0: #000000;
-$d1: #080808;
-$d2: #101010;
-$d3: #181818;
-$d4: #202020;
-$d5: #282828;
-$d6: #303030;
-$d7: #383838;
-$d8: #404040;
-$d9: #484848;
-$d10: #505050;
-$d11: #585858;
-$d12: #606060;
-$d13: #686868;
-$d14: #707070;
-$d15: #787878;
-$d16: #808080;
-$d17: #888888;
-$d18: #909090;
-$d19: #989898;
-$d20: #a0a0a0;
-$d21: #a8a8a8;
-$d22: #b0b0b0;
-$d23: #b8b8b8;
-$d24: #c0c0c0;
-$d25: #c8c8c8;
-$d26: #d0d0d0;
-$d27: #d8d8d8;
-$d28: #e0e0e0;
-$d29: #e8e8e8;
-$d30: #f0f0f0;
-$d31: #f8f8f8;
-$d32: #ffffff;
-
-$lf0: $l32;
-$lf1: $l27;
-$lf2: $l22;
-$lf3: $l17;
-$lf4: $l12;
-$lf5: $l7;
-
-$lb0: $l0;
-$lb1: $l1;
-$lb2: $l2;
-$lb3: $l3;
-$lb4: $l4;
-$lb5: $l5;
-
-$df0: $d23;
-$df1: $d21;
-$df2: $d19;
-$df3: $d17;
-$df4: $d15;
-$df5: $d13;
-
-$db0: $d1;
-$db1: $d3;
-$db2: $d5;
-$db3: $d7;
-$db4: $d9;
-$db5: $d11;
-
-/* Reset */
-
-* {
-    box-sizing: border-box;
-}
-
-h2, .nav, pre {
-    cursor: default;
-}
-
-/* Typography */
-
-html {
-    font-size: 62.5%;
-}
-
-body, input, button {
-    font-family: 'Source Sans Pro';
-}
-
-pre, textarea {
-    font-family: 'Source Code Pro';
-}
-
-h1, h2, body, input, button, textarea {
-    font-weight: 300;
-}
-
-/* body */
-
-body {
-    font-size: 1.5em; /* Use em instead of rem because of Chrome bug */
-    margin: 0;
-}
+@import 'inputs';
+@import 'buttons';
 
 .light {
     background-color: $lb0;
@@ -141,14 +17,14 @@ body {
     color: $df3;
 }
 
-/* .wrap */
+// .wrap
 
 .wrap {
-    width: 110rem;
     margin: 0 auto;
+    width: 110rem;
 }
 
-/* header */
+// header
 
 .light header {
     border-bottom: 1px solid $lb2;
@@ -158,13 +34,12 @@ body {
     border-bottom: 1px solid $db2;
 }
 
-/* h1 */
+// h1
 
 h1 {
-    text-align: left;
-    margin: 0;
     font-size: 1.8rem;
     margin: 3rem 0rem 1rem 0rem;
+    text-align: left;
 }
 
 .light h1 {
@@ -175,50 +50,37 @@ h1 {
     color: $df4;
 }
 
-/* article */
+// .files
 
-article {
+.files {
     float: left;
     width: 84rem;
 }
 
-header .nav.files {
-    width: 84rem;
-    float: left;
-}
-header .nav.panes {
-    width: 23.5rem;
+// .panes
+
+.panes {
     float: right;
+    width: 23.5rem;
 }
 
-/* .nav */
+// ul.nav
 
 ul.nav {
-    margin: 0;
-    padding: 0;
-    overflow: hidden;
     font-size: 1.4rem;
+    margin: 0;
+    overflow: hidden;
+    padding: 0;
+}
+
+ul.nav.files, ul.nav.panes {
     margin-bottom: -1px;
 }
 
-ul.nav a {
-    text-decoration: none;
-    cursor: default;
-}
-
-.light ul.nav,
-.light ul.nav a {
-    color: $lf4;
-}
-
-.dark ul.nav,
-.dark ul.nav a {
-    color: $df4;
-}
+// ul.nav li
 
 ul.nav li {
     display: inline-block;
-    padding: 1.5rem 0;
     margin: 0 3rem 0 0;
 }
 
@@ -226,401 +88,101 @@ ul.nav li:last-child {
     margin-right: 0;
 }
 
-.light ul.nav li:hover,
-.light ul.nav li a:hover {
-    color: $lf3;
-}
-
-.dark ul.nav li:hover,
-.dark ul.nav li a:hover {
-    color: $df3;
-}
-
-.light ul.nav li:active,
-.light ul.nav li a:active {
-    color: $lf2;
-}
-
-.dark ul.nav li:active,
-.dark ul.nav li a:active {
-    color: $df2;
-}
-
-.light ul.nav li.active,
-.light ul.nav li.active a {
-    color: $lf2;
-    border-bottom: 1px solid $lf5;
-}
-
-.dark ul.nav li.active,
-.dark ul.nav li.active a {
-    color: $df2;
-    border-bottom: 1px solid $df5;
-}
-
 ul.nav li.right-link {
     float: right;
 }
 
-/* footer */
-
-footer {
-    margin: 2rem 0 2rem 0;
-    overflow: hidden;
-    text-align: center;
+.light ul.nav li.active {
+    border-bottom: 1px solid $lf5;
 }
 
-/* pre */
+.dark ul.nav li.active {
+    border-bottom: 1px solid $df5;
+}
+
+// ul.nav li a
+
+ul.nav li a {
+    cursor: default;
+    display: inline-block;
+    padding: 1.5rem 0;
+    text-decoration: none;
+}
+
+.light ul.nav a {
+    color: $lf4;
+}
+
+.dark ul.nav a {
+    color: $df4;
+}
+
+.light ul.nav li a:hover {
+    color: $lf3;
+}
+
+.dark ul.nav li a:hover {
+    color: $df3;
+}
+
+.light ul.nav li a:active {
+    color: $lf2;
+}
+
+.dark ul.nav li a:active {
+    color: $df2;
+}
+
+.light ul.nav li.active a {
+    color: $lf2;
+}
+
+.dark ul.nav li.active a {
+    color: $df2;
+}
+
+// article
+
+article {
+    float: left;
+    width: 84rem;
+}
+
+// pre
 
 pre {
+    cursor: default;
     margin: 2.5rem 0 0 0;
     overflow: hidden;
 }
 
-/* textarea */
-
-textarea {
-    border: 0;
-}
-
-.light textarea {
-    background-color: $lb0;
-    color: $lf0;
-}
-
-.dark textarea {
-    background-color: $db0;
-    color: $df0;
-}
-
-/* .paste */
+// .paste
 
 .paste {
-    width: 100%;
-    height: 40rem;
     float: left;
     font-size: 1.6rem;
+    height: 40rem;
     margin: 2.5rem 0 0 0;
-}
-
-/* .highlight-button */
-
-.highlight-button {
-    background-color: transparent;
-    border-radius: 1.5rem;
-    border: 0;
-    font-size: 1.5rem;
-    height: 3.0rem;
-    margin-right: 1rem;
-    opacity: 0.5;
-    transition: opacity 0.1s ease;
-    width: 3.0rem;
-}
-
-.highlight-button:focus {
-    outline: 0;
-}
-
-.light .highlight-button {
-    color: $lf3;
-}
-
-.dark .highlight-button {
-    color: $df3;
-}
-
-.light .highlight-button.bold:active,
-.light .highlight-button.italic:active,
-.light .highlight-button.underline:active,
-.light .highlight-button.undercurl:active {
-    color: $lf2;
-}
-
-.dark .highlight-button.bold:active,
-.dark .highlight-button.italic:active,
-.dark .highlight-button.underline:active,
-.dark .highlight-button.undercurl:active {
-    color: $df2;
-}
-
-.highlight-button:hover {
-    opacity: 1;
-}
-
-.highlight-button.active {
-    opacity: 1;
-}
-
-/* .highlight-button.none */
-
-.highlight-button.none span {
-    visibility: hidden;
-}
-
-.light .highlight-button.none {
-    border: 0.1rem dashed $lf4;
-}
-
-.dark .highlight-button.none {
-    border: 0.1rem dashed $df4;
-}
-
-.light .highlight-button.none:active {
-    border: 0.1rem dashed $lf3;
-}
-
-.dark .highlight-button.none:active {
-    border: 0.1rem dashed $df3;
-}
-
-/* .highlight-button.bold */
-
-.highlight-button.bold span {
-    font-weight: 400;
-}
-
-/* .highlight-button.italic */
-
-.highlight-button.italic span {
-    font-style: italic;
-}
-
-/* .highlight-button.underline */
-
-.light .highlight-button.underline span {
-    border-bottom: 0.1rem solid $lf3;
-}
-
-.dark .highlight-button.underline span {
-    border-bottom: 0.1rem solid $df3;
-}
-
-/* .highlight-button.undercurl */
-
-.light .highlight-button.undercurl span {
-    border-bottom: 0.1rem dotted $lf3;
-}
-
-.dark .highlight-button.undercurl span {
-    border-bottom: 0.1rem dotted $df3;
-}
-
-/* .highlight-button.reverse, .highlight-button.standout */
-
-.highlight-button.standout {
-    font-weight: 400;
-}
-
-.light .highlight-button.reverse,
-.light .highlight-button.standout {
-    background-color: $lf5;
-    color: $lb0;
-}
-
-.dark .highlight-button.reverse,
-.dark .highlight-button.standout {
-    background-color: $df5;
-    color: $db0;
-}
-
-.light .highlight-button.reverse.active,
-.light .highlight-button.standout.active {
-    background-color: $lf5;
-}
-
-.dark .highlight-button.reverse.active,
-.dark .highlight-button.standout.active {
-    background-color: $df5;
-}
-
-.light .highlight-button.reverse:active,
-.light .highlight-button.standout:active {
-    background-color: $lf4;
-}
-
-.dark .highlight-button.reverse:active,
-.dark .highlight-button.standout:active {
-    background-color: $df4;
-}
-
-/* .small-button */
-
-.small-button {
-    padding: 0 1rem;
-    background-color: transparent;
-    font-size: 1.4rem;
-    height: 3rem;
-    border-radius: 0.3rem;
-    border: 0;
-    transition: background-color 0.1s ease;
-}
-
-.light .small-button {
-    border: 1px solid $lb5;
-    color: $lf3;
-}
-
-.dark .small-button {
-    border: 1px solid $db5;
-    color: $df3;
-}
-
-.light .small-button:hover {
-    background-color: $lb5;
-    color: $lf2;
-}
-
-.dark .small-button:hover {
-    background-color: $db5;
-    color: $df2;
-}
-
-.light .small-button:active {
-    color: $lf1;
-}
-
-.dark .small-button:active {
-    color: $df1;
-}
-
-.small-button:focus {
-    outline: 0;
-}
-
-/* .button */
-
-.button {
-    padding-left: 3rem;
-    padding-right: 3rem;
-    height: 4rem;
-    background-color: transparent;
-    font-size: 1.4rem;
-    border-radius: 0.3rem;
-    border: 0;
-    transition: background-color 0.1s ease;
-}
-
-.light .button {
-    border: 1px solid $lb5;
-    color: $lf3;
-}
-
-.dark .button {
-    border: 1px solid $db5;
-    color: $df3;
-}
-
-.light .button:hover {
-    background-color: $lb5;
-    color: $lf2;
-}
-
-.dark .button:hover {
-    background-color: $db5;
-    color: $df2;
-}
-
-.button:active {
-    position: relative;
-    left: 0.1rem;
-    top: 0.1rem;
-}
-
-.button:focus {
-    outline: 0;
-}
-
-/* input[type="color"] */
-
-input[type="color"] {
-    width: 3rem;
-    height: 3rem;
-    opacity: 0;
-}
-
-/* input[type="range"] */
-
-input[type="range"] {
-    -webkit-appearance: none;
-    height: 0.1rem;
     width: 100%;
-    outline: 0;
 }
 
-input[type="range"]::-webkit-slider-runnable-track {
-    height: 0.1rem;
-}
-
-.light input[type="range"]::-webkit-slider-runnable-track {
-    border-bottom: 1px solid $lb4;
-}
-
-.dark input[type="range"]::-webkit-slider-runnable-track {
-    border-bottom: 1px solid $db4;
-}
-
-input[type="range"]::-webkit-slider-thumb {
-    -webkit-appearance: none;
-    width: 1.25rem;
-    height: 1.25rem;
-    margin-top: -0.5rem;
-    border-radius: 0.625rem;
-}
-
-.light input[type="range"]::-webkit-slider-thumb {
-    background-color: $lf4;
-}
-
-.dark input[type="range"]::-webkit-slider-thumb {
-    background-color: $df4;
-}
-
-input[type="range"]::-moz-range-track {
-    border: 0;
-    height: 0.1rem;
-}
-
-.light input[type="range"]::-moz-range-track {
-    border-bottom: 1px solid $lb4;
-}
-
-.dark input[type="range"]::-moz-range-track {
-    border-bottom: 1px solid $db4;
-}
-
-input[type="range"]::-moz-range-thumb {
-    border: 0;
-    width: 1.25rem;
-    height: 1.25rem;
-    margin-top: -0.5rem;
-    border-radius: 0.625rem;
-}
-
-.light input[type="range"]::-moz-range-thumb {
-    background-color: $lf4;
-}
-
-.dark input[type="range"]::-moz-range-thumb {
-    background-color: $df4;
-}
-
-/* aside */
+// aside
 
 aside {
-    width: 23.5rem;
     float: right;
     overflow: hidden;
+    width: 23.5rem;
 }
 
-/* aside section */
+// aside section
 
 aside section {
     margin: 1.5rem 0;
 }
 
 aside section.first {
-    margin-top: 2.5rem !important;
     border-top: 0!important;
+    margin-top: 2.5rem !important;
 }
 
 .light aside section {
@@ -631,7 +193,7 @@ aside section.first {
     border-top: 1px solid $db2;
 }
 
-/* aside section h2 */
+// aside section h2
 
 aside section h2 {
     font-size: 1.4rem;
@@ -641,103 +203,61 @@ aside section h2 {
 
 .light aside section h2 {
     color: $lf4;
+    cursor: default;
 }
 
 .dark aside section h2 {
     color: $df4;
 }
 
-.light aside h2:hover {
+.light aside section h2:hover {
     color: $lf3;
 }
 
-.dark aside h2:hover {
+.dark aside section h2:hover {
     color: $df3;
 }
 
-.light aside h2:active {
+.light aside section h2:active {
     color: $lf2;
 }
 
-.dark aside h2:active {
+.dark aside section h2:active {
     color: $df2;
 }
 
-/* .export */
-
-.export {
-    position: fixed;
-    top: 50%; 
-    left: 50%;
-    width: 80rem;
-    height: 60rem;
-    margin-left: -40rem;
-    margin-top: -30rem;
-    padding: 2rem;
-    text-align: right;
-}
-
-.export p {
-    text-align: left;
-}
-
-.light .export {
-    background-color: $lb2;
-    color: $lf2;
-}
-
-.dark .export {
-    background-color: $db2;
-    color: $df2;
-}
-
-.export h2 {
-    text-align: left;
-    font-size: 2.4rem;
-    margin: 0;
-}
-
-.export textarea {
-    width: 100%;
-    height: 41.5rem;
-    margin: 0 0 2rem 0;
-    padding: 0;
-    border: 0;
-    font-size: 1.4rem;
-}
-
-/* .line */
+// .line
 
 .line {
-    overflow: hidden;
     margin-bottom: 1rem;
+    overflow: hidden;
 }
 
-/* .button-line */
+// .selected-group-line
 
-.button-line .left {
-    width: 64%;
-    float: left;
-    line-height: 3rem;
+.selected-group-line .right {
+    margin-left: 1rem;
 }
 
-.button-line .right {
-    width: 36%;
-    float: left;
-    text-align: right;
+.light .selected-group-line .right {
+    color: $lf5;
 }
 
-/* .color-line */
+.dark .selected-group-line .right {
+    color: $df5;
+}
+
+// .color-line
 
 .color-line .left {
-    width: 20%;
     float: left;
+    width: 20%;
 }
 
 .color-line .right {
-    width: 80%;
     float: left;
     line-height: 3rem;
+    width: 80%;
 }
 
 .light .color-line .right {
@@ -756,18 +276,32 @@ aside section h2 {
     color: $df3;
 }
 
-/* .post-process-line */
+// .button-line
 
-.post-process-line .left {
-    width: 40%;
+.button-line .left {
     float: left;
     line-height: 3rem;
+    width: 64%;
+}
+
+.button-line .right {
+    float: left;
+    text-align: right;
+    width: 36%;
+}
+
+// .post-process-line
+
+.post-process-line .left {
+    float: left;
+    line-height: 3rem;
+    width: 40%;
 }
 
 .post-process-line .right {
-    width: 60%;
     float: left;
     margin-top: 0.1rem;
+    width: 60%;
 }
 
 .light .post-process-line .left.inactive {
@@ -778,38 +312,7 @@ aside section h2 {
     color: $df4;
 }
 
-/* .export-line-input */
-
-.export-line-input .left {
-    width: 24%;
-    float: left;
-    line-height: 3rem;
-}
-
-.export-line-input .right {
-    width: 76%;
-    float: left;
-}
-
-.export-line-input .right input {
-    width: 100%;
-}
-
-/* .selected-group-line */
-
-.selected-group-line .right {
-    margin-left: 1rem;
-}
-
-.light .selected-group-line .right {
-    color: $lf5;
-}
-
-.dark .selected-group-line .right {
-    color: $df5;
-}
-
-/* .modified-groups-line */
+// .modified-groups-line
 
 .light .modified-groups-line.none {
     color: $lf4;
@@ -819,110 +322,81 @@ aside section h2 {
     color: $df4;
 }
 
-/* .text */
+// .export-line-input
 
-.text {
-    line-height: 2rem;
-    border-radius: 0px;
-    margin: 0;
-    padding: 0;
-    font-size: 1.4rem;
-    padding: 0.5rem 0.75rem;
-    border: 0;
-    outline: 0;
+.export-line-input .left {
+    float: left;
+    line-height: 3rem;
+    width: 24%;
 }
 
-.light .text {
-    background-color: $lb2;
-    color: $lf3;
+.export-line-input .right {
+    float: left;
+    width: 76%;
 }
 
-.dark .text {
-    background-color: $db2;
-    color: $df3;
-}
-
-/* .export-line-button */
+// .export-line-button
 
 .export-line-button {
     text-align: right;
 }
 
-/* .export-line-button */
+.export-line-input .right input {
+    width: 100%;
+}
+
+// .danger-zone-line
 
 .danger-zone-line {
     text-align: right;
 }
 
-/* .color-overlay */
+// footer
 
-.color-overlay {
-    width: 3rem;
-    height: 3rem;
-    opacity: 1;
-    pointer-events: none;
-    margin-top: -3rem;
-    border-radius: 1.5rem;
+footer {
+    margin: 2rem 0 2rem 0;
+    overflow: hidden;
+    text-align: center;
 }
 
-.light .color-overlay.none {
-    border: 1px dashed $lf4;
+// .export
+
+.export {
+    height: 60rem;
+    left: 50%;
+    margin-left: -40rem;
+    margin-top: -30rem;
+    padding: 2rem;
+    position: fixed;
+    text-align: right;
+    top: 50%; 
+    width: 80rem;
 }
 
-.dark .color-overlay.none {
-    border: 1px dashed $df4;
+.light .export {
+    background-color: $lb2;
+    color: $lf2;
 }
 
-.light .color-overlay.border {
-    border: 1px solid $lb1;
+.dark .export {
+    background-color: $db2;
+    color: $df2;
 }
 
-.dark .color-overlay.border {
-    border: 1px solid $db1;
+.export h2 {
+    font-size: 2.4rem;
+    margin: 0;
+    text-align: left;
 }
 
-/* .clear-fix */
-
-.clear-fix:before,
-.clear-fix:after {
-    content: ' ';
-    display: table;
+.export p {
+    text-align: left;
 }
 
-.clear-fix:after {
-    clear: both;
-}
-
-/* Transitions */
-
-/* .variant-transition */
-
-.variant-transition,
-.variant-transition header,
-.variant-transition section,
-.variant-transition input,
-.variant-transition button,
-.variant-transition li,
-.variant-transition input[type="range"]::-webkit-slider-runnable-track {
-    transition: all 0.5s ease;
-}
-
-/* .fast */
-
-.fast-enter {
-    opacity: 0.01;
-}
-
-.fast-enter.fast-enter-active {
-    opacity: 1;
-    transition: opacity 0.25s ease;
-}
-
-.fast-leave {
-    opacity: 1;
-}
-
-.fast-leave.fast-leave-active {
-    opacity: 0.01;
-    transition: opacity 0.25s ease;
+.export textarea {
+    font-size: 1.4rem;
+    height: 41.5rem;
+    margin: 0 0 2rem 0;
+    padding: 0;
+    width: 100%;
 }

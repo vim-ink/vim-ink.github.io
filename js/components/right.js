@@ -311,7 +311,7 @@ var Export = React.createClass({
                 React.DOM.div({key: 'right', className: 'right'},
                     React.DOM.input({
                         key: 'text',
-                        className: 'text',
+                        type: 'text',
                         value: this.props.exportName,
                         onChange: this.onChange}))),
             React.DOM.div({key: 'buttonLine', className: 'line export-line-button'},

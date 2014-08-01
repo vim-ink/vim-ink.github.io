@@ -1,0 +1,137 @@
+// textarea
+
+textarea {
+    border: 0;
+}
+
+.light textarea {
+    background-color: $lb0;
+    color: $lf0;
+}
+
+.dark textarea {
+    background-color: $db0;
+    color: $df0;
+}
+
+// input[type="color"]
+
+input[type="color"] {
+    height: 3rem;
+    opacity: 0;
+    width: 3rem;
+}
+
+// .color-overlay
+
+.color-overlay {
+    border-radius: 1.5rem;
+    height: 3rem;
+    margin-top: -3rem;
+    opacity: 1;
+    pointer-events: none;
+    width: 3rem;
+}
+
+.light .color-overlay.none {
+    border: 1px dashed $lf4;
+}
+
+.dark .color-overlay.none {
+    border: 1px dashed $df4;
+}
+
+.light .color-overlay.border {
+    border: 1px solid $lb1;
+}
+
+.dark .color-overlay.border {
+    border: 1px solid $db1;
+}
+
+// input[type="range"]
+
+input[type="range"] {
+    -webkit-appearance: none;
+    height: 0.1rem;
+    outline: 0;
+    width: 100%;
+}
+
+input[type="range"]::-webkit-slider-runnable-track {
+    height: 0.1rem;
+}
+
+.light input[type="range"]::-webkit-slider-runnable-track {
+    border-bottom: 1px solid $lb4;
+}
+
+.dark input[type="range"]::-webkit-slider-runnable-track {
+    border-bottom: 1px solid $db4;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    border-radius: 0.625rem;
+    height: 1.25rem;
+    margin-top: -0.5rem;
+    width: 1.25rem;
+}
+
+.light input[type="range"]::-webkit-slider-thumb {
+    background-color: $lf4;
+}
+
+.dark input[type="range"]::-webkit-slider-thumb {
+    background-color: $df4;
+}
+
+input[type="range"]::-moz-range-track {
+    border: 0;
+    height: 0.1rem;
+}
+
+.light input[type="range"]::-moz-range-track {
+    border-bottom: 1px solid $lb4;
+}
+
+.dark input[type="range"]::-moz-range-track {
+    border-bottom: 1px solid $db4;
+}
+
+input[type="range"]::-moz-range-thumb {
+    border-radius: 0.625rem;
+    border: 0;
+    height: 1.25rem;
+    margin-top: -0.5rem;
+    width: 1.25rem;
+}
+
+.light input[type="range"]::-moz-range-thumb {
+    background-color: $lf4;
+}
+
+.dark input[type="range"]::-moz-range-thumb {
+    background-color: $df4;
+}
+
+// input[type="text"]
+
+input[type="text"] {
+    border: 0;
+    font-size: 1.4rem;
+    line-height: 2rem;
+    margin: 0;
+    outline: 0;
+    padding: 0.5rem 0.75rem;
+}
+
+.light input[type="text"] {
+    background-color: $lb1;
+    color: $lf3;
+}
+
+.dark input[type="text"] {
+    background-color: $db1;
+    color: $df3;
+}

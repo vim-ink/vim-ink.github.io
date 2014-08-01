@@ -7,6 +7,7 @@ var es6ify = require('es6ify');
 
 var paths = {
     styles: ['scss/app.scss'],
+    stylesWatch: ['scss/*.js'],
     scripts: ['js/app.js'],
     scriptsWatch: [
         '*.js',
@@ -34,6 +35,6 @@ gulp.task('scripts', function() {
 gulp.task('default', ['styles', 'scripts']);
 
 gulp.task('watch', ['default'], function() {
-    gulp.watch(paths.styles, ['styles']);
+    gulp.watch(paths.stylesWatch, ['styles']);
     gulp.watch(paths.scriptsWatch, ['scripts']);
 });

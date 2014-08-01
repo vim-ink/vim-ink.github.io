@@ -1,0 +1,225 @@
+// .button
+
+.button {
+    background-color: transparent;
+    border-radius: 0.3rem;
+    border: 0;
+    font-size: 1.4rem;
+    height: 4rem;
+    padding: 0 3rem;
+    transition: background-color 0.1s ease;
+}
+
+.light .button {
+    border: 1px solid $lb5;
+    color: $lf3;
+}
+
+.dark .button {
+    border: 1px solid $db5;
+    color: $df3;
+}
+
+.light .button:hover {
+    background-color: $lb5;
+    color: $lf2;
+}
+
+.dark .button:hover {
+    background-color: $db5;
+    color: $df2;
+}
+
+.button:focus {
+    outline: 0;
+}
+
+.button:active {
+    left: 0.1rem;
+    position: relative;
+    top: 0.1rem;
+}
+
+// .small-button
+
+.small-button {
+    background-color: transparent;
+    border-radius: 0.3rem;
+    border: 0;
+    font-size: 1.4rem;
+    height: 3rem;
+    padding: 0 1rem;
+    transition: background-color 0.1s ease;
+}
+
+.light .small-button {
+    border: 1px solid $lb5;
+    color: $lf3;
+}
+
+.dark .small-button {
+    border: 1px solid $db5;
+    color: $df3;
+}
+
+.light .small-button:hover {
+    background-color: $lb5;
+    color: $lf2;
+}
+
+.dark .small-button:hover {
+    background-color: $db5;
+    color: $df2;
+}
+
+.small-button:focus {
+    outline: 0;
+}
+
+.light .small-button:active {
+    color: $lf1;
+}
+
+.dark .small-button:active {
+    color: $df1;
+}
+
+// .highlight-button
+
+.highlight-button {
+    background-color: transparent;
+    border-radius: 1.5rem;
+    border: 0;
+    font-size: 1.5rem;
+    height: 3.0rem;
+    margin-right: 1rem;
+    opacity: 0.5;
+    transition: opacity 0.1s ease;
+    width: 3.0rem;
+}
+
+.highlight-button:focus {
+    outline: 0;
+}
+
+.light .highlight-button {
+    color: $lf3;
+}
+
+.dark .highlight-button {
+    color: $df3;
+}
+
+.highlight-button:hover {
+    opacity: 1;
+}
+
+.light .highlight-button.bold:active,
+.light .highlight-button.italic:active,
+.light .highlight-button.underline:active,
+.light .highlight-button.undercurl:active {
+    color: $lf2;
+}
+
+.dark .highlight-button.bold:active,
+.dark .highlight-button.italic:active,
+.dark .highlight-button.underline:active,
+.dark .highlight-button.undercurl:active {
+    color: $df2;
+}
+
+.highlight-button.active {
+    opacity: 1;
+}
+
+// .highlight-button.none
+
+.highlight-button.none span {
+    visibility: hidden;
+}
+
+.light .highlight-button.none {
+    border: 0.1rem dashed $lf4;
+}
+
+.dark .highlight-button.none {
+    border: 0.1rem dashed $df4;
+}
+
+.light .highlight-button.none:active {
+    border: 0.1rem dashed $lf3;
+}
+
+.dark .highlight-button.none:active {
+    border: 0.1rem dashed $df3;
+}
+
+// .highlight-button.bold
+
+.highlight-button.bold span {
+    font-weight: 400;
+}
+
+// .highlight-button.italic
+
+.highlight-button.italic span {
+    font-style: italic;
+}
+
+// .highlight-button.underline
+
+.light .highlight-button.underline span {
+    border-bottom: 0.1rem solid $lf3;
+}
+
+.dark .highlight-button.underline span {
+    border-bottom: 0.1rem solid $df3;
+}
+
+// .highlight-button.undercurl
+
+.light .highlight-button.undercurl span {
+    border-bottom: 0.1rem dotted $lf3;
+}
+
+.dark .highlight-button.undercurl span {
+    border-bottom: 0.1rem dotted $df3;
+}
+
+// .highlight-button.reverse, .highlight-button.standout
+
+.highlight-button.standout {
+    font-weight: 400;
+}
+
+.light .highlight-button.reverse,
+.light .highlight-button.standout {
+    background-color: $lf5;
+    color: $lb0;
+}
+
+.dark .highlight-button.reverse,
+.dark .highlight-button.standout {
+    background-color: $df5;
+    color: $db0;
+}
+
+.light .highlight-button.reverse.active,
+.light .highlight-button.standout.active {
+    background-color: $lf5;
+}
+
+.dark .highlight-button.reverse.active,
+.dark .highlight-button.standout.active {
+    background-color: $df5;
+}
+
+.light .highlight-button.reverse:active,
+.light .highlight-button.standout:active {
+    background-color: $lf4;
+}
+
+.dark .highlight-button.reverse:active,
+.dark .highlight-button.standout:active {
+    background-color: $df4;
+}

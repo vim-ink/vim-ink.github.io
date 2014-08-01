@@ -1,0 +1,31 @@
+// .variant-transition
+
+.variant-transition button,
+.variant-transition header,
+.variant-transition input,
+.variant-transition input[type="range"]::-webkit-slider-runnable-track,
+.variant-transition li,
+.variant-transition section,
+.variant-transition {
+    transition: all 0.5s ease;
+}
+
+// .fast-transition
+
+.fast-transition-enter {
+    opacity: 0.01;
+}
+
+.fast-transition-enter.fast-transition-enter-active {
+    opacity: 1;
+    transition: opacity 0.25s ease;
+}
+
+.fast-transition-leave {
+    opacity: 1;
+}
+
+.fast-transition-leave.fast-transition-leave-active {
+    opacity: 0.01;
+    transition: opacity 0.25s ease;
+}

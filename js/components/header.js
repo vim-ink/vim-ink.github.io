@@ -52,8 +52,8 @@ var FileLink = React.createClass({
     render() {
         return React.DOM.li({
             key: 'li',
-            className: (this.props.type === this.props.activeFile ? 'active' : ''),
-            onClick: this.onClick}, this.props.title);
+            className: (this.props.type === this.props.activeFile ? 'active' : '')},
+            React.DOM.a({onClick: this.onClick}, this.props.title));
     },
     onClick(e) {
         this.props.setParsedSource(files[this.props.type].parsedSource);
@@ -91,8 +91,8 @@ var Pane = React.createClass({
         return React.DOM.li({
             key: 'li',
             className,
-            onClick: this.onClick,
-            children: this.props.children});
+            onClick: this.onClick},
+            React.DOM.a({onClick: this.onClick, children: this.props.children}));
     },
     onClick() {
         this.props.setActivePane(this.props.id);

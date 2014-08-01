@@ -1,0 +1,20 @@
+html {
+    font-size: 62.5%;
+}
+
+body {
+    font-size: 1.5em; // Use em instead of rem because of Chrome bug
+}
+
+h1, h2, body, input, button, textarea {
+    font-weight: 300;
+}
+
+body, input, button {
+    font-family: 'Source Sans Pro';
+}
+
+pre, textarea {
+    font-family: 'Source Code Pro';
+}
+
