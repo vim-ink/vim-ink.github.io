@@ -9,6 +9,7 @@ body {
 body, button, h1, h2, input, textarea {
     font-weight: 300;
     text-transform: lowercase;
+    line-height: 2.1rem;
 }
 
 pre, textarea {
@@ -16,9 +17,9 @@ pre, textarea {
 }
 
 body, button, input {
-    font-family: 'mplus-1m', 'Source Sans Pro';
+    font-family: 'mplus-1m', 'M+ 1m', 'Source Sans Pro';
 }
 
 pre, textarea {
-    font-family: 'mplus-1m', 'Source Code Pro';
+    font-family: 'mplus-1m', 'M+ 1m', 'Source Code Pro';
 }
