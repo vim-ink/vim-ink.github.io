@@ -8,17 +8,12 @@ body {
 
 body, button, h1, h2, input, textarea {
     font-weight: 300;
-    text-transform: lowercase;
-}
-
-pre, textarea {
-    text-transform: none;
 }
 
 body, button, input {
-    font-family: 'mplus-1m', 'Source Sans Pro';
+    font-family: 'Source Sans Pro';
 }
 
 pre, textarea {
-    font-family: 'mplus-1m', 'Source Code Pro';
+    font-family: 'Source Code Pro';
 }

@@ -80,7 +80,7 @@ var TabLine = React.createClass({
                 Part(merge(this.props, {
                     key: 'tabLineFill',
                     group: 'TabLineFill',
-                    content: spaces(65),
+                    content: spaces(53),
                 })),
                 Part(merge(this.props, {
                     key: 'x',
@@ -145,7 +145,7 @@ var NonText = React.createClass({
             return null;
         }
 
-        var lineCount = Math.max(0, 24 - this.props.parsedSource.length);
+        var lineCount = Math.max(0, 32 - this.props.parsedSource.length);
         var group = 'NonText';
         var content = (fill('~') + '\n').repeat(lineCount);
 
@@ -163,7 +163,7 @@ var StatusLine = React.createClass({
         return Part(
             merge(this.props, {
                 group: 'StatusLine',
-                content: '/path/to/selected-file' + spaces(68) + '1,1         Top '
+                content: '/path/to/selected-file' + spaces(56) + '1,1         Top '
             }));
     }
 });
