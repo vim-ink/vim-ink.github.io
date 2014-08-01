@@ -18,9 +18,9 @@ var Files = React.createClass({
             key: 'nav',
             className: 'nav files'},
             FileLink(merge(this.props, {
-                key: 'javascript',
-                type: 'javascript',
-                title: 'JavaScript'
+                key: 'html',
+                type: 'html',
+                title: 'HTML'
             })),
             FileLink(merge(this.props, {
                 key: 'css',
@@ -28,9 +28,9 @@ var Files = React.createClass({
                 title: 'CSS'
             })),
             FileLink(merge(this.props, {
-                key: 'html',
-                type: 'html',
-                title: 'HTML'
+                key: 'javascript',
+                type: 'javascript',
+                title: 'JavaScript'
             })),
             FileLink(merge(this.props, {
                 key: 'editor',
@@ -65,8 +65,8 @@ var PasteLink = React.createClass({
     render() {
         return React.DOM.li({
             key: 'li',
-            className: (this.props.activeFile === undefined ? ' active' : ''),
-            onClick: this.onClick}, 'Paste');
+            className: (this.props.activeFile === undefined ? ' active' : '')},
+            React.DOM.a({onClick: this.onClick}, 'Paste'));
     },
     onClick(e) {
         this.props.setParsedSource(undefined);

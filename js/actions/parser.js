@@ -34,10 +34,10 @@ function parse(input) {
             var nextA = rest.search('<');
 
             if (nextA === -1) {
-                parsedLines.push({group: undefined, content: rest});
+                parsedLines.push({group: undefined, content: _.unescape(rest)});
                 return parsedLines;
             } else {
-                parsedLines.push({group: undefined, content: rest.substring(0, nextA)});
+                parsedLines.push({group: undefined, content: _.unescape(rest.substring(0, nextA))});
                 return parseLine(parsedLines, rest.substring(nextA));
             }
         }
