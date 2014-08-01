@@ -6,11 +6,11 @@ body {
     font-size: 1.5em; // Use em instead of rem because of Chrome bug
 }
 
-h1, h2, body, input, button, textarea {
+body, button, h1, h2, input, textarea {
     font-weight: 300;
 }
 
-body, input, button {
+body, button, input {
     font-family: 'Source Sans Pro';
 }
 

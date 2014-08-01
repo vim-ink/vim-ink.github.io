@@ -1,3 +1,4 @@
+var _ = require('lodash');
 var React = require('react');
 
 var {spaces, fill, merge} = require('../actions/utils');
@@ -54,7 +55,8 @@ var Part = React.createClass({
 
 var TabLine = React.createClass({
     render() {
-        if (this.props.componentsVisibility['tabLine'] === 'hide')
+        if (this.props.componentsVisibility['tabLine'] === 'hide' ||
+           this.props.activeFile === 'about')
             return null;
 
         return React.DOM.span(
@@ -117,8 +119,10 @@ var Line = React.createClass({
 
 var LineNumber = React.createClass({
     render() {
+        var files = ['ui', 'editor', 'about'];
+
         if (this.props.componentsVisibility['lineNumbers'] === 'hide' ||
-            (this.props.activeFile === 'ui' || this.props.activeFile === 'editor')) {
+            _.contains(files, this.props.activeFile)) {
             return null;
         }
 
@@ -152,7 +156,7 @@ var NonText = React.createClass({
 var StatusLine = React.createClass({
     render() {
         if (this.props.componentsVisibility['statusLine'] !== 'show' ||
-            this.props.activeFile === 'ui') {
+            (this.props.activeFile === 'ui' || this.props.activeFile === 'about')) {
             return null;
         }
 
