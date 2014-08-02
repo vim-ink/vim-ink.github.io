@@ -9,7 +9,7 @@ A vim color scheme designer.
 
 ## Get parsed source
 
-console.log(JSON.stringify(JSON.parse(localStorage.getItem('state')).parsedSource));
+    console.log(JSON.stringify(JSON.parse(localStorage.getItem('state')).parsedSource));
 
 ## License
 

@@ -56,8 +56,9 @@ var Part = React.createClass({
 var TabLine = React.createClass({
     render() {
         if (this.props.componentsVisibility['tabLine'] === 'hide' ||
-           this.props.activeFile === 'about')
+           (this.props.activeFile === 'intro' || this.props.activeFile === 'about')) {
             return null;
+        }
 
         return React.DOM.span(
             null,
@@ -119,7 +120,7 @@ var Line = React.createClass({
 
 var LineNumber = React.createClass({
     render() {
-        var files = ['ui', 'editor', 'about'];
+        var files = ['ui', 'editor', 'intro', 'about'];
 
         if (this.props.componentsVisibility['lineNumbers'] === 'hide' ||
             _.contains(files, this.props.activeFile)) {
@@ -155,8 +156,10 @@ var NonText = React.createClass({
 
 var StatusLine = React.createClass({
     render() {
-        if (this.props.componentsVisibility['statusLine'] !== 'show' ||
-            (this.props.activeFile === 'ui' || this.props.activeFile === 'about')) {
+        var files = ['ui', 'intro', 'about'];
+
+        if (this.props.componentsVisibility['statusLine'] === 'hide' ||
+            _.contains(files, this.props.activeFile)) {
             return null;
         }
 
