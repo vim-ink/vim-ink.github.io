@@ -111,9 +111,11 @@ var App = React.createClass({
         localStorage.setItem('state', JSON.stringify(this.state));
     },
     startAppTransition(variant, transition = 'variant-transition', duration = 500) {
-        var body = document.getElementsByTagName('body')[0];
-        body.className = variant + ' ' + transition;
-        setTimeout(() => body.className = variant, duration);
+        setTimeout(() => {
+            var body = document.getElementsByTagName('body')[0];
+            body.className = variant + ' ' + transition;
+            setTimeout(() => body.className = variant, duration);
+        }, 0);
     },
     getGroup(group) {
         var groups =  this.state[this.state.activeVariant];
