@@ -4,7 +4,7 @@ var files = require('../constants/files');
 var Footer = React.createClass({
     render() {
         return React.DOM.footer(null,
-            React.DOM.ul({className: 'nav'},
+            React.DOM.ul({className: 'nav links'},
                 React.DOM.li(null,
                      React.DOM.a({onClick: () => {
                         this.props.setActiveFile('about');

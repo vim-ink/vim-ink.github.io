@@ -73,10 +73,6 @@ ul.nav {
     padding: 0;
 }
 
-ul.nav.files, ul.nav.panes {
-    margin-bottom: -1px;
-}
-
 // ul.nav li
 
 ul.nav li {
@@ -139,6 +135,34 @@ ul.nav li a {
 
 .dark ul.nav li.active a {
     color: $df2;
+}
+
+ul.nav.files, ul.nav.panes {
+    margin-bottom: -1px;
+}
+
+.light ul.nav.links li a {
+    color: $lf5;
+}
+
+.dark ul.nav.links li a {
+    color: $df5;
+}
+
+.light ul.nav.links li a:hover {
+    color: $lf4;
+}
+
+.dark ul.nav.links li a:hover {
+    color: $df4;
+}
+
+.light ul.nav.links li a:active {
+    color: $lf3;
+}
+
+.dark ul.nav.links li a:active {
+    color: $df3;
 }
 
 // article
