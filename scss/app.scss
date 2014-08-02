@@ -383,11 +383,13 @@ footer {
 
 .light .export {
     background-color: $lb2;
+    box-shadow: 0.25rem 0.25rem 0.75rem $lb4;
     color: $lf2;
 }
 
 .dark .export {
     background-color: $db2;
+    box-shadow: 0.25rem 0.25rem 0.75rem $db4;
     color: $df2;
 }
 
