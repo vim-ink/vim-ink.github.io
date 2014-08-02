@@ -89,7 +89,8 @@ var Panes = React.createClass({
         return React.DOM.ul({key: 'nav', className: 'nav panes'},
             Pane(merge(this.props, {key: 'light', id: 'light'}), 'Light'),
             Pane(merge(this.props, {key: 'dark', id: 'dark'}), 'Dark'),
-            Pane(merge(this.props, {key: 'global', id: 'global', additionalClass: 'right-link'}), 'Global'));
+            Pane(merge(this.props, {key: 'global', id: 'global', additionalClass: 'right-link'}),
+                 React.DOM.span({className: 'global-icon ion-ios7-more'})));
     }
 });
 

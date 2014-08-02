@@ -64,6 +64,14 @@ h1 {
     width: 23.5rem;
 }
 
+.panes .global-icon {
+    display: inline-block;
+    padding: 0 0.8rem;
+    position: relative;
+    top: 1px;
+    transform: scale(2);
+}
+
 // ul.nav
 
 ul.nav {
