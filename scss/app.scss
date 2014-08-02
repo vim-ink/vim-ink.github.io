@@ -156,6 +156,14 @@ pre {
     overflow: hidden;
 }
 
+.light pre {
+    box-shadow: 0.25rem 0.25rem 0.75rem $lb2;
+}
+
+.dark pre {
+    box-shadow: 0.25rem 0.25rem 0.75rem $db2;
+}
+
 // .paste
 
 textarea.paste {

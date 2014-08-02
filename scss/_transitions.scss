@@ -9,7 +9,7 @@
 .variant-transition {
     transition-duration: .5s;
     transition-timing-function: ease;
-    transition-property: color,background-color,border-color;
+    transition-property: color,background-color,border-color,box-shadow;
 }
 
 // .reset-transition
@@ -23,7 +23,7 @@
 .reset-transition {
     transition-duration: .5s;
     transition-timing-function: ease;
-    transition-property: color,background-color,border-color;
+    transition-property: color,background-color,border-color,box-shadow;
     -webkit-animation: animation .75s linear both;
     animation: animation .75s linear both;
 
