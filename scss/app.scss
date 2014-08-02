@@ -228,10 +228,16 @@ aside section.first {
 // aside section h2
 
 aside section h2 {
-    cursor: default;
+    cursor: pointer;
     font-size: 1.4rem;
     margin: 1.5rem 0;
     text-align: right;
+}
+
+aside section h2 .icon {
+    padding-left: 0.875rem;
+    position: relative;
+    top: 0.1rem;
 }
 
 .light aside section h2 {

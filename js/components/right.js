@@ -357,7 +357,7 @@ var Components = React.createClass({
 
 var Component = React.createClass({
     render() {
-        var buttonText = this.props.visibility === 'show' ? 'Hide' : 'Show';
+        var buttonText = (this.props.visibility === 'show' ? 'Hide' : 'Show');
 
         return React.DOM.div({key: 'line', className: 'line  button-line'},
             React.DOM.div({key: 'left', className: 'left'}, this.props.label),
@@ -396,14 +396,20 @@ var Section = React.createClass({
         var className = ('firstSection' in this.props && this.props.firstSection === true ?
             'first' : null);
 
-        var children = transitionFast([
-            React.DOM.h2({key: 'h2', onClick: this.onClick}, this.props.title)]
-            .concat((this.props.sectionsVisibility[this.props.id] === 'show' ? this.props.children : [])));
+        var title = this.props.title;
+        var icon = 'icon ' + (this.isExpanded() ? 'ion-ios7-minus-empty' : 'ion-ios7-plus-empty');
+
+        var children = [
+            React.DOM.h2({key: 'h2', onClick: this.onClick}, title, React.DOM.span({className: icon}))]
+            .concat((this.isExpanded() === true ? this.props.children : []));
 
         return React.DOM.section({
             key: 'section',
             className,
             children});
+    },
+    isExpanded() {
+        return (this.props.sectionsVisibility[this.props.id] === 'show');
     },
     onClick() {
         var toggledVisibility = (this.props.sectionsVisibility[this.props.id] === 'show' ?
