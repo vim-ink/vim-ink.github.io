@@ -8,7 +8,7 @@ function getGroupStyle(normal, group, postProcess) {
 
     switch (group.highlight) {
         case 'bold':
-            style['fontWeight'] = '400';
+            style['fontWeight'] = '600';
             break;
         case 'italic':
             style['fontStyle'] = 'italic';
