@@ -106,7 +106,6 @@ var App = React.createClass({
     componentDidMount() {
         var body = document.getElementsByTagName('body')[0];
         body.className = this.state.activeVariant;
-        this.startAppTransition(this.state.activeVariant, 'initial-transition', 1000);
     },
     componentDidUpdate(prevProps, prevState) {
         localStorage.setItem('state', JSON.stringify(this.state));
