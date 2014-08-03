@@ -146,7 +146,7 @@ var NonText = React.createClass({
             return null;
         }
 
-        var lineCount = Math.max(0, 32 - this.props.parsedSource.length);
+        var lineCount = Math.max(0, 28 - this.props.parsedSource.length);
         var group = 'NonText';
         var content = (fill('~') + '\n').repeat(lineCount);
 

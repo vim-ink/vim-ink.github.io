@@ -37,7 +37,7 @@
 // h1
 
 h1 {
-    font-size: 1.8rem;
+    font-size: 1.7rem;
     margin: 3rem 0rem 1rem 0rem;
     text-align: left;
 }
@@ -75,7 +75,7 @@ h1 {
 // ul.nav
 
 ul.nav {
-    font-size: 1.4rem;
+    font-size: 1.3rem;
     margin: 0;
     overflow: hidden;
     padding: 0;
@@ -237,7 +237,7 @@ aside section.first {
 
 aside section h2 {
     cursor: pointer;
-    font-size: 1.4rem;
+    font-size: 1.3rem;
     margin: 1.5rem 0;
     text-align: right;
 }
@@ -277,6 +277,7 @@ aside section h2 .icon {
 .line {
     margin-bottom: 1rem;
     overflow: hidden;
+    font-size: 1.4rem;
 }
 
 // .selected-group-line
@@ -432,12 +433,13 @@ footer {
 }
 
 .export h2 {
-    font-size: 2.4rem;
+    font-size: 2rem;
     margin: 0;
     text-align: left;
 }
 
 .export p {
+    font-size: 1.4rem;
     text-align: left;
 }
 

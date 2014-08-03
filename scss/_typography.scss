@@ -1,5 +1,4 @@
-@import url(http://fonts.googleapis.com/css?family=Source+Sans+Pro:300);
-@import url(http://fonts.googleapis.com/css?family=Source+Code+Pro:400,600);
+@import url(http://fonts.googleapis.com/css?family=Roboto:300);
 
 html {
     font-size: 62.5%;
@@ -14,10 +13,10 @@ body, button, h1, h2, input, textarea {
 }
 
 body, button, input {
-    font-family: 'Source Sans Pro';
+    font-family: Roboto, 'Source Sans Pro';
 }
 
 pre, textarea {
-    font-family: 'Source Code Pro';
-    font-weight: 400;
+    font-family: 'Input Mono Narr Lt';
+    font-weight: 300;
 }
