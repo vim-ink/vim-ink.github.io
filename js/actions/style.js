@@ -8,7 +8,7 @@ function getGroupStyle(normal, group, postProcess) {
 
     switch (group.highlight) {
         case 'bold':
-            style['fontWeight'] = '600';
+            style['fontFamily'] = 'Input Mono Narr';
             break;
         case 'italic':
             style['fontStyle'] = 'italic';
@@ -26,7 +26,7 @@ function getGroupStyle(normal, group, postProcess) {
             backgroundColor = color_ !== undefined ? color_ : normal.color;
             break;
         case 'standout':
-            style['fontWeight'] = 600;
+            style['fontFamily'] = 'Input Mono Narr';
             var color_ = color;
 
             color = backgroundColor !== undefined ? backgroundColor : normal.backgroundColor;
