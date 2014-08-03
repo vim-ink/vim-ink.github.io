@@ -33,14 +33,14 @@ var Files = React.createClass({
                 title: 'JavaScript'
             })),
             FileLink(merge(this.props, {
-                key: 'c',
-                type: 'c',
-                title: 'C'
-            })),
-            FileLink(merge(this.props, {
                 key: 'java',
                 type: 'java',
                 title: 'Java'
+            })),
+            FileLink(merge(this.props, {
+                key: 'c',
+                type: 'c',
+                title: 'C'
             })),
             FileLink(merge(this.props, {
                 key: 'editor',
