@@ -189,11 +189,11 @@ pre {
 }
 
 .light pre {
-    box-shadow: 0.25rem 0.25rem 0.75rem $lb2;
+    box-shadow: 0.25rem 0.25rem 0.625rem $lb2;
 }
 
 .dark pre {
-    box-shadow: 0.25rem 0.25rem 0.75rem $db2;
+    box-shadow: 0.25rem 0.25rem 0.625rem $db2;
 }
 
 // .paste
@@ -422,13 +422,13 @@ footer {
 
 .light .export {
     background-color: $lb2;
-    box-shadow: 0.25rem 0.25rem 0.75rem $lb4;
+    box-shadow: 0.25rem 0.25rem 0.625rem $lb4;
     color: $lf2;
 }
 
 .dark .export {
     background-color: $db2;
-    box-shadow: 0.25rem 0.25rem 0.75rem $db4;
+    box-shadow: 0.25rem 0.25rem 0.625rem $db4;
     color: $df2;
 }
 
