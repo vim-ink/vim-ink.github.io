@@ -1,4 +1,5 @@
-@import url(http://fonts.googleapis.com/css?family=Source+Sans+Pro);
+@import url(http://fonts.googleapis.com/css?family=Source+Code+Pro:400,700);
+@import url(http://fonts.googleapis.com/css?family=Source+Sans+Pro:400);
 
 html {
     font-size: 62.5%;
@@ -8,7 +9,7 @@ body {
     font-size: 1.5em; // Use em instead of rem because of Chrome bug
 }
 
-body, button, h1, h2, input, textarea {
+h1, h2 {
     font-weight: 400;
 }
 
@@ -17,5 +18,5 @@ body, button, input {
 }
 
 pre, textarea {
-    font-family: 'Input Mono Narr Ex Lt';
+    font-family: 'Source Code Pro';
 }
