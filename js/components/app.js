@@ -14,11 +14,12 @@ var exporter = require('../actions/exporter');
 var {transitionFast} = require('../actions/transition');
 var {merge} = require('../actions/utils');
 var {getGroupStyle} = require('../actions/style');
+var migrate = require('../actions/migrate');
 
 var App = React.createClass({
     getInitialState() {
         if (localStorage.getItem('state') !== null) {
-            return JSON.parse(localStorage.getItem('state'));
+            return migrate(JSON.parse(localStorage.getItem('state')));
         } else {
             return _.cloneDeep(initialState);
         }
